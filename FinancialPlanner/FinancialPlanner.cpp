@@ -14,6 +14,9 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
+    // Fonts
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender.ttf", 13.9f);
+
 	
 	// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -23,6 +26,8 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
 
 void FinancialPlanner::Update() 
 {
+
+    // 
     static bool opt_fullscreen = true;
     static bool opt_padding = false;
     static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
@@ -88,6 +93,13 @@ void FinancialPlanner::Update()
             if (ImGui::MenuItem("Flag: NoDockingInCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_NoDockingInCentralNode) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoDockingInCentralNode; }
             if (ImGui::MenuItem("Flag: AutoHideTabBar", "", (dockspace_flags & ImGuiDockNodeFlags_AutoHideTabBar) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_AutoHideTabBar; }
             if (ImGui::MenuItem("Flag: PassthruCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) != 0, opt_fullscreen)) { dockspace_flags ^= ImGuiDockNodeFlags_PassthruCentralNode; }
+            ImGui::Separator();
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("About"))
+        {
+            ImGui::MenuItem("\xA9 2022 Alberto Foti. All rights reserved", NULL);
             ImGui::Separator();
             ImGui::EndMenu();
         }
