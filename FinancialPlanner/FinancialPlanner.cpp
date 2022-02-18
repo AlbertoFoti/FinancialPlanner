@@ -15,7 +15,7 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
     // Fonts
-    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender.ttf", 13.9f);
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 13.9f);
 
 	
 	// Setup Platform/Renderer bindings

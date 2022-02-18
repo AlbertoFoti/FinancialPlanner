@@ -22,7 +22,7 @@ Current Version : **Version 0.1.4**
 - vcpkg library manager <br>
 - ImGui library (docking branch)
 - ImPlot library for plotting
-- Blender Medium Pro Font <br>
+- Blender Pro Font <br>
 <div>Font made from <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a> is licensed by CC BY 3.0</div>
 
 ## License and Copyright
