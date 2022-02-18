@@ -152,19 +152,19 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
     // Basics ================================================
     ImGui::BulletText("Initial NW");
     static char initialNW[50] = {};
-    ImGui::InputTextWithHint("NW", "10000.00", initialNW, IM_ARRAYSIZE(initialNW));
+    ImGui::InputTextWithHint("##NW", "10000.00", initialNW, IM_ARRAYSIZE(initialNW));
 
-    ImGui::BulletText("Expected interest rate (%%) [IR]");
+    ImGui::BulletText("Expected interest rate (%%)");
     static char interestRate[50] = {};
-    ImGui::InputTextWithHint("IR", "10", interestRate, IM_ARRAYSIZE(interestRate));
+    ImGui::InputTextWithHint("##IR", "10", interestRate, IM_ARRAYSIZE(interestRate));
 
-    ImGui::BulletText("Annual Deposits [AD]");
+    ImGui::BulletText("Annual Deposits");
     static char annualDeposits[50] = {};
-    ImGui::InputTextWithHint("AD", "1000", annualDeposits, IM_ARRAYSIZE(annualDeposits));
+    ImGui::InputTextWithHint("##AD", "1000", annualDeposits, IM_ARRAYSIZE(annualDeposits));
 
-    ImGui::BulletText("Years of investment [IR]");
+    ImGui::BulletText("Years of investment");
     static char investmentYears[50] = {};
-    ImGui::InputTextWithHint("YI", "10", investmentYears, IM_ARRAYSIZE(investmentYears));
+    ImGui::InputTextWithHint("##YI", "10", investmentYears, IM_ARRAYSIZE(investmentYears));
 
     ImGui::Spacing();
 
