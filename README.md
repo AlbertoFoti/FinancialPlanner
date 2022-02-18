@@ -5,12 +5,12 @@ Current Version : **Version 0.1.2**
 
 ## Version 0.2.0 Objectives
 - Basic forecasting plots
-- Demo window upgrade
+- Test window upgrade
 
 ## Version 0.1.0 Features
 ### Version 0.1.2
 - in App Docking Space for frames <br>
-- Empty Demo window
+- Empty Test window
 ### Version 0.1.1
 - Basic Compound Interest Calculator <br>
 
