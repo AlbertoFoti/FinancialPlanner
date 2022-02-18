@@ -1,12 +1,15 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Version : **Version 0.1.4**
+Current Version : **Version 0.1.5**
 
 ## Version 0.2.0 Objectives
-- Implement new windows
+- Implement new windows/tabs
 
 ## Version 0.1.0 Features
+### Version 0.1.5
+- Style: Dark mode upgrade
+- Font: Whole Blender Pro Package imported
 ### Version 0.1.4
 - Basic forecasting plot for compound interest calculator window
 - Font upgrade (Blender Medium Pro)
