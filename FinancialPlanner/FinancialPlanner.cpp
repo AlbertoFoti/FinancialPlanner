@@ -1542,9 +1542,7 @@ void FinancialPlanner::ShowDemoWindow()
         ImGui::SliderInt("SliderInt (0 -> 100)", &slider_i, 0, 100, "%d", flags);
 
         ImGui::TreePop();
-    }
-
-    
+    } 
 
     if (ImGui::TreeNode("Range Widgets"))
     {
