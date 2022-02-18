@@ -5,6 +5,6 @@
 
 class Core {
 public:
-	double CompoundInterestCalculate(double initialNW, double interestRate, double annualDeposits, int investmentYears);
+	double CompoundInterestCalculate(double initialNW, double interestRate, double annualDeposits, int investmentYears, float* y_data);
 private:
 };

@@ -6,6 +6,7 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
+    ImPlot::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
@@ -97,6 +98,7 @@ void FinancialPlanner::Update()
     // Your GUIs go Here !
     this->ShowCompoundInterestCalculator("Compound Interest Calculator");
     this->ShowDemoWindow();
+    //this->ShowDemoPlot();
 
     ImGui::End();
 }
@@ -113,6 +115,7 @@ void FinancialPlanner::Shutdown()
 	// Cleanup
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
+    ImPlot::DestroyContext();
 	ImGui::DestroyContext();
 }
 
@@ -159,6 +162,12 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
     static double totalDeposits_d = 0.00;
     static double totalInterests_d = 0.00;
 
+    static float x_data[100] = { 0 };
+    for (int i = 0; i < 100; i++) {
+        x_data[i] = i;
+    }
+    static float y_data[100] = { 0 };
+
     // Error Input Parameters
     static char OutputErrorString[50] = {};
     ImGui::Text("%s", OutputErrorString);
@@ -169,7 +178,7 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
             interestRate_d = std::stod(interestRate);
             annualDeposits_d = std::stod(annualDeposits);
             investmentYears_d = std::stoi(investmentYears);
-            NWendPeriod_d = this->core.CompoundInterestCalculate(initialNW_d, interestRate_d, annualDeposits_d, investmentYears_d);
+            NWendPeriod_d = this->core.CompoundInterestCalculate(initialNW_d, interestRate_d, annualDeposits_d, investmentYears_d, &y_data[0]);
 
             totalDeposits_d = initialNW_d + (annualDeposits_d * investmentYears_d);
             totalInterests_d = NWendPeriod_d - totalDeposits_d;
@@ -202,6 +211,16 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
 
     // Help Marker
     HelpMarker("Financial Planner - 2022 \n- initial NW : Net Worth (capital) at the beginning\n- interest Rate : return on investment in % (ex. 10%)\n- Years of investment: Years of compounding\n- Final NW: Net Worth (capital) after x years (deposits + interests)\n");
+
+    // Compund Interest plot
+    if (ImPlot::BeginPlot("Compound Interest Plot", NULL, NULL, ImVec2(-1, 0), ImPlotFlags_NoLegend | ImPlotFlags_NoBoxSelect | ImPlotFlags_AntiAliased, ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit, ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit)) {
+        ImPlot::PushStyleColor(ImPlotCol_Line, ImVec4(1, 1, 0, 1));
+        ImPlot::PushStyleColor(ImPlotCol_Fill, ImVec4(1, 1, 0, 1));
+        ImPlot::PlotBars("Net Worth", y_data, investmentYears_d + 1);
+        ImPlot::PopStyleColor();
+        ImPlot::PopStyleColor();
+        ImPlot::EndPlot();
+    }
 
     ImGui::End();
 }
@@ -2086,6 +2105,19 @@ void FinancialPlanner::ShowDemoWindow()
     }
     */
 
+    ImGui::End();
+}
+
+void FinancialPlanner::ShowDemoPlot()
+{
+    float x_data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    float y_data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    ImGui::Begin("My Window");
+    if (ImPlot::BeginPlot("My Plot")) {
+        ImPlot::PlotLine("My Line Plot", x_data, y_data, 10);
+        ImPlot::EndPlot();
+    }
     ImGui::End();
 }
 

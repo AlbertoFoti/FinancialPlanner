@@ -3,6 +3,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "implot.h"
 #include <iostream>
 #include <string>
 
@@ -24,6 +25,7 @@ private:
 	// Views
 	void ShowCompoundInterestCalculator(const char* nameGUI);
 	void ShowDemoWindow();
+	void ShowDemoPlot();
 
 	// Helper Functions
 	void HelpMarker(const char* desc);

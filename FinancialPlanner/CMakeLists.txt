@@ -13,3 +13,6 @@ target_link_libraries(main PRIVATE glfw)
 
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glad::glad)
+
+find_package(implot CONFIG REQUIRED)
+target_link_libraries(main PRIVATE implot::implot)
