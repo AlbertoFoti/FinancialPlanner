@@ -27,6 +27,9 @@ private:
 	void ShowDemoWindow();
 	void ShowDemoPlot();
 
+	// Theme
+	void SetDarkThemeColors();
+
 	// Helper Functions
 	void HelpMarker(const char* desc);
 };
