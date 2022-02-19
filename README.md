@@ -10,6 +10,7 @@ Current Stable Version : **Version 0.1.6**
 ## Version 0.1.0 Features
 ### Version 0.1.6
 - Implemented new windows/tabs (basic GUI structure almost complete)
+- Source files structure upgrade and fix
 ### Version 0.1.5
 - Style: Dark mode upgrade
 - Font: Whole Blender Pro Package imported

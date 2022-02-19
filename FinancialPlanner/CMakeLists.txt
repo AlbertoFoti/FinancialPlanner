@@ -1,9 +1,18 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
 
-add_executable (main WIN32 "main.cpp" "FinancialPlanner.cpp" "FinancialPlanner.h" "Core.cpp" "Core.h" "Tab.cpp" "Tab.h" "IncomeExpenses.cpp" "IncomeExpenses.h" "NetWorth.cpp" "NetWorth.h" )
+add_executable (main WIN32 "main.cpp" "FinancialPlanner.cpp" "FinancialPlanner.h")
+
+# sub directories
+add_subdirectory("Core")
+add_subdirectory("Templates")
+add_subdirectory("Tabs")
 
 # Dependencies
+
+target_link_libraries(main PRIVATE Core)
+target_link_libraries(main PRIVATE Templates)
+target_link_libraries(main PRIVATE Tabs)
 
 find_package(imgui CONFIG REQUIRED)
 target_link_libraries(main PRIVATE imgui::imgui)
