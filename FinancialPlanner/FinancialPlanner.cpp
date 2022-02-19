@@ -111,9 +111,10 @@ void FinancialPlanner::Update()
     }
 
     // Your GUIs go Here !
-    this->ShowCompoundInterestCalculator("Compound Interest Calculator");
     this->ShowDemoWindow();
+    this->ShowCompoundInterestCalculator("Compound Interest Calculator");
     //this->ShowDemoPlot();
+    this->ShowMainView();
 
     ImGui::End();
 }
@@ -2133,6 +2134,42 @@ void FinancialPlanner::ShowDemoPlot()
         ImPlot::PlotLine("My Line Plot", x_data, y_data, 10);
         ImPlot::EndPlot();
     }
+    ImGui::End();
+}
+
+void FinancialPlanner::ShowMainView()
+{
+    ImGui::Begin("Financial Overview");
+
+    ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
+    if (ImGui::BeginTabBar("MyTabBar", tab_bar_flags))
+    {
+        if (ImGui::BeginTabItem("Overview"))
+        {
+            ImGui::Text("Financial Overview");
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Income/Expenses"))
+        {
+            IncomeExpenses ie_renderer;
+            ie_renderer.Render();
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Net Worth"))
+        {
+            NetWorth nw_renderer;
+            nw_renderer.Render();
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Cucumber"))
+        {
+            ImGui::Text("This is the Cucumber tab!\nblah blah blah blah blah");
+            ImGui::EndTabItem();
+        }
+        ImGui::EndTabBar();
+    }
+    ImGui::Separator();
+
     ImGui::End();
 }
 

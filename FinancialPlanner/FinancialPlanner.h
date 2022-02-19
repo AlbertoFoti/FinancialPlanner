@@ -8,6 +8,8 @@
 #include <string>
 
 #include "Core.h"
+#include "IncomeExpenses.h"
+#include "NetWorth.h"
 
 // Financial Planner
 class FinancialPlanner {
@@ -26,6 +28,9 @@ private:
 	void ShowCompoundInterestCalculator(const char* nameGUI);
 	void ShowDemoWindow();
 	void ShowDemoPlot();
+
+	// Main View
+	void ShowMainView();
 
 	// Theme
 	void SetDarkThemeColors();
