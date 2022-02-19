@@ -2141,7 +2141,7 @@ void FinancialPlanner::ShowMainView()
 {
     ImGui::Begin("Financial Overview");
 
-    ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
+    ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
     if (ImGui::BeginTabBar("MyTabBar", tab_bar_flags))
     {
         if (ImGui::BeginTabItem("Overview"))
@@ -2149,16 +2149,16 @@ void FinancialPlanner::ShowMainView()
             ImGui::Text("Financial Overview");
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Income/Expenses"))
-        {
-            IncomeExpenses ie_renderer;
-            ie_renderer.Render();
-            ImGui::EndTabItem();
-        }
         if (ImGui::BeginTabItem("Net Worth"))
         {
             NetWorth nw_renderer;
             nw_renderer.Render();
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Income/Expenses"))
+        {
+            IncomeExpenses ie_renderer;
+            ie_renderer.Render();
             ImGui::EndTabItem();
         }
         ImGui::EndTabBar();
