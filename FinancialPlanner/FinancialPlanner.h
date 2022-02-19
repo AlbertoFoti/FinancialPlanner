@@ -7,9 +7,9 @@
 #include <iostream>
 #include <string>
 
-#include "Core/Core.h"
-#include "Tabs/IncomeExpenses.h"
-#include "Tabs/NetWorth.h"
+#include "Core.h"
+#include "IncomeExpenses.h"
+#include "NetWorth.h"
 
 // Financial Planner
 class FinancialPlanner {

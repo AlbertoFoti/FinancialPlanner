@@ -1,8 +1,8 @@
 #pragma once
 
 #include "imgui.h"
-#include "../Core/Core.h"
-#include "../Templates/Tab.h"
+#include "Core.h"
+#include "Tab.h"
 
 class IncomeExpenses : public Tab {
 public:

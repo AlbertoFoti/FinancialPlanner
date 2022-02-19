@@ -1,7 +1,18 @@
-﻿# CMakeList.txt: file di progetto CMake di primo livello. Eseguire la configurazione globale
-# e includere qui i sottoprogetti.
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required (VERSION 3.8)
 
-# Includere i sottoprogetti.
-add_subdirectory ("src")
+
+add_executable (main WIN32 "main.cpp" "FinancialPlanner.cpp" "FinancialPlanner.h" "Core.cpp" "Core.h" "Tab.cpp" "Tab.h" "IncomeExpenses.cpp" "IncomeExpenses.h" "NetWorth.cpp" "NetWorth.h" )
+
+# Dependencies
+
+find_package(imgui CONFIG REQUIRED)
+target_link_libraries(main PRIVATE imgui::imgui)
+
+find_package(glfw3 CONFIG REQUIRED)
+target_link_libraries(main PRIVATE glfw)
+
+find_package(glad CONFIG REQUIRED)
+target_link_libraries(main PRIVATE glad::glad)
+
+find_package(implot CONFIG REQUIRED)
+target_link_libraries(main PRIVATE implot::implot)
