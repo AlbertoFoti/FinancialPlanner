@@ -1,7 +1,7 @@
 #pragma once
 
 #include "imgui.h"
-#include "Tab.h"
+#include "../Templates/Tab.h"
 #include <string>
 
 class NetWorth : public Tab {
