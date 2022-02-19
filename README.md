@@ -1,12 +1,15 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Version : **Version 0.1.5**
+Current Stable Version : **Version 0.1.6**
 
 ## Version 0.2.0 Objectives
-- Implement new windows/tabs
+- Backend System for managing data
+- System to manage multiple accounts (bank account, cash, investments, ...)
 
 ## Version 0.1.0 Features
+### Version 0.1.6
+- Implemented new windows/tabs (basic GUI structure almost complete)
 ### Version 0.1.5
 - Style: Dark mode upgrade
 - Font: Whole Blender Pro Package imported

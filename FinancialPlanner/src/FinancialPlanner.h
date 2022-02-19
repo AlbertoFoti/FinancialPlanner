@@ -24,13 +24,16 @@ public:
 	void NewFrame();
 
 private:
-	// Views
-	void ShowCompoundInterestCalculator(const char* nameGUI);
-	void ShowDemoWindow();
-	void ShowDemoPlot();
-
 	// Main View
 	void ShowMainView();
+
+	// Other Views
+	void ShowCompoundInterestCalculator(const char* nameGUI);
+	void ShowAccountManager();
+
+	// Demo Views
+	void ShowDemoWindow();
+	void ShowDemoPlot();
 
 	// Theme
 	void SetDarkThemeColors();

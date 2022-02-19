@@ -143,7 +143,38 @@ void FinancialPlanner::NewFrame()
 	ImGui::NewFrame();
 }
 
-// Other helper Functions ================================================
+// Other Functions ================================================
+
+void FinancialPlanner::ShowMainView()
+{
+    ImGui::Begin("Financial Overview");
+
+    ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
+    if (ImGui::BeginTabBar("MyTabBar", tab_bar_flags))
+    {
+        if (ImGui::BeginTabItem("Overview"))
+        {
+            ImGui::Text("Financial Overview");
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Net Worth"))
+        {
+            NetWorth nw_renderer;
+            nw_renderer.Render();
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Income/Expenses"))
+        {
+            IncomeExpenses ie_renderer;
+            ie_renderer.Render();
+            ImGui::EndTabItem();
+        }
+        ImGui::EndTabBar();
+    }
+    ImGui::Separator();
+
+    ImGui::End();
+}
 
 void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
 {
@@ -239,6 +270,11 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
     }
 
     ImGui::End();
+}
+
+void FinancialPlanner::ShowAccountManager()
+{
+
 }
 
 void FinancialPlanner::ShowDemoWindow()
@@ -2134,37 +2170,6 @@ void FinancialPlanner::ShowDemoPlot()
         ImPlot::PlotLine("My Line Plot", x_data, y_data, 10);
         ImPlot::EndPlot();
     }
-    ImGui::End();
-}
-
-void FinancialPlanner::ShowMainView()
-{
-    ImGui::Begin("Financial Overview");
-
-    ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
-    if (ImGui::BeginTabBar("MyTabBar", tab_bar_flags))
-    {
-        if (ImGui::BeginTabItem("Overview"))
-        {
-            ImGui::Text("Financial Overview");
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Net Worth"))
-        {
-            NetWorth nw_renderer;
-            nw_renderer.Render();
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Income/Expenses"))
-        {
-            IncomeExpenses ie_renderer;
-            ie_renderer.Render();
-            ImGui::EndTabItem();
-        }
-        ImGui::EndTabBar();
-    }
-    ImGui::Separator();
-
     ImGui::End();
 }
 
