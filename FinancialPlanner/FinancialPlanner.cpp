@@ -2161,11 +2161,6 @@ void FinancialPlanner::ShowMainView()
             nw_renderer.Render();
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Cucumber"))
-        {
-            ImGui::Text("This is the Cucumber tab!\nblah blah blah blah blah");
-            ImGui::EndTabItem();
-        }
         ImGui::EndTabBar();
     }
     ImGui::Separator();
