@@ -1,7 +1,29 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
 
-add_executable (main WIN32 "main.cpp" "FinancialPlanner.cpp" "FinancialPlanner.h"  "core.cpp" "Core.h" "IncomeExpenses.cpp" "IncomeExpenses.h" "Tab.cpp" "Tab.h" "NetWorth.cpp")
+add_executable (main WIN32 "main.cpp" "FinancialPlanner.cpp" "FinancialPlanner.h" core templates tabs )
+
+# Libraries
+add_library(
+	core
+	"Core/Core.cpp"
+	"Core/Core.h"
+)
+
+add_library(
+	templates
+	"Templates/Tab.cpp"
+	"Templates/Tab.h"
+)
+
+add_library(
+	tabs
+	"Tabs/IncomeExpenses.cpp"
+	"Tabs/IncomeExpenses.h"
+	"Tabs/NetWorth.cpp"
+	"Tabs/NetWorth.h"
+)
+
 
 # Dependencies
 
