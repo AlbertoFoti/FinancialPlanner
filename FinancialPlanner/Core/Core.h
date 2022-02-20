@@ -8,7 +8,11 @@ class Core {
 	Backend back_end;
 public:
 	Core();
-	double CompoundInterestCalculate(double initialNW, double interestRate, double annualDeposits, int investmentYears, float* y_data);
+
+	// Financial Functions
+	float CompoundInterestCalculate(float initialNW, float interestRate, float annualDeposits, int investmentYears, float* y_data);
 	
-	void testBackend();
+	// Backend Functions
+	std::vector<Account_p> getAccounts();
+	std::string testBackend();
 };

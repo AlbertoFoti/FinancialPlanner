@@ -15,6 +15,7 @@
 class FinancialPlanner {
 private:
 	Core* core;
+	std::vector<Account_p> accounts;
 
 	NetWorth* nw_renderer;
 	IncomeExpenses* ie_renderer;

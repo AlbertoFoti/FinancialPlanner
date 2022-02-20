@@ -28,6 +28,11 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
 
     // Core initialized
     core = new Core();
+    // Tabs
+    nw_renderer = nullptr;
+    ie_renderer = nullptr;
+    //Accounts
+    accounts = this->core->getAccounts();
 }
 
 void FinancialPlanner::Update() 
@@ -114,8 +119,9 @@ void FinancialPlanner::Update()
     }
 
     // Your GUIs go Here !
-    this->ShowDemoWindow();
+    //this->ShowDemoWindow();
     this->ShowCompoundInterestCalculator("Compound Interest Calculator");
+    this->ShowAccountManager();
     //this->ShowDemoPlot();
     this->ShowMainView();
 
@@ -162,12 +168,14 @@ void FinancialPlanner::ShowMainView()
         }
         if (ImGui::BeginTabItem("Net Worth"))
         {
+            if (nw_renderer != nullptr) delete nw_renderer;
             nw_renderer = new NetWorth(this->core);
             nw_renderer->Render();
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Income/Expenses"))
         {
+            if (ie_renderer != nullptr) delete ie_renderer;
             ie_renderer = new IncomeExpenses(this->core);
             ie_renderer->Render();
             ImGui::EndTabItem();
@@ -203,14 +211,14 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
 
     ImGui::Spacing();
 
-    static double initialNW_d = 0.00;
-    static double interestRate_d = 0.00;
+    static float initialNW_d = 0.00;
+    static float interestRate_d = 0.00;
     static int investmentYears_d = 0;
-    static double annualDeposits_d = 0.00;
+    static float annualDeposits_d = 0.00;
 
-    static double NWendPeriod_d = 0.00;
-    static double totalDeposits_d = 0.00;
-    static double totalInterests_d = 0.00;
+    static float NWendPeriod_d = 0.00;
+    static float totalDeposits_d = 0.00;
+    static float totalInterests_d = 0.00;
 
     static float x_data[100] = { 0 };
     for (int i = 0; i < 100; i++) {
@@ -277,7 +285,24 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
 
 void FinancialPlanner::ShowAccountManager()
 {
+    ImGui::Begin("Account Manager");
 
+    if(ImGui::Button("Update Accounts")) {
+        this->accounts = this->core->getAccounts();
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Add Account")) {
+       // new added account
+    }
+
+    for (int i = 0; i < this->accounts.size(); i++) {
+        ImGui::Text("%d. ", accounts.at(i)->id); ImGui::SameLine();
+        ImGui::Text("%s", accounts.at(i)->name.c_str()); 
+        ImGui::Text("> %.2f EUR", accounts.at(i)->AmountStored);
+        ImGui::Separator();
+    }
+
+    ImGui::End();
 }
 
 void FinancialPlanner::ShowDemoWindow()
