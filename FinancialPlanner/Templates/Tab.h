@@ -2,6 +2,7 @@
 
 #include "imgui.h"
 #include <string>
+#include "../Core/Core.h"
 
 class Tab {
 public:

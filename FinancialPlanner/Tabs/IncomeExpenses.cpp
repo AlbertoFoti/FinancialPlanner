@@ -1,5 +1,9 @@
 #include "IncomeExpenses.h"
 
+IncomeExpenses::IncomeExpenses(Core* core) {
+	this->core = core;
+}
+
 void IncomeExpenses::Render()
 {
 	ImGui::Text("Income/Expenses Tab");

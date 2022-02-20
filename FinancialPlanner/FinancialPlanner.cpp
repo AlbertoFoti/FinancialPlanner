@@ -25,6 +25,9 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
 
     // Custom Theme
     this->SetDarkThemeColors();
+
+    // Core initialized
+    core = new Core();
 }
 
 void FinancialPlanner::Update() 
@@ -159,14 +162,14 @@ void FinancialPlanner::ShowMainView()
         }
         if (ImGui::BeginTabItem("Net Worth"))
         {
-            NetWorth nw_renderer;
-            nw_renderer.Render();
+            nw_renderer = new NetWorth(this->core);
+            nw_renderer->Render();
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Income/Expenses"))
         {
-            IncomeExpenses ie_renderer;
-            ie_renderer.Render();
+            ie_renderer = new IncomeExpenses(this->core);
+            ie_renderer->Render();
             ImGui::EndTabItem();
         }
         ImGui::EndTabBar();
@@ -225,7 +228,7 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
             interestRate_d = std::stod(interestRate);
             annualDeposits_d = std::stod(annualDeposits);
             investmentYears_d = std::stoi(investmentYears);
-            NWendPeriod_d = this->core.CompoundInterestCalculate(initialNW_d, interestRate_d, annualDeposits_d, investmentYears_d, &y_data[0]);
+            NWendPeriod_d = this->core->CompoundInterestCalculate(initialNW_d, interestRate_d, annualDeposits_d, investmentYears_d, &y_data[0]);
 
             totalDeposits_d = initialNW_d + (annualDeposits_d * investmentYears_d);
             totalInterests_d = NWendPeriod_d - totalDeposits_d;

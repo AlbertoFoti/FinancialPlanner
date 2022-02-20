@@ -1,4 +1,5 @@
 #include "Core.h"
+#include "Core.h"
 
 double Core::CompoundInterestCalculate(double initialNW, double interestRate, double annualDeposits, int investmentYears, float* y_data)
 {
@@ -21,4 +22,12 @@ double Core::CompoundInterestCalculate(double initialNW, double interestRate, do
 	}
 
 	return 0.00;
+}
+
+Core::Core()
+{
+}
+
+void Core::testBackend() {
+	back_end.sayHello();
 }

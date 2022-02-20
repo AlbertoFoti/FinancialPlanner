@@ -1,8 +1,17 @@
 #include "NetWorth.h"
 
+NetWorth::NetWorth(Core* core) {
+	this->core = core;
+}
+
 void NetWorth::Render()
 {
 	ImGui::Text("Net Worth Tab");
+	ImGui::Separator();
+
+	if(ImGui::Button("Backend Test")) {
+		this->core->testBackend();
+	}
 
 	ShowControlPanel("Net Worth Control Panel");
 }

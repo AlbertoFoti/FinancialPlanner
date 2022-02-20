@@ -25,3 +25,6 @@ target_link_libraries(main PRIVATE glad::glad)
 
 find_package(implot CONFIG REQUIRED)
 target_link_libraries(main PRIVATE implot::implot)
+
+find_package(jsoncpp CONFIG REQUIRED)
+target_link_libraries(main PRIVATE jsoncpp_lib jsoncpp_object JsonCpp::JsonCpp)

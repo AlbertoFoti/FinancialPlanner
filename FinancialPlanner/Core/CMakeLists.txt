@@ -4,4 +4,7 @@ add_library(
 	Core
 	Core.h
 	Core.cpp
-)
+ "Backend.cpp")
+
+find_package(jsoncpp CONFIG REQUIRED)
+target_link_libraries(Core PRIVATE jsoncpp_lib jsoncpp_object JsonCpp::JsonCpp)
