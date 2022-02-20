@@ -29,10 +29,11 @@ Current Stable Version : **Version 0.1.6**
 ### Version 0.1.1
 - Basic Compound Interest Calculator <br>
 
-## Libraries Used
+## Libraries Used and other Dependencies
 - vcpkg library manager <br>
 - ImGui library (docking branch)
 - ImPlot library for plotting
+- jsoncpp to manage JSON files in c++
 - Blender Pro Font <br>
 <div>Font made from <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a> is licensed by CC BY 3.0</div>
 
