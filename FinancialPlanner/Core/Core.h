@@ -9,10 +9,15 @@ class Core {
 public:
 	Core();
 
-	// Financial Functions
+	// Financial Functions =======
 	float CompoundInterestCalculate(float initialNW, float interestRate, float annualDeposits, int investmentYears, float* y_data);
 	
-	// Backend Functions
+	// Backend Functions =========
+
+	// Accounts
 	std::vector<Account_p> getAccounts();
+	void pushAccount(Account_p x);
+
+	// Testing
 	std::string testBackend();
 };

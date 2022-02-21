@@ -1,4 +1,5 @@
 #include "Core.h"
+#include "Core.h"
 
 Core::Core()
 {
@@ -33,6 +34,12 @@ std::vector<Account_p> Core::getAccounts()
 	return this->back_end.getAccounts();
 }
 
-std::string Core::testBackend() {
+void Core::pushAccount(Account_p x)
+{
+	this->back_end.pushAccount(x);
+}
+
+std::string Core::testBackend() 
+{
 	return back_end.sayHello();
 }

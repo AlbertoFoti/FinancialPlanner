@@ -290,14 +290,51 @@ void FinancialPlanner::ShowAccountManager()
     if(ImGui::Button("Update Accounts")) {
         this->accounts = this->core->getAccounts();
     }
-    ImGui::SameLine();
+    ImGui::Separator();
+
+    ImGui::BulletText("Account Name");
+    static char account_name[50] = {};
+    ImGui::InputTextWithHint("##AN", "Bank/Cash/Investments/Savings", account_name, IM_ARRAYSIZE(account_name));
+
+    ImGui::BulletText("Amount Stored");
+    static char amount_stored[50] = {};
+    ImGui::InputTextWithHint("##AS", "10000.00", amount_stored, IM_ARRAYSIZE(amount_stored));
+
+    // Error Input Parameters
+    static char errorParams[50] = {};
+    ImGui::Text("%s", errorParams);
+
     if (ImGui::Button("Add Account")) {
-       // new added account
+
+        if (strcmp(account_name, "") && strcmp(amount_stored, "")) {
+            // New Account instance
+            Account_p x = new Account();
+            x->id = accounts.size() + 1;
+            x->name = account_name;
+            x->AmountStored = std::stof(amount_stored);
+
+            // Push in accounts vector
+            accounts.push_back(x);
+
+            // Todo: write in json file database
+            this->core->pushAccount(x);
+
+            // Clean input fields
+            sprintf(account_name, "%s", "");
+            sprintf(amount_stored, "%s", "");
+        }
+        else {
+            sprintf(errorParams, "%s", "Error! Complete All Input Fields!");
+        }
     }
+    ImGui::Separator();
 
     for (int i = 0; i < this->accounts.size(); i++) {
         ImGui::Text("%d. ", accounts.at(i)->id); ImGui::SameLine();
-        ImGui::Text("%s", accounts.at(i)->name.c_str()); 
+        ImGui::Text("%s", accounts.at(i)->name.c_str()); ImGui::SameLine();
+        if (ImGui::SmallButton("x")) {
+            // Delete Account
+        }
         ImGui::Text("> %.2f EUR", accounts.at(i)->AmountStored);
         ImGui::Separator();
     }
