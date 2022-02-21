@@ -287,7 +287,7 @@ void FinancialPlanner::ShowAccountManager()
 {
     ImGui::Begin("Account Manager");
 
-    if(ImGui::Button("Update Accounts")) {
+    if(ImGui::Button("Reload Accounts")) {
         this->accounts = this->core->getAccounts();
     }
     ImGui::Separator();
@@ -327,6 +327,13 @@ void FinancialPlanner::ShowAccountManager()
             sprintf(errorParams, "%s", "Error! Complete All Input Fields!");
         }
     }
+    ImGui::Spacing();
+    ImGui::Separator();
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::TextUnformatted("Accounts");
     ImGui::Separator();
 
     for (int i = 0; i < this->accounts.size(); i++) {
