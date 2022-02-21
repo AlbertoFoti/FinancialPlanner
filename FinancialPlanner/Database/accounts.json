@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Cash",
+    "AmountStored": 10000.00
+  },
+  {
+    "id": 2,
+    "name": "Bank",
+    "AmountStored": 100.00
+  },
+  {
+    "id": 3,
+    "name": "Investments",
+    "AmountStored": 100000.00
+  },
+
+  {
+    "id": 4,
+    "name": "Savings",
+    "AmountStored": 1000.00
+  }
+]

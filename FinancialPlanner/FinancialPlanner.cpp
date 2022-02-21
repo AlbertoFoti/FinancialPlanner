@@ -25,6 +25,14 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
 
     // Custom Theme
     this->SetDarkThemeColors();
+
+    // Core initialized
+    core = new Core();
+    // Tabs
+    nw_renderer = nullptr;
+    ie_renderer = nullptr;
+    //Accounts
+    accounts = this->core->getAccounts();
 }
 
 void FinancialPlanner::Update() 
@@ -111,8 +119,9 @@ void FinancialPlanner::Update()
     }
 
     // Your GUIs go Here !
-    this->ShowDemoWindow();
+    //this->ShowDemoWindow();
     this->ShowCompoundInterestCalculator("Compound Interest Calculator");
+    this->ShowAccountManager();
     //this->ShowDemoPlot();
     this->ShowMainView();
 
@@ -159,14 +168,16 @@ void FinancialPlanner::ShowMainView()
         }
         if (ImGui::BeginTabItem("Net Worth"))
         {
-            NetWorth nw_renderer;
-            nw_renderer.Render();
+            if (nw_renderer != nullptr) delete nw_renderer;
+            nw_renderer = new NetWorth(this->core);
+            nw_renderer->Render();
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Income/Expenses"))
         {
-            IncomeExpenses ie_renderer;
-            ie_renderer.Render();
+            if (ie_renderer != nullptr) delete ie_renderer;
+            ie_renderer = new IncomeExpenses(this->core);
+            ie_renderer->Render();
             ImGui::EndTabItem();
         }
         ImGui::EndTabBar();
@@ -200,14 +211,14 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
 
     ImGui::Spacing();
 
-    static double initialNW_d = 0.00;
-    static double interestRate_d = 0.00;
+    static float initialNW_d = 0.00;
+    static float interestRate_d = 0.00;
     static int investmentYears_d = 0;
-    static double annualDeposits_d = 0.00;
+    static float annualDeposits_d = 0.00;
 
-    static double NWendPeriod_d = 0.00;
-    static double totalDeposits_d = 0.00;
-    static double totalInterests_d = 0.00;
+    static float NWendPeriod_d = 0.00;
+    static float totalDeposits_d = 0.00;
+    static float totalInterests_d = 0.00;
 
     static float x_data[100] = { 0 };
     for (int i = 0; i < 100; i++) {
@@ -225,7 +236,7 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
             interestRate_d = std::stod(interestRate);
             annualDeposits_d = std::stod(annualDeposits);
             investmentYears_d = std::stoi(investmentYears);
-            NWendPeriod_d = this->core.CompoundInterestCalculate(initialNW_d, interestRate_d, annualDeposits_d, investmentYears_d, &y_data[0]);
+            NWendPeriod_d = this->core->CompoundInterestCalculate(initialNW_d, interestRate_d, annualDeposits_d, investmentYears_d, &y_data[0]);
 
             totalDeposits_d = initialNW_d + (annualDeposits_d * investmentYears_d);
             totalInterests_d = NWendPeriod_d - totalDeposits_d;
@@ -274,7 +285,61 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
 
 void FinancialPlanner::ShowAccountManager()
 {
+    ImGui::Begin("Account Manager");
 
+    if(ImGui::Button("Update Accounts")) {
+        this->accounts = this->core->getAccounts();
+    }
+    ImGui::Separator();
+
+    ImGui::BulletText("Account Name");
+    static char account_name[50] = {};
+    ImGui::InputTextWithHint("##AN", "Bank/Cash/Investments/Savings", account_name, IM_ARRAYSIZE(account_name));
+
+    ImGui::BulletText("Amount Stored");
+    static char amount_stored[50] = {};
+    ImGui::InputTextWithHint("##AS", "10000.00", amount_stored, IM_ARRAYSIZE(amount_stored));
+
+    // Error Input Parameters
+    static char errorParams[50] = {};
+    ImGui::Text("%s", errorParams);
+
+    if (ImGui::Button("Add Account")) {
+
+        if (strcmp(account_name, "") && strcmp(amount_stored, "")) {
+            // New Account instance
+            Account_p x = new Account();
+            x->id = accounts.size() + 1;
+            x->name = account_name;
+            x->AmountStored = std::stof(amount_stored);
+
+            // Push in accounts vector
+            accounts.push_back(x);
+
+            // Todo: write in json file database
+            this->core->pushAccount(x);
+
+            // Clean input fields
+            sprintf(account_name, "%s", "");
+            sprintf(amount_stored, "%s", "");
+        }
+        else {
+            sprintf(errorParams, "%s", "Error! Complete All Input Fields!");
+        }
+    }
+    ImGui::Separator();
+
+    for (int i = 0; i < this->accounts.size(); i++) {
+        ImGui::Text("%d. ", accounts.at(i)->id); ImGui::SameLine();
+        ImGui::Text("%s", accounts.at(i)->name.c_str()); ImGui::SameLine();
+        if (ImGui::SmallButton("x")) {
+            // Delete Account
+        }
+        ImGui::Text("> %.2f EUR", accounts.at(i)->AmountStored);
+        ImGui::Separator();
+    }
+
+    ImGui::End();
 }
 
 void FinancialPlanner::ShowDemoWindow()

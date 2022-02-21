@@ -5,7 +5,9 @@
 #include "../Templates/Tab.h"
 
 class IncomeExpenses : public Tab {
+	Core* core;
 public:
+	IncomeExpenses(Core* core);
 	void Render();
 	void ShowControlPanel(std::string panel_name);
 };

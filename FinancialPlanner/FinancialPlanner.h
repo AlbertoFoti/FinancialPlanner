@@ -14,7 +14,11 @@
 // Financial Planner
 class FinancialPlanner {
 private:
-	Core core;
+	Core* core;
+	std::vector<Account_p> accounts;
+
+	NetWorth* nw_renderer;
+	IncomeExpenses* ie_renderer;
 public:
 	void Init(GLFWwindow *window, const char* glsl_version);
 	virtual void Update();

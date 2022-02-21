@@ -1,6 +1,12 @@
 #include "Core.h"
+#include "Core.h"
 
-double Core::CompoundInterestCalculate(double initialNW, double interestRate, double annualDeposits, int investmentYears, float* y_data)
+Core::Core()
+{
+	this->back_end.init();
+}
+
+float Core::CompoundInterestCalculate(float initialNW, float interestRate, float annualDeposits, int investmentYears, float* y_data)
 {
 	static int i = 0;
 
@@ -12,7 +18,7 @@ double Core::CompoundInterestCalculate(double initialNW, double interestRate, do
 
 	if (investmentYears > 0) {
 		i++;
-		double curr_nw = initialNW + annualDeposits + ((initialNW + annualDeposits) * (interestRate / 100));
+		float curr_nw = initialNW + annualDeposits + ((initialNW + annualDeposits) * (interestRate / 100));
 		return this->CompoundInterestCalculate(curr_nw, interestRate, annualDeposits, investmentYears - 1, &y_data[0]);
 	}
 	else {
@@ -21,4 +27,19 @@ double Core::CompoundInterestCalculate(double initialNW, double interestRate, do
 	}
 
 	return 0.00;
+}
+
+std::vector<Account_p> Core::getAccounts()
+{
+	return this->back_end.getAccounts();
+}
+
+void Core::pushAccount(Account_p x)
+{
+	this->back_end.pushAccount(x);
+}
+
+std::string Core::testBackend() 
+{
+	return back_end.sayHello();
 }
