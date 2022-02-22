@@ -1,7 +1,4 @@
 #include "Backend.h"
-#include "Backend.h"
-#include "Backend.h"
-#include "Backend.h"
 
 void Backend::init() {
 
@@ -21,7 +18,7 @@ std::vector<Account_p> Backend::getAccounts()
         Account_p x = new Account();
         x->id = std::stoi(acc[i]["id"].asString());
         x->name = acc[i]["name"].asString();
-        x->AmountStored = std::stof(acc[i]["AmountStored"].asString());
+        x->AmountStored = std::stod(acc[i]["AmountStored"].asString());
 
         accounts.push_back(x);
     }
@@ -44,6 +41,31 @@ void Backend::pushAccount(Account_p x)
     writeToFileStream("Database/accounts.json", root);
 
     return;
+}
+
+std::vector<NW_record_p> Backend::getNWdata(double from, double to)
+{
+    Json::Value root;
+
+    std::vector<NW_record_p> NW_data;
+
+    root = getRootFromFileStream("Database/netWorth.json");
+
+    Json::Value data = root["records"];
+
+    for (int i = 0; i < data.size(); i++) {
+        NW_record_p x = new NW_record();
+        x->Month = std::stoi(data[i]["Month"].asString());
+        x->Year = std::stoi(data[i]["Year"].asString());
+        x->OpeningWorth = std::stod(data[i]["OpeningWorth"].asString());
+        x->LowWorth = std::stod(data[i]["LowWorth"].asString());
+        x->HighWorth = std::stod(data[i]["HighWorth"].asString());
+        x->ClosingWorth = std::stod(data[i]["ClosingWorth"].asString());
+
+        NW_data.push_back(x);
+    }
+
+    return NW_data;
 }
 
 // Testing

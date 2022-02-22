@@ -11,7 +11,8 @@ Current Stable Version : **Version 0.1.6**
 ## Version 0.1.0 Features
 ### Version 0.1.7 Objectives
 - Backend System for managing data
-- System to manage multiple accounts (bank account, cash, investments, ...) [Add, Edit, Remove]
+- System to manage multiple accounts (bank account, cash, investments, ...) [Add]
+- Net Worth tab : GUI structure and complete backend link
 ### Version 0.1.6
 - Implemented new windows/tabs (basic GUI structure almost complete)
 - Source files structure upgrade and fix

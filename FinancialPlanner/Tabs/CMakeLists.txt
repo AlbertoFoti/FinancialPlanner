@@ -6,6 +6,8 @@ add_library(
 	NetWorth.cpp
 	IncomeExpenses.h
 	IncomeExpenses.cpp
+	Plotter.h
+	Plotter.cpp
 )
 
 #dependencies

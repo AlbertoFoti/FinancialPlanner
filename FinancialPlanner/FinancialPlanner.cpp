@@ -81,6 +81,11 @@ void FinancialPlanner::Update()
     if (opt_fullscreen)
         ImGui::PopStyleVar(2);
 
+    // Minimum window size (x coordinate), in dockspace
+    ImGuiStyle& style = ImGui::GetStyle();
+    float minWinSizeX = style.WindowMinSize.x;
+    style.WindowMinSize.x = 290.0f;
+
     // Submit the DockSpace
     ImGuiIO& io = ImGui::GetIO();
     if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
@@ -88,6 +93,9 @@ void FinancialPlanner::Update()
         ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
         ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
     }
+
+    // Window min size back to original value
+    style.WindowMinSize.x = minWinSizeX;
 
     if (ImGui::BeginMenuBar())
     {
@@ -338,10 +346,21 @@ void FinancialPlanner::ShowAccountManager()
 
     for (int i = 0; i < this->accounts.size(); i++) {
         ImGui::Text("%d. ", accounts.at(i)->id); ImGui::SameLine();
-        ImGui::Text("%s", accounts.at(i)->name.c_str()); ImGui::SameLine();
-        if (ImGui::SmallButton("x")) {
+        ImGui::Text("%s", accounts.at(i)->name.c_str()); 
+        ImGui::SameLine();
+
+        // Edit and Delete Buttons aligned right
+        ImVec2 buttonSize(50.f, 0.f);
+        float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
+        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
+        if (ImGui::Button("Edit", buttonSize)) {
+            // Edit Account
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Delete", buttonSize)) {
             // Delete Account
         }
+
         ImGui::Text("> %.2f EUR", accounts.at(i)->AmountStored);
         ImGui::Separator();
     }

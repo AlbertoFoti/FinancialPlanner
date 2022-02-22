@@ -7,12 +7,14 @@ add_executable (main WIN32 "main.cpp" "FinancialPlanner.cpp" "FinancialPlanner.h
 add_subdirectory("Core")
 add_subdirectory("Templates")
 add_subdirectory("Tabs")
+add_subdirectory("Utility")
 
 # Dependencies
 
 target_link_libraries(main PRIVATE Core)
 target_link_libraries(main PRIVATE Templates)
 target_link_libraries(main PRIVATE Tabs)
+target_link_libraries(main PRIVATE Utility)
 
 find_package(imgui CONFIG REQUIRED)
 target_link_libraries(main PRIVATE imgui::imgui)
