@@ -21,12 +21,7 @@ void NetWorth::Render()
 
 	//ImPlot::ShowDemoWindow();
 
-	time_t rawtime;
-	struct tm* timeinfo;
-
-	static ImVec4 bullCol = ImVec4(0.000f, 1.000f, 0.441f, 1.000f);
-	static ImVec4 bearCol = ImVec4(0.853f, 0.050f, 0.310f, 1.000f);
-
+	/*
 	double opens[25]  =  { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 };
 	double lows[25]   =  { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 };
 	double highs[25]  =  { 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26 };
@@ -34,37 +29,42 @@ void NetWorth::Render()
 
 	double dates[25] = { 239,240,241,242,243,244,245,246,247,248,249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263};
 	for (double& x : dates) {
-		int year = 2000 + x / 12;
-		x = x - (year-2000) * 12;
-		int month = x;
+		x = getUNIXtime(x);
+	}
+	*/
 
-		/* get current timeinfo: */
-		time(&rawtime); //or: rawtime = time(0);
-		/* convert to struct: */
-		timeinfo = localtime(&rawtime);
+	static std::vector<double> dates;
+	static std::vector<double> opens;
+	static std::vector<double> lows;
+	static std::vector<double> highs;
+	static std::vector<double> closes;
 
-		/* now modify the timeinfo to the given date: */
-		timeinfo->tm_year = year - 1900;
-		timeinfo->tm_mon = month - 1;    //months since January - [0,11]
-		timeinfo->tm_mday = 1;          //day of the month - [1,31] 
-		timeinfo->tm_hour = 0;         //hours since midnight - [0,23]
-		timeinfo->tm_min = 0;          //minutes after the hour - [0,59]
-		timeinfo->tm_sec = 0;          //seconds after the minute - [0,59]
-
-		/* call mktime: create unix time stamp from timeinfo struct */
-		x = (double) mktime(timeinfo); 
+	if (ImGui::Button("Refresh Net Worth Data")) {
+		double from = getUNIXtime(1, 2019);
+		double to = getUNIXtime(1, 2022);
+		this->NW_records = this->core->getNWdataFromDb(from, to);
 	}
 
-	if (ImPlot::BeginPlot("Net Worth")) {
-		ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time, ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
-		ImPlot::SetupAxesLimits(1570000000, 1640000000, 1, 30);
-		ImPlot::PlotLine("Net Worth", dates, closes, 25);
-		ImPlot::EndPlot();
+	dates.clear();
+	opens.clear();
+	lows.clear();
+	highs.clear();
+	closes.clear();
+
+	this->NW_records = this->core->getNWdata();
+	for (NW_record_p x : this->NW_records) {
+		dates.push_back(getUNIXtime(x->Month, x->Year));
+		opens.push_back(x->OpeningWorth);
+		lows.push_back(x->LowWorth);
+		highs.push_back(x->HighWorth);
+		closes.push_back(x->ClosingWorth);
 	}
 
+	
 	Plotter pl;
-	pl.ShowCandleBarsPlot("Net Worth Candle", dates, opens, closes, lows, highs, 218, 0.25f, bullCol, bearCol, 1570000000, 1640000000, 1, 30);
-
+	pl.ShowLinePlot_default("Net Worth (monthly)", &dates[0], &closes[0], dates.size());
+	pl.ShowCandleBarsPlot_default("Net Worth Candle", &dates[0], &opens[0], &closes[0], &lows[0], &closes[0], dates.size());
+	
 
 	ShowControlPanel("Net Worth Control Panel");
 }

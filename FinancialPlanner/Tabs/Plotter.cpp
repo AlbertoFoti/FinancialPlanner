@@ -11,6 +11,20 @@ void Plotter::ShowCandleBarsPlot(const char* label_id, const double* xs, const d
     }
 }
 
+void Plotter::ShowCandleBarsPlot_default(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count)
+{
+    static ImVec4 bullCol = ImVec4(0.000f, 1.000f, 0.441f, 1.000f);
+    static ImVec4 bearCol = ImVec4(0.853f, 0.050f, 0.310f, 1.000f);
+
+    if (ImPlot::BeginPlot("Candlestick Chart", ImVec2(-1, 0))) {
+        ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time, ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
+        ImPlot::SetupAxisLimits(ImAxis_X1, xs[0]- PLOT_PADDING_UNIX_TIME, xs[count-1]+ PLOT_PADDING_UNIX_TIME);
+        ImPlot::SetupAxisFormat(ImAxis_Y1, "$%.0f");
+        this->CandleBarsPlot(label_id, xs, opens, closes, lows, highs, count, 0.25f, bullCol, bearCol);
+        ImPlot::EndPlot();
+    }
+}
+
 void Plotter::CandleBarsPlot(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count, float width_percent, ImVec4 bullCol, ImVec4 bearCol)
 {
     // get ImGui window DrawList
