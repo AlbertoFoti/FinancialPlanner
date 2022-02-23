@@ -15,7 +15,24 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
     // Fonts
-    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 13.9f);
+    // 0
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 11.0f);
+    // 1
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 14.0f);
+    // 2
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 20.0f);
+    // 3
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
+    // 4
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+    // 5
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
+    // 6
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 11.0f);
+    // 7
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 14.0f);
+    // 8
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 20.0f);
 
     // Anti-Aliased plots
     ImPlot::GetStyle().AntiAliasedLines = true;
@@ -23,10 +40,12 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
 	// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
-	ImGui::StyleColorsDark();
+
 
     // Custom Theme
-    this->SetDarkThemeColors();
+    ImGui::StyleColorsDark();
+    ImPlot::StyleColorsDark();
+    //this->SetDarkThemeColors();
 
     // Core initialized
     core = new Core();
@@ -86,7 +105,7 @@ void FinancialPlanner::Update()
     // Minimum window size (x coordinate), in dockspace
     ImGuiStyle& style = ImGui::GetStyle();
     float minWinSizeX = style.WindowMinSize.x;
-    style.WindowMinSize.x = 300.0f;
+    style.WindowMinSize.x = 350.0f;
 
     // Submit the DockSpace
     ImGuiIO& io = ImGui::GetIO();
@@ -159,10 +178,11 @@ void FinancialPlanner::Update()
     }
 
     // Your GUIs go Here !
-    this->ShowDemoWindow();
+    //this->ShowDemoWindow();
     this->ShowCompoundInterestCalculator("Compound Interest Calculator");
     this->ShowAccountManager();
     //this->ShowDemoPlot();
+    //this->ShowFontTesting();
     this->ShowMainView();
 
     ImGui::End();
@@ -325,6 +345,9 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
 
 void FinancialPlanner::ShowAccountManager()
 {
+    ImGuiIO& io = ImGui::GetIO();
+    auto blenderProThinLarge = io.Fonts->Fonts[8];
+
     ImGui::Begin("Account Manager");
 
     if(ImGui::Button("Reload Accounts")) {
@@ -393,7 +416,14 @@ void FinancialPlanner::ShowAccountManager()
             // Delete Account
         }
 
-        ImGui::Text("> %.2f EUR", accounts.at(i)->AmountStored);
+        ImGui::Text("- "); ImGui::SameLine();
+
+        ImGui::PushFont(blenderProThinLarge);
+        if (accounts.at(i)->AmountStored >= 1000)
+            ImGui::Text("%.2fk EUR", accounts.at(i)->AmountStored/1000);
+        else
+            ImGui::Text("%.2f EUR", accounts.at(i)->AmountStored);
+        ImGui::PopFont();
         ImGui::Separator();
     }
 
@@ -2293,6 +2323,63 @@ void FinancialPlanner::ShowDemoPlot()
         ImPlot::PlotLine("My Line Plot", x_data, y_data, 10);
         ImPlot::EndPlot();
     }
+    ImGui::End();
+}
+
+void FinancialPlanner::ShowFontTesting()
+{
+    ImGui::Begin("Font Demo Testing");
+
+    ImGuiIO& io = ImGui::GetIO();
+
+    auto blenderProHeavy_s = io.Fonts->Fonts[0];
+    auto blenderProHeavy_m = io.Fonts->Fonts[1];
+    auto blenderProHeavy_l = io.Fonts->Fonts[2];
+
+    auto blenderProMedium_s = io.Fonts->Fonts[3];
+    auto blenderProMedium_m = io.Fonts->Fonts[4];
+    auto blenderProMedium_l = io.Fonts->Fonts[5];
+
+    auto blenderProThin_s = io.Fonts->Fonts[6];
+    auto blenderProThin_m = io.Fonts->Fonts[7];
+    auto blenderProThin_l = io.Fonts->Fonts[8];
+
+    ImGui::PushFont(blenderProHeavy_s);
+    ImGui::Text("Blender Pro Heavy small");
+    ImGui::PopFont();
+
+    ImGui::PushFont(blenderProHeavy_m);
+    ImGui::Text("Blender Pro Heavy medium");
+    ImGui::PopFont();
+
+    ImGui::PushFont(blenderProHeavy_l);
+    ImGui::Text("Blender Pro Heavy large");
+    ImGui::PopFont();
+
+    ImGui::PushFont(blenderProMedium_s);
+    ImGui::Text("Blender Pro Medium small");
+    ImGui::PopFont();
+
+    ImGui::PushFont(blenderProMedium_m);
+    ImGui::Text("Blender Pro Medium medium");
+    ImGui::PopFont();
+
+    ImGui::PushFont(blenderProMedium_l);
+    ImGui::Text("Blender Pro Medium large");
+    ImGui::PopFont();
+
+    ImGui::PushFont(blenderProThin_s);
+    ImGui::Text("Blender Pro Thin small");
+    ImGui::PopFont();
+
+    ImGui::PushFont(blenderProThin_m);
+    ImGui::Text("Blender Pro Thin medium");
+    ImGui::PopFont();
+
+    ImGui::PushFont(blenderProThin_l);
+    ImGui::Text("Blender Pro Thin large");
+    ImGui::PopFont();
+   
     ImGui::End();
 }
 

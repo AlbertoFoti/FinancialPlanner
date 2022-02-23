@@ -8,10 +8,14 @@ NetWorth::NetWorth(Core* core) {
 
 void NetWorth::Render()
 {
-	
+	ImGuiIO& io = ImGui::GetIO();
+	auto blenderProHeavy_l = io.Fonts->Fonts[2];
+	auto blenderProThin_m = io.Fonts->Fonts[7];
+	auto blenderProThinLarge = io.Fonts->Fonts[8];
+
 #ifdef __TESTING_DEBUG__
 	static std::string test_string = "";
-	if(ImGui::Button("Backend Test")) {
+	if (ImGui::Button("Backend Test")) {
 		test_string = this->core->testBackend();
 	}
 	ImGui::Text(test_string.c_str());
@@ -25,15 +29,27 @@ void NetWorth::Render()
 	static std::vector<double> highs;
 	static std::vector<double> closes;
 
+	this->NW_records = this->core->getNWdata();
+
+	ImGui::Spacing();
+	ImGui::PushFont(blenderProHeavy_l);
+	ImGui::Text("Current Net Worth : "); ImGui::SameLine();
+	ImGui::PopFont();
+	ImGui::PushFont(blenderProThinLarge);
+	if (NW_records[NW_records.size() - 1]->ClosingWorth > 10000)
+		ImGui::Text("%.2fk EUR", NW_records[NW_records.size() - 1]->ClosingWorth/1000);
+	else
+		ImGui::Text("%.2f EUR", NW_records[NW_records.size() - 1]->ClosingWorth);
+	ImGui::PopFont();
+	ImGui::Spacing();
+	ImGui::Separator();
+	ImGui::Spacing();
+
 	static int from = getMSMtime(1, 2019); 
 	static int to = getMSMtime(1, 2023);
-
 	static std::string from_s;
 	static std::string to_s;
-
-
 	static int max = getMSMtime(1, 2200);
-
 	static int from_btn_counter = from;
 	static int to_btn_counter = to;
 
@@ -90,7 +106,6 @@ void NetWorth::Render()
 	highs.clear();
 	closes.clear();
 
-	this->NW_records = this->core->getNWdata();
 	for (NW_record_p x : this->NW_records) {
 		dates.push_back(getUNIXtime(x->Month, x->Year));
 		opens.push_back(x->OpeningWorth);
@@ -111,9 +126,13 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 {
 	ImGui::Begin(panel_name.c_str());
 
-	static bool byMonth = false;
+	static bool byMonth = true;
 
 	ImGui::Checkbox("Show by Month", &byMonth);
+
+	ImGuiIO& io = ImGui::GetIO();
+	auto blenderProThin_m = io.Fonts->Fonts[7];
+	ImGui::PushFont(blenderProThin_m);
 
 	ImGui::Separator();
 	ImGui::Spacing();
@@ -188,6 +207,8 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 		}
 		ImGui::EndTable();
 	}
+
+	ImGui::PopFont();
 
 	ImGui::End();
 }

@@ -38,6 +38,7 @@ private:
 	// Demo Views
 	void ShowDemoWindow();
 	void ShowDemoPlot();
+	void ShowFontTesting();
 
 	// Theme
 	bool ShowStyleSelectorGUI(const char* label);
