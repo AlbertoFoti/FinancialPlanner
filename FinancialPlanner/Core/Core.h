@@ -9,6 +9,7 @@ class Core {
 	Backend back_end;
 
 	std::vector<NW_record_p> NW_records;
+	MonthlyTransactions_p MonthlyReport;
 public:
 	Core();
 
@@ -23,6 +24,9 @@ public:
 	// Net Worth (NW)
 	std::vector<NW_record_p> getNWdata();
 	std::vector<NW_record_p> getNWdataFromDb(double from, double to);
+	// Income / Expenses
+	MonthlyTransactions_p getMonthlyTransactionsReport();
+	MonthlyTransactions_p getMonthlyTransactionsReportFromDb(int month, int year);
 
 	// Testing
 	std::string testBackend();

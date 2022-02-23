@@ -1,4 +1,6 @@
 #include "Core.h"
+#include "Core.h"
+#include "Core.h"
 
 Core::Core()
 {
@@ -7,6 +9,7 @@ Core::Core()
 	double from = getUNIXtime(1, 2019);
 	double to = getUNIXtime(1, 2022);
 	this->NW_records = this->back_end.getNWdata(from, to);
+	this->MonthlyReport = this->getMonthlyTransactionsReportFromDb(1, 2021);
 }
 
 float Core::CompoundInterestCalculate(float initialNW, float interestRate, float annualDeposits, int investmentYears, float* y_data)
@@ -55,6 +58,17 @@ std::vector<NW_record_p> Core::getNWdataFromDb(double from, double to)
 {
 	this->NW_records = this->back_end.getNWdata(from, to);
 	return this->NW_records;
+}
+
+MonthlyTransactions_p Core::getMonthlyTransactionsReport()
+{
+	return this->MonthlyReport;
+}
+
+MonthlyTransactions_p Core::getMonthlyTransactionsReportFromDb(int month, int year)
+{
+	this->MonthlyReport = this->back_end.getMonthlyReport(month, year);
+	return this->MonthlyReport;
 }
 
 std::string Core::testBackend() 

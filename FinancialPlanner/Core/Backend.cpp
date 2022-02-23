@@ -1,4 +1,5 @@
 #include "Backend.h"
+#include "Backend.h"
 
 void Backend::init() {
 
@@ -69,6 +70,41 @@ std::vector<NW_record_p> Backend::getNWdata(double from, double to)
     }
 
     return NW_data;
+}
+
+MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
+{
+    Json::Value root;
+
+    MonthlyTransactions_p MonthlyReport = new MonthlyTransactions();
+    MonthlyReport->Month = month;
+    MonthlyReport->Year = year;
+    MonthlyReport->transactions = std::vector<Transaction_p>();
+
+    root = getRootFromFileStream("Database/incomeExpenses.json");
+
+    Json::Value data = root["records"];
+    Json::Value transactRecords;
+
+    for (int i = 0; i < data.size(); i++) {
+        if (std::stoi(data[i]["Month"].asString()) == month && std::stoi(data[i]["Year"].asString()) == year) {
+            MonthlyReport->Month = month;
+            MonthlyReport->Year = year;
+            transactRecords = data[i]["data"];
+            for (int i = 0; i < transactRecords.size(); i++) {
+                Transaction_p t = new Transaction();
+                t->Day = std::stoi(transactRecords[i]["Day"].asString());
+                t->Category = transactRecords[i]["Category"].asString();
+                t->Subcategory = transactRecords[i]["Subcategory"].asString();
+                t->Type = transactRecords[i]["Type"].asString();
+                t->AccountID = std::stoi(transactRecords[i]["Account"].asString());
+                t->Amount = std::stod(transactRecords[i]["Amount"].asString());
+                MonthlyReport->transactions.push_back(t);
+            }
+        }
+    }
+
+    return MonthlyReport;
 }
 
 // Testing

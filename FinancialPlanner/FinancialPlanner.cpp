@@ -50,6 +50,7 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     // Core initialized
     core = new Core();
     // Tabs
+    overview_renderer = nullptr;
     nw_renderer = nullptr;
     ie_renderer = nullptr;
     //Accounts
@@ -163,7 +164,7 @@ void FinancialPlanner::Update()
     }
 
     // Your GUIs go Here !
-    //this->ShowDemoWindow();
+    this->ShowDemoWindow();
     this->ShowCompoundInterestCalculator("Compound Interest Calculator");
     this->ShowAccountManager();
     //this->ShowDemoPlot();
@@ -208,7 +209,9 @@ void FinancialPlanner::ShowMainView()
     {
         if (ImGui::BeginTabItem("Overview"))
         {
-            ImGui::Text("Financial Overview");
+            if (overview_renderer != nullptr) delete overview_renderer;
+            overview_renderer = new Overview(this->core);
+            overview_renderer->Render();
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Net Worth"))

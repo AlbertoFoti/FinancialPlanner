@@ -1,14 +1,15 @@
 #pragma once
 
 #include "imgui.h"
-#include "../Core/Core.h"
+#include "implot.h"
 #include "../Templates/Tab.h"
+#include "Plotter.h"
 
-class IncomeExpenses : public Tab {
+class Overview : public Tab {
 	Core* core;
-	MonthlyTransactions_p monthlyReport;
+	std::vector<NW_record_p> NW_records;
 public:
-	IncomeExpenses(Core* core);
+	Overview(Core* core);
 	void Render();
 	void ShowControlPanel(std::string panel_name);
 };
