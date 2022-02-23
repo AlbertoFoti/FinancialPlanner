@@ -14,6 +14,7 @@ Current Stable Version : **Version 0.1.7**
 ### Version 0.1.8 Objectives
 - Backend System upgrade
 - Income/Expenses Tab : GUI structure complete
+- Category/Subcategory Manager [Add]
 - Overview Tab GUI structure (basic)
 ### Version 0.1.7
 - Backend System for managing data
