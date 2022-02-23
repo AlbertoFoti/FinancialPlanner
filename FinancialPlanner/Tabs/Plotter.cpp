@@ -25,7 +25,7 @@ void Plotter::ShowLinePlot_def(const char* label_id, const double* xs, const dou
 void Plotter::ShowCandleBarsPlot(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count, float width_percent, ImVec4 bullCol, ImVec4 bearCol, double x_from, double x_to, double y_min, double y_max)
 {
     if (ImPlot::BeginPlot(label_id, ImVec2(-1, 0))) {
-        ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time, ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
+        ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time); // ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
         ImPlot::SetupAxesLimits(x_from, x_to, y_min, y_max);
         ImPlot::SetupAxisFormat(ImAxis_Y1, "$%.0f");
         this->CandleBarsPlot(label_id, xs, opens, closes, lows, highs, count, width_percent, bullCol, bearCol);
@@ -38,9 +38,16 @@ void Plotter::ShowCandleBarsPlot_default(const char* label_id, const double* xs,
     static ImVec4 bullCol = ImVec4(0.000f, 1.000f, 0.441f, 1.000f);
     static ImVec4 bearCol = ImVec4(0.853f, 0.050f, 0.310f, 1.000f);
 
+    static double min_y = INFINITY;
+    static double max_y = -INFINITY;
+    for (int i = 0; i != count; ++i) {
+        if (highs[i] > max_y) max_y = highs[i];
+        if (highs[i] < min_y) min_y = highs[i];
+    }
+
     if (ImPlot::BeginPlot(label_id, ImVec2(-1, 0))) {
-        ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time, ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
-        ImPlot::SetupAxisLimits(ImAxis_X1, xs[0] - PLOT_PADDING_UNIX_TIME, xs[count-1] + PLOT_PADDING_UNIX_TIME);
+        ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time);// ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
+        ImPlot::SetupAxesLimits(xs[0] - PLOT_PADDING_UNIX_TIME, xs[count - 1] + PLOT_PADDING_UNIX_TIME, min_y - PLOT_PADDING_Y , max_y + PLOT_PADDING_Y);
         ImPlot::SetupAxisFormat(ImAxis_Y1, "$%.0f");
         this->CandleBarsPlot(label_id, xs, opens, closes, lows, highs, count, 0.25f, bullCol, bearCol);
         ImPlot::EndPlot();

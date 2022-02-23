@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <fstream>
 #include "json/json.h"
+#include "../Utility/Utility.h"
 
 // Account
 struct Account {

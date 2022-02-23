@@ -1,5 +1,33 @@
 #include "Utility.h"
 
+int getMSMtime(int month, int year)
+{
+	if (year >= 2000) {
+		return (year - 2000) * 12 + month;
+	}
+	return 0;
+}
+
+int getMonthfromMSM(int msmDate)
+{
+	return ((msmDate % 12)+1);
+}
+
+int getYearfromMSM(int msmDate)
+{
+	return ((msmDate / 12) + 2000);
+}
+
+std::string getMonthfromMSM_s(int msmDate)
+{
+	return std::to_string((msmDate % 12)+1);
+}
+
+std::string getYearfromMSM_s(int msmDate)
+{
+	return std::to_string((msmDate / 12)+2000);
+}
+
 // from double (months since Jan 2000) to UNIX_time (seconds since Epoch)
 double getUNIXtime(int month, int year)
 {
@@ -21,4 +49,12 @@ double getUNIXtime(int month, int year)
 
 	/* call mktime: create unix time stamp from timeinfo struct */
 	return (double)mktime(timeinfo);
+}
+
+double fromMSMtoUNIXtime(int msmDate)
+{
+	int month = getMonthfromMSM(msmDate);
+	int year = getYearfromMSM(msmDate);
+
+	return getUNIXtime(month, year);
 }

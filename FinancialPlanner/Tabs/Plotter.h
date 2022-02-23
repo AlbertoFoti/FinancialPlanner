@@ -3,9 +3,10 @@
 #include "imgui.h"
 #include "implot.h"
 #include "implot_internal.h"
+#include <math.h>
 
 #define PLOT_PADDING_UNIX_TIME 2592000
-#define PLOT_PADDING_Y 50
+#define PLOT_PADDING_Y 50   // To do : dynamic padding based on min and max value of input data
 
 class Plotter {
 public: 

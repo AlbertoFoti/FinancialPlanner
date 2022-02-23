@@ -62,7 +62,10 @@ std::vector<NW_record_p> Backend::getNWdata(double from, double to)
         x->HighWorth = std::stod(data[i]["HighWorth"].asString());
         x->ClosingWorth = std::stod(data[i]["ClosingWorth"].asString());
 
-        NW_data.push_back(x);
+        double UnixTime = getUNIXtime(x->Month, x->Year);
+
+        if(UnixTime >= from && UnixTime <= to)
+            NW_data.push_back(x);
     }
 
     return NW_data;

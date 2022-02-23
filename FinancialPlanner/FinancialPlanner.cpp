@@ -86,7 +86,7 @@ void FinancialPlanner::Update()
     // Minimum window size (x coordinate), in dockspace
     ImGuiStyle& style = ImGui::GetStyle();
     float minWinSizeX = style.WindowMinSize.x;
-    style.WindowMinSize.x = 290.0f;
+    style.WindowMinSize.x = 300.0f;
 
     // Submit the DockSpace
     ImGuiIO& io = ImGui::GetIO();
@@ -159,7 +159,7 @@ void FinancialPlanner::Update()
     }
 
     // Your GUIs go Here !
-    //this->ShowDemoWindow();
+    this->ShowDemoWindow();
     this->ShowCompoundInterestCalculator("Compound Interest Calculator");
     this->ShowAccountManager();
     //this->ShowDemoPlot();
