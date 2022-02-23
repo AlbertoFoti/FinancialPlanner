@@ -1,0 +1,80 @@
+{
+  "records": [
+    {
+      "Month": 1,
+      "Year": 2021,
+      "data": [
+        {
+          "Day": 1,
+          "Category": "Income",
+          "Subcategory": "Income",
+          "Type": "In",
+          "Account": 1,
+          "Amount": 367.32
+        },
+        {
+          "Day": 1,
+          "Category": "Housing",
+          "Subcategory": "Rent",
+          "Type": "Out",
+          "Account": 1,
+          "Amount": 300.32
+        },
+        {
+          "Day": 2,
+          "Category": "Income",
+          "Subcategory": "Income",
+          "Type": "In",
+          "Account": 1,
+          "Amount": 367.32
+        },
+        {
+          "Day": 3,
+          "Category": "Housing",
+          "Subcategory": "Rent",
+          "Type": "Out",
+          "Account": 1,
+          "Amount": 300.32
+        }
+      ]
+    },
+    {
+      "Month": 2,
+      "Year": 2021,
+      "data": [
+        {
+          "Day": 1,
+          "Category": "Income",
+          "Subcategory": "Income",
+          "Type": "In",
+          "Account": 1,
+          "Amount": 367.32
+        },
+        {
+          "Day": 1,
+          "Category": "Housing",
+          "Subcategory": "Rent",
+          "Type": "Out",
+          "Account": 1,
+          "Amount": 300.32
+        },
+        {
+          "Day": 2,
+          "Category": "Income",
+          "Subcategory": "Income",
+          "Type": "In",
+          "Account": 1,
+          "Amount": 367.32
+        },
+        {
+          "Day": 3,
+          "Category": "Housing",
+          "Subcategory": "Rent",
+          "Type": "Out",
+          "Account": 1,
+          "Amount": 300.32
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "records": [
+    {
+      "Month": 12,
+      "Year": 2019,
+      "OpeningWorth": 0.00,
+      "LowWorth": 0.00,
+      "HighWorth": 0.00,
+      "ClosingWorth": 0.00
+    },
+    {
+      "Month": 1,
+      "Year": 2020,
+      "OpeningWorth": 0.00,
+      "LowWorth": 0.00,
+      "HighWorth": 100.00,
+      "ClosingWorth": 100.00
+    },
+    {
+      "Month": 2,
+      "Year": 2020,
+      "OpeningWorth": 100.00,
+      "LowWorth": 100.00,
+      "HighWorth": 200.00,
+      "ClosingWorth": 200.00
+    },
+    {
+      "Month": 3,
+      "Year": 2020,
+      "OpeningWorth": 200.00,
+      "LowWorth": 200.00,
+      "HighWorth": 300.00,
+      "ClosingWorth": 300.00
+    },
+    {
+      "Month": 4,
+      "Year": 2020,
+      "OpeningWorth": 300.00,
+      "LowWorth": 150.00,
+      "HighWorth": 280.00,
+      "ClosingWorth": 250.00
+    },
+    {
+      "Month": 5,
+      "Year": 2020,
+      "OpeningWorth": 250.00,
+      "LowWorth": 220.00,
+      "HighWorth": 370.00,
+      "ClosingWorth": 325.00
+    },
+    {
+      "Month": 6,
+      "Year": 2020,
+      "OpeningWorth": 200.00,
+      "LowWorth": 200.00,
+      "HighWorth": 300.00,
+      "ClosingWorth": 300.00
+    },
+    {
+      "Month": 7,
+      "Year": 2020,
+      "OpeningWorth": 300.00,
+      "LowWorth": 150.00,
+      "HighWorth": 260.00,
+      "ClosingWorth": 250.00
+    },
+    {
+      "Month": 8,
+      "Year": 2020,
+      "OpeningWorth": 250.00,
+      "LowWorth": 220.00,
+      "HighWorth": 3750.00,
+      "ClosingWorth": 325.00
+    },
+    {
+      "Month": 9,
+      "Year": 2020,
+      "OpeningWorth": 250.00,
+      "LowWorth": 220.00,
+      "HighWorth": 370.00,
+      "ClosingWorth": 325.00
+    },
+    {
+      "Month": 10,
+      "Year": 2020,
+      "OpeningWorth": 200.00,
+      "LowWorth": 200.00,
+      "HighWorth": 300.00,
+      "ClosingWorth": 300.00
+    },
+    {
+      "Month": 11,
+      "Year": 2020,
+      "OpeningWorth": 300.00,
+      "LowWorth": 150.00,
+      "HighWorth": 260.00,
+      "ClosingWorth": 250.00
+    },
+    {
+      "Month": 12,
+      "Year": 2020,
+      "OpeningWorth": 250.00,
+      "LowWorth": 220.00,
+      "HighWorth": 370.00,
+      "ClosingWorth": 325.00
+    }
+  ]
+}

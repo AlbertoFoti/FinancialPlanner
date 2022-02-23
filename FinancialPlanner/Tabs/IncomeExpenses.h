@@ -6,6 +6,7 @@
 
 class IncomeExpenses : public Tab {
 	Core* core;
+	MonthlyTransactions_p monthlyReport;
 public:
 	IncomeExpenses(Core* core);
 	void Render();
