@@ -19,7 +19,7 @@ void NetWorth::Render()
 	ImGui::Text(test_string.c_str());
 #endif
 
-	ImPlot::ShowDemoWindow();
+	//ImPlot::ShowDemoWindow();
 
 	static std::vector<double> dates;
 	static std::vector<double> opens;
@@ -50,7 +50,7 @@ void NetWorth::Render()
 
 	
 	Plotter pl;
-	pl.ShowLinePlot_default("Net Worth (monthly)", &dates[0], &closes[0], dates.size());
+	pl.ShowLinePlot_def("Net Worth (monthly)", &dates[0], &closes[0], dates.size());
 	pl.ShowCandleBarsPlot_default("Net Worth Candle", &dates[0], &opens[0], &closes[0], &lows[0], &closes[0], dates.size());
 	
 
