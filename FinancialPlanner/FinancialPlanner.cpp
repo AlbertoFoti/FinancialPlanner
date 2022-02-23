@@ -17,6 +17,8 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     // Fonts
     io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 13.9f);
 
+    // Anti-Aliased plots
+    ImPlot::GetStyle().AntiAliasedLines = true;
 	
 	// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -99,7 +101,7 @@ void FinancialPlanner::Update()
 
     if (ImGui::BeginMenuBar())
     {
-        if (ImGui::BeginMenu("Options"))
+        if (ImGui::BeginMenu("Window"))
         {
             // Disabling fullscreen would allow the window to be moved to the front of other windows,
             // which we can't undo at the moment without finer window depth/z control.
@@ -113,6 +115,36 @@ void FinancialPlanner::Update()
             if (ImGui::MenuItem("Flag: AutoHideTabBar", "", (dockspace_flags & ImGuiDockNodeFlags_AutoHideTabBar) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_AutoHideTabBar; }
             if (ImGui::MenuItem("Flag: PassthruCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) != 0, opt_fullscreen)) { dockspace_flags ^= ImGuiDockNodeFlags_PassthruCentralNode; }
             ImGui::Separator();
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("Config"))
+        {
+            ImGui::MenuItem("##CONFIG", NULL);
+            ImGui::ShowFontSelector("Font");
+            ImGui::ShowStyleSelector("ImGui Style");
+            ImPlot::ShowStyleSelector("ImPlot Style");
+            ImPlot::ShowColormapSelector("ImPlot Colormap");
+            ImPlot::ShowInputMapSelector("Input Map");
+            ImGui::Separator();
+            ImGui::Checkbox("Anti-Aliased Lines", &ImPlot::GetStyle().AntiAliasedLines);
+            ImGui::Checkbox("Use Local Time", &ImPlot::GetStyle().UseLocalTime);
+            ImGui::Checkbox("Use ISO 8601", &ImPlot::GetStyle().UseISO8601);
+            ImGui::Checkbox("Use 24 Hour Clock", &ImPlot::GetStyle().Use24HourClock);
+            ImGui::Separator();
+            if (ImPlot::BeginPlot("Preview")) {
+                static double now = (double)time(0);
+                ImPlot::SetupAxis(ImAxis_X1, NULL, ImPlotAxisFlags_Time);
+                ImPlot::SetupAxisLimits(ImAxis_X1, now, now + 24 * 3600);
+                for (int i = 0; i < 10; ++i) {
+                    double x[2] = { now, now + 24 * 3600 };
+                    double y[2] = { 0,i / 9.0 };
+                    ImGui::PushID(i);
+                    ImPlot::PlotLine("##Line", x, y, 2);
+                    ImGui::PopID();
+                }
+                ImPlot::EndPlot();
+            }
             ImGui::EndMenu();
         }
 

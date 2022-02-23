@@ -19,19 +19,7 @@ void NetWorth::Render()
 	ImGui::Text(test_string.c_str());
 #endif
 
-	//ImPlot::ShowDemoWindow();
-
-	/*
-	double opens[25]  =  { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 };
-	double lows[25]   =  { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 };
-	double highs[25]  =  { 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26 };
-	double closes[25] =  { 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26 };
-
-	double dates[25] = { 239,240,241,242,243,244,245,246,247,248,249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263};
-	for (double& x : dates) {
-		x = getUNIXtime(x);
-	}
-	*/
+	ImPlot::ShowDemoWindow();
 
 	static std::vector<double> dates;
 	static std::vector<double> opens;
