@@ -122,8 +122,8 @@ void FinancialPlanner::Update()
         {
             ImGui::MenuItem("##CONFIG", NULL);
             ImGui::ShowFontSelector("Font");
-            ImGui::ShowStyleSelector("ImGui Style");
-            ImPlot::ShowStyleSelector("ImPlot Style");
+            this->ShowStyleSelectorGUI("ImGui Style");
+            this->ShowStyleSelectorPLOT("ImPlot Style");
             ImPlot::ShowColormapSelector("ImPlot Colormap");
             ImPlot::ShowInputMapSelector("Input Map");
             ImGui::Separator();
@@ -2296,15 +2296,62 @@ void FinancialPlanner::ShowDemoPlot()
     ImGui::End();
 }
 
+bool FinancialPlanner::ShowStyleSelectorGUI(const char* label)
+{
+    static int style_idx = -1;
+    if (ImGui::Combo(label, &style_idx, "Navy\0Dark\0Light\0Classic\0"))
+    {
+        switch (style_idx)
+        {
+        case 0: ImGui::StyleColorsDark(); break;
+        case 1: this->SetDarkThemeColors(); break;
+        case 2: ImGui::StyleColorsLight(); break;
+        case 3: ImGui::StyleColorsClassic(); break;
+        }
+        return true;
+    }
+    return false;
+}
+
+bool FinancialPlanner::ShowStyleSelectorPLOT(const char* label)
+{
+    static int style_idx = -1;
+    if (ImGui::Combo(label, &style_idx, "Navy\0Dark\0Light\0Classic\0"))
+    {
+        switch (style_idx)
+        {
+        case 0: ImPlot::StyleColorsAuto(); break;
+        case 1: ImPlot::StyleColorsDark(); break;
+        case 2: ImPlot::StyleColorsLight(); break;
+        case 3: ImPlot::StyleColorsClassic(); break;
+        }
+        return true;
+    }
+    return false;
+}
+
 void FinancialPlanner::SetDarkThemeColors()
 {
     auto& colors = ImGui::GetStyle().Colors;
+    
     colors[ImGuiCol_WindowBg] = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };
 
     // Headers
     colors[ImGuiCol_Header] = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
     colors[ImGuiCol_HeaderHovered] = ImVec4{ 0.3f, 0.305f, 0.31f, 1.0f };
     colors[ImGuiCol_HeaderActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+
+    // Text
+    colors[ImGuiCol_Text] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+    colors[ImGuiCol_TextDisabled] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
+
+    // Menu
+    colors[ImGuiCol_MenuBarBg] = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
+    // Nav
+    colors[ImGuiCol_NavHighlight] = ImVec4(0.26f, 0.59f, 0.98f, 1.00f);
+    colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 1.00f, 1.00f, 0.70f);
+    colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
+    colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
 
     // Buttons
     colors[ImGuiCol_Button] = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
@@ -2327,6 +2374,10 @@ void FinancialPlanner::SetDarkThemeColors()
     colors[ImGuiCol_TitleBg] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
     colors[ImGuiCol_TitleBgActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
     colors[ImGuiCol_TitleBgCollapsed] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+
+    // others
+    colors[ImGuiCol_ChildBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+    colors[ImGuiCol_PopupBg] = ImVec4(0.08f, 0.08f, 0.08f, 0.94f);
 
 }
 

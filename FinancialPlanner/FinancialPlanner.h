@@ -40,6 +40,8 @@ private:
 	void ShowDemoPlot();
 
 	// Theme
+	bool ShowStyleSelectorGUI(const char* label);
+	bool ShowStyleSelectorPLOT(const char* label);
 	void SetDarkThemeColors();
 
 	// Helper Functions
