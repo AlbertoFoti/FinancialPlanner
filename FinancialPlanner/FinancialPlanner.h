@@ -10,6 +10,7 @@
 #include "Core/Core.h"
 #include "Tabs/IncomeExpenses.h"
 #include "Tabs/NetWorth.h"
+#include "Tabs/Overview.h"
 
 // Financial Planner
 class FinancialPlanner {
@@ -17,6 +18,7 @@ private:
 	Core* core;
 	std::vector<Account_p> accounts;
 
+	Overview* overview_renderer;
 	NetWorth* nw_renderer;
 	IncomeExpenses* ie_renderer;
 public:

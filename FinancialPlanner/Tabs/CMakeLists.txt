@@ -2,13 +2,14 @@ cmake_minimum_required (VERSION 3.8)
 
 add_library(
 	Tabs
+	Overview.h
+	Overview.cpp
 	NetWorth.h
 	NetWorth.cpp
 	IncomeExpenses.h
 	IncomeExpenses.cpp
 	Plotter.h
-	Plotter.cpp
-)
+	Plotter.cpp)
 
 #dependencies
 

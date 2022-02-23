@@ -6,6 +6,6 @@
 
 class Tab {
 public:
-	virtual void Render();
-	virtual void ShowControlPanel(std::string panel_name);
+	virtual void Render() = 0;
+	virtual void ShowControlPanel(std::string panel_name) = 0;
 };
