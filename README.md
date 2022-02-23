@@ -5,6 +5,7 @@ Current Stable Version : **Version 0.1.7**
 
 ## Version 0.2.0 Objectives
 - System to manage multiple accounts (bank account, cash, investments, ...) [Edit, Remove]
+- Category/Subcategory Manager [Add, Edit, Delete]
 - Backend System upgrade
 - Income/Expenses Tab : GUI structure complete
 - Overview Tab GUI structure (basic)
