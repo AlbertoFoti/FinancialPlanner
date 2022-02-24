@@ -8,12 +8,14 @@ Current Stable Version : **Version 0.1.7**
 - Category/Subcategory Manager [Add, Edit, Delete]
 - Backend System upgrade
 - Income/Expenses Tab : GUI structure complete
+- Income/Expenses : Aggregate Data tab
 - Overview Tab GUI structure (basic)
 
 ## Version 0.1.x Features
 ### Version 0.1.8 Objectives
 - Backend System upgrade
 - Income/Expenses Tab : GUI structure complete
+- Income/Expenses : Details Data tab
 - Category/Subcategory Manager [Add]
 - Overview Tab GUI structure (basic)
 ### Version 0.1.7
