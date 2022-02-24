@@ -8,15 +8,17 @@ There isn't a proper installation procedure yet.
 
 ## Future Objectives
 - Deployment (installer wizard or something similar)
+- Software Icon
 - Full GUI style improvement
 - Allow Transfer between Accounts
+- Income/Expenses Detail tab: add column for investments returns
 - Allow currency customization
 - Backend System optimization (structure rethink)
+- Investments, Asset Allocation, Forecasting, FIRE tabs
 
 ## Version 0.2.0 Objectives
 - System to manage multiple accounts (bank account, cash, investments, ...) [Edit, Remove]
 - Category/Subcategory Manager [Edit, Delete]
-- Software Icon for Desktop apps
 - Income/Expenses : Aggregate Data tab
 
 ## Version 0.1.x Features
