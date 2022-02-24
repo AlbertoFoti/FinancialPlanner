@@ -44,6 +44,7 @@ int WinMain(
 	glfwGetFramebufferSize(window, &screen_width, &screen_height);
 	glViewport(0, 0, screen_width, screen_height);
 
+
 	// Financial Planner Instantiation
 	FinancialPlanner myFinancialPlanner;
 

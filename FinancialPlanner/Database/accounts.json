@@ -1,23 +1,30 @@
-[
-  {
-    "id": 1,
-    "name": "Cash",
-    "AmountStored": 10000.00
-  },
-  {
-    "id": 2,
-    "name": "Bank",
-    "AmountStored": 100.00
-  },
-  {
-    "id": 3,
-    "name": "Investments",
-    "AmountStored": 100000.00
-  },
-
-  {
-    "id": 4,
-    "name": "Savings",
-    "AmountStored": 1000.00
-  }
-]
+{
+	"accounts" : 
+	[
+		{
+			"AmountStored" : 10000.0,
+			"id" : 1,
+			"name" : "Cash"
+		},
+		{
+			"AmountStored" : 100.0,
+			"id" : 2,
+			"name" : "Bank"
+		},
+		{
+			"AmountStored" : 100000.0,
+			"id" : 3,
+			"name" : "Investments"
+		},
+		{
+			"AmountStored" : 1000.0,
+			"id" : 4,
+			"name" : "Savings"
+		},
+		{
+			"AmountStored" : 10000.0,
+			"id" : 5,
+			"name" : "Pension Fund"
+		}
+	]
+}

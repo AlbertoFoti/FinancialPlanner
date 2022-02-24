@@ -1,18 +1,26 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.1.7**
+Current Stable Version : **Version 0.1.8**
+
+## Future Objectives
+- Deployment (installer wizard or something similar)
+- Full GUI style improvement
+- Allow Transfer between Accounts
+- Allow currency customization
+- Backend System optimization (structure rethink)
 
 ## Version 0.2.0 Objectives
 - System to manage multiple accounts (bank account, cash, investments, ...) [Edit, Remove]
-- Category/Subcategory Manager [Add, Edit, Delete]
-- Backend System upgrade (modularity, enabling sorting, ...)
-- Income/Expenses Tab : GUI structure setup
+- Category/Subcategory Manager [Edit, Delete]
+- Software Icon for Desktop apps
 - Income/Expenses : Aggregate Data tab
-- Overview Tab GUI structure (basic)
 
 ## Version 0.1.x Features
-### Version 0.1.8 Objectives
+### Version 0.1.9 Objectives
+- System to manage multiple accounts (bank account, cash, investments, ...) [Edit, Remove]
+- Category/Subcategory Manager [Edit, Delete]
+### Version 0.1.8 Features
 - Backend System upgrade (modularity, enabling sorting, ...)
 - Income/Expenses Tab : GUI structure setup
 - Income/Expenses : Details Data tab
