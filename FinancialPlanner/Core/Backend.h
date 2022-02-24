@@ -144,6 +144,7 @@ public:
 	// Income / Expenses
 	MonthlyTransactions_p getMonthlyReport(int month, int year);
 	YearlyReport_p getYearlyReport(int year);
+	void pushTransaction(int month, int year, Transaction_p t);
 
 	// Testing
 	std::string sayHello();

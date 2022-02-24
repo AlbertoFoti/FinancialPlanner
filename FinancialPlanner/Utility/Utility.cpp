@@ -58,3 +58,32 @@ double fromMSMtoUNIXtime(int msmDate)
 
 	return getUNIXtime(month, year);
 }
+
+Json::Value BubbleSortTransactions(Json::Value root)
+{
+
+	bool swapped = true;
+	for (int i = 0; i != root["records"].size(); i++) {
+		swapped = true;
+		while (swapped) {
+			swapped = false;
+			for (int j = 0; j < root["records"][i]["data"].size() - 1; j++) {
+				if (root["records"][i]["data"][j]["Day"] > root["records"][i]["data"][j + 1]["Day"]) {
+					root = swapBubbleSortTransaction(root, i, j, j + 1);
+					swapped = true;
+				}
+			}
+		}
+	}
+	return root;
+}
+
+Json::Value swapBubbleSortTransaction(Json::Value root, int i, int j, int k) {
+	Json::Value root2 = root["records"][i]["data"];
+	Json::Value tmp = root2[j];
+	root2[j] = root2[k];
+	root2[k] = tmp;
+	root["records"][i]["data"] = root2;
+
+	return root;
+}
