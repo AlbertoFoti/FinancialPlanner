@@ -1,5 +1,10 @@
 #include "Backend.h"
 #include "Backend.h"
+#include "Backend.h"
+#include "Backend.h"
+#include "Backend.h"
+#include "Backend.h"
+#include "Backend.h"
 
 void Backend::init() {
 
@@ -42,6 +47,92 @@ void Backend::pushAccount(Account_p x)
     writeToFileStream("Database/accounts.json", root);
 
     return;
+}
+
+std::vector<Category_p> Backend::getCategories()
+{
+    Json::Value root;
+
+    std::vector<Category_p> categories;
+
+    root = getRootFromFileStream("Database/categories.json");
+
+    Json::Value cat = root["categories"];
+
+    for (int i = 0; i < cat.size(); i++) {
+        Category_p x = new Category();
+        x->id = std::stoi(cat[i]["id"].asString());
+        x->Name = cat[i]["Name"].asString();
+        x->Type = cat[i]["Type"].asString();
+        for (int j = 0; j < cat[i]["SubCategories"].size(); j++) {
+            SubCategory_p s = new SubCategory();
+            s->id = std::stoi(cat[i]["SubCategories"][j]["id"].asString());
+            s->Name = cat[i]["SubCategories"][j]["Name"].asString();
+            x->subCategories.push_back(s);
+        }
+
+        categories.push_back(x);
+    }
+
+    return categories;
+}
+
+void Backend::pushCategory(Category_p x)
+{
+    Json::Value root;
+
+    root = getRootFromFileStream("Database/categories.json");
+
+    int nextIndex = root["categories"].size();
+    root["categories"][nextIndex]["id"] = x->id;
+    root["categories"][nextIndex]["Name"] = x->Name;
+    root["categories"][nextIndex]["Type"] = x->Type;
+    for (int i = 0; i < x->subCategories.size(); i++) {
+        root["categories"][nextIndex]["SubCategories"][i]["id"] = x->subCategories[i]->id;
+        root["categories"][nextIndex]["SubCategories"][i]["Name"] = x->subCategories[i]->Name;
+    }
+
+    // Write the output to a file
+    writeToFileStream("Database/categories.json", root);
+
+    return;
+}
+
+void Backend::pushSubCategory(std::string categoryName, SubCategory_p x)
+{
+    Json::Value root;
+    int index = -1;
+
+    root = getRootFromFileStream("Database/categories.json");
+
+    for (int i = 0; i < root["categories"].size(); i++) {
+        if (root["categories"][i]["Name"].asString() == categoryName) {
+            index = i;
+            int nextIndex = root["categories"][i]["SubCategories"].size();
+            root["categories"][i]["SubCategories"][nextIndex]["id"] = nextIndex + 1;
+            root["categories"][i]["SubCategories"][nextIndex]["Name"] = x->Name;
+        }
+    }
+
+    // Other + category name at the end of the list
+    root = SwapLastElements(root, index);
+
+    // Write the output to a file
+    writeToFileStream("Database/categories.json", root);
+
+    return;
+}
+
+Json::Value Backend::SwapLastElements(Json::Value root, int i)
+{
+    std::string tmp;
+    int lastIndex = root["categories"][i]["SubCategories"].size() - 1;
+
+    tmp = root["categories"][i]["SubCategories"][lastIndex]["Name"].asString();
+    root["categories"][i]["SubCategories"][lastIndex]["Name"] = root["categories"][i]["SubCategories"][lastIndex - 1]["Name"];
+    root["categories"][i]["SubCategories"][lastIndex - 1]["Name"] = tmp;
+
+    return root;
 }
 
 std::vector<NW_record_p> Backend::getNWdata(double from, double to)
@@ -105,6 +196,32 @@ MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
     }
 
     return MonthlyReport;
+}
+
+YearlyReport_p Backend::getYearlyReport(int year)
+{
+    YearlyReport_p yearlyReport = new YearlyReport();
+    yearlyReport->Year = year;
+    yearlyReport->monthlyReports = std::vector<MonthlyReport_p>();
+
+    for (int i = 0; i < 12; i++) {
+        MonthlyTransactions_p monthlyReport = this->getMonthlyReport(i + 1, year);
+        MonthlyReport_p x = new MonthlyReport();
+        x->Month = i + 1;
+        x->Year = year;
+        x->balanceIn = 0.0;
+        x->balanceOut = 0.0;
+        for (auto t : monthlyReport->transactions) {
+            if (t->Type == "In")
+                x->balanceIn += t->Amount;
+            if (t->Type == "Out")
+                x->balanceOut += t->Amount;
+        }
+
+        yearlyReport->monthlyReports.push_back(x);
+    }
+
+    return yearlyReport;
 }
 
 // Testing

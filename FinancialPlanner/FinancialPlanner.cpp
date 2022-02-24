@@ -53,8 +53,10 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     overview_renderer = nullptr;
     nw_renderer = nullptr;
     ie_renderer = nullptr;
-    //Accounts
-    accounts = this->core->getAccounts();
+    // Accounts
+    accounts = this->core->getAccountsFromDb();
+    // Categories
+    categories = this->core->getCategoriesFromDb();
 }
 
 void FinancialPlanner::Update() 
@@ -167,6 +169,7 @@ void FinancialPlanner::Update()
     this->ShowDemoWindow();
     this->ShowCompoundInterestCalculator("Compound Interest Calculator");
     this->ShowAccountManager();
+    this->ShowCategoryManager();
     //this->ShowDemoPlot();
     //this->ShowFontTesting();
     this->ShowMainView();
@@ -209,29 +212,27 @@ void FinancialPlanner::ShowMainView()
     {
         if (ImGui::BeginTabItem("Overview"))
         {
-            if (overview_renderer != nullptr) delete overview_renderer;
+            //if (overview_renderer != nullptr) delete overview_renderer;
             overview_renderer = new Overview(this->core);
             overview_renderer->Render();
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Net Worth"))
         {
-            if (nw_renderer != nullptr) delete nw_renderer;
+            //if (nw_renderer != nullptr) delete nw_renderer;
             nw_renderer = new NetWorth(this->core);
             nw_renderer->Render();
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Income/Expenses"))
         {
-            if (ie_renderer != nullptr) delete ie_renderer;
+            //if (ie_renderer != nullptr) delete ie_renderer;
             ie_renderer = new IncomeExpenses(this->core);
             ie_renderer->Render();
             ImGui::EndTabItem();
         }
         ImGui::EndTabBar();
     }
-    ImGui::Separator();
-
     ImGui::End();
 }
 
@@ -339,7 +340,7 @@ void FinancialPlanner::ShowAccountManager()
     ImGui::Begin("Account Manager");
 
     if(ImGui::Button("Reload Accounts")) {
-        this->accounts = this->core->getAccounts();
+        this->accounts = this->core->getAccountsFromDb();
     }
     ImGui::Separator();
 
@@ -364,15 +365,15 @@ void FinancialPlanner::ShowAccountManager()
             x->name = account_name;
             x->AmountStored = std::stof(amount_stored);
 
-            // Push in accounts vector
-            accounts.push_back(x);
-
             // Todo: write in json file database
             this->core->pushAccount(x);
 
             // Clean input fields
             sprintf(account_name, "%s", "");
             sprintf(amount_stored, "%s", "");
+
+            // Update GUI
+            this->accounts = core->getAccountsFromDb();
         }
         else {
             sprintf(errorParams, "%s", "Error! Complete All Input Fields!");
@@ -411,6 +412,165 @@ void FinancialPlanner::ShowAccountManager()
             ImGui::Text("%.2fk EUR", accounts.at(i)->AmountStored/1000);
         else
             ImGui::Text("%.2f EUR", accounts.at(i)->AmountStored);
+        ImGui::PopFont();
+        ImGui::Separator();
+    }
+
+    ImGui::End();
+}
+
+void FinancialPlanner::ShowCategoryManager()
+{
+    ImGuiIO& io = ImGui::GetIO();
+    auto blenderProThinMedium = io.Fonts->Fonts[7];
+
+    ImGui::Begin("Category Manager");
+
+    if (ImGui::Button("Reload Categories")) {
+        this->categories = this->core->getCategoriesFromDb();
+    }
+    ImGui::Separator();
+
+    static int newCat = 0;
+    ImGui::RadioButton("Category", &newCat, 0); ImGui::SameLine();
+    ImGui::RadioButton("Subcategory", &newCat, 1);
+    ImGui::Spacing();
+
+    static char category_name[50] = {};
+    static char sub_category_name[50] = {};
+    static char category_type[50] = {};
+
+    if (newCat == 0) {
+        ImGui::BulletText("Category Name");
+        ImGui::InputTextWithHint("##MCN", "Housing / Health / Leisure", category_name, IM_ARRAYSIZE(category_name));
+
+        ImGui::BulletText("Category Type");
+        static int cat_type = 0;
+        ImGui::RadioButton("Income", &cat_type, 0); ImGui::SameLine();
+        ImGui::RadioButton("Expense", &cat_type, 1);
+        if (cat_type == 0) {
+            sprintf(category_type, "%s", "In");
+        }
+        else {
+            sprintf(category_type, "%s", "Out");
+        }
+
+    }
+    else {
+        ImGui::BulletText("Category Name");
+        ImGui::InputTextWithHint("##MCN", "Housing / Health / Leisure", category_name, IM_ARRAYSIZE(category_name));
+
+        ImGui::BulletText("SubCategory Name");
+        ImGui::InputTextWithHint("##SCN", "Rent / OtherHousing / Money", sub_category_name, IM_ARRAYSIZE(sub_category_name));
+    }
+
+    static char errorParamsC[50] = {};
+    static char errorParamsS[50] = {};
+
+    static char ButtonName[50] = {};
+    if (newCat == 0) {
+        // Error Input Parameters
+        ImGui::Text("%s", errorParamsC);
+        sprintf(ButtonName, "%s", "Add Category");
+    }
+    else {
+        // Error Input Parameters
+        ImGui::Text("%s", errorParamsS);
+        sprintf(ButtonName, "%s", "Add Subcategory");
+    }
+
+    if (ImGui::Button(ButtonName)) {
+        if (newCat == 0) {
+            if (strcmp(category_name, "") && strcmp(category_type, "")) {
+                // New Category instance
+                Category_p x = new Category();
+                x->id = categories.size() + 1;
+                x->Name = category_name;
+                x->Type = category_type;
+                x->subCategories = std::vector<SubCategory_p>();
+
+                SubCategory_p s = new SubCategory();
+                s->id = 1;
+                char other[50] = "Other ";
+                s->Name = strcat(other, category_name);
+                x->subCategories.push_back(s);
+
+                if (!core->checkCategoryExists(x->Name)) {// check not already in the category list
+                    // write in json file database
+                    this->core->pushCategory(x);
+                }
+                else {
+                    sprintf(errorParamsC, "%s", "Error! Category Name already in the category list");
+                }
+
+                // Clean input fields
+                sprintf(category_name, "%s", "");
+                sprintf(sub_category_name, "%s", "");
+
+                // Reload GUI
+                this->categories = core->getCategoriesFromDb();
+            }
+            else {
+                sprintf(errorParamsC, "%s", "Error! Complete All Input Fields!");
+            }
+        }
+        else {
+            if (strcmp(category_name, "") && strcmp(sub_category_name, "")) {
+                // New Subcategory instance
+                SubCategory_p x = new SubCategory();
+                x->Name = sub_category_name;
+
+                // Push in category vector if category exists
+                if (core->checkCategoryExists(category_name)) {
+                    this->core->pushSubCategory(category_name, x);
+                }
+                else {
+                    sprintf(errorParamsS, "%s", "Error! Category Name Not Found in category list");
+                }
+
+                // Clean input fields
+                sprintf(category_name, "%s", "");
+                sprintf(sub_category_name, "%s", "");
+
+                // Reload GUI
+                this->categories = core->getCategoriesFromDb();
+            }
+            else {
+                sprintf(errorParamsS, "%s", "Error! Complete All Input Fields!");
+            }
+        }
+    }
+    ImGui::Spacing();
+    ImGui::Separator();
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::TextUnformatted("Categories");
+    ImGui::Separator();
+
+    for (int i = 0; i < this->categories.size(); i++) {
+        ImGui::Text("%d. ", categories[i]->id); ImGui::SameLine();
+        ImGui::Text("%s", categories[i]->Name.c_str()); ImGui::SameLine();
+        ImGui::Text("(%s)", categories[i]->Type == "In" ? "Income" : "Expense"); ImGui::SameLine();
+
+        // Edit and Delete Buttons aligned right
+        ImVec2 buttonSize(50.f, 0.f);
+        float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
+        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
+        if (ImGui::Button("Edit", buttonSize)) {
+            // Edit Category i
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Delete", buttonSize)) {
+            // Delete Category i
+        }
+
+        ImGui::PushFont(blenderProThinMedium);
+        for (int j = 0; j < categories[i]->subCategories.size(); j++) {
+            ImGui::Text("- "); ImGui::SameLine();
+            ImGui::Text("%s", categories[i]->subCategories[j]->Name.c_str());
+        }
         ImGui::PopFont();
         ImGui::Separator();
     }

@@ -1,6 +1,14 @@
 #include "Core.h"
 #include "Core.h"
 #include "Core.h"
+#include "Core.h"
+#include "Core.h"
+#include "Core.h"
+#include "Core.h"
+#include "Core.h"
+#include "Core.h"
+#include "Core.h"
+#include "Core.h"
 
 Core::Core()
 {
@@ -8,8 +16,11 @@ Core::Core()
 
 	double from = getUNIXtime(1, 2019);
 	double to = getUNIXtime(1, 2022);
+
 	this->NW_records = this->back_end.getNWdata(from, to);
 	this->MonthlyReport = this->getMonthlyTransactionsReportFromDb(1, 2021);
+	this->YearlyReport = this->getYearlyReportFromDb(2021);
+	//this->monthlyAccountsReport = this->getMonthlyAccountsReportFromDb(1, 2021);
 }
 
 float Core::CompoundInterestCalculate(float initialNW, float interestRate, float annualDeposits, int investmentYears, float* y_data)
@@ -39,12 +50,50 @@ float Core::CompoundInterestCalculate(float initialNW, float interestRate, float
 
 std::vector<Account_p> Core::getAccounts()
 {
-	return this->back_end.getAccounts();
+	return this->accounts;
+}
+
+std::vector<Account_p> Core::getAccountsFromDb()
+{
+	this->accounts = this->back_end.getAccounts();
+	return this->accounts;
 }
 
 void Core::pushAccount(Account_p x)
 {
 	this->back_end.pushAccount(x);
+}
+
+// Categories =====================================
+
+std::vector<Category_p> Core::getCategories()
+{
+	return this->getCategories();
+}
+
+std::vector<Category_p> Core::getCategoriesFromDb()
+{
+	this->categories = this->back_end.getCategories();
+	return this->categories;
+}
+
+void Core::pushCategory(Category_p x)
+{
+	this->back_end.pushCategory(x);
+}
+
+void Core::pushSubCategory(std::string categoryName, SubCategory_p x)
+{
+	this->back_end.pushSubCategory(categoryName, x);
+}
+
+bool Core::checkCategoryExists(std::string name)
+{
+	std::vector<Category_p> categories = this->getCategoriesFromDb();
+	for (Category_p x : categories) {
+		if (x->Name == name) return true;
+	}
+	return false;
 }
 
 // Net Worth ===============================================================
@@ -69,6 +118,17 @@ MonthlyTransactions_p Core::getMonthlyTransactionsReportFromDb(int month, int ye
 {
 	this->MonthlyReport = this->back_end.getMonthlyReport(month, year);
 	return this->MonthlyReport;
+}
+
+YearlyReport_p Core::getYearlyReport()
+{
+	return this->YearlyReport;
+}
+
+YearlyReport_p Core::getYearlyReportFromDb(int year)
+{
+	this->YearlyReport = this->back_end.getYearlyReport(year);
+	return this->YearlyReport;
 }
 
 std::string Core::testBackend() 

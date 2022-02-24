@@ -6,9 +6,19 @@
 
 class IncomeExpenses : public Tab {
 	Core* core;
-	MonthlyTransactions_p monthlyReport;
+
+	MonthlyTransactions_p monthlyTransactions;
+	YearlyReport_p YearlyReport;
+
+	//MonthlyAggrAccountReport_p monthlyAccountsReport;
+	//MonthlyAggrSubCategoryReport_p monthlySubCategoryReport;
+	//MonthlyAggrCategoryReport_p monthlyCategoryReport;
 public:
 	IncomeExpenses(Core* core);
 	void Render();
 	void ShowControlPanel(std::string panel_name);
+
+	// Tabs
+	void ShowIncomeExpensesAggregate();
+	void IncomeExpenses::ShowIncomeExpensesDetails();
 };

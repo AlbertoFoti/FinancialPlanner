@@ -18,7 +18,7 @@
           "Subcategory": "Rent",
           "Type": "Out",
           "Account": 1,
-          "Amount": 300.32
+          "Amount": -300.32
         },
         {
           "Day": 2,
@@ -34,7 +34,7 @@
           "Subcategory": "Rent",
           "Type": "Out",
           "Account": 1,
-          "Amount": 300.32
+          "Amount": -300.32
         }
       ]
     },
@@ -56,7 +56,7 @@
           "Subcategory": "Rent",
           "Type": "Out",
           "Account": 1,
-          "Amount": 300.32
+          "Amount": -300.32
         },
         {
           "Day": 2,
@@ -72,7 +72,7 @@
           "Subcategory": "Rent",
           "Type": "Out",
           "Account": 1,
-          "Amount": 300.32
+          "Amount": -350.32
         }
       ]
     }

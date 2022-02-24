@@ -8,8 +8,15 @@
 class Core {
 	Backend back_end;
 
+	std::vector<Account_p> accounts;
+	std::vector<Category_p> categories;
+
 	std::vector<NW_record_p> NW_records;
 	MonthlyTransactions_p MonthlyReport;
+	YearlyReport_p YearlyReport;
+	//MonthlyAggrAccountReport_p monthlyAccountsReport;
+	//MonthlyAggrSubCategoryReport_p monthlySubCategoryReport;
+	//MonthlyAggrCategoryReport_p monthlyCategoryReport;
 public:
 	Core();
 
@@ -18,15 +25,24 @@ public:
 	
 	// Backend Functions =========
 
-	// Accounts
+	// Accounts =====================================
 	std::vector<Account_p> getAccounts();
+	std::vector<Account_p> getAccountsFromDb();
 	void pushAccount(Account_p x);
-	// Net Worth (NW)
+	// Categories ====================================
+	std::vector<Category_p> getCategories();
+	std::vector<Category_p> getCategoriesFromDb();
+	void pushCategory(Category_p x);
+	void pushSubCategory(std::string categoryName, SubCategory_p);
+	bool checkCategoryExists(std::string name);
+	// Net Worth (NW) =====================================
 	std::vector<NW_record_p> getNWdata();
 	std::vector<NW_record_p> getNWdataFromDb(double from, double to);
-	// Income / Expenses
+	// Income / Expenses =====================================
 	MonthlyTransactions_p getMonthlyTransactionsReport();
 	MonthlyTransactions_p getMonthlyTransactionsReportFromDb(int month, int year);
+	YearlyReport_p getYearlyReport();
+	YearlyReport_p getYearlyReportFromDb(int year);
 
 	// Testing
 	std::string testBackend();

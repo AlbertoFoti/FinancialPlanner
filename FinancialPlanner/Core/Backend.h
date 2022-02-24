@@ -26,6 +26,22 @@ struct NW_record {
 };
 using NW_record_p = NW_record*;
 
+// Subcategory
+struct SubCategory {
+	int id;
+	std::string Name;
+};
+using SubCategory_p = SubCategory*;
+
+// Category
+struct Category {
+	int id;
+	std::string Name;
+	std::string Type;
+	std::vector<SubCategory_p> subCategories;
+};
+using Category_p = Category*;
+
 // Transaction
 struct Transaction {
 	int Day;
@@ -45,6 +61,69 @@ struct MonthlyTransactions {
 };
 using MonthlyTransactions_p = MonthlyTransactions*;
 
+struct MonthlyCategoryBalanceT {
+	std::string Category;
+	std::string CategoryType;
+	int Month;
+	int Year;
+	double Amount;
+};
+using MonthlyCategoryBalanceT_p = MonthlyCategoryBalanceT*;
+
+struct MonthlySubCategoryBalanceT {
+	std::string SubCategory;
+	std::string Category;
+	std::string CategoryType;
+	int Month;
+	int Year;
+	double Amount;
+};
+using MonthlySubCategoryBalanceT_p = MonthlySubCategoryBalanceT*;
+
+struct MonthlyAccountBalanceT {
+	int AccountID;
+	int Month;
+	int Year;
+	double balanceIn;
+	double balanceOut;
+};
+using MonthlyAccountBalanceT_p = MonthlyAccountBalanceT*;
+
+struct MonthlyAggrAccountReport {
+	int Month;
+	int Year;
+	std::vector<MonthlyAccountBalanceT_p> totalsByAccountID;
+};
+using MonthlyAggrAccountReport_p = MonthlyAggrAccountReport*;
+
+struct MonthlyAggrSubCategoryReport {
+	int Month;
+	int Year;
+	std::vector<MonthlySubCategoryBalanceT_p> totalsBySubCategory;
+};
+using MonthlyAggrSubCategoryReport_p = MonthlyAggrSubCategoryReport;
+
+struct MonthlyAggrCategoryReport {
+	int Month;
+	int Year;
+	std::vector<MonthlyCategoryBalanceT_p> totalsByCategory;
+};
+using MonthlyAggrCategoryReport_p = MonthlyAggrCategoryReport;
+
+struct MonthlyReport {
+	int Month;
+	int Year;
+	double balanceIn;
+	double balanceOut;
+};
+using MonthlyReport_p = MonthlyReport*;
+
+struct YearlyReport {
+	int Year;
+	std::vector<MonthlyReport_p> monthlyReports;
+};
+using YearlyReport_p = YearlyReport*;
+
 class Backend {
 public:
 	void init();
@@ -53,11 +132,18 @@ public:
 	std::vector<Account_p> getAccounts();
 	void pushAccount(Account_p x);
 
+	// Category
+	std::vector<Category_p> getCategories();
+	void pushCategory(Category_p x);
+	void pushSubCategory(std::string categoryName, SubCategory_p x);
+	Json::Value SwapLastElements(Json::Value root, int i);
+
 	// Net Worth
 	std::vector<NW_record_p> getNWdata(double from, double to);
 
 	// Income / Expenses
 	MonthlyTransactions_p getMonthlyReport(int month, int year);
+	YearlyReport_p getYearlyReport(int year);
 
 	// Testing
 	std::string sayHello();

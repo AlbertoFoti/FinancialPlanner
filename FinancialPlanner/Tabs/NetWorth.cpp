@@ -127,7 +127,6 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 	ImGui::Begin(panel_name.c_str());
 
 	static bool byMonth = true;
-
 	ImGui::Checkbox("Show by Month", &byMonth);
 
 	ImGuiIO& io = ImGui::GetIO();

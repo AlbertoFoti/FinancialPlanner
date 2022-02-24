@@ -16,11 +16,14 @@
 class FinancialPlanner {
 private:
 	Core* core;
+
 	std::vector<Account_p> accounts;
+	std::vector<Category_p> categories;
 
 	Overview* overview_renderer;
 	NetWorth* nw_renderer;
 	IncomeExpenses* ie_renderer;
+
 public:
 	void Init(GLFWwindow *window, const char* glsl_version);
 	virtual void Update();
@@ -36,6 +39,7 @@ private:
 	// Other Views
 	void ShowCompoundInterestCalculator(const char* nameGUI);
 	void ShowAccountManager();
+	void ShowCategoryManager();
 
 	// Demo Views
 	void ShowDemoWindow();

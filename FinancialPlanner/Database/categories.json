@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "Type": "Out",
+    "Name": "Housing",
+    "SubCategories": [
+      {
+        "id": 1,
+        "SubCategoryName": "OtherHousing"
+      },
+      {
+        "id": 2,
+        "SubCategoryName": "Rent"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "Type": "In",
+    "Name": "Income",
+    "SubCategories": [
+      {
+        "id": 1,
+        "Name": "OtherIncome"
+      },
+      {
+        "id": 2,
+        "Name": "Income"
+      },
+      {
+        "id": 3,
+        "Name": "Money"
+      }
+    ]
+  }
+
+]
