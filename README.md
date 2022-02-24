@@ -20,6 +20,7 @@ There isn't a proper installation procedure yet.
 - System to manage multiple accounts (bank account, cash, investments, ...) [Edit, Remove]
 - Category/Subcategory Manager [Edit, Delete]
 - Income/Expenses : Aggregate Data tab
+- Net Worth / IncomeExpenses tabs link implementation
 
 ## Version 0.1.x Features
 ### Version 0.1.9 Objectives
