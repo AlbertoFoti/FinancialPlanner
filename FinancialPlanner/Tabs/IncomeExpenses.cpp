@@ -32,8 +32,134 @@ void IncomeExpenses::Render()
 
 void IncomeExpenses::ShowControlPanel(std::string panel_name)
 {
+	MonthlyTransactions_p monthlyTransac;
+
+	std::vector<Category_p> categories = this->core->getCategories();
+	std::vector<SubCategory_p> subcategories;
+	std::vector<Account_p> accounts;
+
 	ImGui::Begin(panel_name.c_str());
-	ImGui::Text("Control Panel : Income/Expenses");
+	ImGui::Text("Add new Transaction");
+
+	ImGui::Separator();
+
+	ImGui::BulletText("Date");
+
+	static char year_s[50] = {};
+	ImGui::InputTextWithHint("Year##Year_new_trans", "2021", year_s, IM_ARRAYSIZE(year_s));
+
+	enum Element { elem_January, elem_February, elem_March, elem_April, elem_May, elem_June, elem_July, elem_August, elem_September, elem_October, elem_November, elem_December, elem_Count };
+	static int month = elem_January;
+	const char* elems_names[elem_Count] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+	const char* elem_name = (month >= 0 && month < elem_Count) ? elems_names[month] : "Unknown";
+
+	static int day = 1;
+	static int maxDays = 31;
+
+	ImGui::SliderInt("Month##slider_month", &month, 0, elem_Count - 1, elem_name);
+	
+	if (month == elem_November || month == elem_April || month == elem_June || month == elem_September)
+		maxDays = 30;
+	else if (month == elem_February)
+		maxDays = 29;
+	else
+		maxDays = 31;
+	ImGui::SliderInt("Day##Day_ie_new", &day, 1, maxDays, "%d");
+
+	static int type = 0;
+	ImGui::RadioButton("Income", &type, 0); ImGui::SameLine();
+	ImGui::RadioButton("Expense", &type, 1);
+
+	ImGui::BulletText("Category");
+	static int cat = 0;
+	if (ImGui::BeginListBox("##cat_name_list_box"))
+	{
+		for (int n = 0; n < categories.size(); n++)
+		{
+			if (categories[n]->Type == (type == 0 ? "In" : "Out")) {
+				const bool is_selected = (cat == n);
+
+				if (ImGui::Selectable(categories[n]->Name.c_str(), is_selected))
+					cat = n;
+
+				// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+		}
+		ImGui::EndListBox();
+	}
+
+	subcategories = this->core->getSubCategoriesOf(categories[cat]->Name);
+	ImGui::BulletText("Sub Category");
+	static int subCat = 0;
+	if (ImGui::BeginListBox("##sub_cat_name_list_box"))
+	{
+		for (int n = 0; n < subcategories.size(); n++)
+		{
+			const bool is_selected = (subCat == n);
+			if (ImGui::Selectable(subcategories[n]->Name.c_str(), is_selected))
+				subCat = n;
+
+			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndListBox();
+	}
+
+	accounts = core->getAccounts();
+	ImGui::BulletText("Account");
+	static int acc = 0;
+	if (ImGui::BeginListBox("##account_list_box"))
+	{
+		for (int n = 0; n < accounts.size(); n++)
+		{
+			const bool is_selected = (acc == n);
+			if (ImGui::Selectable(accounts[n]->name.c_str(), is_selected))
+				acc = n;
+
+			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndListBox();
+	}
+
+	static char amount_s[50] = {};
+	ImGui::BulletText("Amount (in EUR) :");
+	ImGui::InputTextWithHint("##Amount_new_trans", "300.00", amount_s, IM_ARRAYSIZE(amount_s));
+
+	ImGui::Spacing();
+
+	if (ImGui::Button("Add New Transaction")) {
+		// Add new Transaction
+		Transaction_p x = new Transaction();
+		x->Day = day;
+		x->Category = categories[cat]->Name;
+		x->Subcategory = subcategories[subCat]->Name;
+		x->Type = type == 0 ? "In" : "Out";
+		x->Amount = std::stod(amount_s);
+		x->AccountID = acc;
+
+		if (this->core->checkErrors(x->Category, x->Subcategory, x->Type, x->Amount)) {
+			// Push transaction
+			core->pushTransaction(month + 1, std::stoi(year_s), x);
+
+			// Clean Input Fields
+			month = elem_January;
+			day = 1;
+			type = 0;
+			cat = 0;
+			subCat = 0;
+			sprintf(amount_s, "");
+			sprintf(year_s, "");
+		}
+		else {
+			// Throw Error
+		}
+	}
+
 	ImGui::End();
 }
 
@@ -127,7 +253,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			this->YearlyReport = this->core->getYearlyReportFromDb(year);
 			if (ImGui::BeginTable("IncExpTable_month", 5, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
 			{
-				for (int i = 0; i != this->monthlyTransactions->transactions.size(); ++i) {
+				for (int i = 0; i != this->YearlyReport->monthlyReports.size(); ++i) {
 					ImGui::TableNextColumn();
 					ImGui::Text("%2d/%4d", YearlyReport->monthlyReports[i]->Month, YearlyReport->Year);
 					ImGui::TableNextColumn();

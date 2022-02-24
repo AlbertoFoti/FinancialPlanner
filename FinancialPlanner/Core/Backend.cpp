@@ -5,6 +5,7 @@
 #include "Backend.h"
 #include "Backend.h"
 #include "Backend.h"
+#include "Backend.h"
 
 void Backend::init() {
 
@@ -222,6 +223,47 @@ YearlyReport_p Backend::getYearlyReport(int year)
     }
 
     return yearlyReport;
+}
+
+void Backend::pushTransaction(int month, int year, Transaction_p t)
+{
+    Json::Value root;
+    bool found = false;
+
+    root = getRootFromFileStream("Database/incomeExpenses.json");
+
+    for (int i = 0; i < root["records"].size(); i++) {
+        if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
+            found = true;
+            int index = root["records"][i]["data"].size();
+            root["records"][i]["data"][index]["Day"] = t->Day;
+            root["records"][i]["data"][index]["Category"] = t->Category;
+            root["records"][i]["data"][index]["Subcategory"] = t->Subcategory;
+            root["records"][i]["data"][index]["Type"] = t->Type;
+            root["records"][i]["data"][index]["Account"] = t->AccountID;
+            root["records"][i]["data"][index]["Amount"] = t->Amount;
+        }
+    }
+
+    if (!found) {
+        int last_index = root["records"].size();
+        root["records"][last_index]["Month"] = month;
+        root["records"][last_index]["Year"] = year;
+
+        root["records"][last_index]["data"][0]["Day"] = t->Day;
+        root["records"][last_index]["data"][0]["Category"] = t->Category;
+        root["records"][last_index]["data"][0]["Subcategory"] = t->Subcategory;
+        root["records"][last_index]["data"][0]["Type"] = t->Type;
+        root["records"][last_index]["data"][0]["Account"] = t->AccountID;
+        root["records"][last_index]["data"][0]["Amount"] = t->Amount;
+    }
+
+    root = BubbleSortTransactions(root);
+
+    // Write the output to a file
+    writeToFileStream("Database/incomeExpenses.json", root);
+
+    return;
 }
 
 // Testing

@@ -32,9 +32,11 @@ public:
 	// Categories ====================================
 	std::vector<Category_p> getCategories();
 	std::vector<Category_p> getCategoriesFromDb();
+	std::vector<SubCategory_p> getSubCategoriesOf(std::string catName);
 	void pushCategory(Category_p x);
 	void pushSubCategory(std::string categoryName, SubCategory_p);
 	bool checkCategoryExists(std::string name);
+	bool checkErrors(std::string cat, std::string subCat, std::string type, double amount);
 	// Net Worth (NW) =====================================
 	std::vector<NW_record_p> getNWdata();
 	std::vector<NW_record_p> getNWdataFromDb(double from, double to);
@@ -43,6 +45,7 @@ public:
 	MonthlyTransactions_p getMonthlyTransactionsReportFromDb(int month, int year);
 	YearlyReport_p getYearlyReport();
 	YearlyReport_p getYearlyReportFromDb(int year);
+	void pushTransaction(int month, int year, Transaction_p t);
 
 	// Testing
 	std::string testBackend();

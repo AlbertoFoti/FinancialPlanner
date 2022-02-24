@@ -1,37 +1,135 @@
-[
-  {
-    "id": 1,
-    "Type": "Out",
-    "Name": "Housing",
-    "SubCategories": [
-      {
-        "id": 1,
-        "SubCategoryName": "OtherHousing"
-      },
-      {
-        "id": 2,
-        "SubCategoryName": "Rent"
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "Type": "In",
-    "Name": "Income",
-    "SubCategories": [
-      {
-        "id": 1,
-        "Name": "OtherIncome"
-      },
-      {
-        "id": 2,
-        "Name": "Income"
-      },
-      {
-        "id": 3,
-        "Name": "Money"
-      }
-    ]
-  }
-
-]
+{
+	"categories" : 
+	[
+		{
+			"Name" : "Income",
+			"SubCategories" : 
+			[
+				{
+					"Name" : "Money",
+					"id" : 1
+				},
+				{
+					"Name" : "Income",
+					"id" : 2
+				},
+				{
+					"Name" : "Investments (+)",
+					"id" : 3
+				},
+				{
+					"Name" : "Other Income",
+					"id" : 4
+				}
+			],
+			"Type" : "In",
+			"id" : 1
+		},
+		{
+			"Name" : "Housing",
+			"SubCategories" : 
+			[
+				{
+					"Name" : "Rent",
+					"id" : 1
+				},
+				{
+					"Name" : "Utilities",
+					"id" : 2
+				},
+				{
+					"Name" : "Other Housing",
+					"id" : 3
+				}
+			],
+			"Type" : "Out",
+			"id" : 2
+		},
+		{
+			"Name" : "Food",
+			"SubCategories" : 
+			[
+				{
+					"Name" : "Food",
+					"id" : 1
+				},
+				{
+					"Name" : "Eating Out",
+					"id" : 2
+				},
+				{
+					"Name" : "Other Food",
+					"id" : 3
+				}
+			],
+			"Type" : "Out",
+			"id" : 3
+		},
+		{
+			"Name" : "Transportation",
+			"SubCategories" : 
+			[
+				{
+					"Name" : "Trains",
+					"id" : 1
+				},
+				{
+					"Name" : "Public Transports",
+					"id" : 2
+				},
+				{
+					"Name" : "Other Transportation",
+					"id" : 3
+				}
+			],
+			"Type" : "Out",
+			"id" : 4
+		},
+		{
+			"Name" : "Fees & Taxes",
+			"SubCategories" : 
+			[
+				{
+					"Name" : "Taxes",
+					"id" : 1
+				},
+				{
+					"Name" : "Banking Fees",
+					"id" : 2
+				},
+				{
+					"Name" : "Investments Fees",
+					"id" : 3
+				},
+				{
+					"Name" : "Other Fees/Taxes",
+					"id" : 4
+				}
+			],
+			"Type" : "Out",
+			"id" : 5
+		},
+		{
+			"Name" : "Leisure",
+			"SubCategories" : 
+			[
+				{
+					"Name" : "Leisure",
+					"id" : 1
+				},
+				{
+					"Name" : "Other Leisure",
+					"id" : 2
+				}
+			],
+			"Type" : "Out",
+			"id" : 6,
+			"subcategories" : 
+			[
+				{
+					"Name" : "Clothing"
+				}
+			]
+		}
+	]
+}

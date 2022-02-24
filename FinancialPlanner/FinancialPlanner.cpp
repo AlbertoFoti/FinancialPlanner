@@ -45,6 +45,8 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     // Custom Theme
     ImGui::StyleColorsDark();
     ImPlot::StyleColorsDark();
+    ImPlotContext& gp = *GImPlot;
+    gp.Style.Colormap = 1;
     //this->SetDarkThemeColors();
 
     // Core initialized
@@ -166,7 +168,7 @@ void FinancialPlanner::Update()
     }
 
     // Your GUIs go Here !
-    this->ShowDemoWindow();
+    //this->ShowDemoWindow();
     this->ShowCompoundInterestCalculator("Compound Interest Calculator");
     this->ShowAccountManager();
     this->ShowCategoryManager();
@@ -549,30 +551,32 @@ void FinancialPlanner::ShowCategoryManager()
     ImGui::TextUnformatted("Categories");
     ImGui::Separator();
 
+    static std::vector<std::string> headerNames;
+
     for (int i = 0; i < this->categories.size(); i++) {
-        ImGui::Text("%d. ", categories[i]->id); ImGui::SameLine();
-        ImGui::Text("%s", categories[i]->Name.c_str()); ImGui::SameLine();
-        ImGui::Text("(%s)", categories[i]->Type == "In" ? "Income" : "Expense"); ImGui::SameLine();
+        headerNames.push_back(std::to_string(categories[i]->id) + ". " + categories[i]->Name + " (" + (categories[i]->Type == "In" ? "Income)" : "Expense)"));
 
-        // Edit and Delete Buttons aligned right
-        ImVec2 buttonSize(50.f, 0.f);
-        float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
-        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
-        if (ImGui::Button("Edit", buttonSize)) {
-            // Edit Category i
-        }
-        ImGui::SameLine();
-        if (ImGui::Button("Delete", buttonSize)) {
-            // Delete Category i
-        }
+        if (ImGui::CollapsingHeader(headerNames[i].c_str(), ImGuiTreeNodeFlags_None))
+        {
+            ImGui::PushFont(blenderProThinMedium);
+            for (int j = 0; j < categories[i]->subCategories.size(); j++) {
+                ImGui::Text("- "); ImGui::SameLine();
+                ImGui::Text("%s", categories[i]->subCategories[j]->Name.c_str());
+            }
+            ImGui::PopFont();
 
-        ImGui::PushFont(blenderProThinMedium);
-        for (int j = 0; j < categories[i]->subCategories.size(); j++) {
-            ImGui::Text("- "); ImGui::SameLine();
-            ImGui::Text("%s", categories[i]->subCategories[j]->Name.c_str());
+            // Edit and Delete Buttons aligned right
+            ImVec2 buttonSize(50.f, 0.f);
+            float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
+            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
+            if (ImGui::Button("Edit", buttonSize)) {
+                // Edit Category i
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("Delete", buttonSize)) {
+                // Delete Category i
+            }
         }
-        ImGui::PopFont();
-        ImGui::Separator();
     }
 
     ImGui::End();
@@ -904,10 +908,10 @@ void FinancialPlanner::ShowDemoWindow()
             for (int i = 0; i < 5; i++)
                 ImGui::Text("More content %d", i);
         }
-        /*
+        
         if (ImGui::CollapsingHeader("Header with a bullet", ImGuiTreeNodeFlags_Bullet))
             ImGui::Text("IsItemHovered: %d", ImGui::IsItemHovered());
-        */
+        
         ImGui::TreePop();
     }
 

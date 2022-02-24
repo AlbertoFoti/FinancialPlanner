@@ -9,6 +9,9 @@
 #include "Core.h"
 #include "Core.h"
 #include "Core.h"
+#include "Core.h"
+#include "Core.h"
+#include "Core.h"
 
 Core::Core()
 {
@@ -68,13 +71,26 @@ void Core::pushAccount(Account_p x)
 
 std::vector<Category_p> Core::getCategories()
 {
-	return this->getCategories();
+	return this->categories;
 }
 
 std::vector<Category_p> Core::getCategoriesFromDb()
 {
 	this->categories = this->back_end.getCategories();
 	return this->categories;
+}
+
+std::vector<SubCategory_p> Core::getSubCategoriesOf(std::string catName)
+{
+	std::vector<SubCategory_p> x;
+	for (Category_p c : this->categories) {
+		if (c->Name == catName) {
+			for (SubCategory_p s : c->subCategories) {
+				x.push_back(s);
+			}
+		}
+	}
+	return x;
 }
 
 void Core::pushCategory(Category_p x)
@@ -94,6 +110,12 @@ bool Core::checkCategoryExists(std::string name)
 		if (x->Name == name) return true;
 	}
 	return false;
+}
+
+bool Core::checkErrors(std::string cat, std::string subCat, std::string type, double amount)
+{
+	// Check Errors : To do
+	return true;
 }
 
 // Net Worth ===============================================================
@@ -129,6 +151,11 @@ YearlyReport_p Core::getYearlyReportFromDb(int year)
 {
 	this->YearlyReport = this->back_end.getYearlyReport(year);
 	return this->YearlyReport;
+}
+
+void Core::pushTransaction(int month, int year, Transaction_p t)
+{
+	this->back_end.pushTransaction(month, year, t);
 }
 
 std::string Core::testBackend() 
