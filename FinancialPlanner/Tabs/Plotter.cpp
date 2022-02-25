@@ -38,8 +38,8 @@ void Plotter::ShowCandleBarsPlot_default(const char* label_id, const double* xs,
     static ImVec4 bullCol = ImVec4(0.000f, 1.000f, 0.441f, 1.000f);
     static ImVec4 bearCol = ImVec4(0.853f, 0.050f, 0.310f, 1.000f);
 
-    static double min_y = INFINITY;
-    static double max_y = -INFINITY;
+    double min_y = INFINITY;
+    double max_y = -INFINITY;
     for (int i = 0; i != count; ++i) {
         if (highs[i] > max_y) max_y = highs[i];
         if (highs[i] < min_y) min_y = highs[i];

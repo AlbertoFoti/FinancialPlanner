@@ -214,21 +214,21 @@ void FinancialPlanner::ShowMainView()
     {
         if (ImGui::BeginTabItem("Overview"))
         {
-            //if (overview_renderer != nullptr) delete overview_renderer;
+            if (overview_renderer != nullptr) delete overview_renderer;
             overview_renderer = new Overview(this->core);
             overview_renderer->Render();
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Net Worth"))
         {
-            //if (nw_renderer != nullptr) delete nw_renderer;
+            if (nw_renderer != nullptr) delete nw_renderer;
             nw_renderer = new NetWorth(this->core);
             nw_renderer->Render();
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Income/Expenses"))
         {
-            //if (ie_renderer != nullptr) delete ie_renderer;
+            if (ie_renderer != nullptr) delete ie_renderer;
             ie_renderer = new IncomeExpenses(this->core);
             ie_renderer->Render();
             ImGui::EndTabItem();

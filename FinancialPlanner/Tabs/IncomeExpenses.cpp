@@ -14,7 +14,7 @@ void IncomeExpenses::Render()
 	ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
 	if (ImGui::BeginTabBar("IncomeExpensesTabs", tab_bar_flags))
 	{
-		if (ImGui::BeginTabItem("Aggregate"))
+		if (ImGui::BeginTabItem("Overview"))
 		{
 			ShowIncomeExpensesAggregate();
 			ImGui::EndTabItem();
@@ -32,8 +32,6 @@ void IncomeExpenses::Render()
 
 void IncomeExpenses::ShowControlPanel(std::string panel_name)
 {
-	MonthlyTransactions_p monthlyTransac;
-
 	std::vector<Category_p> categories = this->core->getCategories();
 	std::vector<SubCategory_p> subcategories;
 	std::vector<Account_p> accounts;
@@ -165,7 +163,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 
 void IncomeExpenses::ShowIncomeExpensesAggregate() 
 {
-	ImGui::Text("Income / Expenses : Aggregate");
+	ImGui::Text("Income / Expenses : Overview");
 }
 
 void IncomeExpenses::ShowIncomeExpensesDetails() 
