@@ -1,17 +1,5 @@
 #include "Core.h"
 #include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
 
 Core::Core()
 {
@@ -56,15 +44,36 @@ std::vector<Account_p> Core::getAccounts()
 	return this->accounts;
 }
 
+int Core::getAccountsSize()
+{
+	return this->accounts.size();
+}
+
 std::vector<Account_p> Core::getAccountsFromDb()
 {
 	this->accounts = this->back_end.getAccounts();
 	return this->accounts;
 }
 
+std::string Core::getAccountName(int id)
+{
+	std::string name = "";
+	for (auto x : this->accounts) {
+		if (x->id == id) {
+			name = x->name;
+		}
+	}
+	return name;
+}
+
 void Core::pushAccount(Account_p x)
 {
 	this->back_end.pushAccount(x);
+}
+
+AccountMonthlyDetails_p Core::getAccountMonthlyRecords(int id)
+{
+	return this->back_end.getAccountMonthlyRecords(id);
 }
 
 // Categories =====================================
@@ -112,7 +121,7 @@ bool Core::checkCategoryExists(std::string name)
 	return false;
 }
 
-bool Core::checkErrors(std::string cat, std::string subCat, std::string type, double amount)
+bool Core::checkErrors(std::string cat, std::string subCat, std::string type, double amount, int year)
 {
 	// Check Errors : To do
 	return true;
@@ -155,7 +164,13 @@ YearlyReport_p Core::getYearlyReportFromDb(int year)
 
 void Core::pushTransaction(int month, int year, Transaction_p t)
 {
+	// Push Transaction
 	this->back_end.pushTransaction(month, year, t);
+
+	// Update Accounts Details Data
+	this->back_end.updateAccountsDetailsData(month, year, t);
+	this->accounts = getAccountsFromDb();
+	// Update category and subcategory Details Data
 }
 
 std::string Core::testBackend() 

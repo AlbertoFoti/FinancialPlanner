@@ -27,8 +27,11 @@ public:
 
 	// Accounts =====================================
 	std::vector<Account_p> getAccounts();
+	int getAccountsSize();
 	std::vector<Account_p> getAccountsFromDb();
+	std::string getAccountName(int id);
 	void pushAccount(Account_p x);
+	AccountMonthlyDetails_p getAccountMonthlyRecords(int id);
 	// Categories ====================================
 	std::vector<Category_p> getCategories();
 	std::vector<Category_p> getCategoriesFromDb();
@@ -36,7 +39,7 @@ public:
 	void pushCategory(Category_p x);
 	void pushSubCategory(std::string categoryName, SubCategory_p);
 	bool checkCategoryExists(std::string name);
-	bool checkErrors(std::string cat, std::string subCat, std::string type, double amount);
+	bool checkErrors(std::string cat, std::string subCat, std::string type, double amount, int year);
 	// Net Worth (NW) =====================================
 	std::vector<NW_record_p> getNWdata();
 	std::vector<NW_record_p> getNWdataFromDb(double from, double to);

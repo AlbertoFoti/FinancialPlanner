@@ -2,8 +2,8 @@
 
 void Plotter::ShowLinePlot_def(const char* label_id, const double* xs, const double* ys, int count) 
 {
-    static double min_y = INFINITY;
-    static double max_y = -INFINITY;
+    double min_y = INFINITY;
+    double max_y = -INFINITY;
     for (int i = 0; i != count; ++i) {
         if (ys[i] > max_y) max_y = ys[i];
         if (ys[i] < min_y) min_y = ys[i];
@@ -12,7 +12,7 @@ void Plotter::ShowLinePlot_def(const char* label_id, const double* xs, const dou
     if (ImPlot::BeginPlot(label_id)) {
         ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time); //ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
         //ImPlot::SetupAxesLimits(1570000000, 1640000000, 1, 30);
-        ImPlot::SetupAxesLimits(xs[0] - PLOT_PADDING_UNIX_TIME, xs[count - 1] + PLOT_PADDING_UNIX_TIME, min_y - PLOT_PADDING_Y, max_y + PLOT_PADDING_Y);
+        ImPlot::SetupAxesLimits(xs[0] - PLOT_PADDING_UNIX_TIME, xs[count - 1] + PLOT_PADDING_UNIX_TIME, min_y - PLOT_PADDING_Y, max_y + PLOT_PADDING_Y, ImGuiCond_None);
         ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
         ImPlot::PlotShaded(label_id, xs, ys, count, 0);
         ImPlot::PopStyleVar();
@@ -38,8 +38,8 @@ void Plotter::ShowCandleBarsPlot_default(const char* label_id, const double* xs,
     static ImVec4 bullCol = ImVec4(0.000f, 1.000f, 0.441f, 1.000f);
     static ImVec4 bearCol = ImVec4(0.853f, 0.050f, 0.310f, 1.000f);
 
-    static double min_y = INFINITY;
-    static double max_y = -INFINITY;
+    double min_y = INFINITY;
+    double max_y = -INFINITY;
     for (int i = 0; i != count; ++i) {
         if (highs[i] > max_y) max_y = highs[i];
         if (highs[i] < min_y) min_y = highs[i];

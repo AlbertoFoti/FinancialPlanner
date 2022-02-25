@@ -15,6 +15,35 @@ struct Account {
 };
 using Account_p = Account*;
 
+// Accounts detail Monthly record
+
+struct AccountMonthlyRecord {
+	int AccountID;
+	int Amount;
+};
+using AccountMonthlyRecord_p = AccountMonthlyRecord*;
+
+struct AccountsMonthlyDetail {
+	int Month;
+	int Year;
+	std::vector<AccountMonthlyRecord_p> accountMonthlyRecords;
+};
+using AccountsMonthlyDetail_p = AccountsMonthlyDetail*;
+
+// Account Details Monthly Records
+struct AccountMonthlyRecordComplex {
+	int Month;
+	int Year;
+	int Amount;
+};
+using AccountMonthlyRecordComplex_p = AccountMonthlyRecordComplex*;
+
+struct AccountMonthlyDetails {
+	int AccountID;
+	std::vector<AccountMonthlyRecordComplex_p> accountMonthlyRecords;
+};
+using AccountMonthlyDetails_p = AccountMonthlyDetails*;
+
 // NW record
 struct NW_record {
 	int Month;
@@ -131,6 +160,8 @@ public:
 	// Accounts
 	std::vector<Account_p> getAccounts();
 	void pushAccount(Account_p x);
+	AccountMonthlyDetails_p getAccountMonthlyRecords(int id);
+	AccountMonthlyDetails_p getAccountMonthlyRecordsComplete(int id);
 
 	// Category
 	std::vector<Category_p> getCategories();
@@ -145,6 +176,11 @@ public:
 	MonthlyTransactions_p getMonthlyReport(int month, int year);
 	YearlyReport_p getYearlyReport(int year);
 	void pushTransaction(int month, int year, Transaction_p t);
+
+	// Integration
+	void updateAccountsDetailsData(int month, int year, Transaction_p t);
+	double getAccountAmountAt(int id, int month, int year);
+	int getLastAccountAmount(int id);
 
 	// Testing
 	std::string sayHello();
