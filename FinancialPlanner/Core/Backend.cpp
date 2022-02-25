@@ -1,12 +1,4 @@
 #include "Backend.h"
-#include "Backend.h"
-#include "Backend.h"
-#include "Backend.h"
-#include "Backend.h"
-#include "Backend.h"
-#include "Backend.h"
-#include "Backend.h"
-#include "Backend.h"
 
 void Backend::init() {
 
@@ -58,6 +50,32 @@ void Backend::pushAccount(Account_p x)
     writeToFileStream("Database/accounts.json", root);
 
     return;
+}
+
+AccountMonthlyDetails_p Backend::getAccountMonthlyRecords(int id)
+{
+    Json::Value root;
+
+    AccountMonthlyDetails_p x = new AccountMonthlyDetails();
+    x->AccountID = id;
+
+    std::vector<Account_p> accounts;
+
+    root = getRootFromFileStream("Database/accountsDetails.json");
+
+    for (int i = 0; i < root["records"].size(); i++) {
+        AccountMonthlyRecordComplex_p item = new AccountMonthlyRecordComplex();
+        item->Month = std::stoi(root["records"][i]["Month"].asString());
+        item->Year = std::stoi(root["records"][i]["Year"].asString());
+        item->Amount = 0.0;
+        for (int j = 0; j < root["records"][i]["data"].size(); j++) {
+            if (root["records"][i]["data"][j]["id"] == id)
+                item->Amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
+        }
+        x->accountMonthlyRecords.push_back(item);
+    }
+
+    return x;
 }
 
 std::vector<Category_p> Backend::getCategories()

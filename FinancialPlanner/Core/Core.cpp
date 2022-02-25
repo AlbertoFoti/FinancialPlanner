@@ -1,17 +1,5 @@
 #include "Core.h"
 #include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
-#include "Core.h"
 
 Core::Core()
 {
@@ -56,15 +44,36 @@ std::vector<Account_p> Core::getAccounts()
 	return this->accounts;
 }
 
+int Core::getAccountsSize()
+{
+	return this->accounts.size();
+}
+
 std::vector<Account_p> Core::getAccountsFromDb()
 {
 	this->accounts = this->back_end.getAccounts();
 	return this->accounts;
 }
 
+std::string Core::getAccountName(int id)
+{
+	std::string name = "";
+	for (auto x : this->accounts) {
+		if (x->id == id) {
+			name = x->name;
+		}
+	}
+	return name;
+}
+
 void Core::pushAccount(Account_p x)
 {
 	this->back_end.pushAccount(x);
+}
+
+AccountMonthlyDetails_p Core::getAccountMonthlyRecords(int id)
+{
+	return this->back_end.getAccountMonthlyRecords(id);
 }
 
 // Categories =====================================

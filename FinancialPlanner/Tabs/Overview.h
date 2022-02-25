@@ -8,6 +8,8 @@
 class Overview : public Tab {
 	Core* core;
 	std::vector<NW_record_p> NW_records;
+
+	AccountMonthlyDetails_p accountMonthlyRecords;
 public:
 	Overview(Core* core);
 	void Render();

@@ -7,6 +7,10 @@ Overview::Overview(Core* core)
 
 void Overview::Render()
 {
+	Plotter pl;
+
+
+
 	ImGuiIO& io = ImGui::GetIO();
 	auto blenderProHeavy_l = io.Fonts->Fonts[2];
 	auto blenderProThin_m = io.Fonts->Fonts[7];
@@ -37,8 +41,35 @@ void Overview::Render()
 		dates.push_back(getUNIXtime(x->Month, x->Year));
 		closes.push_back(x->ClosingWorth);
 	}
-	Plotter pl;
+	
 	pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], dates.size());
+
+
+	static std::vector<double> xs;
+	static std::vector<double> ys;
+	
+	int rows = std::ceil(core->getAccountsSize() / 2);
+	int cols = 2;
+	if (ImPlot::BeginSubplots("Accounts", rows, cols, ImVec2(-1, 400))) {
+		for (int i = 0; i < core->getAccountsSize(); ++i) {
+			xs.clear();
+			ys.clear();
+			this->accountMonthlyRecords = core->getAccountMonthlyRecords(i + 1);
+			char str[50] = {};
+			sprintf(str, "%s##%d_label_account_plots", core->getAccountName(accountMonthlyRecords->AccountID).c_str(), accountMonthlyRecords->AccountID);
+			for (int j = 0; j < accountMonthlyRecords->accountMonthlyRecords.size(); j++) {
+				int m = accountMonthlyRecords->accountMonthlyRecords[j]->Month;
+				int y = accountMonthlyRecords->accountMonthlyRecords[j]->Year;
+				double t = getUNIXtime(m, y);
+				xs.push_back(t);
+				ys.push_back(accountMonthlyRecords->accountMonthlyRecords[j]->Amount);
+			}
+			pl.ShowLinePlot_def(str, &xs[0], &ys[0], xs.size());
+		}
+		ImPlot::EndSubplots();
+	}
+	
+
 
 	ShowControlPanel("Overview Control Panel");
 }

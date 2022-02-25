@@ -27,8 +27,11 @@ public:
 
 	// Accounts =====================================
 	std::vector<Account_p> getAccounts();
+	int getAccountsSize();
 	std::vector<Account_p> getAccountsFromDb();
+	std::string getAccountName(int id);
 	void pushAccount(Account_p x);
+	AccountMonthlyDetails_p getAccountMonthlyRecords(int id);
 	// Categories ====================================
 	std::vector<Category_p> getCategories();
 	std::vector<Category_p> getCategoriesFromDb();
