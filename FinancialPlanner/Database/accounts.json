@@ -20,11 +20,6 @@
 			"AmountStored" : 1000.0,
 			"id" : 4,
 			"name" : "Savings"
-		},
-		{
-			"AmountStored" : 10000.0,
-			"id" : 5,
-			"name" : "Pension Fund"
 		}
 	]
 }

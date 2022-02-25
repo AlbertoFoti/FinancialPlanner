@@ -6,6 +6,7 @@
 #include "Backend.h"
 #include "Backend.h"
 #include "Backend.h"
+#include "Backend.h"
 
 void Backend::init() {
 
@@ -42,7 +43,7 @@ void Backend::pushAccount(Account_p x)
     int nextIndex = root["accounts"].size();
     root["accounts"][nextIndex]["id"] = x->id;
     root["accounts"][nextIndex]["name"] = x->name;
-    root["accounts"][nextIndex]["AmountStored"] = x->AmountStored;
+    root["accounts"][nextIndex]["InitialAmountStored"] = x->AmountStored;
 
     // Write the output to a file
     writeToFileStream("Database/accounts.json", root);
@@ -258,12 +259,59 @@ void Backend::pushTransaction(int month, int year, Transaction_p t)
         root["records"][last_index]["data"][0]["Amount"] = t->Amount;
     }
 
+    // transaction sort
     root = BubbleSortTransactions(root);
+    // Maybe a month sorting is required ?
 
     // Write the output to a file
     writeToFileStream("Database/incomeExpenses.json", root);
 
     return;
+}
+
+// Integration
+
+void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
+{
+    Json::Value root;
+    bool found = false;
+    std::vector<Account_p> accounts = getAccounts();
+
+    root = getRootFromFileStream("Database/accountDetails.json");
+
+    for (int i = 0; i < root["records"].size(); i++) {
+        if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
+            found = true;
+            int index = root["records"][i]["data"].size();
+            root["records"][i]["data"][index]["Day"] = t->Day;
+            root["records"][i]["data"][index]["Category"] = t->Category;
+            root["records"][i]["data"][index]["Subcategory"] = t->Subcategory;
+            root["records"][i]["data"][index]["Type"] = t->Type;
+            root["records"][i]["data"][index]["Account"] = t->AccountID;
+            root["records"][i]["data"][index]["Amount"] = t->Amount;
+        }
+    }
+
+    if (!found) {
+        int last_index = root["records"].size();
+        root["records"][last_index]["Month"] = month;
+        root["records"][last_index]["Year"] = year;
+
+        for (int i = 0; i < accounts.size(); i++) {
+            root["records"][last_index]["data"][i]["id"] = accounts[i]->id;
+            if (t->AccountID == accounts[i]->id) {
+                root["records"][last_index]["data"][i]["Amount"] = accounts[i]->AmountStored + t->Amount;
+            }
+            else {
+                root["records"][last_index]["data"][i]["Amount"] = accounts[i]->AmountStored;
+            }
+        }
+    }
+
+    // sorting required (? probably yes)
+
+    // Write the output to a file
+    writeToFileStream("Database/incomeExpenses.json", root);
 }
 
 // Testing

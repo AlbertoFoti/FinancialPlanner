@@ -146,6 +146,9 @@ public:
 	YearlyReport_p getYearlyReport(int year);
 	void pushTransaction(int month, int year, Transaction_p t);
 
+	// Integration
+	void updateAccountsDetailsData(int month, int year, Transaction_p t);
+
 	// Testing
 	std::string sayHello();
 

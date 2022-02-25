@@ -112,7 +112,7 @@ bool Core::checkCategoryExists(std::string name)
 	return false;
 }
 
-bool Core::checkErrors(std::string cat, std::string subCat, std::string type, double amount)
+bool Core::checkErrors(std::string cat, std::string subCat, std::string type, double amount, int year)
 {
 	// Check Errors : To do
 	return true;
@@ -155,7 +155,12 @@ YearlyReport_p Core::getYearlyReportFromDb(int year)
 
 void Core::pushTransaction(int month, int year, Transaction_p t)
 {
+	// Push Transaction
 	this->back_end.pushTransaction(month, year, t);
+
+	// Update Accounts Details Data
+	this->back_end.updateAccountsDetailsData(month, year, t);
+	// Update category and subcategory Details Data
 }
 
 std::string Core::testBackend() 

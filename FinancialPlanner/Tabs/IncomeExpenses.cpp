@@ -142,7 +142,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 		x->Amount = std::stod(amount_s);
 		x->AccountID = acc;
 
-		if (this->core->checkErrors(x->Category, x->Subcategory, x->Type, x->Amount)) {
+		if (this->core->checkErrors(x->Category, x->Subcategory, x->Type, x->Amount, std::stoi(year_s))) {
 			// Push transaction
 			core->pushTransaction(month + 1, std::stoi(year_s), x);
 
