@@ -1,5 +1,4 @@
 #include "Core.h"
-#include "Core.h"
 
 Core::Core()
 {
@@ -139,6 +138,13 @@ std::vector<NW_record_p> Core::getNWdataFromDb(double from, double to)
 	this->NW_records = this->back_end.getNWdata(from, to);
 	return this->NW_records;
 }
+
+void Core::ComputeNWdata()
+{
+	this->back_end.computeNWdata();
+}
+
+// Transactions
 
 MonthlyTransactions_p Core::getMonthlyTransactionsReport()
 {

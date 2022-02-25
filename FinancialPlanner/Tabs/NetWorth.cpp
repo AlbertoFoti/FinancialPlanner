@@ -4,6 +4,8 @@
 
 NetWorth::NetWorth(Core* core) {
 	this->core = core;
+
+	core->ComputeNWdata();
 }
 
 void NetWorth::Render()

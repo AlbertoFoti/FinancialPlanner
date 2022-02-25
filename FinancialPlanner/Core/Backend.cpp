@@ -1,6 +1,4 @@
 #include "Backend.h"
-#include "Backend.h"
-#include "Backend.h"
 
 void Backend::init() {
 
@@ -227,6 +225,30 @@ std::vector<NW_record_p> Backend::getNWdata(double from, double to)
 
     return NW_data;
 }
+
+void Backend::computeNWdata()
+{
+    Json::Value root_w;
+    std::vector<NW_record_p> nw_records;
+
+    // MOVE PARTS OF THIS CODE UP TO CORE.CPP
+
+    // write a function(and a struct) to retrieve :
+    // --- Vector < [
+    //                 - Month
+    //                 - Year
+    //                 - Open
+    //                 - Low
+    //                 - High
+    //                 - Close
+    //              ] >
+    
+
+    // write records in nw_data
+    
+}
+
+// Income / Expenses
 
 MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
 {

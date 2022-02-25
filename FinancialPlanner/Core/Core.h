@@ -43,6 +43,7 @@ public:
 	// Net Worth (NW) =====================================
 	std::vector<NW_record_p> getNWdata();
 	std::vector<NW_record_p> getNWdataFromDb(double from, double to);
+	void ComputeNWdata();
 	// Income / Expenses =====================================
 	MonthlyTransactions_p getMonthlyTransactionsReport();
 	MonthlyTransactions_p getMonthlyTransactionsReportFromDb(int month, int year);

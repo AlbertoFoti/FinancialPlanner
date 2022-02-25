@@ -171,6 +171,7 @@ public:
 
 	// Net Worth
 	std::vector<NW_record_p> getNWdata(double from, double to);
+	void computeNWdata();
 
 	// Income / Expenses
 	MonthlyTransactions_p getMonthlyReport(int month, int year);
