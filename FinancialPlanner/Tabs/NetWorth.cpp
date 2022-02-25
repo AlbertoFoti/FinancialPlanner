@@ -21,7 +21,7 @@ void NetWorth::Render()
 	ImGui::Text(test_string.c_str());
 #endif
 
-	ImPlot::ShowDemoWindow();
+	//ImPlot::ShowDemoWindow();
 
 	static std::vector<double> dates;
 	static std::vector<double> opens;

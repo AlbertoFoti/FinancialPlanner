@@ -20,12 +20,15 @@ There isn't a proper installation procedure yet.
 ## Version 0.2.0 Objectives
 - System to manage multiple accounts (bank account, cash, investments, ...) [Edit, Remove]
 - Category/Subcategory Manager [Edit, Delete]
-- Net Worth / IncomeExpenses tabs link implementation (net worth / incomeExpenses / accounts)
+- Net Worth / IncomeExpenses tabs link implementation
+- Account / IncomeExpenses tabs link implementation
 - Accounts : track amount stored
 - Overview Tab accounts tracking plots
 
 ## Version 0.1.x Features
 ### Version 0.1.9 Objectives
+- Net Worth / IncomeExpenses tabs link implementation
+- Account / IncomeExpenses tabs link implementation
 - Overview Tab accounts tracking plots
 - Accounts : track amount stored
 ### Version 0.1.8 Features

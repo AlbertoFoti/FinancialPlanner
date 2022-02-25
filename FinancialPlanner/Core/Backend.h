@@ -30,7 +30,7 @@ struct AccountsMonthlyDetail {
 };
 using AccountsMonthlyDetail_p = AccountsMonthlyDetail*;
 
-// Account Detail Monthly Records
+// Account Details Monthly Records
 struct AccountMonthlyRecordComplex {
 	int Month;
 	int Year;
@@ -161,6 +161,7 @@ public:
 	std::vector<Account_p> getAccounts();
 	void pushAccount(Account_p x);
 	AccountMonthlyDetails_p getAccountMonthlyRecords(int id);
+	AccountMonthlyDetails_p getAccountMonthlyRecordsComplete(int id);
 
 	// Category
 	std::vector<Category_p> getCategories();
@@ -178,6 +179,8 @@ public:
 
 	// Integration
 	void updateAccountsDetailsData(int month, int year, Transaction_p t);
+	double getAccountAmountAt(int id, int month, int year);
+	int getLastAccountAmount(int id);
 
 	// Testing
 	std::string sayHello();

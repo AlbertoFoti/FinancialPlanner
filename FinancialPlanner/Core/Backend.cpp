@@ -1,4 +1,6 @@
 #include "Backend.h"
+#include "Backend.h"
+#include "Backend.h"
 
 void Backend::init() {
 
@@ -7,14 +9,11 @@ void Backend::init() {
 std::vector<Account_p> Backend::getAccounts()
 {
     Json::Value root;
-    Json::Value root2;
 
     std::vector<Account_p> accounts;
 
     root = getRootFromFileStream("Database/accounts.json");
-    root2 = getRootFromFileStream("Database/accountsDetails.json");
-    int lastAccountReportIndex = root2["records"].size() - 1;
-
+    
     Json::Value acc = root["accounts"];
 
     for (int i = 0; i < acc.size(); i++) {
@@ -23,11 +22,7 @@ std::vector<Account_p> Backend::getAccounts()
         x->name = acc[i]["name"].asString();
         x->AmountStored = 0.0;
         // calculate Amount stored by each account based on last report
-        for (int j = 0; j < root2["records"][lastAccountReportIndex]["data"].size(); j++) {
-            if (root2["records"][lastAccountReportIndex]["data"][j]["id"] == x->id) {
-                x->AmountStored = std::stod(root2["records"][lastAccountReportIndex]["data"][j]["Amount"].asString());
-            }
-        }
+        x->AmountStored = this->getLastAccountAmount(x->id);
 
         accounts.push_back(x);
     }
@@ -56,6 +51,8 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecords(int id)
 {
     Json::Value root;
 
+    double last_amount = 0.0;
+
     AccountMonthlyDetails_p x = new AccountMonthlyDetails();
     x->AccountID = id;
 
@@ -68,9 +65,48 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecords(int id)
         item->Month = std::stoi(root["records"][i]["Month"].asString());
         item->Year = std::stoi(root["records"][i]["Year"].asString());
         item->Amount = 0.0;
+
+        bool found = false;
         for (int j = 0; j < root["records"][i]["data"].size(); j++) {
-            if (root["records"][i]["data"][j]["id"] == id)
+            if (root["records"][i]["data"][j]["id"] == id) {
+                found = true;
                 item->Amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
+                last_amount = item->Amount;
+                x->accountMonthlyRecords.push_back(item);
+            }
+        }
+
+        if (!found) {
+            // Padding an empty month
+            item->Amount = last_amount;
+            x->accountMonthlyRecords.push_back(item);
+        }
+    }
+
+    return x;
+}
+
+AccountMonthlyDetails_p Backend::getAccountMonthlyRecordsComplete(int id)
+{
+    Json::Value root;
+
+    AccountMonthlyDetails_p x = new AccountMonthlyDetails();
+    x->AccountID = id;
+
+    std::vector<Account_p> accounts;
+
+    root = getRootFromFileStream("Database/accountsDetails.json");
+
+    for (int i = 0; i < root["records"].size(); i++) {
+        AccountMonthlyRecordComplex_p item = new AccountMonthlyRecordComplex();
+        item->Month = std::stoi(root["records"][i]["Month"].asString());
+        item->Year = std::stoi(root["records"][i]["Year"].asString());
+        item->Amount = 0.0;
+
+        for (int j = 0; j < root["records"][i]["data"].size(); j++) {
+            if (root["records"][i]["data"][j]["id"] == id) {
+                item->Amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
+            }
         }
         x->accountMonthlyRecords.push_back(item);
     }
@@ -301,44 +337,77 @@ void Backend::pushTransaction(int month, int year, Transaction_p t)
 void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
 {
     Json::Value root;
-    bool found = false;
-    std::vector<Account_p> accounts = getAccounts();
+    bool monthfound = false;
 
-    root = getRootFromFileStream("Database/accountDetails.json");
+    root = getRootFromFileStream("Database/accountsDetails.json");
 
-    for (int i = 0; i < root["records"].size(); i++) {
+    for (int i = 0; i < root["records"].size() && !monthfound; i++) {
         if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
-            found = true;
-            int index = root["records"][i]["data"].size();
-            root["records"][i]["data"][index]["Day"] = t->Day;
-            root["records"][i]["data"][index]["Category"] = t->Category;
-            root["records"][i]["data"][index]["Subcategory"] = t->Subcategory;
-            root["records"][i]["data"][index]["Type"] = t->Type;
-            root["records"][i]["data"][index]["Account"] = t->AccountID;
-            root["records"][i]["data"][index]["Amount"] = t->Amount;
+            monthfound = true;
+            bool accountId_found = false;
+            int size_data = root["records"][i]["data"].size();
+            for (int j = 0; j < size_data; j++) {
+                if (root["records"][i]["data"][j]["id"] == t->AccountID) {
+                    accountId_found = true;
+                    double old_amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
+                    root["records"][i]["data"][j]["Amount"] = old_amount + t->Amount;
+                }
+            }
+
+            if (!accountId_found) {
+                root["records"][i]["data"][size_data]["id"] = t->AccountID;
+                root["records"][i]["data"][size_data]["Amount"] = getAccountAmountAt(t->AccountID, month, year) + t->Amount;
+            }
         }
     }
 
-    if (!found) {
+    if (!monthfound) {
         int last_index = root["records"].size();
         root["records"][last_index]["Month"] = month;
         root["records"][last_index]["Year"] = year;
+        
+        root["records"][last_index]["data"][0]["id"] = t->AccountID;
+        root["records"][last_index]["data"][0]["Amount"] = getAccountAmountAt(t->AccountID, month, year) + t->Amount;
 
-        for (int i = 0; i < accounts.size(); i++) {
-            root["records"][last_index]["data"][i]["id"] = accounts[i]->id;
-            if (t->AccountID == accounts[i]->id) {
-                root["records"][last_index]["data"][i]["Amount"] = accounts[i]->AmountStored + t->Amount;
-            }
-            else {
-                root["records"][last_index]["data"][i]["Amount"] = accounts[i]->AmountStored;
-            }
+        // sorting required after new month insertion (? yes !!)
+    }
+
+    // Write the output to a file
+    writeToFileStream("Database/accountsDetails.json", root);
+}
+
+double Backend::getAccountAmountAt(int id, int month, int year)
+{
+    double amount = 0.0;
+    AccountMonthlyDetails_p data = getAccountMonthlyRecords(id);
+
+    int currentMonth_index = -1;
+    bool Monthfound = false;
+    for (int i = 0; i < data->accountMonthlyRecords.size() && !Monthfound; i++) {
+        if (data->accountMonthlyRecords[i]->Month == month && data->accountMonthlyRecords[i]->Year == year) {
+            Monthfound = true;
+        }
+        if ((data->accountMonthlyRecords[i]->Year * 12 + data->accountMonthlyRecords[i]->Month) <= (year * 12 + month)) {
+            currentMonth_index = i;
         }
     }
 
-    // sorting required (? probably yes)
+    if (currentMonth_index != -1) {
+        amount = data->accountMonthlyRecords[currentMonth_index]->Amount;
+    }
 
-    // Write the output to a file
-    writeToFileStream("Database/incomeExpenses.json", root);
+    return amount;
+}
+
+int Backend::getLastAccountAmount(int id)
+{
+    double amount = 0.0;
+    AccountMonthlyDetails_p data = getAccountMonthlyRecords(id);
+
+    if(data->accountMonthlyRecords.size() != 0)
+        amount = data->accountMonthlyRecords[data->accountMonthlyRecords.size() - 1]->Amount;
+
+    return amount;
 }
 
 // Testing

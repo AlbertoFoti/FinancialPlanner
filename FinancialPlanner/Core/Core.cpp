@@ -169,6 +169,7 @@ void Core::pushTransaction(int month, int year, Transaction_p t)
 
 	// Update Accounts Details Data
 	this->back_end.updateAccountsDetailsData(month, year, t);
+	this->accounts = getAccountsFromDb();
 	// Update category and subcategory Details Data
 }
 

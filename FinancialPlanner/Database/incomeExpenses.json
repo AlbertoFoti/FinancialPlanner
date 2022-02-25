@@ -1,3 +1,59 @@
 {
-	"records" : []
+	"records" : 
+	[
+		{
+			"Month" : 1,
+			"Year" : 2021,
+			"data" : 
+			[
+				{
+					"Account" : 2,
+					"Amount" : 2000.0,
+					"Category" : "Income",
+					"Day" : 1,
+					"Subcategory" : "Income",
+					"Type" : "In"
+				},
+				{
+					"Account" : 1,
+					"Amount" : 50.0,
+					"Category" : "Income",
+					"Day" : 11,
+					"Subcategory" : "Money",
+					"Type" : "In"
+				},
+				{
+					"Account" : 2,
+					"Amount" : -200.0,
+					"Category" : "Housing",
+					"Day" : 23,
+					"Subcategory" : "Rent",
+					"Type" : "Out"
+				}
+			]
+		},
+		{
+			"Month" : 2,
+			"Year" : 2021,
+			"data" : 
+			[
+				{
+					"Account" : 2,
+					"Amount" : 200.0,
+					"Category" : "Income",
+					"Day" : 1,
+					"Subcategory" : "Investments (+)",
+					"Type" : "In"
+				},
+				{
+					"Account" : 2,
+					"Amount" : -30.0,
+					"Category" : "Transportation",
+					"Day" : 18,
+					"Subcategory" : "Public Transports",
+					"Type" : "Out"
+				}
+			]
+		}
+	]
 }

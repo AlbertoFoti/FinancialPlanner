@@ -341,6 +341,8 @@ void FinancialPlanner::ShowAccountManager()
 
     ImGui::Begin("Account Manager");
 
+    this->accounts = core->getAccounts();
+
     if(ImGui::Button("Reload Accounts")) {
         this->accounts = this->core->getAccountsFromDb();
     }

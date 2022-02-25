@@ -130,17 +130,26 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 
 	ImGui::Spacing();
 
-	if (ImGui::Button("Add New Transaction")) {
-		// Add new Transaction
-		Transaction_p x = new Transaction();
-		x->Day = day;
-		x->Category = categories[cat]->Name;
-		x->Subcategory = subcategories[subCat]->Name;
-		x->Type = type == 0 ? "In" : "Out";
-		x->Amount = std::stod(amount_s);
-		x->AccountID = acc;
+	bool something_went_wrong = false;
+	if (!strcmp(year_s, "")) something_went_wrong = true;
+	if (!strcmp(amount_s, "")) something_went_wrong = true;
 
-		if (this->core->checkErrors(x->Category, x->Subcategory, x->Type, x->Amount, std::stoi(year_s))) {
+	//something_went_wrong = this->core->checkErrors(x->Category, x->Subcategory, x->Type, x->Amount, std::stoi(year_s));
+
+	if (ImGui::Button("Add New Transaction")) {
+		if (something_went_wrong) {
+			// Throw Error
+		}
+		else {
+			// Add new Transaction
+			Transaction_p x = new Transaction();
+			x->Day = day;
+			x->Category = categories[cat]->Name;
+			x->Subcategory = subcategories[subCat]->Name;
+			x->Type = type == 0 ? "In" : "Out";
+			x->Amount = std::stod(amount_s);
+			x->AccountID = acc + 1;
+
 			// Push transaction
 			core->pushTransaction(month + 1, std::stoi(year_s), x);
 
@@ -152,9 +161,6 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 			subCat = 0;
 			sprintf(amount_s, "");
 			sprintf(year_s, "");
-		}
-		else {
-			// Throw Error
 		}
 	}
 

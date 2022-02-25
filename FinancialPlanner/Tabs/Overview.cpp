@@ -9,8 +9,6 @@ void Overview::Render()
 {
 	Plotter pl;
 
-
-
 	ImGuiIO& io = ImGui::GetIO();
 	auto blenderProHeavy_l = io.Fonts->Fonts[2];
 	auto blenderProThin_m = io.Fonts->Fonts[7];
@@ -64,7 +62,9 @@ void Overview::Render()
 				xs.push_back(t);
 				ys.push_back(accountMonthlyRecords->accountMonthlyRecords[j]->Amount);
 			}
-			pl.ShowLinePlot_def(str, &xs[0], &ys[0], xs.size());
+			if (xs.size() != 0 && ys.size() != 0) {
+				pl.ShowLinePlot_def(str, &xs[0], &ys[0], xs.size());
+			}
 		}
 		ImPlot::EndSubplots();
 	}
