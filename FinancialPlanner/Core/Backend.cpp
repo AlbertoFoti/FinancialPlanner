@@ -15,10 +15,13 @@ void Backend::init() {
 std::vector<Account_p> Backend::getAccounts()
 {
     Json::Value root;
+    Json::Value root2;
 
     std::vector<Account_p> accounts;
 
     root = getRootFromFileStream("Database/accounts.json");
+    root2 = getRootFromFileStream("Database/accountsDetails.json");
+    int lastAccountReportIndex = root2["records"].size() - 1;
 
     Json::Value acc = root["accounts"];
 
@@ -26,7 +29,13 @@ std::vector<Account_p> Backend::getAccounts()
         Account_p x = new Account();
         x->id = std::stoi(acc[i]["id"].asString());
         x->name = acc[i]["name"].asString();
-        x->AmountStored = std::stod(acc[i]["AmountStored"].asString());
+        x->AmountStored = 0.0;
+        // calculate Amount stored by each account based on last report
+        for (int j = 0; j < root2["records"][lastAccountReportIndex]["data"].size(); j++) {
+            if (root2["records"][lastAccountReportIndex]["data"][j]["id"] == x->id) {
+                x->AmountStored = std::stod(root2["records"][lastAccountReportIndex]["data"][j]["Amount"].asString());
+            }
+        }
 
         accounts.push_back(x);
     }
@@ -40,10 +49,10 @@ void Backend::pushAccount(Account_p x)
 
     root = getRootFromFileStream("Database/accounts.json");
 
+    // push in accounts list
     int nextIndex = root["accounts"].size();
     root["accounts"][nextIndex]["id"] = x->id;
     root["accounts"][nextIndex]["name"] = x->name;
-    root["accounts"][nextIndex]["InitialAmountStored"] = x->AmountStored;
 
     // Write the output to a file
     writeToFileStream("Database/accounts.json", root);

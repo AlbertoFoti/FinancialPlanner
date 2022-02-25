@@ -350,29 +350,24 @@ void FinancialPlanner::ShowAccountManager()
     static char account_name[50] = {};
     ImGui::InputTextWithHint("##AN", "Bank/Cash/Investments/Savings", account_name, IM_ARRAYSIZE(account_name));
 
-    ImGui::BulletText("Amount Stored");
-    static char amount_stored[50] = {};
-    ImGui::InputTextWithHint("##AS", "10000.00", amount_stored, IM_ARRAYSIZE(amount_stored));
-
     // Error Input Parameters
     static char errorParams[50] = {};
     ImGui::Text("%s", errorParams);
 
     if (ImGui::Button("Add Account")) {
 
-        if (strcmp(account_name, "") && strcmp(amount_stored, "")) {
+        if (strcmp(account_name, "")) {
             // New Account instance
             Account_p x = new Account();
             x->id = accounts.size() + 1;
             x->name = account_name;
-            x->AmountStored = std::stof(amount_stored);
+            x->AmountStored = 0.0;
 
             // Todo: write in json file database
             this->core->pushAccount(x);
 
             // Clean input fields
             sprintf(account_name, "%s", "");
-            sprintf(amount_stored, "%s", "");
 
             // Update GUI
             this->accounts = core->getAccountsFromDb();
