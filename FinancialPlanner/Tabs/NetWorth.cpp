@@ -4,8 +4,6 @@
 
 NetWorth::NetWorth(Core* core) {
 	this->core = core;
-
-	core->ComputeNWdata();
 }
 
 void NetWorth::Render()
@@ -38,10 +36,15 @@ void NetWorth::Render()
 	ImGui::Text("Current Net Worth : "); ImGui::SameLine();
 	ImGui::PopFont();
 	ImGui::PushFont(blenderProThinLarge);
-	if (NW_records[NW_records.size() - 1]->ClosingWorth > 10000)
-		ImGui::Text("%.2fk EUR", NW_records[NW_records.size() - 1]->ClosingWorth/1000);
-	else
-		ImGui::Text("%.2f EUR", NW_records[NW_records.size() - 1]->ClosingWorth);
+	if (NW_records.size() == 0) {
+		ImGui::Text("0.00 EUR");
+	}
+	else {
+		if (NW_records[NW_records.size() - 1]->ClosingWorth > 10000)
+			ImGui::Text("%.2fk EUR", NW_records[NW_records.size() - 1]->ClosingWorth / 1000);
+		else
+			ImGui::Text("%.2f EUR", NW_records[NW_records.size() - 1]->ClosingWorth);
+	}
 	ImGui::PopFont();
 	ImGui::Spacing();
 	ImGui::Separator();
@@ -108,18 +111,25 @@ void NetWorth::Render()
 	highs.clear();
 	closes.clear();
 
-	for (NW_record_p x : this->NW_records) {
-		dates.push_back(getUNIXtime(x->Month, x->Year));
-		opens.push_back(x->OpeningWorth);
-		lows.push_back(x->LowWorth);
-		highs.push_back(x->HighWorth);
-		closes.push_back(x->ClosingWorth);
-	}
-
 	Plotter pl;
-	pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], dates.size());
-	pl.ShowCandleBarsPlot_default("##Net Worth (candles)", &dates[0], &opens[0], &closes[0], &lows[0], &closes[0], dates.size());
-	
+
+	if (NW_records.size() == 0) {
+		// Default empty plot
+		pl.ShowEmptyPlot("##Empty_plot_1");
+		pl.ShowEmptyPlot("##Empty_plot_2");
+	}
+	else {
+		for (NW_record_p x : this->NW_records) {
+			dates.push_back(getUNIXtime(x->Month, x->Year));
+			opens.push_back(x->OpeningWorth);
+			lows.push_back(x->LowWorth);
+			highs.push_back(x->HighWorth);
+			closes.push_back(x->ClosingWorth);
+		}
+
+		pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], dates.size());
+		pl.ShowCandleBarsPlot_default("##Net Worth (candles)", &dates[0], &opens[0], &closes[0], &lows[0], &closes[0], dates.size());
+	}
 
 	ShowControlPanel("Net Worth Control Panel");
 }

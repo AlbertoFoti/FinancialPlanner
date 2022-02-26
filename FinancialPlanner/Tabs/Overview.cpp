@@ -21,10 +21,15 @@ void Overview::Render()
 	ImGui::Text("Current Net Worth : "); ImGui::SameLine();
 	ImGui::PopFont();
 	ImGui::PushFont(blenderProThinLarge);
-	if (NW_records[NW_records.size() - 1]->ClosingWorth > 10000)
-		ImGui::Text("%.2fk EUR", NW_records[NW_records.size() - 1]->ClosingWorth / 1000);
-	else
-		ImGui::Text("%.2f EUR", NW_records[NW_records.size() - 1]->ClosingWorth);
+	if (NW_records.size() == 0) {
+		ImGui::Text("0.00 EUR");
+	}
+	else {
+		if (NW_records[NW_records.size() - 1]->ClosingWorth > 10000)
+			ImGui::Text("%.2fk EUR", NW_records[NW_records.size() - 1]->ClosingWorth / 1000);
+		else
+			ImGui::Text("%.2f EUR", NW_records[NW_records.size() - 1]->ClosingWorth);
+	}
 	ImGui::PopFont();
 	ImGui::Spacing();
 	ImGui::Separator();
@@ -35,12 +40,19 @@ void Overview::Render()
 
 	dates.clear();
 	closes.clear();
-	for (NW_record_p x : this->NW_records) {
-		dates.push_back(getUNIXtime(x->Month, x->Year));
-		closes.push_back(x->ClosingWorth);
+
+	if (NW_records.size() == 0) {
+		// Default empty plot
+		pl.ShowEmptyPlot("##Empty_plot_overview");
 	}
-	
-	pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], dates.size());
+	else {
+		for (NW_record_p x : this->NW_records) {
+			dates.push_back(getUNIXtime(x->Month, x->Year));
+			closes.push_back(x->ClosingWorth);
+		}
+
+		pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], dates.size());
+	}
 
 
 	static std::vector<double> xs;

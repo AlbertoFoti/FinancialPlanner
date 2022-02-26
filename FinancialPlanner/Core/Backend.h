@@ -171,7 +171,6 @@ public:
 
 	// Net Worth
 	std::vector<NW_record_p> getNWdata(double from, double to);
-	void computeNWdata();
 
 	// Income / Expenses
 	MonthlyTransactions_p getMonthlyReport(int month, int year);
@@ -180,8 +179,10 @@ public:
 
 	// Integration
 	void updateAccountsDetailsData(int month, int year, Transaction_p t);
+	void updateNetWorthData(int month, int year, Transaction_p t);
 	double getAccountAmountAt(int id, int month, int year);
 	int getLastAccountAmount(int id);
+	double getNWat(int month, int year);
 
 	// Testing
 	std::string sayHello();

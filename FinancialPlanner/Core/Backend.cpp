@@ -1,4 +1,6 @@
 #include "Backend.h"
+#include "Backend.h"
+#include "Backend.h"
 
 void Backend::init() {
 
@@ -219,33 +221,16 @@ std::vector<NW_record_p> Backend::getNWdata(double from, double to)
 
         double UnixTime = getUNIXtime(x->Month, x->Year);
 
-        if(UnixTime >= from && UnixTime <= to)
-            NW_data.push_back(x);
+        if (from == -1 && to == -1) {
+                NW_data.push_back(x);
+        }
+        else {
+            if(UnixTime >= from && UnixTime <= to)
+                NW_data.push_back(x);
+        }
     }
 
     return NW_data;
-}
-
-void Backend::computeNWdata()
-{
-    Json::Value root_w;
-    std::vector<NW_record_p> nw_records;
-
-    // MOVE PARTS OF THIS CODE UP TO CORE.CPP
-
-    // write a function(and a struct) to retrieve :
-    // --- Vector < [
-    //                 - Month
-    //                 - Year
-    //                 - Open
-    //                 - Low
-    //                 - High
-    //                 - Close
-    //              ] >
-    
-
-    // write records in nw_data
-    
 }
 
 // Income / Expenses
@@ -398,6 +383,64 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
     writeToFileStream("Database/accountsDetails.json", root);
 }
 
+void Backend::updateNetWorthData(int month, int year, Transaction_p t)
+{
+    Json::Value root;
+    bool monthfound = false;
+    int index_record_change = -1;
+
+    root = getRootFromFileStream("Database/netWorth.json");
+
+    double OpeningWorth = 0.0;
+    // Implementing the opening, low, high, closing calculation based on temporal sequence
+
+    for (int i = 0; i < root["records"].size() && !monthfound; i++) {
+        if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
+            monthfound = true;
+            index_record_change = i;
+            root["records"][i]["ClosingWorth"] = std::stod(root["records"][i]["ClosingWorth"].asString()) + t->Amount;
+            if (t->Type == "In") {
+                if ((std::stod(root["records"][i]["ClosingWorth"].asString())) > (std::stod(root["records"][i]["HighWorth"].asString()))) {
+                    root["records"][i]["HighWorth"] = (std::stod(root["records"][i]["HighWorth"].asString())) + t->Amount;
+                }
+            }
+            else if (t->Type == "Out") {
+                if ((std::stod(root["records"][i]["ClosingWorth"].asString())) < (std::stod(root["records"][i]["LowWorth"].asString()))) {
+                    root["records"][i]["LowWorth"] = (std::stod(root["records"][i]["LowWorth"].asString())) + t->Amount;
+                }
+            }
+        }
+    }
+
+    if (!monthfound) {
+        int last_index = root["records"].size();
+        root["records"][last_index]["Month"] = month;
+        root["records"][last_index]["Year"] = year;
+
+        double nw = getNWat(month, year);
+
+        root["records"][last_index]["OpeningWorth"] = nw;
+        if (t->Type == "In") {
+            root["records"][last_index]["LowWorth"] = nw;
+            root["records"][last_index]["HighWorth"] = nw + t->Amount;
+        }
+        else if (t->Type == "Out") {
+            root["records"][last_index]["LowWorth"] = nw + t->Amount;
+            root["records"][last_index]["HighWorth"] = nw;
+        }
+
+        root["records"][last_index]["ClosingWorth"] = nw + t->Amount;
+
+        // sorting required after new month insertion (? yes !!)
+    }
+    else {
+        // Propagate changes in the next month records
+    }
+
+    // Write the output to a file
+    writeToFileStream("Database/netWorth.json", root);
+}
+
 double Backend::getAccountAmountAt(int id, int month, int year)
 {
     double amount = 0.0;
@@ -428,6 +471,29 @@ int Backend::getLastAccountAmount(int id)
 
     if(data->accountMonthlyRecords.size() != 0)
         amount = data->accountMonthlyRecords[data->accountMonthlyRecords.size() - 1]->Amount;
+
+    return amount;
+}
+
+double Backend::getNWat(int month, int year)
+{
+    double amount = 0.0;
+    std::vector<NW_record_p> data = getNWdata(-1, -1);
+
+    int currentMonth_index = -1;
+    bool Monthfound = false;
+    for (int i = 0; i < data.size() && !Monthfound; i++) {
+        if (data[i]->Month == month && data[i]->Year == year) {
+            Monthfound = true;
+        }
+        if ((data[i]->Year * 12 + data[i]->Month) < (year * 12 + month)) {
+            currentMonth_index = i;
+        }
+    }
+
+    if (currentMonth_index != -1) {
+        amount = data[currentMonth_index]->ClosingWorth;
+    }
 
     return amount;
 }

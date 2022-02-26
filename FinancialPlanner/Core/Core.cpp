@@ -139,11 +139,6 @@ std::vector<NW_record_p> Core::getNWdataFromDb(double from, double to)
 	return this->NW_records;
 }
 
-void Core::ComputeNWdata()
-{
-	this->back_end.computeNWdata();
-}
-
 // Transactions
 
 MonthlyTransactions_p Core::getMonthlyTransactionsReport()
@@ -177,6 +172,10 @@ void Core::pushTransaction(int month, int year, Transaction_p t)
 	this->back_end.updateAccountsDetailsData(month, year, t);
 	this->accounts = getAccountsFromDb();
 	// Update category and subcategory Details Data
+
+	// Update Net Worth data
+	this->back_end.updateNetWorthData(month, year, t);
+	this->NW_records = getNWdataFromDb(-1, -1);
 }
 
 std::string Core::testBackend() 

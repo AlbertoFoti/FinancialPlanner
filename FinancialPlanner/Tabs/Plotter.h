@@ -10,6 +10,9 @@
 
 class Plotter {
 public: 
+	// Empty Plot
+	void ShowEmptyPlot(const char* label_id);
+
 	// Line Plots
 	void ShowLinePlot_def(const char* label_id, const double* xs, const double* ys, int count);
 	

@@ -1,6 +1,29 @@
 #include "Plotter.h"
 
-void Plotter::ShowLinePlot_def(const char* label_id, const double* xs, const double* ys, int count) 
+void Plotter::ShowEmptyPlot(const char* label_id)
+{
+    double min_y = INFINITY;
+    double max_y = -INFINITY;
+
+    double xs[20] = { 0.0 };
+    double ys[20] = { 0.0 };
+    for (int i = 0; i != 20; ++i) {
+        xs[i] = 0.0;
+        ys[i] = 0.0;
+    }
+
+    if (ImPlot::BeginPlot(label_id)) {
+        ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time); //ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
+        ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
+        ImPlot::PlotShaded(label_id, xs, ys, 20, 0);
+        ImPlot::PopStyleVar();
+        ImPlot::SetNextMarkerStyle(ImPlotMarker_Circle);
+        ImPlot::PlotLine(label_id, xs, ys, 20);
+        ImPlot::EndPlot();
+    }
+}
+
+void Plotter::ShowLinePlot_def(const char* label_id, const double* xs, const double* ys, int count)
 {
     double min_y = INFINITY;
     double max_y = -INFINITY;
