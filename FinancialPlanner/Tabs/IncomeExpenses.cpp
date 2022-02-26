@@ -1,4 +1,6 @@
 #include "IncomeExpenses.h"
+#include "IncomeExpenses.h"
+#include "IncomeExpenses.h"
 
 IncomeExpenses::IncomeExpenses(Core* core) {
 	this->core = core;
@@ -167,7 +169,21 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 	ImGui::End();
 }
 
-void IncomeExpenses::ShowIncomeExpensesAggregate() 
+void IncomeExpenses::ShowEditTransactionPanel(int i, int month, int year)
+{
+	ImGui::Begin("Edit Transaction");
+
+	ImGui::End();
+}
+
+void IncomeExpenses::ShowDeleteTransactionPanel(int i, int month, int year)
+{
+	ImGui::Begin("Delete Transaction");
+
+	ImGui::End();
+}
+
+void IncomeExpenses::ShowIncomeExpensesAggregate()
 {
 	ImGui::Text("Income / Expenses : Overview");
 }
@@ -227,7 +243,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 
 	if (!monthlyAggrView) {
 		this->monthlyTransactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
-		if (ImGui::BeginTable("IncExpTable", 5, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
+		if (ImGui::BeginTable("IncExpTable", 6, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
 		{
 			for (int i = 0; i != this->monthlyTransactions->transactions.size(); ++i) {
 				ImGui::TableNextColumn();
@@ -245,6 +261,20 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 					ImGui::TextColored(color_negative, "%.2f", monthlyTransactions->transactions[i]->Amount);
 				else
 					ImGui::Text("%s", monthlyTransactions->transactions[i]->Amount);
+				ImGui::TableNextColumn();
+
+				static bool showEdit = false;
+				static bool showDelete = false;
+				if (ImGui::Button("Edit")) {
+					// edit transaction i
+					showEdit = true;
+				}
+				if (ImGui::Button("Delete")) {
+					// delete transaction i
+					showDelete = true;
+				}
+				if (showEdit) this->ShowEditTransactionPanel(i, month + 1, year);
+				if (showDelete) this->ShowDeleteTransactionPanel(i, month + 1, year);
 			}
 			ImGui::EndTable();
 		}

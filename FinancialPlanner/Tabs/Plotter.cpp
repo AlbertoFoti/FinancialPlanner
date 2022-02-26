@@ -35,7 +35,16 @@ void Plotter::ShowLinePlot_def(const char* label_id, const double* xs, const dou
     if (ImPlot::BeginPlot(label_id)) {
         ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time); //ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
         //ImPlot::SetupAxesLimits(1570000000, 1640000000, 1, 30);
-        ImPlot::SetupAxesLimits(xs[0] - PLOT_PADDING_UNIX_TIME, xs[count - 1] + PLOT_PADDING_UNIX_TIME, min_y - PLOT_PADDING_Y, max_y + PLOT_PADDING_Y, ImGuiCond_None);
+        double delta = 0.0;
+        double padding_y = 0.0;
+        if ((max_y > 0 && min_y > 0) || (max_y > 0 && min_y > 0)) {
+            delta = fabs(max_y) - fabs(min_y); // Same sign
+        }
+        else {
+            delta = fabs(max_y) + fabs(min_y);// Different sign
+        }
+        padding_y = delta * PLOT_PADDING_Y_PERC;
+        ImPlot::SetupAxesLimits(xs[0] - PLOT_PADDING_UNIX_TIME, xs[count - 1] + PLOT_PADDING_UNIX_TIME, min_y - padding_y, max_y + padding_y, ImGuiCond_None);
         ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
         ImPlot::PlotShaded(label_id, xs, ys, count, 0);
         ImPlot::PopStyleVar();
@@ -65,12 +74,21 @@ void Plotter::ShowCandleBarsPlot_default(const char* label_id, const double* xs,
     double max_y = -INFINITY;
     for (int i = 0; i != count; ++i) {
         if (highs[i] > max_y) max_y = highs[i];
-        if (highs[i] < min_y) min_y = highs[i];
+        if (lows[i] < min_y) min_y = lows[i];
     }
 
     if (ImPlot::BeginPlot(label_id, ImVec2(-1, 0))) {
         ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time);// ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
-        ImPlot::SetupAxesLimits(xs[0] - PLOT_PADDING_UNIX_TIME, xs[count - 1] + PLOT_PADDING_UNIX_TIME, min_y - PLOT_PADDING_Y , max_y + PLOT_PADDING_Y);
+        double delta = 0.0;
+        double padding_y = 0.0;
+        if ((max_y > 0 && min_y > 0) || (max_y > 0 && min_y > 0)) {
+            delta = fabs(max_y) - fabs(min_y); // Same sign
+        }
+        else {
+            delta = fabs(max_y) + fabs(min_y);// Different sign
+        }
+        padding_y = delta * PLOT_PADDING_Y_PERC;
+        ImPlot::SetupAxesLimits(xs[0] - PLOT_PADDING_UNIX_TIME, xs[count - 1] + PLOT_PADDING_UNIX_TIME, min_y - padding_y, max_y + padding_y);
         ImPlot::SetupAxisFormat(ImAxis_Y1, "$%.0f");
         this->CandleBarsPlot(label_id, xs, opens, closes, lows, highs, count, 0.25f, bullCol, bearCol);
         ImPlot::EndPlot();
