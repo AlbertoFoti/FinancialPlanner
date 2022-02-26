@@ -46,7 +46,7 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     ImGui::StyleColorsDark();
     ImPlot::StyleColorsDark();
     ImPlotContext& gp = *GImPlot;
-    gp.Style.Colormap = 1;
+    gp.Style.Colormap = 7;
     //this->SetDarkThemeColors();
 
     // Core initialized

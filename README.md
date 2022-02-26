@@ -27,6 +27,7 @@ There isn't a proper installation procedure yet.
 - Account / IncomeExpenses tabs link implementation
 - Overview Tab accounts tracking plots
 - Accounts : track amount stored
+- database upgrade: sorting expansion and deployment
 ### Version 0.1.8 Features
 - Backend System upgrade (modularity, enabling sorting, ...)
 - Income/Expenses Tab : GUI structure setup
