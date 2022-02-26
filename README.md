@@ -21,15 +21,8 @@ There isn't a proper installation procedure yet.
 - System to manage multiple accounts (bank account, cash, investments, ...) [Edit, Remove]
 - Category/Subcategory Manager [Edit, Delete]
 
-## Version 0.1.x Features
-### Version 0.1.9 Features
-- Net Worth / IncomeExpenses tabs link implementation
-- Account / IncomeExpenses tabs link implementation
-- Overview Tab accounts tracking plots
-- Accounts : track amount stored
-- database upgrade: sorting expansion and deployment
-
-### Versions 0.1.1 - 0.1.8
+### Versions 0.1.x Features
+- 0.1.9 : database upgrade, Accounts tracking and plots, Net Worth / IncomeExpenses / Account tabs link implementation
 - 0.1.8 : Backend System upgrade (modularity, enabling sorting, ...), Income/Expenses (GUI, details tab), Category/Subcategory Manager
 - 0.1.7 : Font/themes options, Backend System, System to manage multiple accounts, NW tab : GUI structure + backend link
 - 0.1.6 : new windows/tabs (basic GUI structure), Source files structure upgrade and fix
