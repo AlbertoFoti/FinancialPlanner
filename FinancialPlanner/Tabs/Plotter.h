@@ -6,10 +6,13 @@
 #include <math.h>
 
 #define PLOT_PADDING_UNIX_TIME 2592000
-#define PLOT_PADDING_Y 50   // To do : dynamic padding based on min and max value of input data
+#define PLOT_PADDING_Y_PERC 0.05
 
 class Plotter {
 public: 
+	// Empty Plot
+	void ShowEmptyPlot(const char* label_id);
+
 	// Line Plots
 	void ShowLinePlot_def(const char* label_id, const double* xs, const double* ys, int count);
 	

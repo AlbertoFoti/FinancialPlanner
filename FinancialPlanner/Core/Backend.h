@@ -179,8 +179,10 @@ public:
 
 	// Integration
 	void updateAccountsDetailsData(int month, int year, Transaction_p t);
+	void updateNetWorthData(int month, int year, Transaction_p t);
 	double getAccountAmountAt(int id, int month, int year);
 	int getLastAccountAmount(int id);
+	double getNWat(int month, int year);
 
 	// Testing
 	std::string sayHello();

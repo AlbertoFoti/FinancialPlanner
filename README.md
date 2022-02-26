@@ -20,6 +20,7 @@ There isn't a proper installation procedure yet.
 ## Version 0.2.0 Objectives
 - System to manage multiple accounts (bank account, cash, investments, ...) [Edit, Remove]
 - Category/Subcategory Manager [Edit, Delete]
+- database upgrade: sorting expansion and deployment
 - Net Worth / IncomeExpenses tabs link implementation
 - Account / IncomeExpenses tabs link implementation
 - Accounts : track amount stored
@@ -31,6 +32,7 @@ There isn't a proper installation procedure yet.
 - Account / IncomeExpenses tabs link implementation
 - Overview Tab accounts tracking plots
 - Accounts : track amount stored
+- database upgrade: sorting expansion and deployment
 ### Version 0.1.8 Features
 - Backend System upgrade (modularity, enabling sorting, ...)
 - Income/Expenses Tab : GUI structure setup

@@ -18,6 +18,10 @@ public:
 	void Render();
 	void ShowControlPanel(std::string panel_name);
 
+	// Edit/Delete Transaction i
+	void ShowEditTransactionPanel(int i, int month, int year);
+	void ShowDeleteTransactionPanel(int i, int month, int year);
+
 	// Tabs
 	void ShowIncomeExpensesAggregate();
 	void IncomeExpenses::ShowIncomeExpensesDetails();
