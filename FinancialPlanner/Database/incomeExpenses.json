@@ -8,25 +8,33 @@
 			[
 				{
 					"Account" : 2,
-					"Amount" : 2000.0,
+					"Amount" : 1000.0,
 					"Category" : "Income",
 					"Day" : 1,
 					"Subcategory" : "Income",
 					"Type" : "In"
 				},
 				{
-					"Account" : 1,
-					"Amount" : 50.0,
+					"Account" : 2,
+					"Amount" : -100.0,
+					"Category" : "Food",
+					"Day" : 3,
+					"Subcategory" : "Eating Out",
+					"Type" : "Out"
+				},
+				{
+					"Account" : 2,
+					"Amount" : 200.0,
 					"Category" : "Income",
-					"Day" : 11,
+					"Day" : 4,
 					"Subcategory" : "Money",
 					"Type" : "In"
 				},
 				{
 					"Account" : 2,
-					"Amount" : -200.0,
+					"Amount" : -1000.0,
 					"Category" : "Housing",
-					"Day" : 23,
+					"Day" : 6,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
 				}
@@ -39,18 +47,41 @@
 			[
 				{
 					"Account" : 2,
-					"Amount" : 200.0,
+					"Amount" : 1000.0,
 					"Category" : "Income",
 					"Day" : 1,
-					"Subcategory" : "Investments (+)",
+					"Subcategory" : "Income",
 					"Type" : "In"
 				},
 				{
 					"Account" : 2,
-					"Amount" : -30.0,
-					"Category" : "Transportation",
-					"Day" : 18,
-					"Subcategory" : "Public Transports",
+					"Amount" : -600.0,
+					"Category" : "Housing",
+					"Day" : 10,
+					"Subcategory" : "Rent",
+					"Type" : "Out"
+				}
+			]
+		},
+		{
+			"Month" : 3,
+			"Year" : 2021,
+			"data" : 
+			[
+				{
+					"Account" : 2,
+					"Amount" : 1000.0,
+					"Category" : "Income",
+					"Day" : 1,
+					"Subcategory" : "Income",
+					"Type" : "In"
+				},
+				{
+					"Account" : 2,
+					"Amount" : -600.0,
+					"Category" : "Housing",
+					"Day" : 10,
+					"Subcategory" : "Rent",
 					"Type" : "Out"
 				}
 			]
