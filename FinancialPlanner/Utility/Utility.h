@@ -23,3 +23,7 @@ double fromMSMtoUNIXtime(int msmDate);
 // Sorting
 Json::Value BubbleSortTransactions(Json::Value root);
 Json::Value swapBubbleSortTransaction(Json::Value root, int i, int j, int k);
+Json::Value BubbleSortAccountDetails(Json::Value root);
+Json::Value swapBubbleSortAccountDetails(Json::Value root, int i, int j);
+Json::Value BubbleSortNetWorth(Json::Value root);
+Json::Value swapBubbleSortNetWorth(Json::Value root, int i, int j);

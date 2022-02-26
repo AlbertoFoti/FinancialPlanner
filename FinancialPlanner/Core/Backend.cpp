@@ -378,7 +378,8 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
         root["records"][last_index]["data"][0]["id"] = t->AccountID;
         root["records"][last_index]["data"][0]["Amount"] = getAccountAmountAt(t->AccountID, month, year) + t->Amount;
 
-        // sorting required after new month insertion (? yes !!)
+        // sorting required after new month insertion
+        root = BubbleSortAccountDetails(root);
     } 
     else {
         // Propagate changes in the next month records
@@ -443,7 +444,8 @@ void Backend::updateNetWorthData(int month, int year, Transaction_p t)
         root["records"][last_index]["HighWorth"] = HighWorth;
         root["records"][last_index]["ClosingWorth"] = ClosingWorth;
 
-        // sorting required after new month insertion (? yes !!)
+        // sorting required after new month insertion
+        root = BubbleSortNetWorth(root);
     }
     else {
         // Propagate changes in the next month records
