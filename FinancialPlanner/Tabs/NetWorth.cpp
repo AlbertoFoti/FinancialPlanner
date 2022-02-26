@@ -128,7 +128,7 @@ void NetWorth::Render()
 		}
 
 		pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], dates.size());
-		pl.ShowCandleBarsPlot_default("##Net Worth (candles)", &dates[0], &opens[0], &closes[0], &lows[0], &closes[0], dates.size());
+		pl.ShowCandleBarsPlot_default("##Net Worth (candles)", &dates[0], &opens[0], &closes[0], &lows[0], &highs[0], dates.size());
 	}
 
 	ShowControlPanel("Net Worth Control Panel");

@@ -345,12 +345,14 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
 {
     Json::Value root;
     bool monthfound = false;
+    int index_record_change = -1;
 
     root = getRootFromFileStream("Database/accountsDetails.json");
 
     for (int i = 0; i < root["records"].size() && !monthfound; i++) {
         if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
             monthfound = true;
+            index_record_change = i;
             bool accountId_found = false;
             int size_data = root["records"][i]["data"].size();
             for (int j = 0; j < size_data; j++) {
@@ -377,6 +379,16 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
         root["records"][last_index]["data"][0]["Amount"] = getAccountAmountAt(t->AccountID, month, year) + t->Amount;
 
         // sorting required after new month insertion (? yes !!)
+    } 
+    else {
+        // Propagate changes in the next month records
+        for (int i = index_record_change + 1; i < root["records"].size(); i++) {
+            for (int j = 0; j < root["records"][i]["data"].size(); j++) {
+                if (root["records"][i]["data"][j]["id"] == t->AccountID) {
+                    root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) + t->Amount;
+                }
+            }
+        }
     }
 
     // Write the output to a file
@@ -391,24 +403,33 @@ void Backend::updateNetWorthData(int month, int year, Transaction_p t)
 
     root = getRootFromFileStream("Database/netWorth.json");
 
-    double OpeningWorth = 0.0;
     // Implementing the opening, low, high, closing calculation based on temporal sequence
+    double last_nw = getNWat(month, year);
+    double OpeningWorth = last_nw;
+    double LowWorth = last_nw;
+    double HighWorth = last_nw;
+    double ClosingWorth = last_nw;
+    std::vector<Transaction_p> transactions = getMonthlyReport(month, year)->transactions;
+    for (auto x : transactions) {
+        ClosingWorth += x->Amount;
+        if (x->Type == "In") {
+            if (ClosingWorth > HighWorth)
+                HighWorth = ClosingWorth;
+        }
+        else if(x->Type == "Out") {
+            if (ClosingWorth < LowWorth)
+                LowWorth = ClosingWorth;
+        }
+    }
 
+    // Update NW records file
     for (int i = 0; i < root["records"].size() && !monthfound; i++) {
         if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
             monthfound = true;
             index_record_change = i;
-            root["records"][i]["ClosingWorth"] = std::stod(root["records"][i]["ClosingWorth"].asString()) + t->Amount;
-            if (t->Type == "In") {
-                if ((std::stod(root["records"][i]["ClosingWorth"].asString())) > (std::stod(root["records"][i]["HighWorth"].asString()))) {
-                    root["records"][i]["HighWorth"] = (std::stod(root["records"][i]["HighWorth"].asString())) + t->Amount;
-                }
-            }
-            else if (t->Type == "Out") {
-                if ((std::stod(root["records"][i]["ClosingWorth"].asString())) < (std::stod(root["records"][i]["LowWorth"].asString()))) {
-                    root["records"][i]["LowWorth"] = (std::stod(root["records"][i]["LowWorth"].asString())) + t->Amount;
-                }
-            }
+            root["records"][i]["ClosingWorth"] = ClosingWorth;
+            root["records"][i]["HighWorth"] = HighWorth;
+            root["records"][i]["LowWorth"] = LowWorth;
         }
     }
 
@@ -417,24 +438,21 @@ void Backend::updateNetWorthData(int month, int year, Transaction_p t)
         root["records"][last_index]["Month"] = month;
         root["records"][last_index]["Year"] = year;
 
-        double nw = getNWat(month, year);
-
-        root["records"][last_index]["OpeningWorth"] = nw;
-        if (t->Type == "In") {
-            root["records"][last_index]["LowWorth"] = nw;
-            root["records"][last_index]["HighWorth"] = nw + t->Amount;
-        }
-        else if (t->Type == "Out") {
-            root["records"][last_index]["LowWorth"] = nw + t->Amount;
-            root["records"][last_index]["HighWorth"] = nw;
-        }
-
-        root["records"][last_index]["ClosingWorth"] = nw + t->Amount;
+        root["records"][last_index]["OpeningWorth"] = last_nw;
+        root["records"][last_index]["LowWorth"] = LowWorth;
+        root["records"][last_index]["HighWorth"] = HighWorth;
+        root["records"][last_index]["ClosingWorth"] = ClosingWorth;
 
         // sorting required after new month insertion (? yes !!)
     }
     else {
         // Propagate changes in the next month records
+        for (int i = index_record_change + 1; i < root["records"].size(); i++) {
+            root["records"][i]["OpeningWorth"] = std::stod(root["records"][i]["OpeningWorth"].asString()) + t->Amount;
+            root["records"][i]["LowWorth"] = std::stod(root["records"][i]["LowWorth"].asString()) + t->Amount;
+            root["records"][i]["HighWorth"] = std::stod(root["records"][i]["HighWorth"].asString()) + t->Amount;
+            root["records"][i]["ClosingWorth"] = std::stod(root["records"][i]["ClosingWorth"].asString()) + t->Amount;
+        }
     }
 
     // Write the output to a file
