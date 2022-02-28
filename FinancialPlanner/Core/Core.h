@@ -42,6 +42,7 @@ public:
 	void pushSubCategory(std::string categoryName, SubCategory_p);
 	bool checkCategoryExists(std::string name);
 	bool checkErrors(std::string cat, std::string subCat, std::string type, double amount, int year);
+	void deleteCategory(int id);
 	// Net Worth (NW) =====================================
 	std::vector<NW_record_p> getNWdata();
 	std::vector<NW_record_p> getNWdataFromDb(double from, double to);

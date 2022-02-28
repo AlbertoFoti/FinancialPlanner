@@ -137,6 +137,12 @@ bool Core::checkErrors(std::string cat, std::string subCat, std::string type, do
 	return true;
 }
 
+void Core::deleteCategory(int id)
+{
+	this->back_end.deleteCategory(id);
+	this->getCategoriesFromDb();
+}
+
 // Net Worth ===============================================================
 
 std::vector<NW_record_p> Core::getNWdata()

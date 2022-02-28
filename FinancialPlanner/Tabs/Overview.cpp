@@ -60,7 +60,7 @@ void Overview::Render()
 	
 	int rows = std::ceil(core->getAccountsSize() / 2.0);
 	int cols = 2;
-	if (ImPlot::BeginSubplots("Accounts", rows, cols, ImVec2(-1, 400))) {
+	if (ImPlot::BeginSubplots("Accounts", rows, cols, ImVec2(-1, -1))) {
 		for (int i = 0; i < core->getAccountsSize(); ++i) {
 			xs.clear();
 			ys.clear();

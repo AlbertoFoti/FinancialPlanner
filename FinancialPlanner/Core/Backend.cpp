@@ -133,8 +133,6 @@ void Backend::deleteAccount(int id)
     }
     root["accounts"] = newArrayAccounts;
 
-    // sorting
-
     // Write the output to a file
     writeToFileStream("Database/accounts.json", root);
 
@@ -226,6 +224,30 @@ Json::Value Backend::SwapLastElements(Json::Value root, int i)
     root["categories"][i]["SubCategories"][lastIndex - 1]["Name"] = tmp;
 
     return root;
+}
+
+void Backend::deleteCategory(int id)
+{
+    Json::Value root;
+
+    root = getRootFromFileStream("Database/categories.json");
+
+    Json::Value categories = root["categories"];
+    Json::Value newArrayCategories = Json::arrayValue;
+
+    for (int i = 0; i < categories.size(); i++) {
+        if (categories[i]["id"].asInt() != id) {
+            // push in new vector
+            int newArraySize = newArrayCategories.size();
+            newArrayCategories[newArraySize] = categories[i];
+        }
+    }
+    root["categories"] = newArrayCategories;
+
+    // Write the output to a file
+    writeToFileStream("Database/categories.json", root);
+
+    return;
 }
 
 std::vector<NW_record_p> Backend::getNWdata(double from, double to)

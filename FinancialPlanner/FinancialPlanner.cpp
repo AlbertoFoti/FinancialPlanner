@@ -429,6 +429,8 @@ void FinancialPlanner::ShowCategoryManager()
 
     ImGui::Begin("Category Manager");
 
+    this->categories = core->getCategories();
+
     if (ImGui::Button("Reload Categories")) {
         this->categories = this->core->getCategoriesFromDb();
     }
@@ -552,10 +554,10 @@ void FinancialPlanner::ShowCategoryManager()
     ImGui::TextUnformatted("Categories");
     ImGui::Separator();
 
-    static std::vector<std::string> headerNames;
+    std::vector<std::string> headerNames;
 
     for (int i = 0; i < this->categories.size(); i++) {
-        headerNames.push_back(std::to_string(categories[i]->id) + ". " + categories[i]->Name + " (" + (categories[i]->Type == "In" ? "Income)" : "Expense)"));
+        headerNames.push_back(std::to_string(i + 1) + ". " + categories[i]->Name + " (" + (categories[i]->Type == "In" ? "Income)" : "Expense)"));
 
         if (ImGui::CollapsingHeader(headerNames[i].c_str(), ImGuiTreeNodeFlags_None))
         {
@@ -574,8 +576,11 @@ void FinancialPlanner::ShowCategoryManager()
                 // Edit Category i
             }
             ImGui::SameLine();
-            if (ImGui::Button("Delete", buttonSize)) {
-                // Delete Category i
+            char strBtnDeleteCatLabel[50] = {};
+            sprintf(strBtnDeleteCatLabel, "Delete##Del_Button_Category%d", i + 1);
+            if (ImGui::Button(strBtnDeleteCatLabel, buttonSize)) {
+                // Delete Account
+                this->core->deleteCategory(categories[i]->id);
             }
         }
     }

@@ -77,11 +77,11 @@ void Plotter::ShowCandleBarsPlot_default(const char* label_id, const double* xs,
         if (lows[i] < min_y) min_y = lows[i];
     }
 
-    if (ImPlot::BeginPlot(label_id, ImVec2(-1, 0))) {
+    if (ImPlot::BeginPlot(label_id, ImVec2(-1, -1))) {
         ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time);// ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
         double delta = 0.0;
         double padding_y = 0.0;
-        if ((max_y > 0 && min_y > 0) || (max_y > 0 && min_y > 0)) {
+        if ((max_y > 0 && min_y > 0) || (max_y < 0 && min_y < 0)) {
             delta = fabs(max_y) - fabs(min_y); // Same sign
         }
         else {

@@ -169,6 +169,7 @@ public:
 	void pushCategory(Category_p x);
 	void pushSubCategory(std::string categoryName, SubCategory_p x);
 	Json::Value SwapLastElements(Json::Value root, int i);
+	void deleteCategory(int id);
 
 	// Net Worth
 	std::vector<NW_record_p> getNWdata(double from, double to);
