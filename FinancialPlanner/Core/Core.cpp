@@ -75,6 +75,17 @@ AccountMonthlyDetails_p Core::getAccountMonthlyRecords(int id)
 	return this->back_end.getAccountMonthlyRecords(id);
 }
 
+void Core::deleteAccount(int id)
+{
+	this->back_end.deleteAccount(id);
+	this->getAccountsFromDb();
+}
+
+int Core::getIDfromIndex(int index)
+{
+	return this->accounts[index]->id;
+}
+
 // Categories =====================================
 
 std::vector<Category_p> Core::getCategories()

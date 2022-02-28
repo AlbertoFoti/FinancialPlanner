@@ -16,12 +16,14 @@ There isn't a proper installation procedure yet.
 - Backend System optimization (structure rethink)
 - Investments, Asset Allocation, Forecasting, FIRE tabs
 - Income/Expenses : Overview tab
+- System to manage multiple accounts (bank account, cash, investments, ...) [Edit]
+- Category/Subcategory Manager [Edit]
 
 ## Version 0.2.0 Objectives
-- System to manage multiple accounts (bank account, cash, investments, ...) [Edit, Remove]
-- Category/Subcategory Manager [Edit, Delete]
+- Category/Subcategory Manager [Delete]
 
 ### Versions 0.1.x Features
+- 0.2.0 : Delete accounts enabled
 - 0.1.9 : database upgrade, Accounts tracking and plots, Net Worth / IncomeExpenses / Account tabs link implementation
 - 0.1.8 : Backend System upgrade (modularity, enabling sorting, ...), Income/Expenses (GUI, details tab), Category/Subcategory Manager
 - 0.1.7 : Font/themes options, Backend System, System to manage multiple accounts, NW tab : GUI structure + backend link

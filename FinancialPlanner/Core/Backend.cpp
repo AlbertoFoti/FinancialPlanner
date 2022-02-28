@@ -114,6 +114,34 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecordsComplete(int id)
     return x;
 }
 
+void Backend::deleteAccount(int id)
+{
+    Json::Value root;
+
+    root = getRootFromFileStream("Database/accounts.json");
+
+    Json::Value accounts = root["accounts"];
+    Json::Value newArrayAccounts = Json::arrayValue;
+
+    for (int i = 0; i < accounts.size(); i++) {
+        if (accounts[i]["id"].asInt() != id) {
+            // push in new vector
+            int newArraySize = newArrayAccounts.size();
+            newArrayAccounts[newArraySize]["id"] = accounts[i]["id"];
+            newArrayAccounts[newArraySize]["name"] = accounts[i]["name"];
+        }
+    }
+    root["accounts"] = newArrayAccounts;
+
+    // sorting
+
+    // Write the output to a file
+    writeToFileStream("Database/accounts.json", root);
+
+    return;
+
+}
+
 std::vector<Category_p> Backend::getCategories()
 {
     Json::Value root;

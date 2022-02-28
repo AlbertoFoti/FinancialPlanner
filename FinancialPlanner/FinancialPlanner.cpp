@@ -361,7 +361,7 @@ void FinancialPlanner::ShowAccountManager()
         if (strcmp(account_name, "")) {
             // New Account instance
             Account_p x = new Account();
-            x->id = accounts.size() + 1;
+            x->id = accounts[accounts.size() - 1]->id + 1;
             x->name = account_name;
             x->AmountStored = 0.0;
 
@@ -387,21 +387,22 @@ void FinancialPlanner::ShowAccountManager()
     ImGui::TextUnformatted("Accounts");
     ImGui::Separator();
 
+    bool deleted = false;
     for (int i = 0; i < this->accounts.size(); i++) {
-        ImGui::Text("%d. ", accounts.at(i)->id); ImGui::SameLine();
+        ImGui::Text("%d. ", i+1); ImGui::SameLine();
         ImGui::Text("%s", accounts.at(i)->name.c_str()); 
         ImGui::SameLine();
 
         // Edit and Delete Buttons aligned right
         ImVec2 buttonSize(50.f, 0.f);
-        float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
+        float widthNeeded = buttonSize.x + ImGuiStyleVar_ItemSpacing;
         ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
-        if (ImGui::Button("Edit", buttonSize)) {
-            // Edit Account
-        }
-        ImGui::SameLine();
-        if (ImGui::Button("Delete", buttonSize)) {
+        char strBtnLabel[50] = {};
+        sprintf(strBtnLabel, "Delete##Button%d", i+1);
+        if (ImGui::Button(strBtnLabel, buttonSize)) {
             // Delete Account
+            this->core->deleteAccount(accounts[i]->id);
+            deleted = true;
         }
 
         ImGui::Text("- "); ImGui::SameLine();
@@ -413,6 +414,10 @@ void FinancialPlanner::ShowAccountManager()
             ImGui::Text("%.2f EUR", accounts.at(i)->AmountStored);
         ImGui::PopFont();
         ImGui::Separator();
+    }
+
+    if (deleted) {
+        this->accounts = core->getAccountsFromDb();
     }
 
     ImGui::End();

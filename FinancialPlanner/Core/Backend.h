@@ -162,6 +162,7 @@ public:
 	void pushAccount(Account_p x);
 	AccountMonthlyDetails_p getAccountMonthlyRecords(int id);
 	AccountMonthlyDetails_p getAccountMonthlyRecordsComplete(int id);
+	void deleteAccount(int id);
 
 	// Category
 	std::vector<Category_p> getCategories();

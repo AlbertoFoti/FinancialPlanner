@@ -32,6 +32,8 @@ public:
 	std::string getAccountName(int id);
 	void pushAccount(Account_p x);
 	AccountMonthlyDetails_p getAccountMonthlyRecords(int id);
+	void deleteAccount(int id);
+	int getIDfromIndex(int index);
 	// Categories ====================================
 	std::vector<Category_p> getCategories();
 	std::vector<Category_p> getCategoriesFromDb();

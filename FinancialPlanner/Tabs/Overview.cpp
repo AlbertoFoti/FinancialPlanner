@@ -58,14 +58,14 @@ void Overview::Render()
 	static std::vector<double> xs;
 	static std::vector<double> ys;
 	
-	int rows = std::ceil(core->getAccountsSize() / 2);
+	int rows = std::ceil(core->getAccountsSize() / 2.0);
 	int cols = 2;
 	if (ImPlot::BeginSubplots("Accounts", rows, cols, ImVec2(-1, 400))) {
 		for (int i = 0; i < core->getAccountsSize(); ++i) {
 			xs.clear();
 			ys.clear();
-			this->accountMonthlyRecords = core->getAccountMonthlyRecords(i + 1);
-			char str[50] = {};
+			this->accountMonthlyRecords = core->getAccountMonthlyRecords(core->getIDfromIndex(i));
+			char str[100] = {};
 			sprintf(str, "%s##%d_label_account_plots", core->getAccountName(accountMonthlyRecords->AccountID).c_str(), accountMonthlyRecords->AccountID);
 			for (int j = 0; j < accountMonthlyRecords->accountMonthlyRecords.size(); j++) {
 				int m = accountMonthlyRecords->accountMonthlyRecords[j]->Month;

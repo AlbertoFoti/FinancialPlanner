@@ -37,7 +37,7 @@ void Plotter::ShowLinePlot_def(const char* label_id, const double* xs, const dou
         //ImPlot::SetupAxesLimits(1570000000, 1640000000, 1, 30);
         double delta = 0.0;
         double padding_y = 0.0;
-        if ((max_y > 0 && min_y > 0) || (max_y > 0 && min_y > 0)) {
+        if ((max_y > 0 && min_y > 0) || (max_y < 0 && min_y < 0)) {
             delta = fabs(max_y) - fabs(min_y); // Same sign
         }
         else {
