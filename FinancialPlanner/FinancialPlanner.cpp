@@ -394,18 +394,19 @@ void FinancialPlanner::ShowAccountManager()
 
         // Edit and Delete Buttons aligned right
         ImVec2 buttonSize(50.f, 0.f);
-        float widthNeeded = buttonSize.x + ImGuiStyleVar_ItemSpacing;
+        float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
         ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
+        char strBtnUpdateLabel[50] = {};
+        sprintf(strBtnUpdateLabel, "Update##Put_Button%d", i + 1);
+        if (ImGui::Button(strBtnUpdateLabel, buttonSize)) {
+            // Edit Account
+        }
+        ImGui::SameLine();
         char strBtnDeleteLabel[50] = {};
         sprintf(strBtnDeleteLabel, "Delete##Del_Button%d", i + 1);
         if (ImGui::Button(strBtnDeleteLabel, buttonSize)) {
             // Delete Account
             this->core->deleteAccount(accounts[i]->id);
-        }
-        char strBtnUpdateLabel[50] = {};
-        sprintf(strBtnUpdateLabel, "Update##Put_Button%d", i + 1);
-        if (ImGui::Button(strBtnUpdateLabel, buttonSize)) {
-            // Edit Account
         }
 
         ImGui::Text("- "); ImGui::SameLine();

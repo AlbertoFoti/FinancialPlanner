@@ -9,21 +9,23 @@ There isn't a proper installation procedure yet.
 ## Future Objectives
 - Deployment (installer wizard or something similar)
 - Software Icon
-- Full GUI style improvement
+- Allow currency customization
+- System to manage multiple accounts [Edit]
+- Category/Subcategory Manager [Edit]
+- Subcategory Manager [Delete]
+
+## Version 0.3.0 Objectives
 - Allow Transfer between Accounts
 - Income/Expenses Detail tab: add column for investments returns
-- Allow currency customization
 - Backend System optimization (structure rethink)
-- Investments, Asset Allocation, Forecasting, FIRE tabs
-- Income/Expenses : Overview tab
-- System to manage multiple accounts (bank account, cash, investments, ...) [Edit]
-- Category/Subcategory Manager [Edit]
+- Full GUI style improvement (also add headers to tables)
 
-## Version 0.2.0 Objectives
-- Category/Subcategory Manager [Delete]
+### Version 0.2.1 Objectives
+- Income/Expenses : Overview tab
+- Investments, Asset Allocation, Forecasting, FIRE tabs
 
 ### Versions 0.1.x Features
-- 0.2.0 : Delete accounts enabled
+- 0.2.0 : Delete accounts enabled, Category delete
 - 0.1.9 : database upgrade, Accounts tracking and plots, Net Worth / IncomeExpenses / Account tabs link implementation
 - 0.1.8 : Backend System upgrade (modularity, enabling sorting, ...), Income/Expenses (GUI, details tab), Category/Subcategory Manager
 - 0.1.7 : Font/themes options, Backend System, System to manage multiple accounts, NW tab : GUI structure + backend link
