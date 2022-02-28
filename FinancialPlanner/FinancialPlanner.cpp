@@ -387,7 +387,6 @@ void FinancialPlanner::ShowAccountManager()
     ImGui::TextUnformatted("Accounts");
     ImGui::Separator();
 
-    bool deleted = false;
     for (int i = 0; i < this->accounts.size(); i++) {
         ImGui::Text("%d. ", i+1); ImGui::SameLine();
         ImGui::Text("%s", accounts.at(i)->name.c_str()); 
@@ -397,12 +396,16 @@ void FinancialPlanner::ShowAccountManager()
         ImVec2 buttonSize(50.f, 0.f);
         float widthNeeded = buttonSize.x + ImGuiStyleVar_ItemSpacing;
         ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
-        char strBtnLabel[50] = {};
-        sprintf(strBtnLabel, "Delete##Button%d", i+1);
-        if (ImGui::Button(strBtnLabel, buttonSize)) {
+        char strBtnDeleteLabel[50] = {};
+        sprintf(strBtnDeleteLabel, "Delete##Del_Button%d", i + 1);
+        if (ImGui::Button(strBtnDeleteLabel, buttonSize)) {
             // Delete Account
             this->core->deleteAccount(accounts[i]->id);
-            deleted = true;
+        }
+        char strBtnUpdateLabel[50] = {};
+        sprintf(strBtnUpdateLabel, "Update##Put_Button%d", i + 1);
+        if (ImGui::Button(strBtnUpdateLabel, buttonSize)) {
+            // Edit Account
         }
 
         ImGui::Text("- "); ImGui::SameLine();
@@ -414,10 +417,6 @@ void FinancialPlanner::ShowAccountManager()
             ImGui::Text("%.2f EUR", accounts.at(i)->AmountStored);
         ImGui::PopFont();
         ImGui::Separator();
-    }
-
-    if (deleted) {
-        this->accounts = core->getAccountsFromDb();
     }
 
     ImGui::End();
