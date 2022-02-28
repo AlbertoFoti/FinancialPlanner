@@ -1,7 +1,7 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.1.9**
+Current Stable Version : **Version 0.2.0**
 
 ## For Final Users
 There isn't a proper installation procedure yet.
