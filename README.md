@@ -13,6 +13,7 @@ There isn't a proper installation procedure yet.
 - System to manage multiple accounts [Edit]
 - Category/Subcategory Manager [Edit]
 - Subcategory Manager [Delete]
+- Transactions operations [Edit] [Delete]
 
 ## Version 0.3.0 Objectives
 - Allow Transfer between Accounts
@@ -46,4 +47,4 @@ There isn't a proper installation procedure yet.
 <div>Font made from <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a> is licensed by CC BY 3.0</div>
 
 ## License and Copyright
-© 2022 Alberto Foti. All Rights Reserved.
+ï¿½ 2022 Alberto Foti. All Rights Reserved.

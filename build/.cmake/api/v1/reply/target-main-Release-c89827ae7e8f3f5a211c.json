@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "FinancialPlanner/Debug/main.exe"
+			"path" : "FinancialPlanner/Release/main.exe"
 		},
 		{
-			"path" : "FinancialPlanner/Debug/main.pdb"
+			"path" : "FinancialPlanner/Release/main.pdb"
 		}
 	],
 	"backtrace" : 2,
@@ -101,7 +101,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1"
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG"
 				}
 			],
 			"defines" : 
@@ -133,20 +133,20 @@
 			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
 		},
 		{
-			"backtrace" : 6,
-			"id" : "Utility::@843b2fb277984037157d"
+			"backtrace" : 5,
+			"id" : "Tabs::@2cb13a6bd923dd96c739"
 		},
 		{
 			"backtrace" : 3,
 			"id" : "Core::@5fc05faf759c73c2b288"
 		},
 		{
-			"backtrace" : 5,
-			"id" : "Tabs::@2cb13a6bd923dd96c739"
-		},
-		{
 			"backtrace" : 4,
 			"id" : "Templates::@a9e24777ae8d9378f0b3"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "Utility::@843b2fb277984037157d"
 		}
 	],
 	"id" : "main::@0df55b954a68cc9c20ce",
@@ -155,84 +155,84 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1",
+				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG",
 				"role" : "flags"
 			},
 			{
-				"fragment" : "/machine:x64 /debug /INCREMENTAL /subsystem:windows",
+				"fragment" : "/machine:x64 /INCREMENTAL:NO /subsystem:windows",
 				"role" : "flags"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "Core\\Debug\\Core.lib",
+				"fragment" : "Core\\Release\\Core.lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 4,
-				"fragment" : "Templates\\Debug\\Templates.lib",
+				"fragment" : "Templates\\Release\\Templates.lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 5,
-				"fragment" : "Tabs\\Debug\\Tabs.lib",
+				"fragment" : "Tabs\\Release\\Tabs.lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 6,
-				"fragment" : "Utility\\Debug\\Utility.lib",
+				"fragment" : "Utility\\Release\\Utility.lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 7,
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\imguid.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\imgui.lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 8,
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\glfw3dll.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\glfw3dll.lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 9,
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\glad.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\glad.lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 10,
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\implotd.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\implot.lib",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\jsoncpp.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\jsoncpp.lib",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\imguid.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\imgui.lib",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\glfw3dll.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\glfw3dll.lib",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\imguid.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\imgui.lib",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\glfw3dll.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\glfw3dll.lib",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\implotd.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\implot.lib",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\jsoncpp.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\jsoncpp.lib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 11,
-				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\debug\\lib\\jsoncpp.lib",
+				"fragment" : "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\jsoncpp.lib",
 				"role" : "libraries"
 			},
 			{
@@ -298,19 +298,19 @@
 		{
 			"backtrace" : 11,
 			"isGenerated" : true,
-			"path" : "C:/dev/vcpkg/installed/x64-windows/debug/lib/objects-Debug/jsoncpp_object/json_reader.cpp.obj",
+			"path" : "C:/dev/vcpkg/installed/x64-windows/lib/objects-Release/jsoncpp_object/json_reader.cpp.obj",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 11,
 			"isGenerated" : true,
-			"path" : "C:/dev/vcpkg/installed/x64-windows/debug/lib/objects-Debug/jsoncpp_object/json_value.cpp.obj",
+			"path" : "C:/dev/vcpkg/installed/x64-windows/lib/objects-Release/jsoncpp_object/json_value.cpp.obj",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 11,
 			"isGenerated" : true,
-			"path" : "C:/dev/vcpkg/installed/x64-windows/debug/lib/objects-Debug/jsoncpp_object/json_writer.cpp.obj",
+			"path" : "C:/dev/vcpkg/installed/x64-windows/lib/objects-Release/jsoncpp_object/json_writer.cpp.obj",
 			"sourceGroupIndex" : 2
 		}
 	],
