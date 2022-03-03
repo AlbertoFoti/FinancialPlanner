@@ -17,22 +17,22 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "main::@0df55b954a68cc9c20ce"
-		},
-		{
-			"id" : "Core::@5fc05faf759c73c2b288"
-		},
-		{
-			"id" : "Templates::@a9e24777ae8d9378f0b3"
-		},
-		{
-			"id" : "Tabs::@2cb13a6bd923dd96c739"
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
 		},
 		{
 			"id" : "Utility::@843b2fb277984037157d"
 		},
 		{
-			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+			"id" : "Core::@5fc05faf759c73c2b288"
+		},
+		{
+			"id" : "main::@0df55b954a68cc9c20ce"
+		},
+		{
+			"id" : "Tabs::@2cb13a6bd923dd96c739"
+		},
+		{
+			"id" : "Templates::@a9e24777ae8d9378f0b3"
 		}
 	],
 	"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",

@@ -55,6 +55,10 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     overview_renderer = nullptr;
     nw_renderer = nullptr;
     ie_renderer = nullptr;
+    inv_renderer = nullptr;
+    all_renderer = nullptr;
+    for_renderer = nullptr;
+    fire_renderer = nullptr;
     // Accounts
     accounts = this->core->getAccountsFromDb();
     // Categories
@@ -231,6 +235,34 @@ void FinancialPlanner::ShowMainView()
             if (ie_renderer != nullptr) delete ie_renderer;
             ie_renderer = new IncomeExpenses(this->core);
             ie_renderer->Render();
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Investments"))
+        {
+            if (inv_renderer != nullptr) delete inv_renderer;
+            inv_renderer = new Investments(this->core);
+            inv_renderer->Render();
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Asset Allocation"))
+        {
+            if (all_renderer != nullptr) delete all_renderer;
+            all_renderer = new AssetAllocation(this->core);
+            all_renderer->Render();
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("Forecasting"))
+        {
+            if (for_renderer != nullptr) delete for_renderer;
+            for_renderer = new Forecasting(this->core);
+            for_renderer->Render();
+            ImGui::EndTabItem();
+        }
+        if (ImGui::BeginTabItem("FIRE"))
+        {
+            if (fire_renderer != nullptr) delete fire_renderer;
+            fire_renderer = new FIRE(this->core);
+            fire_renderer->Render();
             ImGui::EndTabItem();
         }
         ImGui::EndTabBar();

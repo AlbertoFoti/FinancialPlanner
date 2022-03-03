@@ -11,6 +11,10 @@
 #include "Tabs/IncomeExpenses.h"
 #include "Tabs/NetWorth.h"
 #include "Tabs/Overview.h"
+#include "Tabs/Investments.h"
+#include "Tabs/AssetAllocation.h"
+#include "Tabs/Forecasting.h"
+#include "Tabs/FIRE.h"
 
 // Financial Planner
 class FinancialPlanner {
@@ -23,7 +27,10 @@ private:
 	Overview* overview_renderer;
 	NetWorth* nw_renderer;
 	IncomeExpenses* ie_renderer;
-
+	Investments* inv_renderer;
+	AssetAllocation* all_renderer;
+	Forecasting* for_renderer;
+	FIRE* fire_renderer;
 public:
 	void Init(GLFWwindow *window, const char* glsl_version);
 	virtual void Update();

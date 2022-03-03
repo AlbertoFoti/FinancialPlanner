@@ -8,6 +8,14 @@ add_library(
 	NetWorth.cpp
 	IncomeExpenses.h
 	IncomeExpenses.cpp
+	Investments.h
+	Investments.cpp
+	AssetAllocation.h
+	AssetAllocation.cpp
+	Forecasting.h
+	Forecasting.cpp
+	FIRE.h
+	FIRE.cpp
 	Plotter.h
 	Plotter.cpp)
 
