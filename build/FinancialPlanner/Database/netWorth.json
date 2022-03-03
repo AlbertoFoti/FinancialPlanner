@@ -1,0 +1,29 @@
+{
+	"records" : 
+	[
+		{
+			"ClosingWorth" : 100.0,
+			"HighWorth" : 1100.0,
+			"LowWorth" : 0.0,
+			"Month" : 1,
+			"OpeningWorth" : 0.0,
+			"Year" : 2021
+		},
+		{
+			"ClosingWorth" : 500.0,
+			"HighWorth" : 1100.0,
+			"LowWorth" : 100.0,
+			"Month" : 2,
+			"OpeningWorth" : 100.0,
+			"Year" : 2021
+		},
+		{
+			"ClosingWorth" : 900.0,
+			"HighWorth" : 1500.0,
+			"LowWorth" : 500.0,
+			"Month" : 3,
+			"OpeningWorth" : 500.0,
+			"Year" : 2021
+		}
+	]
+}

@@ -1,0 +1,8 @@
+# CMake generation dependency list for this directory.
+C:/dev/FinancialPlanner/FinancialPlanner/Utility/CMakeLists.txt
+C:/dev/vcpkg/installed/x64-windows/share/jsoncpp/jsoncpp-namespaced-targets.cmake
+C:/dev/vcpkg/installed/x64-windows/share/jsoncpp/jsoncpp-targets-debug.cmake
+C:/dev/vcpkg/installed/x64-windows/share/jsoncpp/jsoncpp-targets-release.cmake
+C:/dev/vcpkg/installed/x64-windows/share/jsoncpp/jsoncpp-targets.cmake
+C:/dev/vcpkg/installed/x64-windows/share/jsoncpp/jsoncppConfig.cmake
+C:/dev/vcpkg/installed/x64-windows/share/jsoncpp/jsoncppConfigVersion.cmake

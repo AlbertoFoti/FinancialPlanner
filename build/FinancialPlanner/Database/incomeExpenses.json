@@ -1,0 +1,90 @@
+{
+	"records" : 
+	[
+		{
+			"Month" : 1,
+			"Year" : 2021,
+			"data" : 
+			[
+				{
+					"Account" : 2,
+					"Amount" : 1000.0,
+					"Category" : "Income",
+					"Day" : 1,
+					"Subcategory" : "Income",
+					"Type" : "In"
+				},
+				{
+					"Account" : 2,
+					"Amount" : -100.0,
+					"Category" : "Food",
+					"Day" : 3,
+					"Subcategory" : "Eating Out",
+					"Type" : "Out"
+				},
+				{
+					"Account" : 2,
+					"Amount" : 200.0,
+					"Category" : "Income",
+					"Day" : 4,
+					"Subcategory" : "Money",
+					"Type" : "In"
+				},
+				{
+					"Account" : 2,
+					"Amount" : -1000.0,
+					"Category" : "Housing",
+					"Day" : 6,
+					"Subcategory" : "Rent",
+					"Type" : "Out"
+				}
+			]
+		},
+		{
+			"Month" : 2,
+			"Year" : 2021,
+			"data" : 
+			[
+				{
+					"Account" : 2,
+					"Amount" : 1000.0,
+					"Category" : "Income",
+					"Day" : 1,
+					"Subcategory" : "Income",
+					"Type" : "In"
+				},
+				{
+					"Account" : 2,
+					"Amount" : -600.0,
+					"Category" : "Housing",
+					"Day" : 10,
+					"Subcategory" : "Rent",
+					"Type" : "Out"
+				}
+			]
+		},
+		{
+			"Month" : 3,
+			"Year" : 2021,
+			"data" : 
+			[
+				{
+					"Account" : 2,
+					"Amount" : 1000.0,
+					"Category" : "Income",
+					"Day" : 1,
+					"Subcategory" : "Income",
+					"Type" : "In"
+				},
+				{
+					"Account" : 2,
+					"Amount" : -600.0,
+					"Category" : "Housing",
+					"Day" : 10,
+					"Subcategory" : "Rent",
+					"Type" : "Out"
+				}
+			]
+		}
+	]
+}
