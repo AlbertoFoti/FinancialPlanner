@@ -5,12 +5,16 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-/***
-*  ============
-*    MAIN
-* 
-*  ============ 
-*/
+/**
+ * @brief Main : Entry point for program control (update and render loop)
+ * Prepares window and other graphical components through some rendering API (ex. glfw/opengl3/glad, Vulkan, DirectX)
+ * 
+ * @param hInsstance 
+ * @param hPrevInstance 
+ * @param lcCmdLine 
+ * @param nShowCmd 
+ * @return int 
+ */
 int WinMain(
 	HINSTANCE hInsstance,
 	HINSTANCE hPrevInstance,
@@ -43,7 +47,6 @@ int WinMain(
 	int screen_width, screen_height;
 	glfwGetFramebufferSize(window, &screen_width, &screen_height);
 	glViewport(0, 0, screen_width, screen_height);
-
 
 	// Financial Planner Instantiation
 	FinancialPlanner myFinancialPlanner;
