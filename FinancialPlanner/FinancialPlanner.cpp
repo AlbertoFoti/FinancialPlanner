@@ -16,23 +16,23 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     //io.ConfigViewportsNoTaskBarIcon = true;
     // Fonts
     // 0
-    io.Fonts->AddFontFromFileTTF("../assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 11.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 11.0f);
     // 1
-    io.Fonts->AddFontFromFileTTF("../assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 14.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 14.0f);
     // 2
-    io.Fonts->AddFontFromFileTTF("../assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 20.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 20.0f);
     // 3
-    io.Fonts->AddFontFromFileTTF("../assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
     // 4
-    io.FontDefault = io.Fonts->AddFontFromFileTTF("../assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
     // 5
-    io.Fonts->AddFontFromFileTTF("../assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
     // 6
-    io.Fonts->AddFontFromFileTTF("../assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 11.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 11.0f);
     // 7
-    io.Fonts->AddFontFromFileTTF("../assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 14.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 14.0f);
     // 8
-    io.Fonts->AddFontFromFileTTF("../assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 20.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 20.0f);
 
     // Anti-Aliased plots
     ImPlot::GetStyle().AntiAliasedLines = true;

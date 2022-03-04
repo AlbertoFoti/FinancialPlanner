@@ -10,7 +10,7 @@ std::vector<Account_p> Backend::getAccounts()
 
     std::vector<Account_p> accounts;
 
-    root = getRootFromFileStream("../Database/accounts.json");
+    root = getRootFromFileStream("Database/accounts.json");
     
     Json::Value acc = root["accounts"];
 
@@ -32,7 +32,7 @@ void Backend::pushAccount(Account_p x)
 {
     Json::Value root;
 
-    root = getRootFromFileStream("../Database/accounts.json");
+    root = getRootFromFileStream("Database/accounts.json");
 
     // push in accounts list
     int nextIndex = root["accounts"].size();
@@ -40,7 +40,7 @@ void Backend::pushAccount(Account_p x)
     root["accounts"][nextIndex]["name"] = x->name;
 
     // Write the output to a file
-    writeToFileStream("../Database/accounts.json", root);
+    writeToFileStream("Database/accounts.json", root);
 
     return;
 }
@@ -56,7 +56,7 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecords(int id)
 
     std::vector<Account_p> accounts;
 
-    root = getRootFromFileStream("../Database/accountsDetails.json");
+    root = getRootFromFileStream("Database/accountsDetails.json");
 
     for (int i = 0; i < root["records"].size(); i++) {
         AccountMonthlyRecordComplex_p item = new AccountMonthlyRecordComplex();
@@ -93,7 +93,7 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecordsComplete(int id)
 
     std::vector<Account_p> accounts;
 
-    root = getRootFromFileStream("../Database/accountsDetails.json");
+    root = getRootFromFileStream("Database/accountsDetails.json");
 
     for (int i = 0; i < root["records"].size(); i++) {
         AccountMonthlyRecordComplex_p item = new AccountMonthlyRecordComplex();
@@ -116,7 +116,7 @@ void Backend::deleteAccount(int id)
 {
     Json::Value root;
 
-    root = getRootFromFileStream("../Database/accounts.json");
+    root = getRootFromFileStream("Database/accounts.json");
 
     Json::Value accounts = root["accounts"];
     Json::Value newArrayAccounts = Json::arrayValue;
@@ -132,7 +132,7 @@ void Backend::deleteAccount(int id)
     root["accounts"] = newArrayAccounts;
 
     // Write the output to a file
-    writeToFileStream("../Database/accounts.json", root);
+    writeToFileStream("Database/accounts.json", root);
 
     return;
 
@@ -144,7 +144,7 @@ std::vector<Category_p> Backend::getCategories()
 
     std::vector<Category_p> categories;
 
-    root = getRootFromFileStream("../Database/categories.json");
+    root = getRootFromFileStream("Database/categories.json");
 
     Json::Value cat = root["categories"];
 
@@ -170,7 +170,7 @@ void Backend::pushCategory(Category_p x)
 {
     Json::Value root;
 
-    root = getRootFromFileStream("../Database/categories.json");
+    root = getRootFromFileStream("Database/categories.json");
 
     int nextIndex = root["categories"].size();
     root["categories"][nextIndex]["id"] = x->id;
@@ -182,7 +182,7 @@ void Backend::pushCategory(Category_p x)
     }
 
     // Write the output to a file
-    writeToFileStream("../Database/categories.json", root);
+    writeToFileStream("Database/categories.json", root);
 
     return;
 }
@@ -192,7 +192,7 @@ void Backend::pushSubCategory(std::string categoryName, SubCategory_p x)
     Json::Value root;
     int index = -1;
 
-    root = getRootFromFileStream("../Database/categories.json");
+    root = getRootFromFileStream("Database/categories.json");
 
     for (int i = 0; i < root["categories"].size(); i++) {
         if (root["categories"][i]["Name"].asString() == categoryName) {
@@ -207,7 +207,7 @@ void Backend::pushSubCategory(std::string categoryName, SubCategory_p x)
     root = SwapLastElements(root, index);
 
     // Write the output to a file
-    writeToFileStream("../Database/categories.json", root);
+    writeToFileStream("Database/categories.json", root);
 
     return;
 }
@@ -228,7 +228,7 @@ void Backend::deleteCategory(int id)
 {
     Json::Value root;
 
-    root = getRootFromFileStream("../Database/categories.json");
+    root = getRootFromFileStream("Database/categories.json");
 
     Json::Value categories = root["categories"];
     Json::Value newArrayCategories = Json::arrayValue;
@@ -243,7 +243,7 @@ void Backend::deleteCategory(int id)
     root["categories"] = newArrayCategories;
 
     // Write the output to a file
-    writeToFileStream("../Database/categories.json", root);
+    writeToFileStream("Database/categories.json", root);
 
     return;
 }
@@ -254,7 +254,7 @@ std::vector<NW_record_p> Backend::getNWdata(double from, double to)
 
     std::vector<NW_record_p> NW_data;
 
-    root = getRootFromFileStream("../Database/netWorth.json");
+    root = getRootFromFileStream("Database/netWorth.json");
 
     Json::Value data = root["records"];
 
@@ -292,7 +292,7 @@ MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
     MonthlyReport->Year = year;
     MonthlyReport->transactions = std::vector<Transaction_p>();
 
-    root = getRootFromFileStream("../Database/incomeExpenses.json");
+    root = getRootFromFileStream("Database/incomeExpenses.json");
 
     Json::Value data = root["records"];
     Json::Value transactRecords;
@@ -349,7 +349,7 @@ void Backend::pushTransaction(int month, int year, Transaction_p t)
     Json::Value root;
     bool found = false;
 
-    root = getRootFromFileStream("../Database/incomeExpenses.json");
+    root = getRootFromFileStream("Database/incomeExpenses.json");
 
     for (int i = 0; i < root["records"].size(); i++) {
         if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
@@ -382,7 +382,7 @@ void Backend::pushTransaction(int month, int year, Transaction_p t)
     // Maybe a month sorting is required ?
 
     // Write the output to a file
-    writeToFileStream("../Database/incomeExpenses.json", root);
+    writeToFileStream("Database/incomeExpenses.json", root);
 
     return;
 }
@@ -395,7 +395,7 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
     bool monthfound = false;
     int index_record_change = -1;
 
-    root = getRootFromFileStream("../Database/accountsDetails.json");
+    root = getRootFromFileStream("Database/accountsDetails.json");
 
     for (int i = 0; i < root["records"].size() && !monthfound; i++) {
         if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
@@ -441,7 +441,7 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
     }
 
     // Write the output to a file
-    writeToFileStream("../Database/accountsDetails.json", root);
+    writeToFileStream("Database/accountsDetails.json", root);
 }
 
 void Backend::updateNetWorthData(int month, int year, Transaction_p t)
@@ -450,7 +450,7 @@ void Backend::updateNetWorthData(int month, int year, Transaction_p t)
     bool monthfound = false;
     int index_record_change = -1;
 
-    root = getRootFromFileStream("../Database/netWorth.json");
+    root = getRootFromFileStream("Database/netWorth.json");
 
     // Implementing the opening, low, high, closing calculation based on temporal sequence
     double last_nw = getNWat(month, year);
@@ -506,7 +506,7 @@ void Backend::updateNetWorthData(int month, int year, Transaction_p t)
     }
 
     // Write the output to a file
-    writeToFileStream("../Database/netWorth.json", root);
+    writeToFileStream("Database/netWorth.json", root);
 }
 
 double Backend::getAccountAmountAt(int id, int month, int year)
@@ -592,7 +592,7 @@ std::string Backend::sayHello()
         root["middle"] = "Danger";
 
         // Write the output to a file
-        outFile.open("../Database/test.json");
+        outFile.open("Database/test.json");
         writer.write(outFile, root);
         outFile.close();
 
