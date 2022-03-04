@@ -1,7 +1,7 @@
 # ninja log v5
+1704	2364	6681146267590400	FinancialPlanner/Templates/Templates.lib	b3ab75b5ff9ffeb3
 58	1625	6681146261437774	FinancialPlanner/Tabs/CMakeFiles/Tabs.dir/FIRE.cpp.obj	caa1ff27f7c3fb12
 11	1444	6681148797967931	FinancialPlanner/Core/CMakeFiles/Core.dir/Backend.cpp.obj	e4802633f4e028e9
-1704	2364	6681146267590400	FinancialPlanner/Templates/Templates.lib	b3ab75b5ff9ffeb3
 24	1703	6681146262047816	FinancialPlanner/Templates/CMakeFiles/Templates.dir/Tab.cpp.obj	efd58a4746c70852
 46	1770	6681146262804530	FinancialPlanner/Tabs/CMakeFiles/Tabs.dir/IncomeExpenses.cpp.obj	67001a8940457a6e
 34	1836	6681146263421140	FinancialPlanner/Tabs/CMakeFiles/Tabs.dir/Investments.cpp.obj	140d42557480b8f
