@@ -1,8 +1,8 @@
-# Install script for directory: C:/dev/FinancialPlanner/FinancialPlanner
+# Install script for directory: C:/repos/FinancialPlanner/FinancialPlanner
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files/FinancialPlanner")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/FinancialPlanner")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "Release")
+    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -34,10 +34,10 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/dev/FinancialPlanner/build/FinancialPlanner/Core/cmake_install.cmake")
-  include("C:/dev/FinancialPlanner/build/FinancialPlanner/Templates/cmake_install.cmake")
-  include("C:/dev/FinancialPlanner/build/FinancialPlanner/Tabs/cmake_install.cmake")
-  include("C:/dev/FinancialPlanner/build/FinancialPlanner/Utility/cmake_install.cmake")
+  include("C:/repos/FinancialPlanner/build/FinancialPlanner/Core/cmake_install.cmake")
+  include("C:/repos/FinancialPlanner/build/FinancialPlanner/Templates/cmake_install.cmake")
+  include("C:/repos/FinancialPlanner/build/FinancialPlanner/Tabs/cmake_install.cmake")
+  include("C:/repos/FinancialPlanner/build/FinancialPlanner/Utility/cmake_install.cmake")
 
 endif()
 

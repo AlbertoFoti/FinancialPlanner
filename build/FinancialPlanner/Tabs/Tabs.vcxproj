@@ -272,6 +272,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\NetWorth.cpp" />
     <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\IncomeExpenses.h" />
     <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\IncomeExpenses.cpp" />
+    <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Investments.h" />
+    <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Investments.cpp" />
+    <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\AssetAllocation.h" />
+    <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\AssetAllocation.cpp" />
+    <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Forecasting.h" />
+    <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Forecasting.cpp" />
+    <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\FIRE.h" />
+    <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\FIRE.cpp" />
     <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Plotter.h" />
     <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Plotter.cpp" />
   </ItemGroup>

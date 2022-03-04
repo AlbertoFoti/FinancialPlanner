@@ -10,6 +10,18 @@
     <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\IncomeExpenses.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Investments.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\AssetAllocation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Forecasting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\FIRE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Plotter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -22,6 +34,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\IncomeExpenses.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Investments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\AssetAllocation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Forecasting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\FIRE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\dev\FinancialPlanner\FinancialPlanner\Tabs\Plotter.h">

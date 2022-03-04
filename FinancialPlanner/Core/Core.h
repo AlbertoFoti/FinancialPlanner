@@ -21,7 +21,7 @@ public:
 	Core();
 
 	// Financial Functions =======
-	float CompoundInterestCalculate(float initialNW, float interestRate, float annualDeposits, int investmentYears, float* y_data);
+	double CompoundInterestCalculate(double initialNW, double interestRate, double annualDeposits, int investmentYears, double* y_data);
 	
 	// Backend Functions =========
 

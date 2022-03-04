@@ -13,7 +13,7 @@ Core::Core()
 	//this->monthlyAccountsReport = this->getMonthlyAccountsReportFromDb(1, 2021);
 }
 
-float Core::CompoundInterestCalculate(float initialNW, float interestRate, float annualDeposits, int investmentYears, float* y_data)
+double Core::CompoundInterestCalculate(double initialNW, double interestRate, double annualDeposits, int investmentYears, double* y_data)
 {
 	static int i = 0;
 
@@ -25,7 +25,7 @@ float Core::CompoundInterestCalculate(float initialNW, float interestRate, float
 
 	if (investmentYears > 0) {
 		i++;
-		float curr_nw = initialNW + annualDeposits + ((initialNW + annualDeposits) * (interestRate / 100));
+		double curr_nw = initialNW + annualDeposits + ((initialNW + annualDeposits) * (interestRate / 100));
 		return this->CompoundInterestCalculate(curr_nw, interestRate, annualDeposits, investmentYears - 1, &y_data[0]);
 	}
 	else {
