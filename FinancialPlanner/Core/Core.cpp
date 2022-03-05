@@ -36,8 +36,6 @@ double Core::CompoundInterestCalculate(double initialNW, double interestRate, do
 	return 0.00;
 }
 
-// Account =================================================================
-
 std::vector<Account_p> Core::getAccounts()
 {
 	return this->accounts;
@@ -45,7 +43,7 @@ std::vector<Account_p> Core::getAccounts()
 
 int Core::getAccountsSize()
 {
-	return this->accounts.size();
+	return (int)this->accounts.size();
 }
 
 std::vector<Account_p> Core::getAccountsFromDb()
@@ -85,8 +83,6 @@ int Core::getIDfromIndex(int index)
 {
 	return this->accounts[index]->id;
 }
-
-// Categories =====================================
 
 std::vector<Category_p> Core::getCategories()
 {
@@ -143,8 +139,6 @@ void Core::deleteCategory(int id)
 	this->getCategoriesFromDb();
 }
 
-// Net Worth ===============================================================
-
 std::vector<NW_record_p> Core::getNWdata()
 {
 	return this->NW_records;
@@ -155,8 +149,6 @@ std::vector<NW_record_p> Core::getNWdataFromDb(double from, double to)
 	this->NW_records = this->back_end.getNWdata(from, to);
 	return this->NW_records;
 }
-
-// Transactions
 
 MonthlyTransactions_p Core::getMonthlyTransactionsReport()
 {
@@ -193,9 +185,4 @@ void Core::pushTransaction(int month, int year, Transaction_p t)
 	// Update Net Worth data
 	this->back_end.updateNetWorthData(month, year, t);
 	this->NW_records = getNWdataFromDb(-1, -1);
-}
-
-std::string Core::testBackend() 
-{
-	return back_end.sayHello();
 }

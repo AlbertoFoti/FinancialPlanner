@@ -176,13 +176,6 @@ void IncomeExpenses::ShowEditTransactionPanel(int i, int month, int year)
 	ImGui::End();
 }
 
-void IncomeExpenses::ShowDeleteTransactionPanel(int i, int month, int year)
-{
-	ImGui::Begin("Delete Transaction");
-	ImGui::Text("Delete %d", i);
-	ImGui::End();
-}
-
 void IncomeExpenses::ShowIncomeExpensesAggregate()
 {
 	ImGui::Text("Income / Expenses : Overview");
@@ -266,17 +259,14 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 				ImGui::TableNextColumn();
 
 				static bool showEdit = false;
-				static bool showDelete = false;
 				if (ImGui::Button("Edit")) {
 					// edit transaction i
 					showEdit = true;
 				}
 				if (ImGui::Button("Delete")) {
 					// delete transaction i
-					showDelete = true;
 				}
 				if (showEdit) this->ShowEditTransactionPanel(i, month + 1, year);
-				if (showDelete) this->ShowDeleteTransactionPanel(i, month + 1, year);
 			}
 			ImGui::EndTable();
 		}

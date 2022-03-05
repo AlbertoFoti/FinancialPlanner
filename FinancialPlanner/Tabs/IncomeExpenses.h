@@ -57,15 +57,6 @@ public:
 	void ShowEditTransactionPanel(int i, int month, int year);
 
 	/**
-	 * @brief TODO
-	 * 
-	 * @param i 
-	 * @param month 
-	 * @param year 
-	 */
-	void ShowDeleteTransactionPanel(int i, int month, int year);
-
-	/**
 	 * @brief Income Expenses : Overview (aggregate) Tab
 	 * 
 	 */
