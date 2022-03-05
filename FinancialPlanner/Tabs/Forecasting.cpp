@@ -8,6 +8,7 @@ Forecasting::Forecasting(Core* core)
 void Forecasting::Render()
 {
     ImGui::Text("Forecasting...");
+	
 	ShowControlPanel("Forecasting Control Panel");
 }
 

@@ -21,11 +21,6 @@
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Templates\\CMakeFiles\\Templates.dir\\Tab.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Templates\\Tab.cpp",
-  "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Templates\\Tab.cpp"
-},
-{
-  "directory": "C:/repos/FinancialPlanner/build",
   "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\Overview.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Overview.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Overview.cpp"
 },

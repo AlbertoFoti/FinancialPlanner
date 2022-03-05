@@ -8,6 +8,7 @@ Investments::Investments(Core* core)
 void Investments::Render()
 {
     ImGui::Text("Investments...");
+	
 	ShowControlPanel("Investments Control Panel");
 }
 

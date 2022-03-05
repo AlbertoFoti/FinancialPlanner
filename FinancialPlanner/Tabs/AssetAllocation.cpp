@@ -8,6 +8,7 @@ AssetAllocation::AssetAllocation(Core* core)
 void AssetAllocation::Render()
 {
     ImGui::Text("AssetAllocation...");
+	
 	ShowControlPanel("AssetAllocation Control Panel");
 }
 

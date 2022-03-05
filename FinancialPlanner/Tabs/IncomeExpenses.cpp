@@ -1,6 +1,4 @@
 #include "IncomeExpenses.h"
-#include "IncomeExpenses.h"
-#include "IncomeExpenses.h"
 
 IncomeExpenses::IncomeExpenses(Core* core) {
 	this->core = core;
@@ -34,10 +32,12 @@ void IncomeExpenses::Render()
 
 void IncomeExpenses::ShowControlPanel(std::string panel_name)
 {
+	// Data
 	std::vector<Category_p> categories = this->core->getCategories();
 	std::vector<SubCategory_p> subcategories;
 	std::vector<Account_p> accounts;
 
+	// Add New Transaction
 	ImGui::Begin(panel_name.c_str());
 	ImGui::Text("Add new Transaction");
 
@@ -161,8 +161,8 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 			type = 0;
 			cat = 0;
 			subCat = 0;
-			sprintf(amount_s, "");
-			sprintf(year_s, "");
+			sprintf_s(amount_s, "");
+			sprintf_s(year_s, "");
 		}
 	}
 
@@ -172,14 +172,14 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 void IncomeExpenses::ShowEditTransactionPanel(int i, int month, int year)
 {
 	ImGui::Begin("Edit Transaction");
-
+	ImGui::Text("Edit %d", i);
 	ImGui::End();
 }
 
 void IncomeExpenses::ShowDeleteTransactionPanel(int i, int month, int year)
 {
 	ImGui::Begin("Delete Transaction");
-
+	ImGui::Text("Delete %d", i);
 	ImGui::End();
 }
 
@@ -190,12 +190,14 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 
 void IncomeExpenses::ShowIncomeExpensesDetails() 
 {
+	// Fonts
 	ImGuiIO& io = ImGui::GetIO();
 	auto blenderProThin_m = io.Fonts->Fonts[7];
 
 	ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
 	ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
 
+	// Sliders and options
 	enum Element { elem_January, elem_February, elem_March, elem_April, elem_May, elem_June, elem_July, elem_August, elem_September, elem_October, elem_November, elem_December, elem_Count };
 	static int month = elem_January;
 	const char* elems_names[elem_Count] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };

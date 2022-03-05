@@ -5,22 +5,67 @@
 #include "Backend.h"
 #include "../Utility/Utility.h"
 
+/**
+ * @brief Core component : Link with financial procedures and backend link
+ * 
+ */
 class Core {
+	/**
+	 * @brief Backend Database link
+	 * 
+	 */
 	Backend back_end;
 
+	/**
+	 * @brief Data Structure to store accounts
+	 * 
+	 */
 	std::vector<Account_p> accounts;
+
+	/**
+	 * @brief Data Structure to store categories
+	 * 
+	 */
 	std::vector<Category_p> categories;
 
+	/**
+	 * @brief Data Structure to NW-records
+	 * 
+	 */
 	std::vector<NW_record_p> NW_records;
+
+	/**
+	 * @brief Data Structure to store monthly report
+	 * 
+	 */
 	MonthlyTransactions_p MonthlyReport;
+
+	/**
+	 * @brief Data Structure to store yearly report
+	 * 
+	 */
 	YearlyReport_p YearlyReport;
+
 	//MonthlyAggrAccountReport_p monthlyAccountsReport;
 	//MonthlyAggrSubCategoryReport_p monthlySubCategoryReport;
 	//MonthlyAggrCategoryReport_p monthlyCategoryReport;
 public:
+	/**
+	 * @brief Construct a new Core object
+	 * 
+	*/
 	Core();
 
-	// Financial Functions =======
+	/**
+	 * @brief TODO
+	 * 
+	 * @param initialNW 
+	 * @param interestRate 
+	 * @param annualDeposits 
+	 * @param investmentYears 
+	 * @param y_data 
+	 * @return double 
+	 */
 	double CompoundInterestCalculate(double initialNW, double interestRate, double annualDeposits, int investmentYears, double* y_data);
 	
 	// Backend Functions =========

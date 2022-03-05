@@ -34,9 +34,8 @@ void Plotter::ShowLinePlot_def(const char* label_id, const double* xs, const dou
         if (ys[i] < min_y) min_y = ys[i];
     }
 
-    if (ImPlot::BeginPlot(label_id, ImVec2(-1, screenDim_y * 0.30))) {
+    if (ImPlot::BeginPlot(label_id, ImVec2(-1, screenDim_y * ((float)PLOT_PERC_OF_SCREEN_Y)))) {
         ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time); //ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
-        //ImPlot::SetupAxesLimits(1570000000, 1640000000, 1, 30);
         double delta = 0.0;
         double padding_y = 0.0;
         if ((max_y > 0 && min_y > 0) || (max_y < 0 && min_y < 0)) {

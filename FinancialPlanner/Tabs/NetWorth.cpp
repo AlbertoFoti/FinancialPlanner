@@ -1,36 +1,23 @@
 #include "NetWorth.h"
 
-//#define __TESTING_DEBUG__
-
 NetWorth::NetWorth(Core* core) {
 	this->core = core;
 }
 
 void NetWorth::Render()
 {
+	// Fonts
 	ImGuiIO& io = ImGui::GetIO();
 	auto blenderProHeavy_l = io.Fonts->Fonts[2];
 	auto blenderProThin_m = io.Fonts->Fonts[7];
 	auto blenderProThinLarge = io.Fonts->Fonts[8];
 
-#ifdef __TESTING_DEBUG__
-	static std::string test_string = "";
-	if (ImGui::Button("Backend Test")) {
-		test_string = this->core->testBackend();
-	}
-	ImGui::Text(test_string.c_str());
-#endif
-
 	//ImPlot::ShowDemoWindow();
 
-	static std::vector<double> dates;
-	static std::vector<double> opens;
-	static std::vector<double> lows;
-	static std::vector<double> highs;
-	static std::vector<double> closes;
-
+	// Net Worth Data
 	this->NW_records = this->core->getNWdata();
 
+	// Current Net Worth
 	ImGui::Spacing();
 	ImGui::PushFont(blenderProHeavy_l);
 	ImGui::Text("Current Net Worth : "); ImGui::SameLine();
@@ -50,6 +37,7 @@ void NetWorth::Render()
 	ImGui::Separator();
 	ImGui::Spacing();
 
+	// Control Bar variables (from, to)
 	static int from = getMSMtime(1, 2019); 
 	static int to = getMSMtime(1, 2023);
 	static std::string from_s;
@@ -81,8 +69,8 @@ void NetWorth::Render()
 	from_btn_counter = from;
 	to_btn_counter = to;
 
-	ImGui::SameLine();
 	// Control (to)
+	ImGui::SameLine();
 	ImGui::AlignTextToFramePadding();
 	ImGui::PushButtonRepeat(true);
 	if (ImGui::ArrowButton("##to_btn_back", ImGuiDir_Left)) { 
@@ -97,21 +85,21 @@ void NetWorth::Render()
 	ImGui::PopButtonRepeat();
 	to = to_btn_counter;
 
+	// Refresh Data Button (from Database)
 	ImGui::SameLine();
-
 	if (ImGui::Button("Refresh Data")) {
 		this->NW_records = this->core->getNWdataFromDb(fromMSMtoUNIXtime(from), fromMSMtoUNIXtime(to));
 	}
 
 	ImGui::Separator();
 
-	dates.clear();
-	opens.clear();
-	lows.clear();
-	highs.clear();
-	closes.clear();
-
+	// Net Worth Plots
 	Plotter pl;
+	std::vector<double> dates;
+	std::vector<double> opens;
+	std::vector<double> lows;
+	std::vector<double> highs;
+	std::vector<double> closes;
 
 	if (NW_records.size() == 0) {
 		// Default empty plot
@@ -119,6 +107,7 @@ void NetWorth::Render()
 		pl.ShowEmptyPlot("##Empty_plot_2");
 	}
 	else {
+		// Fill vectors
 		for (NW_record_p x : this->NW_records) {
 			dates.push_back(getUNIXtime(x->Month, x->Year));
 			opens.push_back(x->OpeningWorth);
@@ -127,10 +116,12 @@ void NetWorth::Render()
 			closes.push_back(x->ClosingWorth);
 		}
 
-		pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], dates.size());
-		pl.ShowCandleBarsPlot_default("##Net Worth (candles)", &dates[0], &opens[0], &closes[0], &lows[0], &highs[0], dates.size());
+		// Plots
+		pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], (int)dates.size());
+		pl.ShowCandleBarsPlot_default("##Net Worth (candles)", &dates[0], &opens[0], &closes[0], &lows[0], &highs[0], (int)dates.size());
 	}
 
+	// Control Panel rendering...
 	ShowControlPanel("Net Worth Control Panel");
 }
 
@@ -138,9 +129,11 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 {
 	ImGui::Begin(panel_name.c_str());
 
+	// Display for months or for years
 	static bool byMonth = true;
 	ImGui::Checkbox("Show by Month", &byMonth);
 
+	// Fonts
 	ImGuiIO& io = ImGui::GetIO();
 	auto blenderProThin_m = io.Fonts->Fonts[7];
 	ImGui::PushFont(blenderProThin_m);
@@ -148,6 +141,7 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 	ImGui::Separator();
 	ImGui::Spacing();
 
+	// Table of net worth data
 	if (ImGui::BeginTable("netWorthTable", 4, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
 	{
 		double delta;

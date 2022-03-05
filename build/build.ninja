@@ -226,15 +226,6 @@ build FinancialPlanner\Core\rebuild_cache: phony FinancialPlanner\Core\CMakeFile
 
 build cmake_object_order_depends_target_Templates: phony || FinancialPlanner\Templates\CMakeFiles\Templates.dir
 
-build FinancialPlanner\Templates\CMakeFiles\Templates.dir\Tab.cpp.obj: CXX_COMPILER__Templates_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Templates\Tab.cpp || cmake_object_order_depends_target_Templates
-  DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
-  OBJECT_DIR = FinancialPlanner\Templates\CMakeFiles\Templates.dir
-  OBJECT_FILE_DIR = FinancialPlanner\Templates\CMakeFiles\Templates.dir
-  TARGET_COMPILE_PDB = FinancialPlanner\Templates\CMakeFiles\Templates.dir\Templates.pdb
-  TARGET_PDB = FinancialPlanner\Templates\Templates.pdb
-
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target Templates
@@ -243,7 +234,7 @@ build FinancialPlanner\Templates\CMakeFiles\Templates.dir\Tab.cpp.obj: CXX_COMPI
 #############################################
 # Link the static library FinancialPlanner\Templates\Templates.lib
 
-build FinancialPlanner\Templates\Templates.lib: CXX_STATIC_LIBRARY_LINKER__Templates_Debug FinancialPlanner\Templates\CMakeFiles\Templates.dir\Tab.cpp.obj
+build FinancialPlanner\Templates\Templates.lib: CXX_STATIC_LIBRARY_LINKER__Templates_Debug
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = FinancialPlanner\Templates\CMakeFiles\Templates.dir

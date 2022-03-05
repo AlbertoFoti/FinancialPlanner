@@ -8,6 +8,7 @@ FIRE::FIRE(Core* core)
 void FIRE::Render()
 {
     ImGui::Text("FIRE...");
+	
 	ShowControlPanel("FIRE Control Panel");
 }
 

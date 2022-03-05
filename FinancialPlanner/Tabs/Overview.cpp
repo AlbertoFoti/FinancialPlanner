@@ -7,15 +7,19 @@ Overview::Overview(Core* core)
 
 void Overview::Render()
 {
+	// Plotter
 	Plotter pl;
 
+	// Fonts
 	ImGuiIO& io = ImGui::GetIO();
 	auto blenderProHeavy_l = io.Fonts->Fonts[2];
 	auto blenderProThin_m = io.Fonts->Fonts[7];
 	auto blenderProThinLarge = io.Fonts->Fonts[8];
 
+	// NW data
 	this->NW_records = this->core->getNWdata();
 
+	// Current Net Worth
 	ImGui::Spacing();
 	ImGui::PushFont(blenderProHeavy_l);
 	ImGui::Text("Current Net Worth : "); ImGui::SameLine();
@@ -35,6 +39,7 @@ void Overview::Render()
 	ImGui::Separator();
 	ImGui::Spacing();
 
+	// New Worth Plot
 	static std::vector<double> dates;
 	static std::vector<double> closes;
 
@@ -51,14 +56,14 @@ void Overview::Render()
 			closes.push_back(x->ClosingWorth);
 		}
 
-		pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], dates.size());
+		pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], (int)dates.size());
 	}
 
-
+	// Account Plots
 	static std::vector<double> xs;
 	static std::vector<double> ys;
 	
-	int rows = std::ceil(core->getAccountsSize() / 2.0);
+	int rows = (int)std::ceil(core->getAccountsSize() / 2.0);
 	int cols = 2;
 	if (ImPlot::BeginSubplots("Accounts", rows, cols, ImVec2(-1, -1))) {
 		for (int i = 0; i < core->getAccountsSize(); ++i) {
@@ -66,7 +71,7 @@ void Overview::Render()
 			ys.clear();
 			this->accountMonthlyRecords = core->getAccountMonthlyRecords(core->getIDfromIndex(i));
 			char str[100] = {};
-			sprintf(str, "%s##%d_label_account_plots", core->getAccountName(accountMonthlyRecords->AccountID).c_str(), accountMonthlyRecords->AccountID);
+			sprintf_s(str, "%s##%d_label_account_plots", core->getAccountName(accountMonthlyRecords->AccountID).c_str(), accountMonthlyRecords->AccountID);
 			for (int j = 0; j < accountMonthlyRecords->accountMonthlyRecords.size(); j++) {
 				int m = accountMonthlyRecords->accountMonthlyRecords[j]->Month;
 				int y = accountMonthlyRecords->accountMonthlyRecords[j]->Year;
@@ -75,7 +80,7 @@ void Overview::Render()
 				ys.push_back(accountMonthlyRecords->accountMonthlyRecords[j]->Amount);
 			}
 			if (xs.size() != 0 && ys.size() != 0) {
-				pl.ShowLinePlot_def(str, &xs[0], &ys[0], xs.size());
+				pl.ShowLinePlot_def(str, &xs[0], &ys[0], (int)xs.size());
 			}
 		}
 		ImPlot::EndSubplots();

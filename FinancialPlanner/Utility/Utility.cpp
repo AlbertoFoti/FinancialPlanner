@@ -28,27 +28,26 @@ std::string getYearfromMSM_s(int msmDate)
 	return std::to_string((msmDate / 12)+2000);
 }
 
-// from double (months since Jan 2000) to UNIX_time (seconds since Epoch)
 double getUNIXtime(int month, int year)
 {
 	time_t rawtime;
-	struct tm* timeinfo;
+	struct tm timeinfo;
 
 	/* get current timeinfo: */
 	time(&rawtime); //or: rawtime = time(0);
 	/* convert to struct: */
-	timeinfo = localtime(&rawtime);
+	localtime_s(&timeinfo, &rawtime);
 
 	/* now modify the timeinfo to the given date: */
-	timeinfo->tm_year = year - 1900;
-	timeinfo->tm_mon = month - 1;    //months since January - [0,11]
-	timeinfo->tm_mday = 1;          //day of the month - [1,31] 
-	timeinfo->tm_hour = 0;         //hours since midnight - [0,23]
-	timeinfo->tm_min = 0;          //minutes after the hour - [0,59]
-	timeinfo->tm_sec = 0;          //seconds after the minute - [0,59]
+	timeinfo.tm_year = year - 1900;
+	timeinfo.tm_mon = month - 1;    //months since January - [0,11]
+	timeinfo.tm_mday = 1;          //day of the month - [1,31] 
+	timeinfo.tm_hour = 0;         //hours since midnight - [0,23]
+	timeinfo.tm_min = 0;          //minutes after the hour - [0,59]
+	timeinfo.tm_sec = 0;          //seconds after the minute - [0,59]
 
 	/* call mktime: create unix time stamp from timeinfo struct */
-	return (double)mktime(timeinfo);
+	return (double)mktime(&timeinfo);
 }
 
 double fromMSMtoUNIXtime(int msmDate)
@@ -62,11 +61,11 @@ double fromMSMtoUNIXtime(int msmDate)
 Json::Value BubbleSortTransactions(Json::Value root)
 {
 	bool swapped = true;
-	for (int i = 0; i != root["records"].size(); i++) {
+	for (unsigned int i = 0; i != root["records"].size(); i++) {
 		swapped = true;
 		while (swapped) {
 			swapped = false;
-			for (int j = 0; j < root["records"][i]["data"].size() - 1; j++) {
+			for (unsigned int j = 0; j < root["records"][i]["data"].size() - 1; j++) {
 				if (root["records"][i]["data"][j]["Day"] > root["records"][i]["data"][j + 1]["Day"]) {
 					root = swapBubbleSortTransaction(root, i, j, j + 1);
 					swapped = true;
@@ -92,7 +91,7 @@ Json::Value BubbleSortAccountDetails(Json::Value root)
 	bool swapped = true;
 	while (swapped) {
 		swapped = false;
-		for (int i = 0; i < root["records"].size() - 1; i++) {
+		for (unsigned int i = 0; i < root["records"].size() - 1; i++) {
 			int monthXyear_i = root["records"][i]["Year"].asInt() * 12 + root["records"][i]["Month"].asInt();
 			int monthXyear_next = root["records"][i + 1]["Year"].asInt() * 12 + root["records"][i + 1]["Month"].asInt();
 			if (monthXyear_i > monthXyear_next) {
@@ -120,7 +119,7 @@ Json::Value BubbleSortNetWorth(Json::Value root)
 	bool swapped = true;
 	while (swapped) {
 		swapped = false;
-		for (int i = 0; i < root["records"].size() - 1; i++) {
+		for (unsigned int i = 0; i < root["records"].size() - 1; i++) {
 			int monthXyear_i = root["records"][i]["Year"].asInt() * 12 + root["records"][i]["Month"].asInt();
 			int monthXyear_next = root["records"][i + 1]["Year"].asInt() * 12 + root["records"][i + 1]["Month"].asInt();
 			if (monthXyear_i > monthXyear_next) {

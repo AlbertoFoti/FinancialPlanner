@@ -199,8 +199,6 @@ void FinancialPlanner::NewFrame()
 	ImGui::NewFrame();
 }
 
-// Other Functions ================================================
-
 void FinancialPlanner::ShowMainView()
 {
     ImGui::Begin("Financial Overview");
