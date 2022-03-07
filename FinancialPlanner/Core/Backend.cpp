@@ -14,7 +14,7 @@ std::vector<Account_p> Backend::getAccounts()
     
     Json::Value acc = root["accounts"];
 
-    for (int i = 0; i < acc.size(); i++) {
+    for (unsigned int i = 0; i < acc.size(); i++) {
         Account_p x = new Account();
         x->id = std::stoi(acc[i]["id"].asString());
         x->name = acc[i]["name"].asString();
@@ -58,14 +58,14 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecords(int id)
 
     root = getRootFromFileStream("Database/accountsDetails.json");
 
-    for (int i = 0; i < root["records"].size(); i++) {
+    for (unsigned int i = 0; i < root["records"].size(); i++) {
         AccountMonthlyRecordComplex_p item = new AccountMonthlyRecordComplex();
         item->Month = std::stoi(root["records"][i]["Month"].asString());
         item->Year = std::stoi(root["records"][i]["Year"].asString());
         item->Amount = 0.0;
 
         bool found = false;
-        for (int j = 0; j < root["records"][i]["data"].size(); j++) {
+        for (unsigned int j = 0; j < root["records"][i]["data"].size(); j++) {
             if (root["records"][i]["data"][j]["id"] == id) {
                 found = true;
                 item->Amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
@@ -95,13 +95,13 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecordsComplete(int id)
 
     root = getRootFromFileStream("Database/accountsDetails.json");
 
-    for (int i = 0; i < root["records"].size(); i++) {
+    for (unsigned int i = 0; i < root["records"].size(); i++) {
         AccountMonthlyRecordComplex_p item = new AccountMonthlyRecordComplex();
         item->Month = std::stoi(root["records"][i]["Month"].asString());
         item->Year = std::stoi(root["records"][i]["Year"].asString());
         item->Amount = 0.0;
 
-        for (int j = 0; j < root["records"][i]["data"].size(); j++) {
+        for (unsigned int j = 0; j < root["records"][i]["data"].size(); j++) {
             if (root["records"][i]["data"][j]["id"] == id) {
                 item->Amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
             }
@@ -121,7 +121,7 @@ void Backend::deleteAccount(int id)
     Json::Value accounts = root["accounts"];
     Json::Value newArrayAccounts = Json::arrayValue;
 
-    for (int i = 0; i < accounts.size(); i++) {
+    for (unsigned int i = 0; i < accounts.size(); i++) {
         if (accounts[i]["id"].asInt() != id) {
             // push in new vector
             int newArraySize = newArrayAccounts.size();
@@ -148,12 +148,12 @@ std::vector<Category_p> Backend::getCategories()
 
     Json::Value cat = root["categories"];
 
-    for (int i = 0; i < cat.size(); i++) {
+    for (unsigned int i = 0; i < cat.size(); i++) {
         Category_p x = new Category();
         x->id = std::stoi(cat[i]["id"].asString());
         x->Name = cat[i]["Name"].asString();
         x->Type = cat[i]["Type"].asString();
-        for (int j = 0; j < cat[i]["SubCategories"].size(); j++) {
+        for (unsigned int j = 0; j < cat[i]["SubCategories"].size(); j++) {
             SubCategory_p s = new SubCategory();
             s->id = std::stoi(cat[i]["SubCategories"][j]["id"].asString());
             s->Name = cat[i]["SubCategories"][j]["Name"].asString();
@@ -194,7 +194,7 @@ void Backend::pushSubCategory(std::string categoryName, SubCategory_p x)
 
     root = getRootFromFileStream("Database/categories.json");
 
-    for (int i = 0; i < root["categories"].size(); i++) {
+    for (unsigned int i = 0; i < root["categories"].size(); i++) {
         if (root["categories"][i]["Name"].asString() == categoryName) {
             index = i;
             int nextIndex = root["categories"][i]["SubCategories"].size();
@@ -233,7 +233,7 @@ void Backend::deleteCategory(int id)
     Json::Value categories = root["categories"];
     Json::Value newArrayCategories = Json::arrayValue;
 
-    for (int i = 0; i < categories.size(); i++) {
+    for (unsigned int i = 0; i < categories.size(); i++) {
         if (categories[i]["id"].asInt() != id) {
             // push in new vector
             int newArraySize = newArrayCategories.size();
@@ -258,7 +258,7 @@ std::vector<NW_record_p> Backend::getNWdata(double from, double to)
 
     Json::Value data = root["records"];
 
-    for (int i = 0; i < data.size(); i++) {
+    for (unsigned int i = 0; i < data.size(); i++) {
         NW_record_p x = new NW_record();
         x->Month = std::stoi(data[i]["Month"].asString());
         x->Year = std::stoi(data[i]["Year"].asString());
@@ -297,12 +297,12 @@ MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
     Json::Value data = root["records"];
     Json::Value transactRecords;
 
-    for (int i = 0; i < data.size(); i++) {
+    for (unsigned int i = 0; i < data.size(); i++) {
         if (std::stoi(data[i]["Month"].asString()) == month && std::stoi(data[i]["Year"].asString()) == year) {
             MonthlyReport->Month = month;
             MonthlyReport->Year = year;
             transactRecords = data[i]["data"];
-            for (int i = 0; i < transactRecords.size(); i++) {
+            for (unsigned int i = 0; i < transactRecords.size(); i++) {
                 Transaction_p t = new Transaction();
                 t->Day = std::stoi(transactRecords[i]["Day"].asString());
                 t->Category = transactRecords[i]["Category"].asString();
@@ -351,7 +351,7 @@ void Backend::pushTransaction(int month, int year, Transaction_p t)
 
     root = getRootFromFileStream("Database/incomeExpenses.json");
 
-    for (int i = 0; i < root["records"].size(); i++) {
+    for (unsigned int i = 0; i < root["records"].size(); i++) {
         if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
             found = true;
             int index = root["records"][i]["data"].size();
@@ -397,7 +397,7 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
 
     root = getRootFromFileStream("Database/accountsDetails.json");
 
-    for (int i = 0; i < root["records"].size() && !monthfound; i++) {
+    for (unsigned int i = 0; i < root["records"].size() && !monthfound; i++) {
         if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
             monthfound = true;
             index_record_change = i;
@@ -431,8 +431,8 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
     } 
     else {
         // Propagate changes in the next month records
-        for (int i = index_record_change + 1; i < root["records"].size(); i++) {
-            for (int j = 0; j < root["records"][i]["data"].size(); j++) {
+        for (unsigned int i = index_record_change + 1; i < root["records"].size(); i++) {
+            for (unsigned int j = 0; j < root["records"][i]["data"].size(); j++) {
                 if (root["records"][i]["data"][j]["id"] == t->AccountID) {
                     root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) + t->Amount;
                 }
@@ -472,7 +472,7 @@ void Backend::updateNetWorthData(int month, int year, Transaction_p t)
     }
 
     // Update NW records file
-    for (int i = 0; i < root["records"].size() && !monthfound; i++) {
+    for (unsigned int i = 0; i < root["records"].size() && !monthfound; i++) {
         if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
             monthfound = true;
             index_record_change = i;
@@ -497,7 +497,7 @@ void Backend::updateNetWorthData(int month, int year, Transaction_p t)
     }
     else {
         // Propagate changes in the next month records
-        for (int i = index_record_change + 1; i < root["records"].size(); i++) {
+        for (unsigned int i = index_record_change + 1; i < root["records"].size(); i++) {
             root["records"][i]["OpeningWorth"] = std::stod(root["records"][i]["OpeningWorth"].asString()) + t->Amount;
             root["records"][i]["LowWorth"] = std::stod(root["records"][i]["LowWorth"].asString()) + t->Amount;
             root["records"][i]["HighWorth"] = std::stod(root["records"][i]["HighWorth"].asString()) + t->Amount;
@@ -532,7 +532,7 @@ double Backend::getAccountAmountAt(int id, int month, int year)
     return amount;
 }
 
-int Backend::getLastAccountAmount(int id)
+double Backend::getLastAccountAmount(int id)
 {
     double amount = 0.0;
     AccountMonthlyDetails_p data = getAccountMonthlyRecords(id);
@@ -561,6 +561,45 @@ double Backend::getNWat(int month, int year)
 
     if (currentMonth_index != -1) {
         amount = data[currentMonth_index]->ClosingWorth;
+    }
+
+    return amount;
+}
+
+// Aggregate Reports
+
+MonthlyAggrCategoryReport_p Backend::getAggrCatReport(int month, int year)
+{
+    MonthlyAggrCategoryReport_p x = new MonthlyAggrCategoryReport();
+    x->Month = month;
+    x->Year = year;
+
+    std::vector<Category_p> categories = this->getCategories();
+    for(auto cat : categories){
+        if(cat->Type == "Out"){
+            MonthlyCategoryBalanceT_p balance = new MonthlyCategoryBalanceT();
+            balance->Category = cat->Name;
+            balance->CategoryType = cat->Type;
+            balance->Month = month;
+            balance->Year = year;
+            balance->Amount = this->getAmountByCategory(month, year, cat->Name);
+            x->totalsByCategory.push_back(balance);
+        }
+    }
+
+    return x;
+}
+
+double Backend::getAmountByCategory(int month, int year, std::string category)
+{
+    double amount = 0.0;
+    MonthlyTransactions_p x = new MonthlyTransactions();
+    x = this->getMonthlyReport(month, year);
+
+    for(auto t : x->transactions){
+        if(t->Category == category){
+            amount = t->Amount;
+        }
     }
 
     return amount;

@@ -197,21 +197,18 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 	ImGui::Checkbox("Show Yearly", &monthlyAggrView);
 
 	ImGui::SliderInt("##slider_options", &breakdownBy, 0, option_Count - 1, option_name);
-	ImGui::SameLine();
-
-	if (ImGui::Button("Refresh transactions"))
-	{
-		this->monthlyTransactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
-		this->YearlyReport = this->core->getYearlyReportFromDb(year);
-	}
 
 	ImGui::Spacing();
 	ImGui::Separator();
 	ImGui::Spacing();
 
-	static const char* labels1[]   = {"Frogs","Hogs","Dogs","Logs"};
-    static float data1[]           = {0.15f,  0.30f,  0.2f, 0.05f};
-    static bool normalize          = true;
+    static bool normalize = true;
+
+	std::vector<MonthlyAggrCategoryReport_p> monthlyReportsYear;
+	for(int i=0; i<12; i++){
+		MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReport(i + 1, year);
+		monthlyReportsYear.push_back(aggrCatReport);
+	}
 
 	if(!monthlyAggrView){
 		static ImPlotSubplotFlags flags = ImPlotSubplotFlags_NoTitle || ImPlotSubplotFlags_NoResize;
@@ -224,11 +221,17 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 				for (int i = 0; i < rows*cols; ++i) {
 					ImPlot::PushColormap(ImPlotColormap_Deep);
 					char str[100] = {};
+					std::vector<const char*> labels;
+					std::vector<double> data;
+					for(auto x : monthlyReportsYear[i]->totalsByCategory){
+						labels.push_back(x->Category.c_str());
+						data.push_back(fabs(x->Amount));
+					}
 					sprintf_s(str, "%s##%d_label_pie_chart_cat", elems_names[i], i);
 					if (ImPlot::BeginPlot(str, ImVec2(-1,-1), ImPlotFlags_Equal | ImPlotFlags_NoMouseText)) {
 						ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_NoDecorations, ImPlotAxisFlags_NoDecorations);
 						ImPlot::SetupAxesLimits(0, 1, 0, 1);
-						ImPlot::PlotPieChart(labels1, data1, 4, 0.5, 0.5, 0.4, normalize, "%.2f");
+						ImPlot::PlotPieChart(labels.data(), data.data(), 4, 0.5, 0.5, 0.4, normalize, "%.0f");
 						ImPlot::EndPlot();
 					}
 					ImPlot::PopColormap();
@@ -236,25 +239,41 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 				ImPlot::EndSubplots();
 			}
 		}else if(breakdownBy == elem_SubCategory){
-			if (ImPlot::BeginSubplots("My Subplots", rows, cols, ImVec2(-1,-1), flags)) {
-				for (int i = 0; i < rows*cols; ++i) {
-					ImPlot::PushColormap(ImPlotColormap_Dark);
-					char str[100] = {};
-					sprintf_s(str, "%s##%d_label_pie_chart_sub_cat", elems_names[i], i);
-					if (ImPlot::BeginPlot(str, ImVec2(-1,-1), ImPlotFlags_Equal | ImPlotFlags_NoMouseText)) {
-						ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_NoDecorations, ImPlotAxisFlags_NoDecorations);
-						ImPlot::SetupAxesLimits(0, 1, 0, 1);
-						ImPlot::PlotPieChart(labels1, data1, 4, 0.5, 0.5, 0.4, normalize, "%.2f");
-						ImPlot::EndPlot();
-					}
-					ImPlot::PopColormap();
-				}
-				ImPlot::EndSubplots();
-			}
+			// sub cat monthly
 		}
 	}
 	else {
 		// yearly aggregate view
+		if(breakdownBy == elem_Category){
+				ImPlot::PushColormap(ImPlotColormap_Deep);
+				char str[100] = {};
+				std::vector<const char*> labels;
+				std::vector<double> data;
+				for(int i=0; i<12; i++){
+					for(auto cat : monthlyReportsYear[i]->totalsByCategory){
+						bool found = false;
+						for(int j=0; j<labels.size() && !found; j++){
+							if(strcmp(labels[j], cat->Category.c_str()) == 0){
+								found = true;
+								data[j] += fabs(cat->Amount);
+							}
+						}
+						if(!found){
+							labels.push_back(cat->Category.c_str());
+							data.push_back(fabs(cat->Amount));
+						}
+					}
+				}
+				if (ImPlot::BeginPlot("##label_pie_chart_cat_year", ImVec2(-1,-1), ImPlotFlags_Equal | ImPlotFlags_NoMouseText)) {
+					ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_NoDecorations, ImPlotAxisFlags_NoDecorations);
+					ImPlot::SetupAxesLimits(0, 1, 0, 1);
+					ImPlot::PlotPieChart(labels.data(), data.data(), (int)labels.size(), 0.5, 0.5, 0.35, normalize, "%.0f");
+					ImPlot::EndPlot();
+				}
+				ImPlot::PopColormap();
+		}else if(breakdownBy == elem_SubCategory){
+			// sub cat yearly
+		}
 	}
 }
 

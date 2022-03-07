@@ -27,6 +27,7 @@ class IncomeExpenses : public Tab {
 	 * 
 	 */
 	YearlyReport_p YearlyReport;
+
 public:
 	/**
 	 * @brief Construct a new IncomeExpenses Tab

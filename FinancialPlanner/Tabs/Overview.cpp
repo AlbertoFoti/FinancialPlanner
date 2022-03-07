@@ -56,7 +56,9 @@ void Overview::Render()
 			closes.push_back(x->ClosingWorth);
 		}
 
+		ImPlot::PushColormap(ImPlotColormap_Dark);
 		pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], (int)dates.size());
+		ImPlot::PopColormap();
 	}
 
 	// Account Plots

@@ -12,7 +12,7 @@ void NetWorth::Render()
 	auto blenderProThin_m = io.Fonts->Fonts[7];
 	auto blenderProThinLarge = io.Fonts->Fonts[8];
 
-	ImPlot::ShowDemoWindow();
+	//ImPlot::ShowDemoWindow();
 
 	// Net Worth Data
 	this->NW_records = this->core->getNWdata();
@@ -117,7 +117,9 @@ void NetWorth::Render()
 		}
 
 		// Plots
+		ImPlot::PushColormap(ImPlotColormap_Dark);
 		pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], (int)dates.size());
+		ImPlot::PopColormap();
 		pl.ShowCandleBarsPlot_default("##Net Worth (candles)", &dates[0], &opens[0], &closes[0], &lows[0], &highs[0], (int)dates.size());
 	}
 

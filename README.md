@@ -1,7 +1,7 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.2.0**
+Current Stable Version : **Version 0.2.1**
 
 ## For Final Users
 There isn't a proper installation procedure yet.
@@ -16,13 +16,20 @@ There isn't a proper installation procedure yet.
 - Transactions operations [Edit] [Delete]
 
 ## Version 0.3.0 Objectives
+- Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
 - Allow Transfer between Accounts
 - Income/Expenses Detail tab: add column for investments returns
 - Backend System optimization (structure rethink)
 - Full GUI style improvement (also add headers to tables)
+- Fix : not possible to add categories with the same name as an existing category
+- Fix : memory leaks
 
-### Version 0.2.1 Objectives
-- Income/Expenses : Overview tab
+### Version 0.2.2 Objectives
+- Investments Tab
+- Investments Logic Structure
+
+### Version 0.2.1 Features
+- Income/Expenses : Overview tab [monthly by cat, yearly by cat]
 - Investments, Asset Allocation, Forecasting, FIRE tabs added
 - Major refactor and documentation
 

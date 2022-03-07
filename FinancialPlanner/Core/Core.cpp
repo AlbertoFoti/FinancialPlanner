@@ -10,7 +10,6 @@ Core::Core()
 	this->NW_records = this->back_end.getNWdata(from, to);
 	this->MonthlyReport = this->getMonthlyTransactionsReportFromDb(1, 2021);
 	this->YearlyReport = this->getYearlyReportFromDb(2021);
-	//this->monthlyAccountsReport = this->getMonthlyAccountsReportFromDb(1, 2021);
 }
 
 double Core::CompoundInterestCalculate(double initialNW, double interestRate, double annualDeposits, int investmentYears, double* y_data)
@@ -185,4 +184,9 @@ void Core::pushTransaction(int month, int year, Transaction_p t)
 	// Update Net Worth data
 	this->back_end.updateNetWorthData(month, year, t);
 	this->NW_records = getNWdataFromDb(-1, -1);
+}
+
+MonthlyAggrCategoryReport_p Core::getAggrCatReport(int month, int year)
+{
+	return this->back_end.getAggrCatReport(month, year);
 }

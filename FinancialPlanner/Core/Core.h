@@ -48,7 +48,6 @@ class Core {
 
 	//MonthlyAggrAccountReport_p monthlyAccountsReport;
 	//MonthlyAggrSubCategoryReport_p monthlySubCategoryReport;
-	//MonthlyAggrCategoryReport_p monthlyCategoryReport;
 public:
 	/**
 	 * @brief Construct a new Core object
@@ -247,4 +246,10 @@ public:
 	 * @param t transaction
 	 */
 	void pushTransaction(int month, int year, Transaction_p t);
+
+	/**
+	 * @brief Get the Aggregate Category Report object from Db
+	 * 
+	 */
+	MonthlyAggrCategoryReport_p getAggrCatReport(int month, int year);
 };

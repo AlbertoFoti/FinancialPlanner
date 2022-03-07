@@ -34,7 +34,7 @@ using AccountsMonthlyDetail_p = AccountsMonthlyDetail*;
 struct AccountMonthlyRecordComplex {
 	int Month;
 	int Year;
-	int Amount;
+	double Amount;
 };
 using AccountMonthlyRecordComplex_p = AccountMonthlyRecordComplex*;
 
@@ -90,6 +90,7 @@ struct MonthlyTransactions {
 };
 using MonthlyTransactions_p = MonthlyTransactions*;
 
+// Monthly Category Balance
 struct MonthlyCategoryBalanceT {
 	std::string Category;
 	std::string CategoryType;
@@ -99,6 +100,7 @@ struct MonthlyCategoryBalanceT {
 };
 using MonthlyCategoryBalanceT_p = MonthlyCategoryBalanceT*;
 
+// Monthly Subcategory Balance
 struct MonthlySubCategoryBalanceT {
 	std::string SubCategory;
 	std::string Category;
@@ -125,19 +127,21 @@ struct MonthlyAggrAccountReport {
 };
 using MonthlyAggrAccountReport_p = MonthlyAggrAccountReport*;
 
+// Aggregate Subcategory balance
 struct MonthlyAggrSubCategoryReport {
 	int Month;
 	int Year;
 	std::vector<MonthlySubCategoryBalanceT_p> totalsBySubCategory;
 };
-using MonthlyAggrSubCategoryReport_p = MonthlyAggrSubCategoryReport;
+using MonthlyAggrSubCategoryReport_p = MonthlyAggrSubCategoryReport*;
 
+// Aggregate Category balance
 struct MonthlyAggrCategoryReport {
 	int Month;
 	int Year;
 	std::vector<MonthlyCategoryBalanceT_p> totalsByCategory;
 };
-using MonthlyAggrCategoryReport_p = MonthlyAggrCategoryReport;
+using MonthlyAggrCategoryReport_p = MonthlyAggrCategoryReport*;
 
 struct MonthlyReport {
 	int Month;
@@ -157,39 +161,68 @@ class Backend {
 public:
 	void init();
 
-	// Accounts
+	/**
+	 * @brief Accounts
+	 * 
+	 */
 	std::vector<Account_p> getAccounts();
 	void pushAccount(Account_p x);
 	AccountMonthlyDetails_p getAccountMonthlyRecords(int id);
 	AccountMonthlyDetails_p getAccountMonthlyRecordsComplete(int id);
 	void deleteAccount(int id);
 
-	// Category
+	/**
+	 * @brief Category
+	 * 
+	 */
 	std::vector<Category_p> getCategories();
 	void pushCategory(Category_p x);
 	void pushSubCategory(std::string categoryName, SubCategory_p x);
 	Json::Value SwapLastElements(Json::Value root, int i);
 	void deleteCategory(int id);
 
-	// Net Worth
+	/**
+	 * @brief Net Worth
+	 *  
+	 */
 	std::vector<NW_record_p> getNWdata(double from, double to);
 
-	// Income / Expenses
+	/**
+	 * @brief Income / Expenses
+	 * 
+	 */
 	MonthlyTransactions_p getMonthlyReport(int month, int year);
 	YearlyReport_p getYearlyReport(int year);
 	void pushTransaction(int month, int year, Transaction_p t);
 
-	// Integration
+	/**
+	 * @brief Integration
+	 *  
+	 */
 	void updateAccountsDetailsData(int month, int year, Transaction_p t);
 	void updateNetWorthData(int month, int year, Transaction_p t);
 	double getAccountAmountAt(int id, int month, int year);
-	int getLastAccountAmount(int id);
+	double getLastAccountAmount(int id);
 	double getNWat(int month, int year);
 
-	// Testing
+	/**
+	 * @brief Aggregate Reports
+	 * 
+	 */
+	MonthlyAggrCategoryReport_p getAggrCatReport(int month, int year);
+	double getAmountByCategory(int month, int year, std::string category);
+
+	/**
+	 * @brief Testing
+	 * 
+	 */
 	std::string sayHello();
 
 private:
+	/**
+	 * @brief Private Utility Functions
+	 * 
+	 */
 	Json::Value getRootFromFileStream(std::string ifstream_name);
 	void writeToFileStream(std::string ofstream_name, Json::Value root);
 };
