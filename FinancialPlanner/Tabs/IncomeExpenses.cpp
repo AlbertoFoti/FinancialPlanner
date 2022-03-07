@@ -178,7 +178,84 @@ void IncomeExpenses::ShowEditTransactionPanel(int i, int month, int year)
 
 void IncomeExpenses::ShowIncomeExpensesAggregate()
 {
-	ImGui::Text("Income / Expenses : Overview");
+	// Sliders and options
+	enum Element { elem_January, elem_February, elem_March, elem_April, elem_May, elem_June, elem_July, elem_August, elem_September, elem_October, elem_November, elem_December, elem_Count };
+	static int month = elem_January;
+	const char* elems_names[elem_Count] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+	const char* elem_name = (month >= 0 && month < elem_Count) ? elems_names[month] : "Unknown";
+
+	enum Option { elem_Category, elem_SubCategory, option_Count };
+	static int breakdownBy = elem_Category;
+	const char* option_names[option_Count] = { "by Category", "by SubCategory" };
+	const char* option_name = (breakdownBy >= 0 && breakdownBy < option_Count) ? option_names[breakdownBy] : "Unknown";
+
+	static int year = 2021;
+	ImGui::SliderInt("##slider_year", &year, 2000, 2100);
+	ImGui::SameLine();
+
+	static bool monthlyAggrView = false;
+	ImGui::Checkbox("Show Yearly", &monthlyAggrView);
+
+	ImGui::SliderInt("##slider_options", &breakdownBy, 0, option_Count - 1, option_name);
+	ImGui::SameLine();
+
+	if (ImGui::Button("Refresh transactions"))
+	{
+		this->monthlyTransactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
+		this->YearlyReport = this->core->getYearlyReportFromDb(year);
+	}
+
+	ImGui::Spacing();
+	ImGui::Separator();
+	ImGui::Spacing();
+
+	static const char* labels1[]   = {"Frogs","Hogs","Dogs","Logs"};
+    static float data1[]           = {0.15f,  0.30f,  0.2f, 0.05f};
+    static bool normalize          = true;
+
+	if(!monthlyAggrView){
+		static ImPlotSubplotFlags flags = ImPlotSubplotFlags_NoTitle || ImPlotSubplotFlags_NoResize;
+		static int rows = 3;
+		static int cols = 4;
+
+		// months view
+		if(breakdownBy == elem_Category){
+			if (ImPlot::BeginSubplots("My Subplots", rows, cols, ImVec2(-1,-1), flags)) {
+				for (int i = 0; i < rows*cols; ++i) {
+					ImPlot::PushColormap(ImPlotColormap_Deep);
+					char str[100] = {};
+					sprintf_s(str, "%s##%d_label_pie_chart_cat", elems_names[i], i);
+					if (ImPlot::BeginPlot(str, ImVec2(-1,-1), ImPlotFlags_Equal | ImPlotFlags_NoMouseText)) {
+						ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_NoDecorations, ImPlotAxisFlags_NoDecorations);
+						ImPlot::SetupAxesLimits(0, 1, 0, 1);
+						ImPlot::PlotPieChart(labels1, data1, 4, 0.5, 0.5, 0.4, normalize, "%.2f");
+						ImPlot::EndPlot();
+					}
+					ImPlot::PopColormap();
+				}
+				ImPlot::EndSubplots();
+			}
+		}else if(breakdownBy == elem_SubCategory){
+			if (ImPlot::BeginSubplots("My Subplots", rows, cols, ImVec2(-1,-1), flags)) {
+				for (int i = 0; i < rows*cols; ++i) {
+					ImPlot::PushColormap(ImPlotColormap_Dark);
+					char str[100] = {};
+					sprintf_s(str, "%s##%d_label_pie_chart_sub_cat", elems_names[i], i);
+					if (ImPlot::BeginPlot(str, ImVec2(-1,-1), ImPlotFlags_Equal | ImPlotFlags_NoMouseText)) {
+						ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_NoDecorations, ImPlotAxisFlags_NoDecorations);
+						ImPlot::SetupAxesLimits(0, 1, 0, 1);
+						ImPlot::PlotPieChart(labels1, data1, 4, 0.5, 0.5, 0.4, normalize, "%.2f");
+						ImPlot::EndPlot();
+					}
+					ImPlot::PopColormap();
+				}
+				ImPlot::EndSubplots();
+			}
+		}
+	}
+	else {
+		// yearly aggregate view
+	}
 }
 
 void IncomeExpenses::ShowIncomeExpensesDetails() 

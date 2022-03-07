@@ -23,7 +23,7 @@ There isn't a proper installation procedure yet.
 
 ### Version 0.2.1 Objectives
 - Income/Expenses : Overview tab
-- Investments, Asset Allocation, Forecasting, FIRE tabs
+- Investments, Asset Allocation, Forecasting, FIRE tabs added
 - Major refactor and documentation
 
 ### Versions 0.1.x Features
