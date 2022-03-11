@@ -96,6 +96,27 @@ void Plotter::ShowCandleBarsPlot_default(const char* label_id, const double* xs,
     }
 }
 
+void Plotter::ShowBarGroupsPlot_empty(const char* label_id)
+{
+    static ImS8  data[40] = {83, 67, 23, 89, 83, 78, 91, 82, 85, 90,  // Q1
+                             80, 62, 56, 99, 55, 78, 88, 78, 90, 100, // Q2
+                             80, 69, 52, 92, 72, 78, 75, 76, 89, 95,  // Q3
+							 80, 69, 52, 92, 72, 78, 75, 76, 89, 95}; // Q4
+
+	static const char*  ilabels[]   = {"Q1","Q2","Q3", "Q4"};
+    static const char*  glabels[]   = {"2019","2020","2021","2022","2023","2024","2025","2026","2027","2028"};
+    static const double positions[] = {0,1,2,3,4,5,6,7,8,9};
+
+	// Deposits
+	if (ImPlot::BeginPlot(label_id)) {
+        ImPlot::SetupLegend(ImPlotLocation_East, ImPlotLegendFlags_Outside);
+        ImPlot::SetupAxes("","",ImPlotAxisFlags_AutoFit,ImPlotAxisFlags_AutoFit);
+        ImPlot::SetupAxisTicks(ImAxis_X1,positions, 10, glabels);
+        ImPlot::PlotBarGroups(ilabels,data,4,10,0.67f,0);
+        ImPlot::EndPlot();
+    }
+}
+
 void Plotter::CandleBarsPlot(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count, float width_percent, ImVec4 bullCol, ImVec4 bearCol)
 {
     // get ImGui window DrawList

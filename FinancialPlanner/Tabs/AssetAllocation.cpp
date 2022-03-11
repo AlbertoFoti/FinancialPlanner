@@ -1,6 +1,6 @@
 #include "AssetAllocation.h"
 
-AssetAllocation::AssetAllocation(Core* core)
+AssetAllocation::AssetAllocation(std::shared_ptr<Core> core)
 {
 	this->core = core;
 }

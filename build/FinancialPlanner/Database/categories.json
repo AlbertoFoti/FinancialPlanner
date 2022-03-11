@@ -2,6 +2,34 @@
 	"categories" : 
 	[
 		{
+			"Name" : "Investments (+)",
+			"SubCategories" : 
+			[
+				{
+					"Name" : "Deposit",
+					"id" : 1
+				},
+				{
+					"Name" : "Investments (+)",
+					"id" : 2
+				}
+			],
+			"Type" : "In",
+			"id" : 1
+		},
+		{
+			"Name" : "Investments (-)",
+			"SubCategories" : 
+			[
+				{
+					"Name" : "Investments (-)",
+					"id" : 1
+				}
+			],
+			"Type" : "Out",
+			"id" : 2
+		},
+		{
 			"Name" : "Income",
 			"SubCategories" : 
 			[
@@ -14,16 +42,12 @@
 					"id" : 2
 				},
 				{
-					"Name" : "Investments (+)",
-					"id" : 3
-				},
-				{
 					"Name" : "Other Income",
-					"id" : 4
+					"id" : 3
 				}
 			],
 			"Type" : "In",
-			"id" : 1
+			"id" : 3
 		},
 		{
 			"Name" : "Housing",
@@ -43,7 +67,7 @@
 				}
 			],
 			"Type" : "Out",
-			"id" : 2
+			"id" : 4
 		},
 		{
 			"Name" : "Food",
@@ -63,7 +87,7 @@
 				}
 			],
 			"Type" : "Out",
-			"id" : 3
+			"id" : 5
 		},
 		{
 			"Name" : "Transportation",
@@ -83,7 +107,7 @@
 				}
 			],
 			"Type" : "Out",
-			"id" : 4
+			"id" : 6
 		},
 		{
 			"Name" : "Fees & Taxes",
@@ -107,7 +131,7 @@
 				}
 			],
 			"Type" : "Out",
-			"id" : 5
+			"id" : 7
 		},
 		{
 			"Name" : "Leisure",
@@ -118,18 +142,28 @@
 					"id" : 1
 				},
 				{
-					"Name" : "Other Leisure",
+					"Name" : "Clothing",
 					"id" : 2
+				},
+				{
+					"Name" : "Other Leisure",
+					"id" : 3
 				}
 			],
 			"Type" : "Out",
-			"id" : 6,
-			"subcategories" : 
+			"id" : 8
+		},
+		{
+			"Name" : "Others",
+			"SubCategories" : 
 			[
 				{
-					"Name" : "Clothing"
+					"Name" : "Others",
+					"id" : 1
 				}
-			]
+			],
+			"Type" : "Out",
+			"id" : 9
 		}
 	]
 }

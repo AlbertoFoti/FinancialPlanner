@@ -13,7 +13,7 @@ class Forecasting : public Tab {
 	 * @brief Core component : Link with financial procedures and backend link
 	 * 
 	 */
-	Core* core;
+	std::shared_ptr<Core> core;
     
 public:
 	/**
@@ -21,7 +21,7 @@ public:
 	 * 
 	 * @param core Core component : Link with financial procedures and backend link
 	 */
-	Forecasting(Core* core);
+	Forecasting(std::shared_ptr<Core> core);
 
 	/**
 	 * @brief Rendering

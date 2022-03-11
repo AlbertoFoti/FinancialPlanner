@@ -1,6 +1,6 @@
 #include "FIRE.h"
 
-FIRE::FIRE(Core* core)
+FIRE::FIRE(std::shared_ptr<Core> core)
 {
 	this->core = core;
 }

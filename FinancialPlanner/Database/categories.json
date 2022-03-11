@@ -123,13 +123,23 @@
 				}
 			],
 			"Type" : "Out",
-			"id" : 6,
-			"subcategories" : 
+			"id" : 6
+		},
+		{
+			"Name" : "Others",
+			"SubCategories" : 
 			[
 				{
-					"Name" : "Clothing"
+					"Name" : "Investments (-)",
+					"id" : 1
+				},
+				{
+					"Name" : "Others",
+					"id" : 2
 				}
-			]
+			],
+			"Type" : "Out",
+			"id" : 7
 		}
 	]
 }

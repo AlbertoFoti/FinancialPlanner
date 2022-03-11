@@ -1,6 +1,6 @@
 #include "Forecasting.h"
 
-Forecasting::Forecasting(Core* core)
+Forecasting::Forecasting(std::shared_ptr<Core> core)
 {
 	this->core = core;
 }

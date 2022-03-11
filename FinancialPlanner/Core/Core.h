@@ -252,4 +252,10 @@ public:
 	 * 
 	 */
 	MonthlyAggrCategoryReport_p getAggrCatReport(int month, int year);
+
+	/**
+	 * @brief Get the Aggregate Category Report object from Db without investments
+	 * 
+	 */
+	MonthlyAggrCategoryReport_p getAggrCatReportWithoutInvestments(int month, int year);
 };

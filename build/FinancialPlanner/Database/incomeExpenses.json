@@ -37,6 +37,14 @@
 					"Day" : 6,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
+				},
+				{
+					"Account" : 1,
+					"Amount" : 200.0,
+					"Category" : "Investments (+)",
+					"Day" : 7,
+					"Subcategory" : "Deposit",
+					"Type" : "In"
 				}
 			]
 		},
@@ -51,6 +59,14 @@
 					"Category" : "Income",
 					"Day" : 1,
 					"Subcategory" : "Income",
+					"Type" : "In"
+				},
+				{
+					"Account" : 1,
+					"Amount" : 300.0,
+					"Category" : "Investments (+)",
+					"Day" : 8,
+					"Subcategory" : "Deposit",
 					"Type" : "In"
 				},
 				{
@@ -77,12 +93,35 @@
 					"Type" : "In"
 				},
 				{
+					"Account" : 1,
+					"Amount" : 400.0,
+					"Category" : "Investments (+)",
+					"Day" : 6,
+					"Subcategory" : "Deposit",
+					"Type" : "In"
+				},
+				{
 					"Account" : 2,
 					"Amount" : -600.0,
 					"Category" : "Housing",
 					"Day" : 10,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
+				}
+			]
+		},
+		{
+			"Month" : 4,
+			"Year" : 2021,
+			"data" : 
+			[
+				{
+					"Account" : 1,
+					"Amount" : 1100.0,
+					"Category" : "Investments (+)",
+					"Day" : 4,
+					"Subcategory" : "Deposit",
+					"Type" : "In"
 				}
 			]
 		}

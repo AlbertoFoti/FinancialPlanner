@@ -1,6 +1,6 @@
 #include "Overview.h"
 
-Overview::Overview(Core* core)
+Overview::Overview(std::shared_ptr<Core> core)
 {
 	this->core = core;
 }

@@ -14,7 +14,7 @@ class Overview : public Tab {
 	 * @brief Core component : Link with financial procedures and backend link
 	 * 
 	 */
-	Core* core;
+	std::shared_ptr<Core> core;
 
 	/**
 	 * @brief Temporary Data Structure to store NW-records
@@ -33,7 +33,7 @@ public:
 	 * 
 	 * @param core Core component : Link with financial procedures and backend link
 	 */
-	Overview(Core* core);
+	Overview(std::shared_ptr<Core> core);
 
 	/**
 	 * @brief Rendering

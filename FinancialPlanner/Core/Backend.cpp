@@ -605,6 +605,28 @@ double Backend::getAmountByCategory(int month, int year, std::string category)
     return amount;
 }
 
+MonthlyAggrCategoryReport_p Backend::getAggrCatReportWithoutInvestments(int month, int year)
+{
+    MonthlyAggrCategoryReport_p x = new MonthlyAggrCategoryReport();
+    x->Month = month;
+    x->Year = year;
+
+    std::vector<Category_p> categories = this->getCategories();
+    for(auto cat : categories){
+        if(cat->Type == "Out" && cat->Name != "Investments (+)" && cat->Name != "Investments (-)"){
+            MonthlyCategoryBalanceT_p balance = new MonthlyCategoryBalanceT();
+            balance->Category = cat->Name;
+            balance->CategoryType = cat->Type;
+            balance->Month = month;
+            balance->Year = year;
+            balance->Amount = this->getAmountByCategory(month, year, cat->Name);
+            x->totalsByCategory.push_back(balance);
+        }
+    }
+
+    return x;
+}
+
 // Testing
 
 std::string Backend::sayHello()

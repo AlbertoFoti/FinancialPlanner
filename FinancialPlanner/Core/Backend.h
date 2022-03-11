@@ -211,6 +211,7 @@ public:
 	 */
 	MonthlyAggrCategoryReport_p getAggrCatReport(int month, int year);
 	double getAmountByCategory(int month, int year, std::string category);
+	MonthlyAggrCategoryReport_p getAggrCatReportWithoutInvestments(int month, int year);
 
 	/**
 	 * @brief Testing

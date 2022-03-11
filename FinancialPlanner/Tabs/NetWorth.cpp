@@ -1,6 +1,6 @@
 #include "NetWorth.h"
 
-NetWorth::NetWorth(Core* core) {
+NetWorth::NetWorth(std::shared_ptr<Core> core) {
 	this->core = core;
 }
 
@@ -12,7 +12,7 @@ void NetWorth::Render()
 	auto blenderProThin_m = io.Fonts->Fonts[7];
 	auto blenderProThinLarge = io.Fonts->Fonts[8];
 
-	//ImPlot::ShowDemoWindow();
+	ImPlot::ShowDemoWindow();
 
 	// Net Worth Data
 	this->NW_records = this->core->getNWdata();

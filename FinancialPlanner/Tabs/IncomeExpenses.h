@@ -14,7 +14,7 @@ class IncomeExpenses : public Tab {
 	 * @brief Core component : Link with financial procedures and backend link
 	 * 
 	 */
-	Core* core;
+	std::shared_ptr<Core> core;
 
 	/**
 	 * @brief Temporary Data Structure to store monthly transactions
@@ -34,7 +34,7 @@ public:
 	 * 
 	 * @param core Core component : Link with financial procedures and backend link
 	 */
-	IncomeExpenses(Core* core);
+	IncomeExpenses(std::shared_ptr<Core> core);
 
 	/**
 	 * @brief Rendering

@@ -27,7 +27,7 @@ private:
 	 * @brief Core component : Link with financial procedures and backend link
 	 * 
 	 */
-	Core* core;
+	std::shared_ptr<Core> core;
 
 	/**
 	 * @brief Temporary Data Structure to store accounts

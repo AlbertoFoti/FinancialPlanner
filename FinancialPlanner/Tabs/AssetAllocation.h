@@ -13,14 +13,14 @@ class AssetAllocation : public Tab {
 	 * @brief Core component : Link with financial procedures and backend link
 	 * 
 	 */
-	Core* core;
+	std::shared_ptr<Core> core;
 public:
 	/**
 	 * @brief Construct a new AssetAllocation Tab
 	 * 
 	 * @param core Core component : Link with financial procedures and backend link
 	 */
-	AssetAllocation(Core* core);
+	AssetAllocation(std::shared_ptr<Core> core);
 
 	/**
 	 * @brief Rendering

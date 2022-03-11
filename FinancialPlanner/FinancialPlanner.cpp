@@ -50,7 +50,7 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     //this->SetDarkThemeColors();
 
     // Core initialized
-    core = new Core();
+    core = std::make_shared<Core>();
     // Accounts
     accounts = this->core->getAccountsFromDb();
     // Categories

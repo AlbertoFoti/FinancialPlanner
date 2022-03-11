@@ -3,6 +3,7 @@
 #include "imgui.h"
 #include "implot.h"
 #include "../Templates/Tab.h"
+#include "Plotter.h"
 
 /**
  * @brief Investments Tab
@@ -13,14 +14,14 @@ class Investments : public Tab {
 	 * @brief Core component : Link with financial procedures and backend link
 	 * 
 	 */
-	Core* core;
+	std::shared_ptr<Core> core;
 public:
 	/**
 	 * @brief Construct a new Investments Tab
 	 * 
 	 * @param core Core component : Link with financial procedures and backend link
 	 */
-	Investments(Core* core);
+	Investments(std::shared_ptr<Core> core);
 
 	/**
 	 * @brief Rendering
@@ -34,4 +35,22 @@ public:
 	 * @param panel_name self-explanatory
 	 */
 	void ShowControlPanel(std::string panel_name);
+
+	/**
+	 * @brief Investments Overview Tab
+	 * 
+	 */
+	void ShowInvestmentsOverview();
+
+	/**
+	 * @brief Investments Breakdown Tab
+	 * 
+	 */
+	void ShowInvestmentsBreakdown();
+
+	/**
+	 * @brief Investments Details Tab
+	 * 
+	 */
+	void ShowInvestmentsDetails();
 };

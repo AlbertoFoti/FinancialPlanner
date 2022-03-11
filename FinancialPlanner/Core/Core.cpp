@@ -190,3 +190,8 @@ MonthlyAggrCategoryReport_p Core::getAggrCatReport(int month, int year)
 {
 	return this->back_end.getAggrCatReport(month, year);
 }
+
+MonthlyAggrCategoryReport_p Core::getAggrCatReportWithoutInvestments(int month, int year)
+{
+	return this->back_end.getAggrCatReportWithoutInvestments(month, year);
+}

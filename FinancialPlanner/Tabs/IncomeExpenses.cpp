@@ -1,6 +1,6 @@
 #include "IncomeExpenses.h"
 
-IncomeExpenses::IncomeExpenses(Core* core) {
+IncomeExpenses::IncomeExpenses(std::shared_ptr<Core> core) {
 	this->core = core;
 }
 
@@ -193,10 +193,29 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 	ImGui::SliderInt("##slider_year", &year, 2000, 2100);
 	ImGui::SameLine();
 
-	static bool monthlyAggrView = false;
-	ImGui::Checkbox("Show Yearly", &monthlyAggrView);
+	ImGui::AlignTextToFramePadding();
+	float spacing = ImGui::GetStyle().ItemInnerSpacing.x;
+	ImGui::PushButtonRepeat(true);
+	if (ImGui::ArrowButton("##btn_minus", ImGuiDir_Left)) { 
+		if(year > 2000)
+			year--; 
+	}
+	ImGui::SameLine(0.0f, spacing);
+	if (ImGui::ArrowButton("##btn_plus", ImGuiDir_Right)) { 
+		if (year < 2100)
+			year++;
+	}
+	ImGui::PopButtonRepeat();
 
 	ImGui::SliderInt("##slider_options", &breakdownBy, 0, option_Count - 1, option_name);
+	ImGui::SameLine();
+
+	static bool monthlyAggrView = false;
+	ImGui::Checkbox("Show Yearly", &monthlyAggrView);
+	ImGui::SameLine();
+
+	static bool includeInvestments = false;
+	ImGui::Checkbox("Include Investments", &includeInvestments);
 
 	ImGui::Spacing();
 	ImGui::Separator();
@@ -205,9 +224,16 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
     static bool normalize = true;
 
 	std::vector<MonthlyAggrCategoryReport_p> monthlyReportsYear;
-	for(int i=0; i<12; i++){
-		MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReport(i + 1, year);
-		monthlyReportsYear.push_back(aggrCatReport);
+	if(!includeInvestments){
+		for(int i=0; i<12; i++){
+			MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReportWithoutInvestments(i + 1, year);
+			monthlyReportsYear.push_back(aggrCatReport);
+		}
+	}else{
+		for(int i=0; i<12; i++){
+			MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReport(i + 1, year);
+			monthlyReportsYear.push_back(aggrCatReport);
+		}
 	}
 
 	if(!monthlyAggrView){
@@ -215,9 +241,18 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 		static int rows = 3;
 		static int cols = 4;
 
+		ImPlotStyle& style = ImPlot::GetStyle();
+		ImVec2 old_legend_padding = style.LegendPadding;
+		ImVec2 old_legend_inner_padding = style.LegendInnerPadding;
+		ImVec2 old_legend_spacing = style.LegendSpacing;
+		style.LegendPadding = ImVec2(0.0f, 0.0f);
+		style.LegendInnerPadding = ImVec2(0.0f, 0.0f);
+		style.LegendSpacing = ImVec2(0.0f, 0.0f);
+
 		// months view
 		if(breakdownBy == elem_Category){
 			if (ImPlot::BeginSubplots("My Subplots", rows, cols, ImVec2(-1,-1), flags)) {
+				ImPlotLegendFlags flags2 = ImPlotLegendFlags_None;
 				for (int i = 0; i < rows*cols; ++i) {
 					ImPlot::PushColormap(ImPlotColormap_Deep);
 					char str[100] = {};
@@ -229,9 +264,10 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 					}
 					sprintf_s(str, "%s##%d_label_pie_chart_cat", elems_names[i], i);
 					if (ImPlot::BeginPlot(str, ImVec2(-1,-1), ImPlotFlags_Equal | ImPlotFlags_NoMouseText)) {
+						ImPlot::SetupLegend(ImPlotLocation_West | ImPlotLocation_North, flags2);
 						ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_NoDecorations, ImPlotAxisFlags_NoDecorations);
 						ImPlot::SetupAxesLimits(0, 1, 0, 1);
-						ImPlot::PlotPieChart(labels.data(), data.data(), 4, 0.5, 0.5, 0.4, normalize, "%.0f");
+						ImPlot::PlotPieChart(labels.data(), data.data(), (int)labels.size(), 0.5, 0.5, 0.4, normalize, "%.0f");
 						ImPlot::EndPlot();
 					}
 					ImPlot::PopColormap();
@@ -241,6 +277,10 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 		}else if(breakdownBy == elem_SubCategory){
 			// sub cat monthly
 		}
+
+		style.LegendPadding = old_legend_padding;
+		style.LegendInnerPadding = old_legend_inner_padding;
+		style.LegendSpacing = old_legend_spacing;
 	}
 	else {
 		// yearly aggregate view
