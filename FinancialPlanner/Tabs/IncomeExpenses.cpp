@@ -206,6 +206,10 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 			year++;
 	}
 	ImGui::PopButtonRepeat();
+	ImGui::SameLine();
+
+	static bool includeInvestments = false;
+	ImGui::Checkbox("Include Investments", &includeInvestments);
 
 	ImGui::SliderInt("##slider_options", &breakdownBy, 0, option_Count - 1, option_name);
 	ImGui::SameLine();
@@ -214,27 +218,31 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 	ImGui::Checkbox("Show Yearly", &monthlyAggrView);
 	ImGui::SameLine();
 
-	static bool includeInvestments = false;
-	ImGui::Checkbox("Include Investments", &includeInvestments);
+	static std::vector<MonthlyAggrCategoryReport_p> monthlyReportsYear;
+
+	static bool first_time = true;
+	if (ImGui::Button("Refresh Data") || first_time) {
+		monthlyReportsYear.clear();
+		if (!includeInvestments) {
+			for (int i = 0; i < 12; i++) {
+				MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReportWithoutInvestments(i + 1, year);
+				monthlyReportsYear.push_back(aggrCatReport);
+			}
+		}
+		else {
+			for (int i = 0; i < 12; i++) {
+				MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReport(i + 1, year);
+				monthlyReportsYear.push_back(aggrCatReport);
+			}
+		}
+	}
+	first_time = false;
 
 	ImGui::Spacing();
 	ImGui::Separator();
 	ImGui::Spacing();
 
     static bool normalize = true;
-
-	std::vector<MonthlyAggrCategoryReport_p> monthlyReportsYear;
-	if(!includeInvestments){
-		for(int i=0; i<12; i++){
-			MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReportWithoutInvestments(i + 1, year);
-			monthlyReportsYear.push_back(aggrCatReport);
-		}
-	}else{
-		for(int i=0; i<12; i++){
-			MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReport(i + 1, year);
-			monthlyReportsYear.push_back(aggrCatReport);
-		}
-	}
 
 	if(!monthlyAggrView){
 		static ImPlotSubplotFlags flags = ImPlotSubplotFlags_NoTitle || ImPlotSubplotFlags_NoResize;
@@ -253,11 +261,13 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 		if(breakdownBy == elem_Category){
 			if (ImPlot::BeginSubplots("My Subplots", rows, cols, ImVec2(-1,-1), flags)) {
 				ImPlotLegendFlags flags2 = ImPlotLegendFlags_None;
+				static std::vector<const char*> labels;
+				static std::vector<double> data;
 				for (int i = 0; i < rows*cols; ++i) {
 					ImPlot::PushColormap(ImPlotColormap_Deep);
 					char str[100] = {};
-					std::vector<const char*> labels;
-					std::vector<double> data;
+					labels.clear();
+					data.clear();
 					for(auto x : monthlyReportsYear[i]->totalsByCategory){
 						labels.push_back(x->Category.c_str());
 						data.push_back(fabs(x->Amount));
