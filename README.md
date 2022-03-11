@@ -22,12 +22,14 @@ There isn't a proper installation procedure yet.
 - Backend System optimization (structure rethink)
 - Full GUI style improvement (also add headers to tables)
 - Fix : not possible to add categories with the same name as an existing category
-- Fix : memory leaks
 - Fix : not allowing the [delete] of Investments account and related issues
 
 ### Version 0.2.2 Objectives
-- Investments Tab
+- Investments Tab basic GUI
 - Investments Logic Structure
+- Investments : Details tab structure
+- Fix : memory leaks
+- Fix : performance issues
 
 ### Version 0.2.1 Features
 - Income/Expenses : Overview tab [monthly by cat, yearly by cat]
