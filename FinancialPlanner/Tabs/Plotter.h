@@ -4,6 +4,7 @@
 #include "implot.h"
 #include "implot_internal.h"
 #include <math.h>
+#include "../Core/Core.h"
 
 /**
  * @brief Plot left-rifht padding on the x-axis (in seconds)

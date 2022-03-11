@@ -42,6 +42,7 @@ void Overview::Render()
 	// New Worth Plot
 	static std::vector<double> dates;
 	static std::vector<double> closes;
+	
 
 	dates.clear();
 	closes.clear();
@@ -57,7 +58,7 @@ void Overview::Render()
 		}
 
 		ImPlot::PushColormap(ImPlotColormap_Dark);
-		pl.ShowLinePlot_def("##Net Worth (monthly)", &dates[0], &closes[0], (int)dates.size());
+		pl.ShowLinePlot_def("##Net Worth (monthly)", dates.data(), closes.data(), (int)dates.size());
 		ImPlot::PopColormap();
 	}
 
@@ -75,20 +76,18 @@ void Overview::Render()
 			char str[100] = {};
 			sprintf_s(str, "%s##%d_label_account_plots", core->getAccountName(accountMonthlyRecords->AccountID).c_str(), accountMonthlyRecords->AccountID);
 			for (int j = 0; j < accountMonthlyRecords->accountMonthlyRecords.size(); j++) {
-				int m = accountMonthlyRecords->accountMonthlyRecords[j]->Month;
-				int y = accountMonthlyRecords->accountMonthlyRecords[j]->Year;
+				int m = accountMonthlyRecords->accountMonthlyRecords.at(j)->Month;
+				int y = accountMonthlyRecords->accountMonthlyRecords.at(j)->Year;
 				double t = getUNIXtime(m, y);
 				xs.push_back(t);
-				ys.push_back(accountMonthlyRecords->accountMonthlyRecords[j]->Amount);
+				ys.push_back(accountMonthlyRecords->accountMonthlyRecords.at(j)->Amount);
 			}
 			if (xs.size() != 0 && ys.size() != 0) {
-				pl.ShowLinePlot_def(str, &xs[0], &ys[0], (int)xs.size());
+				pl.ShowLinePlot_def(str, xs.data(), ys.data(), (int)xs.size());
 			}
 		}
 		ImPlot::EndSubplots();
 	}
-	
-
 
 	ShowControlPanel("Overview Control Panel");
 }

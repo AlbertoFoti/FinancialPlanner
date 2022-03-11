@@ -13,7 +13,7 @@ struct Account {
 	std::string name;
 	double AmountStored;
 };
-using Account_p = Account*;
+using Account_p = std::shared_ptr<Account>;
 
 // Accounts detail Monthly record
 
@@ -21,14 +21,14 @@ struct AccountMonthlyRecord {
 	int AccountID;
 	int Amount;
 };
-using AccountMonthlyRecord_p = AccountMonthlyRecord*;
+using AccountMonthlyRecord_p = std::shared_ptr<AccountMonthlyRecord>;
 
 struct AccountsMonthlyDetail {
 	int Month;
 	int Year;
 	std::vector<AccountMonthlyRecord_p> accountMonthlyRecords;
 };
-using AccountsMonthlyDetail_p = AccountsMonthlyDetail*;
+using AccountsMonthlyDetail_p = std::shared_ptr<AccountsMonthlyDetail>;
 
 // Account Details Monthly Records
 struct AccountMonthlyRecordComplex {
@@ -36,13 +36,13 @@ struct AccountMonthlyRecordComplex {
 	int Year;
 	double Amount;
 };
-using AccountMonthlyRecordComplex_p = AccountMonthlyRecordComplex*;
+using AccountMonthlyRecordComplex_p = std::shared_ptr<AccountMonthlyRecordComplex>;
 
 struct AccountMonthlyDetails {
 	int AccountID;
 	std::vector<AccountMonthlyRecordComplex_p> accountMonthlyRecords;
 };
-using AccountMonthlyDetails_p = AccountMonthlyDetails*;
+using AccountMonthlyDetails_p = std::shared_ptr<AccountMonthlyDetails>;
 
 // NW record
 struct NW_record {
@@ -53,14 +53,14 @@ struct NW_record {
 	double HighWorth;
 	double ClosingWorth;
 };
-using NW_record_p = NW_record*;
+using NW_record_p = std::shared_ptr<NW_record>;
 
 // Subcategory
 struct SubCategory {
 	int id;
 	std::string Name;
 };
-using SubCategory_p = SubCategory*;
+using SubCategory_p = std::shared_ptr<SubCategory>;
 
 // Category
 struct Category {
@@ -69,7 +69,7 @@ struct Category {
 	std::string Type;
 	std::vector<SubCategory_p> subCategories;
 };
-using Category_p = Category*;
+using Category_p = std::shared_ptr<Category>;
 
 // Transaction
 struct Transaction {
@@ -80,7 +80,7 @@ struct Transaction {
 	int AccountID;
 	double Amount;
 };
-using Transaction_p = Transaction*;
+using Transaction_p = std::shared_ptr<Transaction>;
 
 // Monthly Transactions Summary
 struct MonthlyTransactions {
@@ -88,7 +88,7 @@ struct MonthlyTransactions {
 	int Year;
 	std::vector<Transaction_p> transactions;
 };
-using MonthlyTransactions_p = MonthlyTransactions*;
+using MonthlyTransactions_p = std::shared_ptr<MonthlyTransactions>;
 
 // Monthly Category Balance
 struct MonthlyCategoryBalanceT {
@@ -98,7 +98,7 @@ struct MonthlyCategoryBalanceT {
 	int Year;
 	double Amount;
 };
-using MonthlyCategoryBalanceT_p = MonthlyCategoryBalanceT*;
+using MonthlyCategoryBalanceT_p = std::shared_ptr<MonthlyCategoryBalanceT>;
 
 // Monthly Subcategory Balance
 struct MonthlySubCategoryBalanceT {
@@ -109,7 +109,7 @@ struct MonthlySubCategoryBalanceT {
 	int Year;
 	double Amount;
 };
-using MonthlySubCategoryBalanceT_p = MonthlySubCategoryBalanceT*;
+using MonthlySubCategoryBalanceT_p = std::shared_ptr<MonthlySubCategoryBalanceT>;
 
 struct MonthlyAccountBalanceT {
 	int AccountID;
@@ -118,14 +118,14 @@ struct MonthlyAccountBalanceT {
 	double balanceIn;
 	double balanceOut;
 };
-using MonthlyAccountBalanceT_p = MonthlyAccountBalanceT*;
+using MonthlyAccountBalanceT_p = std::shared_ptr<MonthlyAccountBalanceT>;
 
 struct MonthlyAggrAccountReport {
 	int Month;
 	int Year;
 	std::vector<MonthlyAccountBalanceT_p> totalsByAccountID;
 };
-using MonthlyAggrAccountReport_p = MonthlyAggrAccountReport*;
+using MonthlyAggrAccountReport_p = std::shared_ptr<MonthlyAggrAccountReport>;
 
 // Aggregate Subcategory balance
 struct MonthlyAggrSubCategoryReport {
@@ -133,7 +133,7 @@ struct MonthlyAggrSubCategoryReport {
 	int Year;
 	std::vector<MonthlySubCategoryBalanceT_p> totalsBySubCategory;
 };
-using MonthlyAggrSubCategoryReport_p = MonthlyAggrSubCategoryReport*;
+using MonthlyAggrSubCategoryReport_p = std::shared_ptr<MonthlyAggrSubCategoryReport>;
 
 // Aggregate Category balance
 struct MonthlyAggrCategoryReport {
@@ -141,7 +141,7 @@ struct MonthlyAggrCategoryReport {
 	int Year;
 	std::vector<MonthlyCategoryBalanceT_p> totalsByCategory;
 };
-using MonthlyAggrCategoryReport_p = MonthlyAggrCategoryReport*;
+using MonthlyAggrCategoryReport_p = std::shared_ptr<MonthlyAggrCategoryReport>;
 
 struct MonthlyReport {
 	int Month;
@@ -149,13 +149,13 @@ struct MonthlyReport {
 	double balanceIn;
 	double balanceOut;
 };
-using MonthlyReport_p = MonthlyReport*;
+using MonthlyReport_p = std::shared_ptr<MonthlyReport>;
 
 struct YearlyReport {
 	int Year;
 	std::vector<MonthlyReport_p> monthlyReports;
 };
-using YearlyReport_p = YearlyReport*;
+using YearlyReport_p = std::shared_ptr<YearlyReport>;
 
 class Backend {
 public:

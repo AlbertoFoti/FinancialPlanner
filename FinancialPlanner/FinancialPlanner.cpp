@@ -380,7 +380,7 @@ void FinancialPlanner::ShowAccountManager()
 
         if (strcmp(account_name, "")) {
             // New Account instance
-            Account_p x = new Account();
+            Account_p x = std::make_shared<Account>();
             x->id = accounts[accounts.size() - 1]->id + 1;
             x->name = account_name;
             x->AmountStored = 0.0;
@@ -514,13 +514,13 @@ void FinancialPlanner::ShowCategoryManager()
         if (newCat == 0) {
             if (strcmp(category_name, "") && strcmp(category_type, "")) {
                 // New Category instance
-                Category_p x = new Category();
+                Category_p x = std::make_shared<Category>();
                 x->id = (int)categories.size() + 1;
                 x->Name = category_name;
                 x->Type = category_type;
                 x->subCategories = std::vector<SubCategory_p>();
 
-                SubCategory_p s = new SubCategory();
+                SubCategory_p s = std::make_shared<SubCategory>();
                 s->id = 1;
                 char other[50] = "Other ";
                 s->Name = strcat_s(other, category_name);
@@ -548,7 +548,7 @@ void FinancialPlanner::ShowCategoryManager()
         else {
             if (strcmp(category_name, "") && strcmp(sub_category_name, "")) {
                 // New Subcategory instance
-                SubCategory_p x = new SubCategory();
+                SubCategory_p x = std::make_shared<SubCategory>();
                 x->Name = sub_category_name;
 
                 // Push in category vector if category exists

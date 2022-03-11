@@ -2,6 +2,7 @@
 
 #include "imgui.h"
 #include "implot.h"
+#include "../Core/Core.h"
 #include "../Templates/Tab.h"
 #include "../Utility/Utility.h"
 #include "Plotter.h"

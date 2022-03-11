@@ -15,7 +15,7 @@ std::vector<Account_p> Backend::getAccounts()
     Json::Value acc = root["accounts"];
 
     for (unsigned int i = 0; i < acc.size(); i++) {
-        Account_p x = new Account();
+        Account_p x = std::make_shared<Account>();
         x->id = std::stoi(acc[i]["id"].asString());
         x->name = acc[i]["name"].asString();
         x->AmountStored = 0.0;
@@ -51,7 +51,7 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecords(int id)
 
     double last_amount = 0.0;
 
-    AccountMonthlyDetails_p x = new AccountMonthlyDetails();
+    AccountMonthlyDetails_p x = std::make_shared<AccountMonthlyDetails>();
     x->AccountID = id;
 
     std::vector<Account_p> accounts;
@@ -59,7 +59,7 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecords(int id)
     root = getRootFromFileStream("Database/accountsDetails.json");
 
     for (unsigned int i = 0; i < root["records"].size(); i++) {
-        AccountMonthlyRecordComplex_p item = new AccountMonthlyRecordComplex();
+        AccountMonthlyRecordComplex_p item = std::make_shared<AccountMonthlyRecordComplex>();
         item->Month = std::stoi(root["records"][i]["Month"].asString());
         item->Year = std::stoi(root["records"][i]["Year"].asString());
         item->Amount = 0.0;
@@ -88,7 +88,7 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecordsComplete(int id)
 {
     Json::Value root;
 
-    AccountMonthlyDetails_p x = new AccountMonthlyDetails();
+    AccountMonthlyDetails_p x = std::make_shared<AccountMonthlyDetails>();
     x->AccountID = id;
 
     std::vector<Account_p> accounts;
@@ -96,7 +96,7 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecordsComplete(int id)
     root = getRootFromFileStream("Database/accountsDetails.json");
 
     for (unsigned int i = 0; i < root["records"].size(); i++) {
-        AccountMonthlyRecordComplex_p item = new AccountMonthlyRecordComplex();
+        AccountMonthlyRecordComplex_p item = std::make_shared<AccountMonthlyRecordComplex>();
         item->Month = std::stoi(root["records"][i]["Month"].asString());
         item->Year = std::stoi(root["records"][i]["Year"].asString());
         item->Amount = 0.0;
@@ -149,12 +149,12 @@ std::vector<Category_p> Backend::getCategories()
     Json::Value cat = root["categories"];
 
     for (unsigned int i = 0; i < cat.size(); i++) {
-        Category_p x = new Category();
+        Category_p x = std::make_shared<Category>();
         x->id = std::stoi(cat[i]["id"].asString());
         x->Name = cat[i]["Name"].asString();
         x->Type = cat[i]["Type"].asString();
         for (unsigned int j = 0; j < cat[i]["SubCategories"].size(); j++) {
-            SubCategory_p s = new SubCategory();
+            SubCategory_p s = std::make_shared<SubCategory>();
             s->id = std::stoi(cat[i]["SubCategories"][j]["id"].asString());
             s->Name = cat[i]["SubCategories"][j]["Name"].asString();
             x->subCategories.push_back(s);
@@ -259,7 +259,7 @@ std::vector<NW_record_p> Backend::getNWdata(double from, double to)
     Json::Value data = root["records"];
 
     for (unsigned int i = 0; i < data.size(); i++) {
-        NW_record_p x = new NW_record();
+        NW_record_p x = std::make_shared<NW_record>();
         x->Month = std::stoi(data[i]["Month"].asString());
         x->Year = std::stoi(data[i]["Year"].asString());
         x->OpeningWorth = std::stod(data[i]["OpeningWorth"].asString());
@@ -287,7 +287,7 @@ MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
 {
     Json::Value root;
 
-    MonthlyTransactions_p MonthlyReport = new MonthlyTransactions();
+    MonthlyTransactions_p MonthlyReport = std::make_shared<MonthlyTransactions>();
     MonthlyReport->Month = month;
     MonthlyReport->Year = year;
     MonthlyReport->transactions = std::vector<Transaction_p>();
@@ -303,7 +303,7 @@ MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
             MonthlyReport->Year = year;
             transactRecords = data[i]["data"];
             for (unsigned int i = 0; i < transactRecords.size(); i++) {
-                Transaction_p t = new Transaction();
+                Transaction_p t = std::make_shared<Transaction>();
                 t->Day = std::stoi(transactRecords[i]["Day"].asString());
                 t->Category = transactRecords[i]["Category"].asString();
                 t->Subcategory = transactRecords[i]["Subcategory"].asString();
@@ -320,13 +320,13 @@ MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
 
 YearlyReport_p Backend::getYearlyReport(int year)
 {
-    YearlyReport_p yearlyReport = new YearlyReport();
+    YearlyReport_p yearlyReport = std::make_shared<YearlyReport>();
     yearlyReport->Year = year;
     yearlyReport->monthlyReports = std::vector<MonthlyReport_p>();
 
     for (int i = 0; i < 12; i++) {
         MonthlyTransactions_p monthlyReport = this->getMonthlyReport(i + 1, year);
-        MonthlyReport_p x = new MonthlyReport();
+        MonthlyReport_p x = std::make_shared<MonthlyReport>();
         x->Month = i + 1;
         x->Year = year;
         x->balanceIn = 0.0;
@@ -512,7 +512,7 @@ void Backend::updateNetWorthData(int month, int year, Transaction_p t)
 double Backend::getAccountAmountAt(int id, int month, int year)
 {
     double amount = 0.0;
-    AccountMonthlyDetails_p data = getAccountMonthlyRecords(id);
+    std::shared_ptr<AccountMonthlyDetails> data = getAccountMonthlyRecords(id);
 
     int currentMonth_index = -1;
     bool Monthfound = false;
@@ -535,7 +535,7 @@ double Backend::getAccountAmountAt(int id, int month, int year)
 double Backend::getLastAccountAmount(int id)
 {
     double amount = 0.0;
-    AccountMonthlyDetails_p data = getAccountMonthlyRecords(id);
+    std::shared_ptr<AccountMonthlyDetails> data = getAccountMonthlyRecords(id);
 
     if(data->accountMonthlyRecords.size() != 0)
         amount = data->accountMonthlyRecords[data->accountMonthlyRecords.size() - 1]->Amount;
@@ -570,14 +570,14 @@ double Backend::getNWat(int month, int year)
 
 MonthlyAggrCategoryReport_p Backend::getAggrCatReport(int month, int year)
 {
-    MonthlyAggrCategoryReport_p x = new MonthlyAggrCategoryReport();
+    MonthlyAggrCategoryReport_p x = std::make_shared<MonthlyAggrCategoryReport>();
     x->Month = month;
     x->Year = year;
 
     std::vector<Category_p> categories = this->getCategories();
     for(auto cat : categories){
         if(cat->Type == "Out"){
-            MonthlyCategoryBalanceT_p balance = new MonthlyCategoryBalanceT();
+            MonthlyCategoryBalanceT_p balance = std::make_shared<MonthlyCategoryBalanceT>();
             balance->Category = cat->Name;
             balance->CategoryType = cat->Type;
             balance->Month = month;
@@ -593,7 +593,7 @@ MonthlyAggrCategoryReport_p Backend::getAggrCatReport(int month, int year)
 double Backend::getAmountByCategory(int month, int year, std::string category)
 {
     double amount = 0.0;
-    MonthlyTransactions_p x = new MonthlyTransactions();
+    MonthlyTransactions_p x = std::make_shared<MonthlyTransactions>();
     x = this->getMonthlyReport(month, year);
 
     for(auto t : x->transactions){
@@ -607,14 +607,14 @@ double Backend::getAmountByCategory(int month, int year, std::string category)
 
 MonthlyAggrCategoryReport_p Backend::getAggrCatReportWithoutInvestments(int month, int year)
 {
-    MonthlyAggrCategoryReport_p x = new MonthlyAggrCategoryReport();
+    MonthlyAggrCategoryReport_p x = std::make_shared<MonthlyAggrCategoryReport>();
     x->Month = month;
     x->Year = year;
 
     std::vector<Category_p> categories = this->getCategories();
     for(auto cat : categories){
         if(cat->Type == "Out" && cat->Name != "Investments (+)" && cat->Name != "Investments (-)"){
-            MonthlyCategoryBalanceT_p balance = new MonthlyCategoryBalanceT();
+            MonthlyCategoryBalanceT_p balance = std::make_shared<MonthlyCategoryBalanceT>();
             balance->Category = cat->Name;
             balance->CategoryType = cat->Type;
             balance->Month = month;

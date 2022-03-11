@@ -144,7 +144,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 		}
 		else {
 			// Add new Transaction
-			Transaction_p x = new Transaction();
+			Transaction_p x = std::make_shared<Transaction>();
 			x->Day = day;
 			x->Category = categories[cat]->Name;
 			x->Subcategory = subcategories[subCat]->Name;

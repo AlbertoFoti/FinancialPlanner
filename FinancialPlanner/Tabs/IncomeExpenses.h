@@ -68,5 +68,5 @@ public:
 	 * @brief Income Expenses : Details Tab
 	 * 
 	 */
-	void IncomeExpenses::ShowIncomeExpensesDetails();
+	void ShowIncomeExpensesDetails();
 };

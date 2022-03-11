@@ -48,7 +48,7 @@ void Investments::ShowInvestmentsOverview()
 	static std::vector<double> ys;
 
 	// Investments Line Plot
-	AccountMonthlyDetails_p x = core->getAccountMonthlyRecords(1);
+	std::shared_ptr<AccountMonthlyDetails> x = core->getAccountMonthlyRecords(1);
 	static char str_line[100] = {};
 	sprintf_s(str_line, "##%d_label_investments_line_plot", x->AccountID);
 	for (int j = 0; j < x->accountMonthlyRecords.size(); j++) {
