@@ -27,6 +27,7 @@ There isn't a proper installation procedure yet.
 - Investments Tab : plots and tabs upgrade
 - Investments Tab : breakdown tab GUI structure and plots
 - Income/Expenses Detail tab: add column for investments returns
+- Fix : including/excluding investments into pie charts in Income/Expenses
 
 ### Version 0.2.2 Features
 - Investments Tab basic GUI
