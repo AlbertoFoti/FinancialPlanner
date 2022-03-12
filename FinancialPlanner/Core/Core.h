@@ -46,6 +46,12 @@ class Core {
 	 */
 	YearlyReport_p YearlyReport;
 
+	/**
+	 * @brief Data Structure to store yearly investments report
+	 *
+	*/
+	YearlyInvestmentsReport_p YearlyInvestmentsReport;
+
 	//MonthlyAggrAccountReport_p monthlyAccountsReport;
 	//MonthlyAggrSubCategoryReport_p monthlySubCategoryReport;
 public:
@@ -237,6 +243,18 @@ public:
 	 * @return YearlyReport_p 
 	 */
 	YearlyReport_p getYearlyReportFromDb(int year);
+
+	/**
+	 * @brief Get the Investments Report object from Db
+	 *
+	*/
+	YearlyInvestmentsReport_p getYearlyInvestmentsReport();
+
+	/**
+	 * @brief Get the Investments Report object from Db
+	 *
+	*/
+	YearlyInvestmentsReport_p getYearlyInvestmentsReportFromDb(int year);
 
 	/**
 	 * @brief Push transaction in Database

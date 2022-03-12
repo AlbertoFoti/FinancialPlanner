@@ -124,6 +124,21 @@
 					"Type" : "In"
 				}
 			]
+		},
+		{
+			"Month" : 5,
+			"Year" : 2021,
+			"data" : 
+			[
+				{
+					"Account" : 1,
+					"Amount" : -300.0,
+					"Category" : "Investments (-)",
+					"Day" : 7,
+					"Subcategory" : "Withdrawal",
+					"Type" : "Out"
+				}
+			]
 		}
 	]
 }

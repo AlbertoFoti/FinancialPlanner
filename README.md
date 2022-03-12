@@ -18,16 +18,21 @@ There isn't a proper installation procedure yet.
 ## Version 0.3.0 Objectives
 - Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
 - Allow Transfer between Accounts
-- Income/Expenses Detail tab: add column for investments returns
-- Backend System optimization (structure rethink)
 - Full GUI style improvement (also add headers to tables)
 - Fix : not possible to add categories with the same name as an existing category
 - Fix : not allowing the [delete] of Investments account and related issues
 
-### Version 0.2.2 Objectives
+### Version 0.2.3 Objectives
+- Investments Tab : details [5 years, 10 years, 25 years, 50 years] views
+- Investments Tab : plots and tabs upgrade
+- Investments Tab : breakdown tab GUI structure and plots
+- Income/Expenses Detail tab: add column for investments returns
+
+### Version 0.2.2 Features
 - Investments Tab basic GUI
 - Investments Logic Structure
 - Investments : Details tab structure
+- Backend System optimization (structure rethink)
 - Fix : memory leaks
 - Fix : performance issues
 

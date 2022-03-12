@@ -16,6 +16,8 @@ class Investments : public Tab {
 	 * 
 	 */
 	std::shared_ptr<Core> core;
+
+	YearlyInvestmentsReport_p yearlyInvestmentsReport;
 public:
 	/**
 	 * @brief Construct a new Investments Tab

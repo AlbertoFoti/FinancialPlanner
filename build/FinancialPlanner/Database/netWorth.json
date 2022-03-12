@@ -32,6 +32,14 @@
 			"Month" : 4,
 			"OpeningWorth" : 1800.0,
 			"Year" : 2021
+		},
+		{
+			"ClosingWorth" : 2600.0,
+			"HighWorth" : 2900.0,
+			"LowWorth" : 2600.0,
+			"Month" : 5,
+			"OpeningWorth" : 2900.0,
+			"Year" : 2021
 		}
 	]
 }

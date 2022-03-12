@@ -627,6 +627,37 @@ MonthlyAggrCategoryReport_p Backend::getAggrCatReportWithoutInvestments(int mont
     return x;
 }
 
+// Investments
+
+YearlyInvestmentsReport_p Backend::getYearlyInvestmentsReport(int year)
+{
+    YearlyInvestmentsReport_p yearlyReport = std::make_shared<YearlyInvestmentsReport>();
+    yearlyReport->Year = year;
+    yearlyReport->monthlyInvestmentsReports = std::vector<MonthlyInvestmentsReport_p>();
+
+    for (int i = 0; i < 12; i++) {
+        MonthlyTransactions_p monthlyReport = this->getMonthlyReport(i + 1, year);
+        MonthlyInvestmentsReport_p x = std::make_shared<MonthlyInvestmentsReport>();
+        x->Month = i + 1;
+        x->Year = year;
+        x->initial_capital = getAccountAmountAt(1, i + 1, year);
+        for (auto t : monthlyReport->transactions) {
+            if (t->Category == "Investments (+)") {
+                if (t->Subcategory == "Deposit") x->deposits += t->Amount;
+                if (t->Subcategory == "Investments (+)") x->investments_variation += t->Amount;
+            } 
+            else if (t->Category == "Investments (-)") {
+                if (t->Subcategory == "Withdrawal") x->deposits += t->Amount;
+                if (t->Subcategory == "Investments (-)") x->investments_variation -= t->Amount;
+            }
+        }
+
+        yearlyReport->monthlyInvestmentsReports.push_back(x);
+    }
+
+    return yearlyReport;
+}
+
 // Testing
 
 std::string Backend::sayHello()

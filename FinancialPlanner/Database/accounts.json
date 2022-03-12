@@ -2,15 +2,15 @@
 	"accounts": [
 		{
 			"id": 1,
-			"name": "Cash"
+			"name": "Investments"
 		},
 		{
 			"id": 2,
-			"name": "Bank"
+			"name": "Cash"
 		},
 		{
 			"id": 3,
-			"name": "Investments"
+			"name": "Bank"
 		},
 		{
 			"id": 4,

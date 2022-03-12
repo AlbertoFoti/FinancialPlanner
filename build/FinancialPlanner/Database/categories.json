@@ -22,8 +22,12 @@
 			"SubCategories" : 
 			[
 				{
+					"Name": "Withdrawal",
+					"id": 1
+				},
+				{
 					"Name" : "Investments (-)",
-					"id" : 1
+					"id" : 2
 				}
 			],
 			"Type" : "Out",

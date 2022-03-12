@@ -143,6 +143,7 @@ struct MonthlyAggrCategoryReport {
 };
 using MonthlyAggrCategoryReport_p = std::shared_ptr<MonthlyAggrCategoryReport>;
 
+// Reports
 struct MonthlyReport {
 	int Month;
 	int Year;
@@ -156,6 +157,22 @@ struct YearlyReport {
 	std::vector<MonthlyReport_p> monthlyReports;
 };
 using YearlyReport_p = std::shared_ptr<YearlyReport>;
+
+// Investments Reports
+struct MonthlyInvestmentsReport {
+	int Month;
+	int Year;
+	double initial_capital;
+	double deposits;
+	double investments_variation;
+};
+using MonthlyInvestmentsReport_p = std::shared_ptr<MonthlyInvestmentsReport>;
+
+struct YearlyInvestmentsReport {
+	int Year;
+	std::vector<MonthlyInvestmentsReport_p> monthlyInvestmentsReports;
+};
+using YearlyInvestmentsReport_p = std::shared_ptr<YearlyInvestmentsReport>;
 
 class Backend {
 public:
@@ -212,6 +229,12 @@ public:
 	MonthlyAggrCategoryReport_p getAggrCatReport(int month, int year);
 	double getAmountByCategory(int month, int year, std::string category);
 	MonthlyAggrCategoryReport_p getAggrCatReportWithoutInvestments(int month, int year);
+
+	/**
+	 * 
+	 * 
+	*/
+	YearlyInvestmentsReport_p getYearlyInvestmentsReport(int year);
 
 	/**
 	 * @brief Testing
