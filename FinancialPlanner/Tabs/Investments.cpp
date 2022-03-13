@@ -386,6 +386,22 @@ void Investments::ShowInvestmentsDetails()
 	if (!monthlyAggrView) {
 		if (ImGui::BeginTable("IncExpTable", 7, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
 		{
+			// Columns
+			ImGui::TableNextRow(0, 20.0f);
+			ImGui::TableNextColumn();
+			ImGui::Text("MONTH");
+			ImGui::TableNextColumn();
+			ImGui::Text("INITIAL NET WORTH");
+			ImGui::TableNextColumn();
+			ImGui::Text("DEPOSITS");
+			ImGui::TableNextColumn();
+			ImGui::Text("INVESTMENTS DELTA (abs)");
+			ImGui::TableNextColumn();
+			ImGui::Text("PORTFOLIO DELTA (abs)");
+			ImGui::TableNextColumn();
+			ImGui::Text("INVESTMENTS DELTA (%%)");
+			ImGui::TableNextColumn();
+			ImGui::Text("PORTFOLIO DELTA (%%)");
 			for (int i = 0; i != this->yearlyInvestmentsReport->monthlyInvestmentsReports.size(); ++i) {
 				ImGui::TableNextRow(0,min_row_height);
 				double initial_capital = yearlyInvestmentsReport->monthlyInvestmentsReports.at(i)->initial_capital - yearlyInvestmentsReport->monthlyInvestmentsReports.at(i)->deposits - yearlyInvestmentsReport->monthlyInvestmentsReports.at(i)->investments_variation;
@@ -411,14 +427,6 @@ void Investments::ShowInvestmentsDetails()
 				else
 					ImGui::Text("%.2f", delta);
 				ImGui::TableNextColumn();
-				double delta_perc = 100 * delta / initial_capital;
-				if (delta_perc > 0.0)
-					ImGui::TextColored(color_positive, "+%.2f%%", delta_perc);
-				else if (delta_perc < 0.0)
-					ImGui::TextColored(color_negative, "%.2f%%", delta_perc);
-				else
-					ImGui::Text("%.2f", delta_perc);
-				ImGui::TableNextColumn();
 				double delta_net = yearlyInvestmentsReport->monthlyInvestmentsReports.at(i)->investments_variation;
 				double delta_net_perc = 100 * delta_net / initial_capital;
 				if (delta_net_perc > 0.0)
@@ -427,6 +435,14 @@ void Investments::ShowInvestmentsDetails()
 					ImGui::TextColored(color_negative, "%.2f%%", delta_net_perc);
 				else
 					ImGui::Text("%.2f", delta_net_perc);
+				ImGui::TableNextColumn();
+				double delta_perc = 100 * delta / initial_capital;
+				if (delta_perc > 0.0)
+					ImGui::TextColored(color_positive, "+%.2f%%", delta_perc);
+				else if (delta_perc < 0.0)
+					ImGui::TextColored(color_negative, "%.2f%%", delta_perc);
+				else
+					ImGui::Text("%.2f", delta_perc);
 			}
 			ImGui::EndTable();
 		}

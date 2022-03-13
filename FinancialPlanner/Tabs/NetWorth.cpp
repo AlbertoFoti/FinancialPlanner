@@ -152,6 +152,16 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 		ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
 		ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
 
+		// Columns
+		ImGui::TableNextColumn();
+		ImGui::Text("Date");
+		ImGui::TableNextColumn();
+		ImGui::Text("Net Worth");
+		ImGui::TableNextColumn();
+		ImGui::Text("Delta (abs)");
+		ImGui::TableNextColumn();
+		ImGui::Text("Delta (%%)");
+
 		for (int i = 0; i != this->NW_records.size(); ++i) {
 			if (byMonth) {
 				ImGui::TableNextColumn();

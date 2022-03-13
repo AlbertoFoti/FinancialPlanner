@@ -424,6 +424,20 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 		this->monthlyTransactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
 		if (ImGui::BeginTable("IncExpTable", 6, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
 		{
+			// Columns
+			ImGui::TableNextRow(0, 20.0f);
+			ImGui::TableNextColumn();
+			ImGui::Text("DATE");
+			ImGui::TableNextColumn();
+			ImGui::Text("TYPE");
+			ImGui::TableNextColumn();
+			ImGui::Text("CATEGORY");
+			ImGui::TableNextColumn();
+			ImGui::Text("SUBCATEGORY");
+			ImGui::TableNextColumn();
+			ImGui::Text("AMOUNT");
+			ImGui::TableNextColumn();
+			ImGui::Text("");
 			for (int i = 0; i != this->monthlyTransactions->transactions.size(); ++i) {
 				ImGui::TableNextColumn();
 				ImGui::Text("%2d/%2d/%4d", monthlyTransactions->transactions[i]->Day, monthlyTransactions->Month, monthlyTransactions->Year);
@@ -465,6 +479,24 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			this->YearlyReport = this->core->getYearlyReportFromDb(year);
 			if (ImGui::BeginTable("IncExpTable_month", 8, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
 			{
+				// Columns
+				ImGui::TableNextRow(0, 20.0f);
+				ImGui::TableNextColumn();
+				ImGui::Text("DATE");
+				ImGui::TableNextColumn();
+				ImGui::Text("BALANCE IN");
+				ImGui::TableNextColumn();
+				ImGui::Text("INVESTMENTS DELTA");
+				ImGui::TableNextColumn();
+				ImGui::Text("BALANCE OUT");
+				ImGui::TableNextColumn();
+				ImGui::Text("NET SAVINGS");
+				ImGui::TableNextColumn();
+				ImGui::Text("SAVINGS");
+				ImGui::TableNextColumn();
+				ImGui::Text("NET SAVINGS RATE (%%)");
+				ImGui::TableNextColumn();
+				ImGui::Text("SAVINGS RATE (%%)");
 				for (int i = 0; i != this->YearlyReport->monthlyReports.size(); ++i) {
 					ImGui::TableNextColumn();
 					ImGui::Text("%2d/%4d", YearlyReport->monthlyReports[i]->Month, YearlyReport->Year);

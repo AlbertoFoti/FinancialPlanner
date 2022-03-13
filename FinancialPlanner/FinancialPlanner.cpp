@@ -411,23 +411,25 @@ void FinancialPlanner::ShowAccountManager()
     for (int i = 0; i < this->accounts.size(); i++) {
         ImGui::Text("%d. ", i+1); ImGui::SameLine();
         ImGui::Text("%s", accounts.at(i)->name.c_str()); 
-        ImGui::SameLine();
 
         // Edit and Delete Buttons aligned right
-        ImVec2 buttonSize(50.f, 0.f);
-        float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
-        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
-        char strBtnUpdateLabel[50] = {};
-        sprintf_s(strBtnUpdateLabel, "Update##Put_Button%d", i + 1);
-        if (ImGui::Button(strBtnUpdateLabel, buttonSize)) {
-            // Edit Account
-        }
-        ImGui::SameLine();
-        char strBtnDeleteLabel[50] = {};
-        sprintf_s(strBtnDeleteLabel, "Delete##Del_Button%d", i + 1);
-        if (ImGui::Button(strBtnDeleteLabel, buttonSize)) {
-            // Delete Account
-            this->core->deleteAccount(accounts[i]->id);
+        if(accounts.at(i)->id != 1){
+            ImGui::SameLine();
+            ImVec2 buttonSize(50.f, 0.f);
+            float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
+            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
+            char strBtnUpdateLabel[50] = {};
+            sprintf_s(strBtnUpdateLabel, "Update##Put_Button%d", i + 1);
+            if (ImGui::Button(strBtnUpdateLabel, buttonSize)) {
+                // Edit Account
+            }
+            ImGui::SameLine();
+            char strBtnDeleteLabel[50] = {};
+            sprintf_s(strBtnDeleteLabel, "Delete##Del_Button%d", i + 1);
+            if (ImGui::Button(strBtnDeleteLabel, buttonSize)) {
+                // Delete Account
+                this->core->deleteAccount(accounts[i]->id);
+            }
         }
 
         ImGui::Text("- "); ImGui::SameLine();
@@ -596,18 +598,20 @@ void FinancialPlanner::ShowCategoryManager()
             ImGui::PopFont();
 
             // Edit and Delete Buttons aligned right
-            ImVec2 buttonSize(50.f, 0.f);
-            float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
-            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
-            if (ImGui::Button("Edit", buttonSize)) {
-                // Edit Category i
-            }
-            ImGui::SameLine();
-            char strBtnDeleteCatLabel[50] = {};
-            sprintf_s(strBtnDeleteCatLabel, "Delete##Del_Button_Category%d", i + 1);
-            if (ImGui::Button(strBtnDeleteCatLabel, buttonSize)) {
-                // Delete Account
-                this->core->deleteCategory(categories[i]->id);
+            if(categories[i]->id != 1 && categories[i]->id != 2){
+                ImVec2 buttonSize(50.f, 0.f);
+                float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
+                ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
+                if (ImGui::Button("Edit##Edit_Button_Category", buttonSize)) {
+                    // Edit Category i
+                }
+                ImGui::SameLine();
+                char strBtnDeleteCatLabel[50] = {};
+                sprintf_s(strBtnDeleteCatLabel, "Delete##Del_Button_Category%d", i + 1);
+                if (ImGui::Button(strBtnDeleteCatLabel, buttonSize)) {
+                    // Delete Account
+                    this->core->deleteCategory(categories[i]->id);
+                }
             }
         }
     }
