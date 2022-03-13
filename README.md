@@ -23,6 +23,7 @@ There isn't a proper installation procedure yet.
 ### Version 0.2.4 Objectives
 - Investments Tab : plots and tabs upgrade
 - Full GUI style improvement (also add headers to tables)
+- New font (Roboto) available
 - Calendar Widget for date selection (used in new transaction panel)
 - Fix : not possible to add categories with the same name as an existing category
 - Fix : not allowing the [delete] of Investments account and related issues

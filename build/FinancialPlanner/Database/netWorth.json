@@ -48,6 +48,30 @@
 			"Month" : 6,
 			"OpeningWorth" : 7515.0,
 			"Year" : 2021
+		},
+		{
+			"ClosingWorth" : 10425.0,
+			"HighWorth" : 11225.0,
+			"LowWorth" : 9225.0,
+			"Month" : 1,
+			"OpeningWorth" : 9225.0,
+			"Year" : 2022
+		},
+		{
+			"ClosingWorth" : 11325.0,
+			"HighWorth" : 11325.0,
+			"LowWorth" : 11125.0,
+			"Month" : 2,
+			"OpeningWorth" : 11125.0,
+			"Year" : 2022
+		},
+		{
+			"ClosingWorth" : 11325.0,
+			"HighWorth" : 11325.0,
+			"LowWorth" : 11125.0,
+			"Month" : 6,
+			"OpeningWorth" : 11125.0,
+			"Year" : 2022
 		}
 	]
 }

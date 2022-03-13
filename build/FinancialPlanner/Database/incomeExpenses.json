@@ -274,6 +274,53 @@
 					"Type" : "In"
 				}
 			]
+		},
+		{
+			"Month" : 1,
+			"Year" : 2022,
+			"data" : 
+			[
+				{
+					"Account" : 3,
+					"Amount" : 2000.0,
+					"Category" : "Income",
+					"Day" : 1,
+					"Subcategory" : "Money",
+					"Type" : "In"
+				},
+				{
+					"Account" : 3,
+					"Amount" : -500.0,
+					"Category" : "Housing",
+					"Day" : 1,
+					"Subcategory" : "Rent",
+					"Type" : "Out"
+				},
+				{
+					"Account" : 1,
+					"Amount" : 200.0,
+					"Category" : "Investments (+)",
+					"Day" : 1,
+					"Subcategory" : "Deposit",
+					"Type" : "In"
+				},
+				{
+					"Account" : 3,
+					"Amount" : -250.0,
+					"Category" : "Food",
+					"Day" : 2,
+					"Subcategory" : "Food",
+					"Type" : "Out"
+				},
+				{
+					"Account" : 3,
+					"Amount" : -250.0,
+					"Category" : "Leisure",
+					"Day" : 2,
+					"Subcategory" : "Leisure",
+					"Type" : "Out"
+				}
+			]
 		}
 	]
 }
