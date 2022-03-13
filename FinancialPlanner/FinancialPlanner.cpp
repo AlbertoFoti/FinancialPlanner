@@ -24,7 +24,7 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     // 3
     io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
     // 4
-    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
     // 5
     io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
     // 6
@@ -33,6 +33,25 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 14.0f);
     // 8
     io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 20.0f);
+
+    // 9
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 11.0f);
+    // 10
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 15.0f);
+    // 11
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 20.0f);
+    // 12
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 11.0f);
+    // 13
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+    // 14
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 20.0f);
+    // 15
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 11.0f);
+    // 16
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 15.0f);
+    // 17
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 20.0f);
 
     // Anti-Aliased plots
     ImPlot::GetStyle().AntiAliasedLines = true;
@@ -164,7 +183,7 @@ void FinancialPlanner::Update()
     }
 
     // Your GUIs go Here !
-    //this->ShowDemoWindow();
+    this->ShowDemoWindow();
     this->ShowCompoundInterestCalculator("Compound Interest Calculator");
     this->ShowAccountManager();
     this->ShowCategoryManager();
@@ -353,8 +372,8 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
 void FinancialPlanner::ShowAccountManager()
 {
     // Fonts
-    ImGuiIO& io = ImGui::GetIO();
-    auto blenderProThinLarge = io.Fonts->Fonts[8];
+	ImGuiIO& io = ImGui::GetIO();
+	auto robotoProThin_l = io.Fonts->Fonts[17];
 
     // Begin
     ImGui::Begin("Account Manager");
@@ -434,7 +453,7 @@ void FinancialPlanner::ShowAccountManager()
 
         ImGui::Text("- "); ImGui::SameLine();
 
-        ImGui::PushFont(blenderProThinLarge);
+        ImGui::PushFont(robotoProThin_l);
         if (accounts.at(i)->AmountStored >= 1000)
             ImGui::Text("%.2fk EUR", accounts.at(i)->AmountStored/1000);
         else
@@ -448,10 +467,6 @@ void FinancialPlanner::ShowAccountManager()
 
 void FinancialPlanner::ShowCategoryManager()
 {
-    // Fonts
-    ImGuiIO& io = ImGui::GetIO();
-    auto blenderProThinMedium = io.Fonts->Fonts[7];
-
     // Begin
     ImGui::Begin("Category Manager");
 
@@ -590,12 +605,10 @@ void FinancialPlanner::ShowCategoryManager()
 
         if (ImGui::CollapsingHeader(headerNames[i].c_str(), ImGuiTreeNodeFlags_None))
         {
-            ImGui::PushFont(blenderProThinMedium);
             for (int j = 0; j < categories[i]->subCategories.size(); j++) {
                 ImGui::Text("- "); ImGui::SameLine();
                 ImGui::Text("%s", categories[i]->subCategories[j]->Name.c_str());
             }
-            ImGui::PopFont();
 
             // Edit and Delete Buttons aligned right
             if(categories[i]->id != 1 && categories[i]->id != 2){

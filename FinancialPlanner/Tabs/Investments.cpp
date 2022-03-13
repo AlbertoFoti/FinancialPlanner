@@ -123,7 +123,6 @@ void Investments::ShowInvestmentsOverview()
 	static char str_candle[100] = {};
 	sprintf_s(str_candle, "##%d_label_investments_candle_plot", x->AccountID);
 	//pl.ShowCandleBarsPlot_default(str_candle, &xs[0], &ys[0], &ys[0], &ys[0], &ys[0], (int)xs.size());
-	pl.ShowEmptyPlot(str_candle);
 }
 
 void Investments::ShowInvestmentsBreakdown()
@@ -143,14 +142,12 @@ void Investments::ShowInvestmentsBreakdown()
 	const char* option_name = (breakdownDy >= 0 && breakdownDy < option_Count) ? option_names[breakdownDy] : "Unknown";
 
 	static int year = 2021;
-	static int old_year = 2021;
-	old_year = year;
 
 	ImGui::SliderInt("##slider_year", &year, 2000, 2100);
 	ImGui::SameLine();
 	float mid_window = ImGui::GetCursorPosX();
 
-	if (year != old_year)
+	if (year != this->yearlyInvestmentsReport->Year)
 		this->yearlyInvestmentsReport = core->getYearlyInvestmentsReportFromDb(year);
 
 	static bool monthlyAggrView = false;
@@ -330,8 +327,8 @@ void Investments::ShowInvestmentsBreakdown()
 void Investments::ShowInvestmentsDetails()
 {
 	// Fonts
-	ImGuiIO& io = ImGui::GetIO();
-	auto blenderProThin_m = io.Fonts->Fonts[7];
+	//ImGuiIO& io = ImGui::GetIO();
+	//auto blenderProThin_m = io.Fonts->Fonts[7];
 
 	static ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
 	static ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
@@ -342,14 +339,12 @@ void Investments::ShowInvestmentsDetails()
 	const char* option_name = (breakdownDy >= 0 && breakdownDy < option_Count) ? option_names[breakdownDy] : "Unknown";
 
 	static int year = 2021;
-	static int old_year = 2021;
-	old_year = year;
 
 	ImGui::SliderInt("##slider_year", &year, 2000, 2100);
 	ImGui::SameLine();
 	float mid_window = ImGui::GetCursorPosX();
 
-	if (year != old_year)
+	if (year != this->yearlyInvestmentsReport->Year)
 		this->yearlyInvestmentsReport = core->getYearlyInvestmentsReportFromDb(year);
 
 	static bool monthlyAggrView = false;
@@ -380,7 +375,7 @@ void Investments::ShowInvestmentsDetails()
 	ImGui::Separator();
 	ImGui::Spacing();
 
-	ImGui::PushFont(blenderProThin_m);
+	//ImGui::PushFont(blenderProThin_m);
 	float min_row_height = 30.0f;
 
 	if (!monthlyAggrView) {
@@ -450,37 +445,6 @@ void Investments::ShowInvestmentsDetails()
 	else {
 		if (breakdownDy == elem_five) {
 			ImGui::Text("five years details");
-			/*
-			static double savings;
-			static double savings_rate;
-
-			this->YearlyReport = this->core->getYearlyReportFromDb(year);
-			if (ImGui::BeginTable("IncExpTable_month", 5, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
-			{
-				for (int i = 0; i != this->YearlyReport->monthlyReports.size(); ++i) {
-					ImGui::TableNextColumn();
-					ImGui::Text("%2d/%4d", YearlyReport->monthlyReports[i]->Month, YearlyReport->Year);
-					ImGui::TableNextColumn();
-					ImGui::TextColored(color_positive, "+%.2f", YearlyReport->monthlyReports[i]->balanceIn);
-					ImGui::TableNextColumn();
-					ImGui::TextColored(color_negative, "%.2f", YearlyReport->monthlyReports[i]->balanceOut);
-					ImGui::TableNextColumn();
-					savings = YearlyReport->monthlyReports[i]->balanceIn + YearlyReport->monthlyReports[i]->balanceOut;
-					if (savings >= 0)
-						ImGui::TextColored(color_positive, "+%.2f", savings);
-					else
-						ImGui::TextColored(color_negative, "%.2f", savings);
-					ImGui::TableNextColumn();
-					savings_rate = savings / YearlyReport->monthlyReports[i]->balanceIn * 100;
-					if (savings_rate >= 0)
-						ImGui::TextColored(color_positive, "+%.2f %%", savings_rate);
-					else
-						ImGui::TextColored(color_negative, "%.2f %%", savings_rate);
-
-				}
-				ImGui::EndTable();
-			}
-			*/
 		}
 		else if (breakdownDy == elem_ten) {
 			ImGui::Text("ten years details");
@@ -493,5 +457,5 @@ void Investments::ShowInvestmentsDetails()
 		}
 	}
 
-	ImGui::PopFont();
+	//ImGui::PopFont();
 }

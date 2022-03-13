@@ -1,0 +1,179 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "FinancialPlanner",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5
+					],
+					"jsonFile" : "directory-FinancialPlanner-Debug-52d09fb1c007ade99e8b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "FinancialPlanner",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "FinancialPlanner/Core",
+					"jsonFile" : "directory-FinancialPlanner.Core-Debug-9663c7a5848273a269e7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "FinancialPlanner/Core",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "FinancialPlanner/Templates",
+					"jsonFile" : "directory-FinancialPlanner.Templates-Debug-0b63b6349c3cc7d4a320.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "FinancialPlanner/Templates",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "FinancialPlanner/Tabs",
+					"jsonFile" : "directory-FinancialPlanner.Tabs-Debug-862f0dbf836d8861f013.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "FinancialPlanner/Tabs",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "FinancialPlanner/Utility",
+					"jsonFile" : "directory-FinancialPlanner.Utility-Debug-1815bbab85f4845bc5ae.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "FinancialPlanner/Utility",
+					"targetIndexes" : 
+					[
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					],
+					"name" : "FinancialPlanner",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 2,
+					"id" : "Core::@5fc05faf759c73c2b288",
+					"jsonFile" : "target-Core-Debug-ddf4291a7d6d57f9ef67.json",
+					"name" : "Core",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "Tabs::@2cb13a6bd923dd96c739",
+					"jsonFile" : "target-Tabs-Debug-ed91406d6e5f3b542902.json",
+					"name" : "Tabs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "Templates::@a9e24777ae8d9378f0b3",
+					"jsonFile" : "target-Templates-Debug-64ceaa7b449d5ac0d251.json",
+					"name" : "Templates",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "Utility::@843b2fb277984037157d",
+					"jsonFile" : "target-Utility-Debug-3b50fdeb71027a315c22.json",
+					"name" : "Utility",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "main::@0df55b954a68cc9c20ce",
+					"jsonFile" : "target-main-Debug-34ff8aae2df8de7f6605.json",
+					"name" : "main",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/repos/FinancialPlanner/build",
+		"source" : "C:/repos/FinancialPlanner"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

@@ -9,7 +9,8 @@ void NetWorth::Render()
 	// Fonts
 	ImGuiIO& io = ImGui::GetIO();
 	auto blenderProHeavy_l = io.Fonts->Fonts[2];
-	auto blenderProThin_m = io.Fonts->Fonts[7];
+	auto robotoProThin_m = io.Fonts->Fonts[16];
+	auto robotoProThinLarge = io.Fonts->Fonts[17];
 	auto blenderProThinLarge = io.Fonts->Fonts[8];
 
 	//ImPlot::ShowDemoWindow();
@@ -136,9 +137,9 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 	ImGui::Checkbox("Show by Month", &byMonth);
 
 	// Fonts
-	ImGuiIO& io = ImGui::GetIO();
-	auto blenderProThin_m = io.Fonts->Fonts[7];
-	ImGui::PushFont(blenderProThin_m);
+	//ImGuiIO& io = ImGui::GetIO();
+	//auto robotoProThin_m = io.Fonts->Fonts[16];
+	//ImGui::PushFont(robotoProThin_m);
 
 	ImGui::Separator();
 	ImGui::Spacing();
@@ -225,7 +226,7 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 		ImGui::EndTable();
 	}
 
-	ImGui::PopFont();
+	//ImGui::PopFont();
 
 	ImGui::End();
 }

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <time.h>
 #include <string>
+#include "imgui.h"
 #include "json/json.h"
 
 /**
@@ -117,3 +118,17 @@ Json::Value BubbleSortNetWorth(Json::Value root);
  * @return Json::Value root net worth records swapped
  */
 Json::Value swapBubbleSortNetWorth(Json::Value root, int i, int j);
+
+struct Date_format {
+    int Day;
+    int Month;
+    int Year;
+};
+using Date_format_p = std::shared_ptr<Date_format>;
+
+/**
+ * @brief Calendar Selection Widget
+ * 
+ * @return Date_format_p 
+ */
+Date_format_p calendarSelection();

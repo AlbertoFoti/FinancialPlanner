@@ -36,6 +36,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 	std::vector<Category_p> categories = this->core->getCategories();
 	std::vector<SubCategory_p> subcategories;
 	std::vector<Account_p> accounts;
+	Date_format_p date;
 
 	// Add New Transaction
 	ImGui::Begin(panel_name.c_str());
@@ -43,28 +44,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 
 	ImGui::Separator();
 
-	ImGui::BulletText("Date");
-
-	static char year_s[50] = {};
-	ImGui::InputTextWithHint("Year##Year_new_trans", "2021", year_s, IM_ARRAYSIZE(year_s));
-
-	enum Element { elem_January, elem_February, elem_March, elem_April, elem_May, elem_June, elem_July, elem_August, elem_September, elem_October, elem_November, elem_December, elem_Count };
-	static int month = elem_January;
-	const char* elems_names[elem_Count] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
-	const char* elem_name = (month >= 0 && month < elem_Count) ? elems_names[month] : "Unknown";
-
-	static int day = 1;
-	static int maxDays = 31;
-
-	ImGui::SliderInt("Month##slider_month", &month, 0, elem_Count - 1, elem_name);
-	
-	if (month == elem_November || month == elem_April || month == elem_June || month == elem_September)
-		maxDays = 30;
-	else if (month == elem_February)
-		maxDays = 29;
-	else
-		maxDays = 31;
-	ImGui::SliderInt("Day##Day_ie_new", &day, 1, maxDays, "%d");
+	date = calendarSelection();
 
 	static int type = 0;
 	ImGui::RadioButton("Income", &type, 0); ImGui::SameLine();
@@ -133,7 +113,6 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 	ImGui::Spacing();
 
 	bool something_went_wrong = false;
-	if (!strcmp(year_s, "")) something_went_wrong = true;
 	if (!strcmp(amount_s, "")) something_went_wrong = true;
 
 	//something_went_wrong = this->core->checkErrors(x->Category, x->Subcategory, x->Type, x->Amount, std::stoi(year_s));
@@ -145,7 +124,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 		else {
 			// Add new Transaction
 			Transaction_p x = std::make_shared<Transaction>();
-			x->Day = day;
+			x->Day = date->Day;
 			x->Category = categories[cat]->Name;
 			x->Subcategory = subcategories[subCat]->Name;
 			x->Type = type == 0 ? "In" : "Out";
@@ -153,16 +132,13 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 			x->AccountID = acc + 1;
 
 			// Push transaction
-			core->pushTransaction(month + 1, std::stoi(year_s), x);
+			core->pushTransaction(date->Month + 1, date->Year, x);
 
 			// Clean Input Fields
-			month = elem_January;
-			day = 1;
 			type = 0;
 			cat = 0;
 			subCat = 0;
 			sprintf_s(amount_s, "");
-			sprintf_s(year_s, "");
 		}
 	}
 
@@ -368,8 +344,8 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 void IncomeExpenses::ShowIncomeExpensesDetails() 
 {
 	// Fonts
-	ImGuiIO& io = ImGui::GetIO();
-	auto blenderProThin_m = io.Fonts->Fonts[7];
+	//ImGuiIO& io = ImGui::GetIO();
+	//auto blenderProThin_m = io.Fonts->Fonts[7];
 
 	ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
 	ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
@@ -418,7 +394,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 	ImGui::Separator();
 	ImGui::Spacing();
 
-	ImGui::PushFont(blenderProThin_m);
+	//ImGui::PushFont(blenderProThin_m);
 
 	if (!monthlyAggrView) {
 		this->monthlyTransactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
@@ -549,7 +525,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 		}
 	}
 
-	ImGui::PopFont();
+	//ImGui::PopFont();
 
 	static double MonthlyTotalIn;
 	static double MonthlyTotalOut;
