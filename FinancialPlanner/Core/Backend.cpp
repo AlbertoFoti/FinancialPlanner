@@ -331,11 +331,18 @@ YearlyReport_p Backend::getYearlyReport(int year)
         x->Year = year;
         x->balanceIn = 0.0;
         x->balanceOut = 0.0;
+        x->investmentsVariation = 0.0;
         for (auto t : monthlyReport->transactions) {
-            if (t->Type == "In")
-                x->balanceIn += t->Amount;
-            if (t->Type == "Out")
-                x->balanceOut += t->Amount;
+            if(t->Category == "Investments (+)" || t->Category == "Investments (-)"){
+                if(t->Subcategory == "Investments (+)" || t->Category == "Investments (-)"){
+                    x->investmentsVariation += t->Amount;
+                }
+            }else{
+                if (t->Type == "In")
+                    x->balanceIn += t->Amount;
+                if (t->Type == "Out")
+                    x->balanceOut += t->Amount;
+            }
         }
 
         yearlyReport->monthlyReports.push_back(x);
@@ -648,7 +655,7 @@ YearlyInvestmentsReport_p Backend::getYearlyInvestmentsReport(int year)
             } 
             else if (t->Category == "Investments (-)") {
                 if (t->Subcategory == "Withdrawal") x->deposits += t->Amount;
-                if (t->Subcategory == "Investments (-)") x->investments_variation -= t->Amount;
+                if (t->Subcategory == "Investments (-)") x->investments_variation += t->Amount;
             }
         }
 

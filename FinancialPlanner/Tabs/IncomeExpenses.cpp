@@ -190,6 +190,7 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 	const char* option_name = (breakdownBy >= 0 && breakdownBy < option_Count) ? option_names[breakdownBy] : "Unknown";
 
 	static int year = 2021;
+	static int old_year = 2021;
 	ImGui::SliderInt("##slider_year", &year, 2000, 2100);
 	ImGui::SameLine();
 
@@ -208,8 +209,47 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 	ImGui::PopButtonRepeat();
 	ImGui::SameLine();
 
+	static std::vector<MonthlyAggrCategoryReport_p> monthlyReportsYear;
 	static bool includeInvestments = false;
+	static bool old_include_investments = false;
+
+	old_include_investments = includeInvestments;
 	ImGui::Checkbox("Include Investments", &includeInvestments);
+	if(old_include_investments != includeInvestments){
+		monthlyReportsYear.clear();
+		if (!includeInvestments) {
+			for (int i = 0; i < 12; i++) {
+				MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReportWithoutInvestments(i + 1, year);
+				monthlyReportsYear.push_back(aggrCatReport);
+			}
+		}
+		else {
+			for (int i = 0; i < 12; i++) {
+				MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReport(i + 1, year);
+				monthlyReportsYear.push_back(aggrCatReport);
+			}
+		}
+
+		old_include_investments = includeInvestments;
+	}
+
+	if(old_year != year){
+		monthlyReportsYear.clear();
+		if (!includeInvestments) {
+			for (int i = 0; i < 12; i++) {
+				MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReportWithoutInvestments(i + 1, year);
+				monthlyReportsYear.push_back(aggrCatReport);
+			}
+		}
+		else {
+			for (int i = 0; i < 12; i++) {
+				MonthlyAggrCategoryReport_p aggrCatReport = core->getAggrCatReport(i + 1, year);
+				monthlyReportsYear.push_back(aggrCatReport);
+			}
+		}
+
+		old_year = year;
+	}
 
 	ImGui::SliderInt("##slider_options", &breakdownBy, 0, option_Count - 1, option_name);
 	ImGui::SameLine();
@@ -217,8 +257,6 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 	static bool monthlyAggrView = false;
 	ImGui::Checkbox("Show Yearly", &monthlyAggrView);
 	ImGui::SameLine();
-
-	static std::vector<MonthlyAggrCategoryReport_p> monthlyReportsYear;
 
 	static bool first_time = true;
 	if (ImGui::Button("Refresh Data") || first_time) {
@@ -419,11 +457,13 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 	}
 	else {
 		if (breakdownDy == elem_Month) {
+			static double net_savings;
 			static double savings;
+			static double net_savings_rate;
 			static double savings_rate;
 
 			this->YearlyReport = this->core->getYearlyReportFromDb(year);
-			if (ImGui::BeginTable("IncExpTable_month", 5, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
+			if (ImGui::BeginTable("IncExpTable_month", 8, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
 			{
 				for (int i = 0; i != this->YearlyReport->monthlyReports.size(); ++i) {
 					ImGui::TableNextColumn();
@@ -431,13 +471,30 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 					ImGui::TableNextColumn();
 					ImGui::TextColored(color_positive, "+%.2f", YearlyReport->monthlyReports[i]->balanceIn);
 					ImGui::TableNextColumn();
+					if(YearlyReport->monthlyReports[i]->investmentsVariation >= 0)
+						ImGui::TextColored(color_positive, "+%.2f", YearlyReport->monthlyReports[i]->investmentsVariation);
+					else
+						ImGui::TextColored(color_negative, "%.2f", YearlyReport->monthlyReports[i]->investmentsVariation);
+					ImGui::TableNextColumn();
 					ImGui::TextColored(color_negative, "%.2f", YearlyReport->monthlyReports[i]->balanceOut);
 					ImGui::TableNextColumn();
-					savings = YearlyReport->monthlyReports[i]->balanceIn + YearlyReport->monthlyReports[i]->balanceOut;
+					net_savings = YearlyReport->monthlyReports[i]->balanceIn + YearlyReport->monthlyReports[i]->balanceOut;
+					if(net_savings >= 0)
+						ImGui::TextColored(color_positive, "+%.2f", net_savings);
+					else
+						ImGui::TextColored(color_negative, "%.2f", net_savings);
+					ImGui::TableNextColumn();
+					savings = YearlyReport->monthlyReports[i]->balanceIn + YearlyReport->monthlyReports[i]->balanceOut + YearlyReport->monthlyReports[i]->investmentsVariation;
 					if(savings >= 0)
 						ImGui::TextColored(color_positive, "+%.2f", savings);
 					else
 						ImGui::TextColored(color_negative, "%.2f", savings);
+					ImGui::TableNextColumn();
+					net_savings_rate = net_savings / YearlyReport->monthlyReports[i]->balanceIn * 100;
+					if (net_savings_rate >= 0)
+						ImGui::TextColored(color_positive, "+%.2f %%", net_savings_rate);
+					else
+						ImGui::TextColored(color_negative, "%.2f %%", net_savings_rate);
 					ImGui::TableNextColumn();
 					savings_rate = savings / YearlyReport->monthlyReports[i]->balanceIn * 100;
 					if (savings_rate >= 0)

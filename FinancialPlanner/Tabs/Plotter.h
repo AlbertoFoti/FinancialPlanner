@@ -86,6 +86,8 @@ public:
 	 * @param label_id self-explanatory
 	 */
 	void ShowBarGroupsPlot_empty(const char* label_id);
+
+	void ShowBarGroupsPlot_default(const char* label_id, const double* data, int count);
 private:
 	/**
 	 * @brief Primitive to build candle bar plots

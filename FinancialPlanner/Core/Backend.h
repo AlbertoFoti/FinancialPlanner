@@ -149,6 +149,7 @@ struct MonthlyReport {
 	int Year;
 	double balanceIn;
 	double balanceOut;
+	double investmentsVariation;
 };
 using MonthlyReport_p = std::shared_ptr<MonthlyReport>;
 

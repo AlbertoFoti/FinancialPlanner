@@ -107,12 +107,29 @@ void Plotter::ShowBarGroupsPlot_empty(const char* label_id)
     static const char*  glabels[]   = {"2019","2020","2021","2022","2023","2024","2025","2026","2027","2028"};
     static const double positions[] = {0,1,2,3,4,5,6,7,8,9};
 
-	// Deposits
 	if (ImPlot::BeginPlot(label_id)) {
         ImPlot::SetupLegend(ImPlotLocation_East, ImPlotLegendFlags_Outside);
         ImPlot::SetupAxes("","",ImPlotAxisFlags_AutoFit,ImPlotAxisFlags_AutoFit);
         ImPlot::SetupAxisTicks(ImAxis_X1,positions, 10, glabels);
         ImPlot::PlotBarGroups(ilabels,data,4,10,0.67f,0);
+        ImPlot::EndPlot();
+    }
+}
+
+void Plotter::ShowBarGroupsPlot_default(const char* label_id, const double* data, int count)
+{
+    static const char*  ilabels[]   = {""};
+    static const char*  glabels[]   = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct", "Nov", "Dec"};
+
+    std::vector<double> positions;
+    for(int i=0; i<count; i++)
+        positions.push_back(i);
+
+    if (ImPlot::BeginPlot(label_id)) {
+        ImPlot::SetupLegend(ImPlotLocation_East, ImPlotLegendFlags_Outside);
+        ImPlot::SetupAxes("","",ImPlotAxisFlags_AutoFit,ImPlotAxisFlags_AutoFit);
+        ImPlot::SetupAxisTicks(ImAxis_X1, positions.data(), count, glabels);
+        ImPlot::PlotBarGroups(ilabels,data, 1,count,0.67f,0);
         ImPlot::EndPlot();
     }
 }

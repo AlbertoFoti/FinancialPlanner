@@ -7,43 +7,59 @@
 			"data" : 
 			[
 				{
-					"Account" : 2,
-					"Amount" : 1000.0,
+					"Account" : 3,
+					"Amount" : 2000.0,
 					"Category" : "Income",
 					"Day" : 1,
 					"Subcategory" : "Income",
 					"Type" : "In"
 				},
 				{
-					"Account" : 2,
-					"Amount" : -100.0,
-					"Category" : "Food",
-					"Day" : 3,
-					"Subcategory" : "Eating Out",
+					"Account" : 3,
+					"Amount" : -500.0,
+					"Category" : "Housing",
+					"Day" : 5,
+					"Subcategory" : "Rent",
 					"Type" : "Out"
 				},
 				{
-					"Account" : 2,
-					"Amount" : 200.0,
-					"Category" : "Income",
-					"Day" : 4,
-					"Subcategory" : "Money",
-					"Type" : "In"
-				},
-				{
-					"Account" : 2,
-					"Amount" : -1000.0,
-					"Category" : "Housing",
-					"Day" : 6,
-					"Subcategory" : "Rent",
+					"Account" : 3,
+					"Amount" : -250.0,
+					"Category" : "Food",
+					"Day" : 9,
+					"Subcategory" : "Food",
 					"Type" : "Out"
 				},
 				{
 					"Account" : 1,
 					"Amount" : 200.0,
 					"Category" : "Investments (+)",
-					"Day" : 7,
+					"Day" : 14,
 					"Subcategory" : "Deposit",
+					"Type" : "In"
+				},
+				{
+					"Account" : 3,
+					"Amount" : -100.0,
+					"Category" : "Transportation",
+					"Day" : 18,
+					"Subcategory" : "Trains",
+					"Type" : "Out"
+				},
+				{
+					"Account" : 3,
+					"Amount" : -150.0,
+					"Category" : "Leisure",
+					"Day" : 21,
+					"Subcategory" : "Leisure",
+					"Type" : "Out"
+				},
+				{
+					"Account" : 1,
+					"Amount" : 25.0,
+					"Category" : "Investments (+)",
+					"Day" : 27,
+					"Subcategory" : "Investments (+)",
 					"Type" : "In"
 				}
 			]
@@ -54,8 +70,8 @@
 			"data" : 
 			[
 				{
-					"Account" : 2,
-					"Amount" : 1000.0,
+					"Account" : 3,
+					"Amount" : 2000.0,
 					"Category" : "Income",
 					"Day" : 1,
 					"Subcategory" : "Income",
@@ -63,19 +79,35 @@
 				},
 				{
 					"Account" : 1,
-					"Amount" : 300.0,
+					"Amount" : 200.0,
 					"Category" : "Investments (+)",
-					"Day" : 8,
+					"Day" : 5,
 					"Subcategory" : "Deposit",
 					"Type" : "In"
 				},
 				{
-					"Account" : 2,
-					"Amount" : -600.0,
+					"Account" : 3,
+					"Amount" : -500.0,
 					"Category" : "Housing",
-					"Day" : 10,
+					"Day" : 6,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
+				},
+				{
+					"Account" : 3,
+					"Amount" : -250.0,
+					"Category" : "Food",
+					"Day" : 8,
+					"Subcategory" : "Food",
+					"Type" : "Out"
+				},
+				{
+					"Account" : 1,
+					"Amount" : 10.0,
+					"Category" : "Investments (+)",
+					"Day" : 24,
+					"Subcategory" : "Investments (+)",
+					"Type" : "In"
 				}
 			]
 		},
@@ -85,27 +117,43 @@
 			"data" : 
 			[
 				{
-					"Account" : 2,
-					"Amount" : 1000.0,
+					"Account" : 3,
+					"Amount" : 2000.0,
 					"Category" : "Income",
 					"Day" : 1,
 					"Subcategory" : "Income",
 					"Type" : "In"
 				},
 				{
-					"Account" : 1,
-					"Amount" : 400.0,
-					"Category" : "Investments (+)",
+					"Account" : 3,
+					"Amount" : -500.0,
+					"Category" : "Housing",
 					"Day" : 6,
+					"Subcategory" : "Rent",
+					"Type" : "Out"
+				},
+				{
+					"Account" : 1,
+					"Amount" : 200.0,
+					"Category" : "Investments (+)",
+					"Day" : 8,
 					"Subcategory" : "Deposit",
 					"Type" : "In"
 				},
 				{
-					"Account" : 2,
-					"Amount" : -600.0,
-					"Category" : "Housing",
+					"Account" : 3,
+					"Amount" : -250.0,
+					"Category" : "Food",
 					"Day" : 10,
-					"Subcategory" : "Rent",
+					"Subcategory" : "Food",
+					"Type" : "Out"
+				},
+				{
+					"Account" : 1,
+					"Amount" : -15.0,
+					"Category" : "Investments (-)",
+					"Day" : 24,
+					"Subcategory" : "Investments (-)",
 					"Type" : "Out"
 				}
 			]
@@ -116,12 +164,36 @@
 			"data" : 
 			[
 				{
+					"Account" : 3,
+					"Amount" : 2000.0,
+					"Category" : "Income",
+					"Day" : 1,
+					"Subcategory" : "Income",
+					"Type" : "In"
+				},
+				{
 					"Account" : 1,
-					"Amount" : 1100.0,
+					"Amount" : 200.0,
 					"Category" : "Investments (+)",
-					"Day" : 4,
+					"Day" : 1,
 					"Subcategory" : "Deposit",
 					"Type" : "In"
+				},
+				{
+					"Account" : 1,
+					"Amount" : 5.0,
+					"Category" : "Investments (+)",
+					"Day" : 4,
+					"Subcategory" : "Investments (+)",
+					"Type" : "In"
+				},
+				{
+					"Account" : 3,
+					"Amount" : -500.0,
+					"Category" : "Housing",
+					"Day" : 6,
+					"Subcategory" : "Rent",
+					"Type" : "Out"
 				}
 			]
 		},
@@ -131,12 +203,75 @@
 			"data" : 
 			[
 				{
+					"Account" : 3,
+					"Amount" : 2000.0,
+					"Category" : "Income",
+					"Day" : 1,
+					"Subcategory" : "Income",
+					"Type" : "In"
+				},
+				{
 					"Account" : 1,
-					"Amount" : -300.0,
+					"Amount" : -10.0,
 					"Category" : "Investments (-)",
-					"Day" : 7,
-					"Subcategory" : "Withdrawal",
+					"Day" : 6,
+					"Subcategory" : "Investments (-)",
 					"Type" : "Out"
+				},
+				{
+					"Account" : 1,
+					"Amount" : 200.0,
+					"Category" : "Investments (+)",
+					"Day" : 7,
+					"Subcategory" : "Deposit",
+					"Type" : "In"
+				},
+				{
+					"Account" : 3,
+					"Amount" : -500.0,
+					"Category" : "Housing",
+					"Day" : 9,
+					"Subcategory" : "Rent",
+					"Type" : "Out"
+				}
+			]
+		},
+		{
+			"Month" : 6,
+			"Year" : 2021,
+			"data" : 
+			[
+				{
+					"Account" : 3,
+					"Amount" : 2000.0,
+					"Category" : "Income",
+					"Day" : 1,
+					"Subcategory" : "Income",
+					"Type" : "In"
+				},
+				{
+					"Account" : 1,
+					"Amount" : 200.0,
+					"Category" : "Investments (+)",
+					"Day" : 5,
+					"Subcategory" : "Deposit",
+					"Type" : "In"
+				},
+				{
+					"Account" : 3,
+					"Amount" : -500.0,
+					"Category" : "Housing",
+					"Day" : 7,
+					"Subcategory" : "Rent",
+					"Type" : "Out"
+				},
+				{
+					"Account" : 1,
+					"Amount" : 10.0,
+					"Category" : "Investments (+)",
+					"Day" : 23,
+					"Subcategory" : "Investments (+)",
+					"Type" : "In"
 				}
 			]
 		}

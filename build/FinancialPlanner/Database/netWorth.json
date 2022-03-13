@@ -2,43 +2,51 @@
 	"records" : 
 	[
 		{
-			"ClosingWorth" : 300.0,
-			"HighWorth" : 1100.0,
+			"ClosingWorth" : 1225.0,
+			"HighWorth" : 2000.0,
 			"LowWorth" : 0.0,
 			"Month" : 1,
 			"OpeningWorth" : 0.0,
 			"Year" : 2021
 		},
 		{
-			"ClosingWorth" : 1000.0,
-			"HighWorth" : 1600.0,
-			"LowWorth" : 300.0,
+			"ClosingWorth" : 2685.0,
+			"HighWorth" : 3425.0,
+			"LowWorth" : 1225.0,
 			"Month" : 2,
-			"OpeningWorth" : 300.0,
+			"OpeningWorth" : 1225.0,
 			"Year" : 2021
 		},
 		{
-			"ClosingWorth" : 1800.0,
-			"HighWorth" : 2400.0,
-			"LowWorth" : 1000.0,
+			"ClosingWorth" : 4120.0,
+			"HighWorth" : 4685.0,
+			"LowWorth" : 2685.0,
 			"Month" : 3,
-			"OpeningWorth" : 1000.0,
+			"OpeningWorth" : 2685.0,
 			"Year" : 2021
 		},
 		{
-			"ClosingWorth" : 2900.0,
-			"HighWorth" : 2900.0,
-			"LowWorth" : 1800.0,
+			"ClosingWorth" : 5825.0,
+			"HighWorth" : 6325.0,
+			"LowWorth" : 4120.0,
 			"Month" : 4,
-			"OpeningWorth" : 1800.0,
+			"OpeningWorth" : 4120.0,
 			"Year" : 2021
 		},
 		{
-			"ClosingWorth" : 2600.0,
-			"HighWorth" : 2900.0,
-			"LowWorth" : 2600.0,
+			"ClosingWorth" : 7515.0,
+			"HighWorth" : 8015.0,
+			"LowWorth" : 5825.0,
 			"Month" : 5,
-			"OpeningWorth" : 2900.0,
+			"OpeningWorth" : 5825.0,
+			"Year" : 2021
+		},
+		{
+			"ClosingWorth" : 9225.0,
+			"HighWorth" : 9715.0,
+			"LowWorth" : 7515.0,
+			"Month" : 6,
+			"OpeningWorth" : 7515.0,
 			"Year" : 2021
 		}
 	]

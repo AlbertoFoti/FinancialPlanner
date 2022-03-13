@@ -19,13 +19,14 @@ There isn't a proper installation procedure yet.
 - Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
 - Allow Transfer between Accounts
 - Full GUI style improvement (also add headers to tables)
+- Investments Tab : plots and tabs completed
+- Investments Tab : breakdown [5 years, 10 years, 25 years, 50 years] views
 - Fix : not possible to add categories with the same name as an existing category
 - Fix : not allowing the [delete] of Investments account and related issues
 
 ### Version 0.2.3 Objectives
-- Investments Tab : details [5 years, 10 years, 25 years, 50 years] views
-- Investments Tab : plots and tabs upgrade
-- Investments Tab : breakdown tab GUI structure and plots
+- Investments Tab : breakdown tab main view plots
+- Investments Tab : breakdown tab GUI structure (not complete)
 - Income/Expenses Detail tab: add column for investments returns
 - Fix : including/excluding investments into pie charts in Income/Expenses
 
