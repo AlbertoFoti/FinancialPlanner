@@ -89,7 +89,7 @@ void Overview::Render()
 		ImPlot::EndSubplots();
 	}
 
-	//ShowControlPanel("Overview Control Panel");
+	ShowControlPanel("Overview Control Panel");
 }
 
 void Overview::ShowControlPanel(std::string panel_name)
