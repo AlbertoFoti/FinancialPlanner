@@ -1,7 +1,7 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.2.1**
+Current Stable Version : **Version 0.2.3**
 
 ## For Final Users
 There isn't a proper installation procedure yet.
@@ -24,7 +24,9 @@ There isn't a proper installation procedure yet.
 - Fix : not possible to add categories with the same name as an existing category
 - Fix : not allowing the [delete] of Investments account and related issues
 
-### Version 0.2.3 Objectives
+### Version 0.2.4 Objectives
+
+### Version 0.2.3 Features
 - Investments Tab : breakdown tab main view plots
 - Investments Tab : breakdown tab GUI structure (not complete)
 - Income/Expenses Detail tab: add column for investments returns
