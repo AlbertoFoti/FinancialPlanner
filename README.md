@@ -1,7 +1,7 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.2.3**
+Current Stable Version : **Version 0.2.4**
 
 ## For Final Users
 There isn't a proper installation procedure yet.
@@ -17,16 +17,21 @@ There isn't a proper installation procedure yet.
 
 ## Version 0.3.0 Objectives
 - Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
-- Allow Transfer between Accounts
 - Investments Tab : breakdown [5 years, 10 years, 25 years, 50 years] views
 
-### Version 0.2.4 Objectives
+### Version 0.2.5 Objectives
+- Allow Transfer between Accounts
+- Fix : show yearly view in net worth control panel
+- Fix : Return investments report without holes (filled at runtime)
+
+### Version 0.2.4 Features
 - Investments Tab : plots and tabs upgrade
 - Full GUI style improvement (also add headers to tables)
 - New font (Roboto) available
 - Calendar Widget for date selection (used in new transaction panel)
 - Fix : not possible to add categories with the same name as an existing category
 - Fix : not allowing the [delete] of Investments account and related issues
+- Fix : Returns monthly reports without holes (filled at runtime)
 
 ### Version 0.2.3 Features
 - Investments Tab : breakdown tab main view plots
@@ -64,7 +69,7 @@ There isn't a proper installation procedure yet.
 - ImGui library (docking branch)
 - ImPlot library for plotting
 - jsoncpp to manage JSON files in c++
-- Blender Pro Font <br>
+- Font list: Blender Pro, Roboto<br>
 <div>Font made from <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a> is licensed by CC BY 3.0</div>
 
 ## License and Copyright

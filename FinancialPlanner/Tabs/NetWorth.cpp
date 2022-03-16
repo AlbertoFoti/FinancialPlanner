@@ -166,15 +166,15 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 		for (int i = 0; i != this->NW_records.size(); ++i) {
 			if (byMonth) {
 				ImGui::TableNextColumn();
-				ImGui::Text("%2d/%4d", NW_records[i]->Month, NW_records[i]->Year);
+				ImGui::Text("%2d/%4d", NW_records.at(i)->Month, NW_records.at(i)->Year);
 				ImGui::TableNextColumn();
-				ImGui::Text("%.2f", NW_records[i]->ClosingWorth);
+				ImGui::Text("%.2f", NW_records.at(i)->ClosingWorth);
 				ImGui::TableNextColumn();
 				if (i == 0) {
-					ImGui::Text("  /  ", NW_records[i]->ClosingWorth);
+					ImGui::Text("  /  ", NW_records.at(i)->ClosingWorth);
 				}
 				else {
-					delta = NW_records[i]->ClosingWorth - NW_records[i - 1]->ClosingWorth;
+					delta = NW_records.at(i)->ClosingWorth - NW_records.at(i-1)->ClosingWorth;
 					if (delta >= 0)
 						ImGui::TextColored(color_positive, "+%.2f", delta);
 					else
@@ -182,10 +182,10 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 				}
 				ImGui::TableNextColumn();
 				if (i == 0) {
-					ImGui::Text("  /  ", NW_records[i]->ClosingWorth);
+					ImGui::Text("  /  ", NW_records.at(i)->ClosingWorth);
 				}
 				else {
-					delta_perc = (delta / NW_records[i-1]->ClosingWorth) * 100;
+					delta_perc = (delta / NW_records.at(i-1)->ClosingWorth) * 100;
 					if (delta_perc >= 0)
 						ImGui::TextColored(color_positive, "+%.2f %%", delta_perc);
 					else
@@ -193,17 +193,17 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 				}
 			}
 			else {
-				if (NW_records[i]->Month == 12) {
+				if (NW_records.at(i)->Month == 12 && i>10) {
 					ImGui::TableNextColumn();
-					ImGui::Text("%4d", NW_records[i]->Year);
+					ImGui::Text("%4d", NW_records.at(i)->Year);
 					ImGui::TableNextColumn();
-					ImGui::Text("%.2f", NW_records[i]->ClosingWorth);
+					ImGui::Text("%.2f", NW_records.at(i)->ClosingWorth);
 					ImGui::TableNextColumn();
 					if (i == 0) {
-						ImGui::Text("  /  ", NW_records[i]->ClosingWorth);
+						ImGui::Text("  /  ", NW_records.at(i)->ClosingWorth);
 					}
 					else {
-						delta = NW_records[i]->ClosingWorth - NW_records[i - 12]->ClosingWorth;
+						delta = NW_records.at(i)->ClosingWorth - NW_records.at(i-11)->OpeningWorth;
 						if (delta >= 0)
 							ImGui::TextColored(color_positive, "+%.2f", delta);
 						else
@@ -211,10 +211,10 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 					}
 					ImGui::TableNextColumn();
 					if (i == 0) {
-						ImGui::Text("  /  ", NW_records[i]->ClosingWorth);
+						ImGui::Text("  /  ", NW_records.at(i)->ClosingWorth);
 					}
 					else {
-						delta_perc = (delta / NW_records[i-12]->ClosingWorth) * 100;
+						delta_perc = (delta / NW_records.at(i-11)->OpeningWorth) * 100;
 						if (delta_perc >= 0)
 							ImGui::TextColored(color_positive, "+%.2f %%", delta_perc);
 						else

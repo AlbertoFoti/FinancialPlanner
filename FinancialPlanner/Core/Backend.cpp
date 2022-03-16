@@ -258,6 +258,10 @@ std::vector<NW_record_p> Backend::getNWdata(double from, double to)
 
     Json::Value data = root["records"];
 
+    double last_amount = 0.0;
+    int last_month = -1;
+    int last_year = -1;
+
     for (unsigned int i = 0; i < data.size(); i++) {
         NW_record_p x = std::make_shared<NW_record>();
         x->Month = std::stoi(data[i]["Month"].asString());
@@ -269,10 +273,74 @@ std::vector<NW_record_p> Backend::getNWdata(double from, double to)
 
         double UnixTime = getUNIXtime(x->Month, x->Year);
 
+        // Push
         if (from == -1 && to == -1) {
-                NW_data.push_back(x);
+            if(i!=0){
+                int diff = (last_year*12+last_month)-(x->Year*12+x->Month);
+                if(diff > 1){
+                    while(diff > 1){
+                        NW_record_p y = std::make_shared<NW_record>();
+                        if(last_month == 11){
+                            y->Month = 0;
+                            last_month = 0;
+                            y->Year = last_year + 1;
+                            last_year = last_year + 1;
+                        }else{
+                            y->Month = last_month + 1;
+                            last_month = last_month + 1;
+                            y->Year = last_year;
+                        }
+                        y->OpeningWorth = last_amount;
+                        y->LowWorth = last_amount;
+                        y->HighWorth = last_amount;
+                        y->ClosingWorth = last_amount;
+
+                        NW_data.push_back(y);
+
+                        diff--;
+                    }
+                }
+            }
+            last_amount = x->ClosingWorth;
+            last_month = x->Month;
+            last_year = x->Year;
+
+            NW_data.push_back(x);
         }
         else {
+            if(i!=0){
+                int diff = (x->Year*12+x->Month) - (last_year*12+last_month);
+                if(diff > 1){
+                    while(diff > 1){
+                        NW_record_p y = std::make_shared<NW_record>();
+                        if(last_month == 12){
+                            y->Month = 1;
+                            last_month = 1;
+                            y->Year = last_year + 1;
+                            last_year = last_year + 1;
+                        }else{
+                            y->Month = last_month + 1;
+                            last_month = last_month + 1;
+                            y->Year = last_year;
+                        }
+                        y->OpeningWorth = last_amount;
+                        y->LowWorth = last_amount;
+                        y->HighWorth = last_amount;
+                        y->ClosingWorth = last_amount;
+
+                        double UnixTime_y = getUNIXtime(y->Month, y->Year);
+
+                        if(UnixTime_y >= from && UnixTime_y <= to)
+                            NW_data.push_back(y);
+
+                        diff--;
+                    }
+                }
+            }
+            last_amount = x->ClosingWorth;
+            last_month = x->Month;
+            last_year = x->Year;
+
             if(UnixTime >= from && UnixTime <= to)
                 NW_data.push_back(x);
         }
