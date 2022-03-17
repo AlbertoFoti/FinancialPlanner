@@ -165,8 +165,8 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 		ImGui::TableNextColumn();
 		ImGui::Text("Delta (%%)");
 
-		for (int i = 0; i != this->NW_records.size(); ++i) {
-			if (byMonth) {
+		if(byMonth){
+			for (int i = 0; i != this->NW_records.size(); ++i) {
 				ImGui::TableNextColumn();
 				ImGui::Text("%2d/%4d", NW_records.at(i)->Month, NW_records.at(i)->Year);
 				ImGui::TableNextColumn();
@@ -202,37 +202,62 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 						ImGui::TextColored(color_negative, "%.2f %%", delta_perc2);
 				}
 			}
-			else {
-				if (NW_records.at(i)->Month == 12 && i>10) {
-					ImGui::TableNextColumn();
-					ImGui::Text("%4d", NW_records.at(i)->Year);
-					ImGui::TableNextColumn();
-					ImGui::Text("%.2f", NW_records.at(i)->ClosingWorth);
-					ImGui::TableNextColumn();
-					if (i == 0) {
-						ImGui::Text("  /  ", NW_records.at(i)->ClosingWorth);
-					}
-					else {
-						delta = NW_records.at(i)->ClosingWorth - NW_records.at(i-11)->OpeningWorth;
+		}else{
+			int curr_year = -1;
+			int begin = -1;
+			int index = -1;
+			for (int i = 0; i != this->NW_records.size(); ++i){
+				if(curr_year == -1){
+					curr_year = this->NW_records.at(i)->Year;
+					begin = i;
+				}else{
+					if(curr_year == this->NW_records.at(i)->Year){
+						index = i;
+					}else{
+						// Push in the table
+						ImGui::TableNextColumn();
+						ImGui::Text("%4d", curr_year);
+						ImGui::TableNextColumn();
+						ImGui::Text("%.2f", NW_records.at(index)->ClosingWorth);
+						ImGui::TableNextColumn();
+						delta = NW_records.at(index)->ClosingWorth - NW_records.at(begin)->OpeningWorth;
 						if (delta >= 0)
 							ImGui::TextColored(color_positive, "+%.2f", delta);
 						else
 							ImGui::TextColored(color_negative, "%.2f", delta);
-					}
-					ImGui::TableNextColumn();
-					if (i == 0) {
-						ImGui::Text("  /  ", NW_records.at(i)->ClosingWorth);
-					}
-					else {
-						delta_perc = (delta / NW_records.at(i-11)->OpeningWorth) * 100;
+						ImGui::TableNextColumn();
+						delta_perc = (delta / NW_records.at(begin)->OpeningWorth) * 100;
 						if (delta_perc >= 0)
 							ImGui::TextColored(color_positive, "+%.2f %%", delta_perc);
 						else
 							ImGui::TextColored(color_negative, "%.2f %%", delta_perc);
+						// Update Curr_year
+						curr_year = this->NW_records.at(i)->Year;
+						begin = i;
+						index = i;
 					}
 				}
 			}
+
+			// push last element in the table
+			ImGui::TableNextColumn();
+			ImGui::Text("%4d", curr_year);
+			ImGui::TableNextColumn();
+			ImGui::Text("%.2f", NW_records.at(index)->ClosingWorth);
+			ImGui::TableNextColumn();
+			delta = NW_records.at(index)->ClosingWorth - NW_records.at(begin)->OpeningWorth;
+			if (delta >= 0)
+				ImGui::TextColored(color_positive, "+%.2f", delta);
+			else
+				ImGui::TextColored(color_negative, "%.2f", delta);
+			ImGui::TableNextColumn();
+			delta_perc = (delta / NW_records.at(begin)->OpeningWorth) * 100;
+			if (delta_perc >= 0)
+				ImGui::TextColored(color_positive, "+%.2f %%", delta_perc);
+			else
+				ImGui::TextColored(color_negative, "%.2f %%", delta_perc);
 		}
+
 		ImGui::EndTable();
 	}
 
