@@ -127,9 +127,18 @@ bool Core::checkCategoryExists(std::string name)
 	return false;
 }
 
-bool Core::checkErrors(std::string cat, std::string subCat, std::string type, double amount, int year)
+bool Core::checkErrors(int cat, int subCat, std::string type, double amount)
 {
-	// Check Errors : To do
+	// Subcategory is in Category ?
+	if( this->categories[cat]->subCategories.size() <= subCat ) return false;
+
+	// Amount == 0 (useless transaction)
+	if(amount <= 0.001 && amount > -0.001) return false;
+
+	// Amount and type
+	if( type == "Out" && amount > 0) return false;
+	if( type == "In" && amount < 0)  return false;
+
 	return true;
 }
 

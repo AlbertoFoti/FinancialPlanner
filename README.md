@@ -14,6 +14,7 @@ There isn't a proper installation procedure yet.
 - Category/Subcategory Manager [Edit]
 - Subcategory Manager [Delete]
 - Transactions operations [Edit] [Delete]
+- Adding comments to transactions
 
 ## Version 0.3.0 Objectives
 - Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
@@ -23,6 +24,7 @@ There isn't a proper installation procedure yet.
 - Allow Transfer between Accounts
 - Fix : Return investments report without holes (filled at runtime)
 - Fix : show yearly view in net worth control panel
+- Control check function for new transactions
 
 ### Version 0.2.4 Features
 - Investments Tab : plots and tabs upgrade

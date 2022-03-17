@@ -51,7 +51,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 	ImGui::RadioButton("Expense", &type, 1);
 
 	ImGui::BulletText("Category");
-	static int cat = 0;
+	static int cat = 3;
 	if (ImGui::BeginListBox("##cat_name_list_box"))
 	{
 		for (int n = 0; n < categories.size(); n++)
@@ -113,15 +113,22 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 	ImGui::Spacing();
 
 	bool something_went_wrong = false;
-	if (!strcmp(amount_s, "")) something_went_wrong = true;
+	if (!strcmp(amount_s, "")){
+		something_went_wrong = true;
+	}else{
+		something_went_wrong = this->core->checkErrors(cat, subCat, type == 0 ? "In" : "Out", std::stod(amount_s));
+	}
 
-	//something_went_wrong = this->core->checkErrors(x->Category, x->Subcategory, x->Type, x->Amount, std::stoi(year_s));
+	static char errorString[50] = "";
+	ImGui::Text("%s", errorString);
 
 	if (ImGui::Button("Add New Transaction")) {
 		if (something_went_wrong) {
 			// Throw Error
+			sprintf_s(errorString, "%s", "Error! Something went wrong");
 		}
 		else {
+			sprintf_s(errorString, "%s", "");
 			// Add new Transaction
 			Transaction_p x = std::make_shared<Transaction>();
 			x->Day = date->Day;
