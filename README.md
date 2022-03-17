@@ -21,8 +21,8 @@ There isn't a proper installation procedure yet.
 
 ### Version 0.2.5 Objectives
 - Allow Transfer between Accounts
-- Fix : show yearly view in net worth control panel
 - Fix : Return investments report without holes (filled at runtime)
+- Fix : show yearly view in net worth control panel
 
 ### Version 0.2.4 Features
 - Investments Tab : plots and tabs upgrade
