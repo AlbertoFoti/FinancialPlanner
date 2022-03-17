@@ -178,9 +178,9 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 				ImGui::TableNextColumn();
 				delta_perc = (delta / NW_records.at(i)->OpeningWorth) * 100;
 				if (delta_perc >= 0)
-					ImGui::TextColored(color_positive, "+%.2f %%", delta_perc);
+					ImGui::TextColored(color_positive, "+%.2f%%", delta_perc);
 				else
-					ImGui::TextColored(color_negative, "%.2f %%", delta_perc);
+					ImGui::TextColored(color_negative, "%.2f%%", delta_perc);
 			}
 		}else{
 			int curr_year = -1;
@@ -208,9 +208,9 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 						ImGui::TableNextColumn();
 						delta_perc = (delta / NW_records.at(begin)->OpeningWorth) * 100;
 						if (delta_perc >= 0)
-							ImGui::TextColored(color_positive, "+%.2f %%", delta_perc);
+							ImGui::TextColored(color_positive, "+%.2f%%", delta_perc);
 						else
-							ImGui::TextColored(color_negative, "%.2f %%", delta_perc);
+							ImGui::TextColored(color_negative, "%.2f%%", delta_perc);
 						// Update Curr_year
 						curr_year = this->NW_records.at(i)->Year;
 						begin = i;
@@ -233,9 +233,9 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 			ImGui::TableNextColumn();
 			delta_perc = (delta / NW_records.at(begin)->OpeningWorth) * 100;
 			if (delta_perc >= 0)
-				ImGui::TextColored(color_positive, "+%.2f %%", delta_perc);
+				ImGui::TextColored(color_positive, "+%.2f%%", delta_perc);
 			else
-				ImGui::TextColored(color_negative, "%.2f %%", delta_perc);
+				ImGui::TextColored(color_negative, "%.2f%%", delta_perc);
 		}
 
 		ImGui::EndTable();

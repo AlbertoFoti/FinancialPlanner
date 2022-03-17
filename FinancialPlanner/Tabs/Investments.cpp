@@ -113,16 +113,31 @@ void Investments::ShowInvestmentsOverview()
 		}
 	}
 	if (xs.size() != 0 && ys.size() != 0) {
-		pl.ShowLinePlot_def(str_line, &xs[0], &ys[0], (int)xs.size());
+		pl.ShowLinePlot_def(str_line, xs.data(), ys.data(), (int)xs.size());
 	}
 
 	xs.clear();
 	ys.clear();
 
 	// Investments Candle plot
-	static char str_candle[100] = {};
-	sprintf_s(str_candle, "##%d_label_investments_candle_plot", x->AccountID);
+	//static char str_candle[100] = {};
+	//sprintf_s(str_candle, "##%d_label_investments_candle_plot", x->AccountID);
 	//pl.ShowCandleBarsPlot_default(str_candle, &xs[0], &ys[0], &ys[0], &ys[0], &ys[0], (int)xs.size());
+
+	int rows = 1;
+	int cols = 2;
+	if (ImPlot::BeginSubplots("##sub_plots_investments", rows, cols, ImVec2(-1, -1))) {
+		static char str[150] = {};
+
+		// Plot 1
+		pl.ShowEmptyPlot("Plot 1 - Investments");
+
+		// Plot 2
+		pl.ShowEmptyPlot("Plot 2 - Investments");
+	
+
+		ImPlot::EndSubplots();
+	}
 }
 
 void Investments::ShowInvestmentsBreakdown()

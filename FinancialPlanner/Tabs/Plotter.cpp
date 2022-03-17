@@ -45,7 +45,10 @@ void Plotter::ShowLinePlot_def(const char* label_id, const double* xs, const dou
             delta = fabs(max_y) + fabs(min_y);// Different sign
         }
         padding_y = delta * PLOT_PADDING_Y_PERC;
-        ImPlot::SetupAxesLimits(xs[0] - PLOT_PADDING_UNIX_TIME, xs[count - 1] + PLOT_PADDING_UNIX_TIME, min_y - padding_y, max_y + padding_y, ImGuiCond_None);
+        if(min_y >= 0)
+            ImPlot::SetupAxesLimits(xs[0] - PLOT_PADDING_UNIX_TIME, xs[count - 1] + PLOT_PADDING_UNIX_TIME, -padding_y, max_y + padding_y, ImGuiCond_None);
+        else 
+            ImPlot::SetupAxesLimits(xs[0] - PLOT_PADDING_UNIX_TIME, xs[count - 1] + PLOT_PADDING_UNIX_TIME, min_y - padding_y, max_y + padding_y, ImGuiCond_None);
         ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
         ImPlot::PlotShaded(label_id, xs, ys, count, 0);
         ImPlot::PopStyleVar();
