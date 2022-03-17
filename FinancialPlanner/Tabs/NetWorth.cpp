@@ -148,9 +148,7 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 	if (ImGui::BeginTable("netWorthTable", 4, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
 	{
 		double delta;
-		double delta2;
 		double delta_perc;
-		double delta_perc2;
 
 		ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
 		ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
@@ -172,35 +170,17 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 				ImGui::TableNextColumn();
 				ImGui::Text("%.2f", NW_records.at(i)->ClosingWorth);
 				ImGui::TableNextColumn();
-				if (i == 0) {
-					delta = NW_records.at(i)->ClosingWorth - NW_records.at(i)->OpeningWorth;
-					if (delta >= 0)
-						ImGui::TextColored(color_positive, "+%.2f", delta);
-					else
-						ImGui::TextColored(color_negative, "%.2f", delta);
-				}
-				else {
-					delta2 = NW_records.at(i)->ClosingWorth - NW_records.at(i-1)->ClosingWorth;
-					if (delta >= 0)
-						ImGui::TextColored(color_positive, "+%.2f", delta2);
-					else
-						ImGui::TextColored(color_negative, "%.2f", delta2);
-				}
+				delta = NW_records.at(i)->ClosingWorth - NW_records.at(i)->OpeningWorth;
+				if (delta >= 0)
+					ImGui::TextColored(color_positive, "+%.2f", delta);
+				else
+					ImGui::TextColored(color_negative, "%.2f", delta);
 				ImGui::TableNextColumn();
-				if (i == 0) {
-					delta_perc = (delta / NW_records.at(i)->OpeningWorth) * 100;
-					if (delta_perc >= 0)
-						ImGui::TextColored(color_positive, "+%.2f %%", delta_perc);
-					else
-						ImGui::TextColored(color_negative, "%.2f %%", delta_perc);
-				}
-				else {
-					delta_perc2 = (delta2 / NW_records.at(i-1)->ClosingWorth) * 100;
-					if (delta_perc >= 0)
-						ImGui::TextColored(color_positive, "+%.2f %%", delta_perc2);
-					else
-						ImGui::TextColored(color_negative, "%.2f %%", delta_perc2);
-				}
+				delta_perc = (delta / NW_records.at(i)->OpeningWorth) * 100;
+				if (delta_perc >= 0)
+					ImGui::TextColored(color_positive, "+%.2f %%", delta_perc);
+				else
+					ImGui::TextColored(color_negative, "%.2f %%", delta_perc);
 			}
 		}else{
 			int curr_year = -1;
