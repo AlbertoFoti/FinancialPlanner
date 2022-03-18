@@ -58,6 +58,8 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecords(int id)
 
     root = getRootFromFileStream("Database/accountsDetails.json");
 
+    int last_month = -1;
+    int last_year = -1;
     for (unsigned int i = 0; i < root["records"].size(); i++) {
         AccountMonthlyRecordComplex_p item = std::make_shared<AccountMonthlyRecordComplex>();
         item->Month = std::stoi(root["records"][i]["Month"].asString());
@@ -70,11 +72,35 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecords(int id)
                 found = true;
                 item->Amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
                 last_amount = item->Amount;
-                x->accountMonthlyRecords.push_back(item);
             }
         }
 
-        if (!found) {
+        if(found){
+            if(i!=0){
+                int diff = (item->Year*12+item->Month) - (last_year*12+last_month);
+                if(diff > 1){
+                    while(diff > 1){
+                        AccountMonthlyRecordComplex_p j = std::make_shared<AccountMonthlyRecordComplex>();
+                        if(last_month == 12){
+                            j->Month = 1;
+                            last_month = 1;
+                            j->Year = last_year + 1;
+                            last_year = last_year + 1;
+                        }else{
+                            j->Month = last_month + 1;
+                            last_month = last_month + 1;
+                            j->Year = last_year;
+                        }
+                        j->Amount = item->Amount;
+                        x->accountMonthlyRecords.push_back(j);
+                        diff--;
+                    }
+                }
+            }
+            last_month = item->Month;
+            last_year = item->Year;
+            x->accountMonthlyRecords.push_back(item);
+        }else{
             // Padding an empty month
             item->Amount = last_amount;
             x->accountMonthlyRecords.push_back(item);
@@ -280,9 +306,9 @@ std::vector<NW_record_p> Backend::getNWdata(double from, double to)
                 if(diff > 1){
                     while(diff > 1){
                         NW_record_p y = std::make_shared<NW_record>();
-                        if(last_month == 11){
-                            y->Month = 0;
-                            last_month = 0;
+                        if(last_month == 12){
+                            y->Month = 1;
+                            last_month = 1;
                             y->Year = last_year + 1;
                             last_year = last_year + 1;
                         }else{

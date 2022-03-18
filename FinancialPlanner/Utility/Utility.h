@@ -65,6 +65,13 @@ double getUNIXtime(int month, int year);
 double fromMSMtoUNIXtime(int msmDate);
 
 /**
+ * @brief Get the Current Year
+ * 
+ * @return int current year
+ */
+int getCurrentYear();
+
+/**
  * @brief Bubble Sort for Transactions
  * 
  * @param root Json::Value root not sorted

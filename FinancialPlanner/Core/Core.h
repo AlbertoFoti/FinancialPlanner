@@ -180,15 +180,14 @@ public:
 	/**
 	 * @brief self-explanatory
 	 * 
-	 * @param cat category
-	 * @param subCat sub-category
-	 * @param type In/Out
+	 * @param cat Category
+	 * @param subCat Sub Category
+	 * @param type self-explanatory
 	 * @param amount self-explanatory
-	 * @param year self-explanatory
-	 * @return true self-explanatory
-	 * @return false self-explanatory
+	 * @return true 
+	 * @return false 
 	 */
-	bool checkErrors(std::string cat, std::string subCat, std::string type, double amount, int year);
+	bool checkErrors(int cat, int subCat, std::string type, double amount);
 
 	/**
 	 * @brief delete Category

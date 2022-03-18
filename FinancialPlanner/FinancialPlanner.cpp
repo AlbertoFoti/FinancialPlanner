@@ -611,7 +611,7 @@ void FinancialPlanner::ShowCategoryManager()
             }
 
             // Edit and Delete Buttons aligned right
-            if(categories[i]->id != 1 && categories[i]->id != 2){
+            if(categories[i]->id != -3 && categories[i]->id != -2 && categories[i]->id != -1){
                 ImVec2 buttonSize(50.f, 0.f);
                 float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
                 ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
