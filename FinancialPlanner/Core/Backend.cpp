@@ -104,6 +104,8 @@ AccountMonthlyDetails_p Backend::getAccountMonthlyRecords(int id)
             // Padding an empty month
             item->Amount = last_amount;
             x->accountMonthlyRecords.push_back(item);
+            last_month = item->Month;
+            last_year = item->Year;
         }
     }
 
@@ -790,12 +792,14 @@ YearlyInvestmentsReport_p Backend::getYearlyInvestmentsReport(int year)
         x->initial_capital = getAccountAmountAt(1, i + 1, year);
         for (auto t : monthlyReport->transactions) {
             if (t->Category == "Investments (+)") {
-                if (t->Subcategory == "Deposit") x->deposits += t->Amount;
                 if (t->Subcategory == "Investments (+)") x->investments_variation += t->Amount;
             } 
             else if (t->Category == "Investments (-)") {
-                if (t->Subcategory == "Withdrawal") x->deposits += t->Amount;
                 if (t->Subcategory == "Investments (-)") x->investments_variation += t->Amount;
+            }
+            else if (t->Category == "Transfer") {
+                if (t->Subcategory == "Deposit") x->deposits += t->Amount;
+                if (t->Subcategory == "Withdrawal") x->deposits -= t->Amount;
             }
         }
 

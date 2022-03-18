@@ -24,8 +24,9 @@ There isn't a proper installation procedure yet.
 
 ### Version 0.2.6 Objectives
 - Adding comments to transactions
-- investment tab fix: money transfer logic integration with investments(deposits/withdrawal)
 - incomeExpenses tab: Adding a table for transfers
+- fix: account plots fix
+- investment tab fix: money transfer logic integration with investments(deposits/withdrawal)
 - Allow Transfer between Accounts
 - fix: little fixes
 

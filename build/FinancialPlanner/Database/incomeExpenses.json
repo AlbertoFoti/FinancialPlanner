@@ -23,6 +23,15 @@
 					"Day" : 3,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
+				},
+				{
+					"AccountFrom" : 3,
+					"AccountTo" : -1,
+					"Amount" : -250.0,
+					"Category" : "Food",
+					"Day" : 6,
+					"Subcategory" : "Eating Out",
+					"Type" : "Out"
 				}
 			]
 		},
@@ -57,6 +66,15 @@
 					"Day" : 3,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
+				},
+				{
+					"AccountFrom" : 3,
+					"AccountTo" : -1,
+					"Amount" : -250.0,
+					"Category" : "Food",
+					"Day" : 6,
+					"Subcategory" : "Eating Out",
+					"Type" : "Out"
 				}
 			]
 		},
@@ -77,11 +95,61 @@
 				{
 					"AccountFrom" : 3,
 					"AccountTo" : -1,
+					"Amount" : -250.0,
+					"Category" : "Food",
+					"Day" : 1,
+					"Subcategory" : "Eating Out",
+					"Type" : "Out"
+				},
+				{
+					"AccountFrom" : 3,
+					"AccountTo" : -1,
 					"Amount" : -500.0,
 					"Category" : "Housing",
 					"Day" : 3,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
+				},
+				{
+					"AccountFrom" : 3,
+					"AccountTo" : 1,
+					"Amount" : 250.0,
+					"Category" : "Transfer",
+					"Day" : 10,
+					"Subcategory" : "Transfer",
+					"Type" : "Transfer"
+				}
+			]
+		},
+		{
+			"Month" : 4,
+			"Year" : 2021,
+			"data" : 
+			[
+				{
+					"AccountFrom" : 3,
+					"AccountTo" : -1,
+					"Amount" : -500.0,
+					"Category" : "Housing",
+					"Day" : 5,
+					"Subcategory" : "Rent",
+					"Type" : "Out"
+				}
+			]
+		},
+		{
+			"Month" : 5,
+			"Year" : 2021,
+			"data" : 
+			[
+				{
+					"AccountFrom" : 3,
+					"AccountTo" : -1,
+					"Amount" : 2000.0,
+					"Category" : "Income",
+					"Day" : 1,
+					"Subcategory" : "Income",
+					"Type" : "In"
 				}
 			]
 		}
