@@ -58,6 +58,19 @@ double fromMSMtoUNIXtime(int msmDate)
 	return getUNIXtime(month, year);
 }
 
+int getCurrentYear()
+{
+	time_t rawtime;
+	struct tm timeinfo;
+	/* get current timeinfo: */
+	time(&rawtime); //or: rawtime = time(0);
+	/* convert to struct: */
+	localtime_s(&timeinfo, &rawtime);
+	/* now modify the timeinfo to the given date: */
+	timeinfo.tm_year += 1900;
+	return timeinfo.tm_year;
+}
+
 Json::Value BubbleSortTransactions(Json::Value root)
 {
 	bool swapped = true;

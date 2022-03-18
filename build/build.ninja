@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: FinancialPlanner
-# Configurations: Debug
+# Configurations: Release
 # =============================================================================
 
 #############################################
@@ -24,7 +24,7 @@ ninja_required_version = 1.5
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = Debug
+CONFIGURATION = Release
 # =============================================================================
 # Include auxiliary files.
 
@@ -78,18 +78,18 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 
 build cmake_object_order_depends_target_main: phony || cmake_object_order_depends_target_Core cmake_object_order_depends_target_Tabs cmake_object_order_depends_target_Templates cmake_object_order_depends_target_Utility
 
-build FinancialPlanner\CMakeFiles\main.dir\main.cpp.obj: CXX_COMPILER__main_Debug C$:\repos\FinancialPlanner\FinancialPlanner\main.cpp || cmake_object_order_depends_target_main
+build FinancialPlanner\CMakeFiles\main.dir\main.cpp.obj: CXX_COMPILER__main_Release C$:\repos\FinancialPlanner\FinancialPlanner\main.cpp || cmake_object_order_depends_target_main
   DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\CMakeFiles\main.dir
   OBJECT_FILE_DIR = FinancialPlanner\CMakeFiles\main.dir
   TARGET_COMPILE_PDB = FinancialPlanner\CMakeFiles\main.dir\
   TARGET_PDB = FinancialPlanner\main.pdb
 
-build FinancialPlanner\CMakeFiles\main.dir\FinancialPlanner.cpp.obj: CXX_COMPILER__main_Debug C$:\repos\FinancialPlanner\FinancialPlanner\FinancialPlanner.cpp || cmake_object_order_depends_target_main
+build FinancialPlanner\CMakeFiles\main.dir\FinancialPlanner.cpp.obj: CXX_COMPILER__main_Release C$:\repos\FinancialPlanner\FinancialPlanner\FinancialPlanner.cpp || cmake_object_order_depends_target_main
   DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\CMakeFiles\main.dir
   OBJECT_FILE_DIR = FinancialPlanner\CMakeFiles\main.dir
@@ -104,12 +104,12 @@ build FinancialPlanner\CMakeFiles\main.dir\FinancialPlanner.cpp.obj: CXX_COMPILE
 #############################################
 # Link the executable FinancialPlanner\main.exe
 
-build FinancialPlanner\main.exe: CXX_EXECUTABLE_LINKER__main_Debug C$:\repos\vcpkg\installed\x64-windows\debug\lib\objects-Debug\jsoncpp_object\json_reader.cpp.obj C$:\repos\vcpkg\installed\x64-windows\debug\lib\objects-Debug\jsoncpp_object\json_value.cpp.obj C$:\repos\vcpkg\installed\x64-windows\debug\lib\objects-Debug\jsoncpp_object\json_writer.cpp.obj FinancialPlanner\CMakeFiles\main.dir\main.cpp.obj FinancialPlanner\CMakeFiles\main.dir\FinancialPlanner.cpp.obj | FinancialPlanner\Core\Core.lib FinancialPlanner\Templates\Templates.lib FinancialPlanner\Tabs\Tabs.lib FinancialPlanner\Utility\Utility.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\imguid.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\glfw3dll.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\glad.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\implotd.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\jsoncpp.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\imguid.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\glfw3dll.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\imguid.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\glfw3dll.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\implotd.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\jsoncpp.lib C$:\repos\vcpkg\installed\x64-windows\debug\lib\jsoncpp.lib || FinancialPlanner\Core\Core.lib FinancialPlanner\Tabs\Tabs.lib FinancialPlanner\Templates\Templates.lib FinancialPlanner\Utility\Utility.lib
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:windows
-  LINK_LIBRARIES = FinancialPlanner\Core\Core.lib  FinancialPlanner\Templates\Templates.lib  FinancialPlanner\Tabs\Tabs.lib  FinancialPlanner\Utility\Utility.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\imguid.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\glfw3dll.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\glad.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\implotd.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\jsoncpp.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\imguid.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\glfw3dll.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\imguid.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\glfw3dll.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\implotd.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\jsoncpp.lib  C:\repos\vcpkg\installed\x64-windows\debug\lib\jsoncpp.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+build FinancialPlanner\main.exe: CXX_EXECUTABLE_LINKER__main_Release C$:\repos\vcpkg\installed\x64-windows\lib\objects-Release\jsoncpp_object\json_reader.cpp.obj C$:\repos\vcpkg\installed\x64-windows\lib\objects-Release\jsoncpp_object\json_value.cpp.obj C$:\repos\vcpkg\installed\x64-windows\lib\objects-Release\jsoncpp_object\json_writer.cpp.obj FinancialPlanner\CMakeFiles\main.dir\main.cpp.obj FinancialPlanner\CMakeFiles\main.dir\FinancialPlanner.cpp.obj | FinancialPlanner\Core\Core.lib FinancialPlanner\Templates\Templates.lib FinancialPlanner\Tabs\Tabs.lib FinancialPlanner\Utility\Utility.lib C$:\repos\vcpkg\installed\x64-windows\lib\imgui.lib C$:\repos\vcpkg\installed\x64-windows\lib\glfw3dll.lib C$:\repos\vcpkg\installed\x64-windows\lib\glad.lib C$:\repos\vcpkg\installed\x64-windows\lib\implot.lib C$:\repos\vcpkg\installed\x64-windows\lib\jsoncpp.lib C$:\repos\vcpkg\installed\x64-windows\lib\imgui.lib C$:\repos\vcpkg\installed\x64-windows\lib\glfw3dll.lib C$:\repos\vcpkg\installed\x64-windows\lib\imgui.lib C$:\repos\vcpkg\installed\x64-windows\lib\glfw3dll.lib C$:\repos\vcpkg\installed\x64-windows\lib\implot.lib C$:\repos\vcpkg\installed\x64-windows\lib\jsoncpp.lib C$:\repos\vcpkg\installed\x64-windows\lib\jsoncpp.lib || FinancialPlanner\Core\Core.lib FinancialPlanner\Tabs\Tabs.lib FinancialPlanner\Templates\Templates.lib FinancialPlanner\Utility\Utility.lib
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:windows
+  LINK_LIBRARIES = FinancialPlanner\Core\Core.lib  FinancialPlanner\Templates\Templates.lib  FinancialPlanner\Tabs\Tabs.lib  FinancialPlanner\Utility\Utility.lib  C:\repos\vcpkg\installed\x64-windows\lib\imgui.lib  C:\repos\vcpkg\installed\x64-windows\lib\glfw3dll.lib  C:\repos\vcpkg\installed\x64-windows\lib\glad.lib  C:\repos\vcpkg\installed\x64-windows\lib\implot.lib  C:\repos\vcpkg\installed\x64-windows\lib\jsoncpp.lib  C:\repos\vcpkg\installed\x64-windows\lib\imgui.lib  C:\repos\vcpkg\installed\x64-windows\lib\glfw3dll.lib  C:\repos\vcpkg\installed\x64-windows\lib\imgui.lib  C:\repos\vcpkg\installed\x64-windows\lib\glfw3dll.lib  C:\repos\vcpkg\installed\x64-windows\lib\implot.lib  C:\repos\vcpkg\installed\x64-windows\lib\jsoncpp.lib  C:\repos\vcpkg\installed\x64-windows\lib\jsoncpp.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = FinancialPlanner\CMakeFiles\main.dir
-  POST_BUILD = cmd.exe /C "cd /D C:\repos\FinancialPlanner\build\FinancialPlanner && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/repos/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/repos/FinancialPlanner/build/FinancialPlanner/main.exe -installedDir C:/repos/vcpkg/installed/x64-windows/debug/bin -OutVariable out"
+  POST_BUILD = cmd.exe /C "cd /D C:\repos\FinancialPlanner\build\FinancialPlanner && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/repos/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/repos/FinancialPlanner/build/FinancialPlanner/main.exe -installedDir C:/repos/vcpkg/installed/x64-windows/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = FinancialPlanner\CMakeFiles\main.dir\
   TARGET_FILE = FinancialPlanner\main.exe
@@ -154,16 +154,16 @@ build FinancialPlanner\rebuild_cache: phony FinancialPlanner\CMakeFiles\rebuild_
 
 build cmake_object_order_depends_target_Core: phony || FinancialPlanner\Core\CMakeFiles\Core.dir
 
-build FinancialPlanner\Core\CMakeFiles\Core.dir\Core.cpp.obj: CXX_COMPILER__Core_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Core\Core.cpp || cmake_object_order_depends_target_Core
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+build FinancialPlanner\Core\CMakeFiles\Core.dir\Core.cpp.obj: CXX_COMPILER__Core_Release C$:\repos\FinancialPlanner\FinancialPlanner\Core\Core.cpp || cmake_object_order_depends_target_Core
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Core\CMakeFiles\Core.dir
   OBJECT_FILE_DIR = FinancialPlanner\Core\CMakeFiles\Core.dir
   TARGET_COMPILE_PDB = FinancialPlanner\Core\CMakeFiles\Core.dir\Core.pdb
   TARGET_PDB = FinancialPlanner\Core\Core.pdb
 
-build FinancialPlanner\Core\CMakeFiles\Core.dir\Backend.cpp.obj: CXX_COMPILER__Core_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Core\Backend.cpp || cmake_object_order_depends_target_Core
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+build FinancialPlanner\Core\CMakeFiles\Core.dir\Backend.cpp.obj: CXX_COMPILER__Core_Release C$:\repos\FinancialPlanner\FinancialPlanner\Core\Backend.cpp || cmake_object_order_depends_target_Core
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Core\CMakeFiles\Core.dir
   OBJECT_FILE_DIR = FinancialPlanner\Core\CMakeFiles\Core.dir
@@ -178,8 +178,8 @@ build FinancialPlanner\Core\CMakeFiles\Core.dir\Backend.cpp.obj: CXX_COMPILER__C
 #############################################
 # Link the static library FinancialPlanner\Core\Core.lib
 
-build FinancialPlanner\Core\Core.lib: CXX_STATIC_LIBRARY_LINKER__Core_Debug C$:\repos\vcpkg\installed\x64-windows\debug\lib\objects-Debug\jsoncpp_object\json_reader.cpp.obj C$:\repos\vcpkg\installed\x64-windows\debug\lib\objects-Debug\jsoncpp_object\json_value.cpp.obj C$:\repos\vcpkg\installed\x64-windows\debug\lib\objects-Debug\jsoncpp_object\json_writer.cpp.obj FinancialPlanner\Core\CMakeFiles\Core.dir\Core.cpp.obj FinancialPlanner\Core\CMakeFiles\Core.dir\Backend.cpp.obj
-  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+build FinancialPlanner\Core\Core.lib: CXX_STATIC_LIBRARY_LINKER__Core_Release C$:\repos\vcpkg\installed\x64-windows\lib\objects-Release\jsoncpp_object\json_reader.cpp.obj C$:\repos\vcpkg\installed\x64-windows\lib\objects-Release\jsoncpp_object\json_value.cpp.obj C$:\repos\vcpkg\installed\x64-windows\lib\objects-Release\jsoncpp_object\json_writer.cpp.obj FinancialPlanner\Core\CMakeFiles\Core.dir\Core.cpp.obj FinancialPlanner\Core\CMakeFiles\Core.dir\Backend.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = FinancialPlanner\Core\CMakeFiles\Core.dir
   POST_BUILD = cd .
@@ -226,9 +226,9 @@ build FinancialPlanner\Core\rebuild_cache: phony FinancialPlanner\Core\CMakeFile
 
 build cmake_object_order_depends_target_Templates: phony || FinancialPlanner\Templates\CMakeFiles\Templates.dir
 
-build FinancialPlanner\Templates\CMakeFiles\Templates.dir\Tab.cpp.obj: CXX_COMPILER__Templates_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Templates\Tab.cpp || cmake_object_order_depends_target_Templates
+build FinancialPlanner\Templates\CMakeFiles\Templates.dir\Tab.cpp.obj: CXX_COMPILER__Templates_Release C$:\repos\FinancialPlanner\FinancialPlanner\Templates\Tab.cpp || cmake_object_order_depends_target_Templates
   DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Templates\CMakeFiles\Templates.dir
   OBJECT_FILE_DIR = FinancialPlanner\Templates\CMakeFiles\Templates.dir
@@ -243,8 +243,8 @@ build FinancialPlanner\Templates\CMakeFiles\Templates.dir\Tab.cpp.obj: CXX_COMPI
 #############################################
 # Link the static library FinancialPlanner\Templates\Templates.lib
 
-build FinancialPlanner\Templates\Templates.lib: CXX_STATIC_LIBRARY_LINKER__Templates_Debug FinancialPlanner\Templates\CMakeFiles\Templates.dir\Tab.cpp.obj
-  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+build FinancialPlanner\Templates\Templates.lib: CXX_STATIC_LIBRARY_LINKER__Templates_Release FinancialPlanner\Templates\CMakeFiles\Templates.dir\Tab.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = FinancialPlanner\Templates\CMakeFiles\Templates.dir
   POST_BUILD = cd .
@@ -291,72 +291,72 @@ build FinancialPlanner\Templates\rebuild_cache: phony FinancialPlanner\Templates
 
 build cmake_object_order_depends_target_Tabs: phony || FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
 
-build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Overview.cpp.obj: CXX_COMPILER__Tabs_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\Overview.cpp || cmake_object_order_depends_target_Tabs
+build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Overview.cpp.obj: CXX_COMPILER__Tabs_Release C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\Overview.cpp || cmake_object_order_depends_target_Tabs
   DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   OBJECT_FILE_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   TARGET_COMPILE_PDB = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Tabs.pdb
   TARGET_PDB = FinancialPlanner\Tabs\Tabs.pdb
 
-build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\NetWorth.cpp.obj: CXX_COMPILER__Tabs_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\NetWorth.cpp || cmake_object_order_depends_target_Tabs
+build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\NetWorth.cpp.obj: CXX_COMPILER__Tabs_Release C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\NetWorth.cpp || cmake_object_order_depends_target_Tabs
   DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   OBJECT_FILE_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   TARGET_COMPILE_PDB = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Tabs.pdb
   TARGET_PDB = FinancialPlanner\Tabs\Tabs.pdb
 
-build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\IncomeExpenses.cpp.obj: CXX_COMPILER__Tabs_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\IncomeExpenses.cpp || cmake_object_order_depends_target_Tabs
+build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\IncomeExpenses.cpp.obj: CXX_COMPILER__Tabs_Release C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\IncomeExpenses.cpp || cmake_object_order_depends_target_Tabs
   DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   OBJECT_FILE_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   TARGET_COMPILE_PDB = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Tabs.pdb
   TARGET_PDB = FinancialPlanner\Tabs\Tabs.pdb
 
-build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Investments.cpp.obj: CXX_COMPILER__Tabs_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\Investments.cpp || cmake_object_order_depends_target_Tabs
+build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Investments.cpp.obj: CXX_COMPILER__Tabs_Release C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\Investments.cpp || cmake_object_order_depends_target_Tabs
   DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   OBJECT_FILE_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   TARGET_COMPILE_PDB = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Tabs.pdb
   TARGET_PDB = FinancialPlanner\Tabs\Tabs.pdb
 
-build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\AssetAllocation.cpp.obj: CXX_COMPILER__Tabs_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\AssetAllocation.cpp || cmake_object_order_depends_target_Tabs
+build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\AssetAllocation.cpp.obj: CXX_COMPILER__Tabs_Release C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\AssetAllocation.cpp || cmake_object_order_depends_target_Tabs
   DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   OBJECT_FILE_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   TARGET_COMPILE_PDB = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Tabs.pdb
   TARGET_PDB = FinancialPlanner\Tabs\Tabs.pdb
 
-build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Forecasting.cpp.obj: CXX_COMPILER__Tabs_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\Forecasting.cpp || cmake_object_order_depends_target_Tabs
+build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Forecasting.cpp.obj: CXX_COMPILER__Tabs_Release C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\Forecasting.cpp || cmake_object_order_depends_target_Tabs
   DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   OBJECT_FILE_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   TARGET_COMPILE_PDB = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Tabs.pdb
   TARGET_PDB = FinancialPlanner\Tabs\Tabs.pdb
 
-build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\FIRE.cpp.obj: CXX_COMPILER__Tabs_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\FIRE.cpp || cmake_object_order_depends_target_Tabs
+build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\FIRE.cpp.obj: CXX_COMPILER__Tabs_Release C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\FIRE.cpp || cmake_object_order_depends_target_Tabs
   DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   OBJECT_FILE_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   TARGET_COMPILE_PDB = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Tabs.pdb
   TARGET_PDB = FinancialPlanner\Tabs\Tabs.pdb
 
-build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Plotter.cpp.obj: CXX_COMPILER__Tabs_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\Plotter.cpp || cmake_object_order_depends_target_Tabs
+build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Plotter.cpp.obj: CXX_COMPILER__Tabs_Release C$:\repos\FinancialPlanner\FinancialPlanner\Tabs\Plotter.cpp || cmake_object_order_depends_target_Tabs
   DEFINES = -DGLFW_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   OBJECT_FILE_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
@@ -371,8 +371,8 @@ build FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Plotter.cpp.obj: CXX_COMPILER__T
 #############################################
 # Link the static library FinancialPlanner\Tabs\Tabs.lib
 
-build FinancialPlanner\Tabs\Tabs.lib: CXX_STATIC_LIBRARY_LINKER__Tabs_Debug FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Overview.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\NetWorth.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\IncomeExpenses.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Investments.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\AssetAllocation.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Forecasting.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\FIRE.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Plotter.cpp.obj
-  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+build FinancialPlanner\Tabs\Tabs.lib: CXX_STATIC_LIBRARY_LINKER__Tabs_Release FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Overview.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\NetWorth.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\IncomeExpenses.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Investments.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\AssetAllocation.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Forecasting.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\FIRE.cpp.obj FinancialPlanner\Tabs\CMakeFiles\Tabs.dir\Plotter.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = FinancialPlanner\Tabs\CMakeFiles\Tabs.dir
   POST_BUILD = cd .
@@ -419,8 +419,8 @@ build FinancialPlanner\Tabs\rebuild_cache: phony FinancialPlanner\Tabs\CMakeFile
 
 build cmake_object_order_depends_target_Utility: phony || FinancialPlanner\Utility\CMakeFiles\Utility.dir
 
-build FinancialPlanner\Utility\CMakeFiles\Utility.dir\Utility.cpp.obj: CXX_COMPILER__Utility_Debug C$:\repos\FinancialPlanner\FinancialPlanner\Utility\Utility.cpp || cmake_object_order_depends_target_Utility
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+build FinancialPlanner\Utility\CMakeFiles\Utility.dir\Utility.cpp.obj: CXX_COMPILER__Utility_Release C$:\repos\FinancialPlanner\FinancialPlanner\Utility\Utility.cpp || cmake_object_order_depends_target_Utility
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   INCLUDES = -external:IC:\repos\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = FinancialPlanner\Utility\CMakeFiles\Utility.dir
   OBJECT_FILE_DIR = FinancialPlanner\Utility\CMakeFiles\Utility.dir
@@ -435,8 +435,8 @@ build FinancialPlanner\Utility\CMakeFiles\Utility.dir\Utility.cpp.obj: CXX_COMPI
 #############################################
 # Link the static library FinancialPlanner\Utility\Utility.lib
 
-build FinancialPlanner\Utility\Utility.lib: CXX_STATIC_LIBRARY_LINKER__Utility_Debug C$:\repos\vcpkg\installed\x64-windows\debug\lib\objects-Debug\jsoncpp_object\json_reader.cpp.obj C$:\repos\vcpkg\installed\x64-windows\debug\lib\objects-Debug\jsoncpp_object\json_value.cpp.obj C$:\repos\vcpkg\installed\x64-windows\debug\lib\objects-Debug\jsoncpp_object\json_writer.cpp.obj FinancialPlanner\Utility\CMakeFiles\Utility.dir\Utility.cpp.obj
-  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+build FinancialPlanner\Utility\Utility.lib: CXX_STATIC_LIBRARY_LINKER__Utility_Release C$:\repos\vcpkg\installed\x64-windows\lib\objects-Release\jsoncpp_object\json_reader.cpp.obj C$:\repos\vcpkg\installed\x64-windows\lib\objects-Release\jsoncpp_object\json_value.cpp.obj C$:\repos\vcpkg\installed\x64-windows\lib\objects-Release\jsoncpp_object\json_writer.cpp.obj FinancialPlanner\Utility\CMakeFiles\Utility.dir\Utility.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = FinancialPlanner\Utility\CMakeFiles\Utility.dir
   POST_BUILD = cd .

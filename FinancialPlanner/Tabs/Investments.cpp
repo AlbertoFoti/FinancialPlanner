@@ -45,8 +45,8 @@ void Investments::ShowInvestmentsOverview()
 {
 	Plotter pl;
 
-	static std::vector<double> xs;
-	static std::vector<double> ys;
+	static std::vector<double> xs1;
+	static std::vector<double> ys1;
 
 	// Control Bar variables (from, to)
 	static int from = getMSMtime(1, 2019); 
@@ -108,32 +108,54 @@ void Investments::ShowInvestmentsOverview()
 		double t_msm = getMSMtime(m, y);
 		if(t_msm > from && t_msm <= (to+1)){
 			double t = getUNIXtime(m, y);
-			xs.push_back(t);
-			ys.push_back(x->accountMonthlyRecords.at(j)->Amount);
+			xs1.push_back(t);
+			ys1.push_back(x->accountMonthlyRecords.at(j)->Amount);
 		}
 	}
-	if (xs.size() != 0 && ys.size() != 0) {
-		pl.ShowLinePlot_def(str_line, xs.data(), ys.data(), (int)xs.size());
+	if (xs1.size() != 0 && ys1.size() != 0) {
+		pl.ShowLinePlot_def(str_line, xs1.data(), ys1.data(), (int)xs1.size());
 	}
 
-	xs.clear();
-	ys.clear();
+	xs1.clear();
+	ys1.clear();
 
 	// Investments Candle plot
 	//static char str_candle[100] = {};
 	//sprintf_s(str_candle, "##%d_label_investments_candle_plot", x->AccountID);
 	//pl.ShowCandleBarsPlot_default(str_candle, &xs[0], &ys[0], &ys[0], &ys[0], &ys[0], (int)xs.size());
+	
+	static std::vector<double> ys2;
 
 	int rows = 1;
 	int cols = 2;
 	if (ImPlot::BeginSubplots("##sub_plots_investments", rows, cols, ImVec2(-1, -1))) {
 		static char str[150] = {};
 
+		static int curr_year = 2021;
+		curr_year = getCurrentYear();
+		if (curr_year != this->yearlyInvestmentsReport->Year)
+			this->yearlyInvestmentsReport = core->getYearlyInvestmentsReportFromDb(curr_year);
+
 		// Plot 1
-		pl.ShowEmptyPlot("Plot 1 - Investments");
+		ys2.clear();
+		sprintf_s(str, "Investments Portfolio Growth (net)##%d_inv_plots", 0);
+		for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){
+			ys2.push_back(x->investments_variation);
+		}
+		if (ys2.size() != 0) {
+			pl.ShowBarGroupsPlot_default(str, ys2.data(), (int)ys2.size());	
+		}
 
 		// Plot 2
-		pl.ShowEmptyPlot("Plot 2 - Investments");
+		ys2.clear();
+		sprintf_s(str, "Investments Portfolio Growth (net) [%%]##%d_label_inv_plots", 2);
+		for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){
+			double initial_inv = x->initial_capital - x->deposits - x->investments_variation;
+			ys2.push_back(100 * x->investments_variation / initial_inv);
+		}
+		if (ys2.size() != 0) {
+			pl.ShowBarGroupsPlot_default(str, ys2.data(), (int)ys2.size());	
+		}
 	
 
 		ImPlot::EndSubplots();

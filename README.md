@@ -1,7 +1,7 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.2.4**
+Current Stable Version : **Version 0.2.5**
 
 ## For Final Users
 There isn't a proper installation procedure yet.
@@ -14,12 +14,12 @@ There isn't a proper installation procedure yet.
 - Category/Subcategory Manager [Edit]
 - Subcategory Manager [Delete]
 - Transactions operations [Edit] [Delete]
-- Adding comments to transactions
-- Asset Allocation tab
 - Forecasting tab
 - FIRE tab
 
 ## Version 0.3.0 Objectives
+- Asset Allocation tab : basic GUI structure and backend logic (assets, location, currency exposure, ...)
+- Adding comments to transactions
 - Allow Transfer between Accounts
 - Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
 - Investments Tab : breakdown [5 years, 10 years, 25 years, 50 years] views
@@ -28,6 +28,7 @@ There isn't a proper installation procedure yet.
 - Fix : Return investments report without holes (filled at runtime)
 - Fix : show yearly view in net worth control panel
 - Control check function for new transactions
+- Investments tab : GUI structure complete, plots created
 
 ### Version 0.2.4 Features
 - Investments Tab : plots and tabs upgrade
