@@ -601,7 +601,7 @@ void FinancialPlanner::ShowCategoryManager()
     std::vector<std::string> headerNames;
 
     for (int i = 0; i < this->categories.size(); i++) {
-        headerNames.push_back(std::to_string(i + 1) + ". " + categories[i]->Name + " (" + (categories[i]->Type == "In" ? "Income)" : "Expense)"));
+        headerNames.push_back(std::to_string(i + 1) + ". " + categories[i]->Name + " (" + (categories[i]->Type == "In" ? "Income)" : (categories[i]->Type == "Out") ? "Expense)" : "Transfer)"));
 
         if (ImGui::CollapsingHeader(headerNames[i].c_str(), ImGuiTreeNodeFlags_None))
         {

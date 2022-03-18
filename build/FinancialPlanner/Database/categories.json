@@ -8,6 +8,14 @@
 				{
 					"Name" : "Transfer",
 					"id" : 1
+				},
+				{
+					"Name" : "Deposit",
+					"id" : 2
+				},
+				{
+					"Name" : "Withdrawal",
+					"id" : 3
 				}
 			],
 			"Type" : "Transfer",
@@ -18,12 +26,8 @@
 			"SubCategories" : 
 			[
 				{
-					"Name" : "Deposit",
-					"id" : 1
-				},
-				{
 					"Name" : "Investments (+)",
-					"id" : 2
+					"id" : 1
 				}
 			],
 			"Type" : "In",
@@ -34,12 +38,8 @@
 			"SubCategories" : 
 			[
 				{
-					"Name": "Withdrawal",
-					"id": 1
-				},
-				{
 					"Name" : "Investments (-)",
-					"id" : 2
+					"id" : 1
 				}
 			],
 			"Type" : "Out",
