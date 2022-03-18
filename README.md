@@ -19,16 +19,19 @@ There isn't a proper installation procedure yet.
 
 ## Version 0.3.0 Objectives
 - Asset Allocation tab : basic GUI structure and backend logic (assets, location, currency exposure, ...)
-- Adding comments to transactions
-- Allow Transfer between Accounts
 - Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
 - Investments Tab : breakdown [5 years, 10 years, 25 years, 50 years] views
 
-### Version 0.2.5 Objectives
+### Version 0.2.6 Objectives
+- Adding comments to transactions
+- Allow Transfer between Accounts
+
+### Version 0.2.5 Features
 - Fix : Return investments report without holes (filled at runtime)
 - Fix : show yearly view in net worth control panel
 - Control check function for new transactions
 - Investments tab : GUI structure complete, plots created
+- Transfer between accounts : basic logic
 
 ### Version 0.2.4 Features
 - Investments Tab : plots and tabs upgrade
