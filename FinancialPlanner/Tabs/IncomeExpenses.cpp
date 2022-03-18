@@ -214,13 +214,13 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 				Transaction_p x = std::make_shared<Transaction>();
 				x->Day = date->Day;
 				x->Category = "Transfer";
+				x->AccountID = accounts[acc_from]->id;
+				x->accountTo = accounts[acc_to]->id;
 				if(x->accountTo == 1) x->Subcategory = "Deposit";
 				else if(x->AccountID == 1) x->Subcategory = "Withdrawal";
 				else x->Subcategory = "Transfer";
 				x->Type = "Transfer";
 				x->Amount = std::stod(amount_s);
-				x->AccountID = accounts[acc_from]->id;
-				x->accountTo = accounts[acc_to]->id;
 
 				// Push transaction
 				core->pushTransaction(date->Month + 1, date->Year, x);

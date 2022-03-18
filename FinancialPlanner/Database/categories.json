@@ -2,36 +2,48 @@
 	"categories" : 
 	[
 		{
+			"Name" : "Transfer",
+			"SubCategories" : 
+			[
+				{
+					"Name" : "Transfer",
+					"id" : 1
+				},
+				{
+					"Name" : "Deposit",
+					"id" : 2
+				},
+				{
+					"Name" : "Withdrawal",
+					"id" : 3
+				}
+			],
+			"Type" : "Transfer",
+			"id" : -3
+		},
+		{
 			"Name" : "Investments (+)",
 			"SubCategories" : 
 			[
 				{
-					"Name" : "Deposit",
-					"id" : 1
-				},
-				{
 					"Name" : "Investments (+)",
-					"id" : 2
+					"id" : 1
 				}
 			],
 			"Type" : "In",
-			"id" : 1
+			"id" : -2
 		},
 		{
 			"Name" : "Investments (-)",
 			"SubCategories" : 
 			[
 				{
-					"Name": "Withdrawal",
-					"id": 1
-				},
-				{
 					"Name" : "Investments (-)",
-					"id" : 2
+					"id" : 1
 				}
 			],
 			"Type" : "Out",
-			"id" : 2
+			"id" : -1
 		},
 		{
 			"Name" : "Income",
@@ -51,7 +63,7 @@
 				}
 			],
 			"Type" : "In",
-			"id" : 3
+			"id" : 1
 		},
 		{
 			"Name" : "Housing",
@@ -71,7 +83,7 @@
 				}
 			],
 			"Type" : "Out",
-			"id" : 4
+			"id" : 2
 		},
 		{
 			"Name" : "Food",
@@ -91,7 +103,7 @@
 				}
 			],
 			"Type" : "Out",
-			"id" : 5
+			"id" : 3
 		},
 		{
 			"Name" : "Transportation",
@@ -111,7 +123,7 @@
 				}
 			],
 			"Type" : "Out",
-			"id" : 6
+			"id" : 4
 		},
 		{
 			"Name" : "Fees & Taxes",
@@ -135,7 +147,7 @@
 				}
 			],
 			"Type" : "Out",
-			"id" : 7
+			"id" : 5
 		},
 		{
 			"Name" : "Leisure",
@@ -155,7 +167,7 @@
 				}
 			],
 			"Type" : "Out",
-			"id" : 8
+			"id" : 6
 		},
 		{
 			"Name" : "Others",
@@ -167,7 +179,7 @@
 				}
 			],
 			"Type" : "Out",
-			"id" : 9
+			"id" : 7
 		}
 	]
 }

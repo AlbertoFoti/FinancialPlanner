@@ -51,3 +51,6 @@
 3	1535	6693230713329504	FinancialPlanner/Core/CMakeFiles/Core.dir/Backend.cpp.obj	e4802633f4e028e9
 1536	1691	6693230714279565	FinancialPlanner/Core/Core.lib	32987d1be275c4d7
 1691	2605	6693230717556826	FinancialPlanner/main.exe	1e3350b218800957
+4	1479	6693252528314417	FinancialPlanner/Tabs/CMakeFiles/Tabs.dir/IncomeExpenses.cpp.obj	67001a8940457a6e
+1481	1580	6693252529154475	FinancialPlanner/Tabs/Tabs.lib	2b5f7c1fbd62525
+1580	2541	6693252531914692	FinancialPlanner/main.exe	1e3350b218800957

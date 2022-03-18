@@ -30,7 +30,7 @@
 					"Amount" : -250.0,
 					"Category" : "Food",
 					"Day" : 6,
-					"Subcategory" : "Eating Out",
+					"Subcategory" : "Food",
 					"Type" : "Out"
 				}
 			]
@@ -51,15 +51,6 @@
 				},
 				{
 					"AccountFrom" : 3,
-					"AccountTo" : 2,
-					"Amount" : 500.0,
-					"Category" : "Transfer",
-					"Day" : 1,
-					"Subcategory" : "Transfer",
-					"Type" : "Transfer"
-				},
-				{
-					"AccountFrom" : 3,
 					"AccountTo" : -1,
 					"Amount" : -500.0,
 					"Category" : "Housing",
@@ -69,11 +60,20 @@
 				},
 				{
 					"AccountFrom" : 3,
+					"AccountTo" : 1,
+					"Amount" : 250.0,
+					"Category" : "Transfer",
+					"Day" : 5,
+					"Subcategory" : "Deposit",
+					"Type" : "Transfer"
+				},
+				{
+					"AccountFrom" : 3,
 					"AccountTo" : -1,
 					"Amount" : -250.0,
 					"Category" : "Food",
 					"Day" : 6,
-					"Subcategory" : "Eating Out",
+					"Subcategory" : "Food",
 					"Type" : "Out"
 				}
 			]
@@ -95,28 +95,28 @@
 				{
 					"AccountFrom" : 3,
 					"AccountTo" : -1,
-					"Amount" : -250.0,
-					"Category" : "Food",
-					"Day" : 1,
-					"Subcategory" : "Eating Out",
-					"Type" : "Out"
-				},
-				{
-					"AccountFrom" : 3,
-					"AccountTo" : -1,
 					"Amount" : -500.0,
 					"Category" : "Housing",
-					"Day" : 3,
+					"Day" : 1,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
 				},
 				{
 					"AccountFrom" : 3,
+					"AccountTo" : -1,
+					"Amount" : -250.0,
+					"Category" : "Food",
+					"Day" : 1,
+					"Subcategory" : "Food",
+					"Type" : "Out"
+				},
+				{
+					"AccountFrom" : 3,
 					"AccountTo" : 1,
-					"Amount" : 250.0,
+					"Amount" : 500.0,
 					"Category" : "Transfer",
-					"Day" : 10,
-					"Subcategory" : "Transfer",
+					"Day" : 1,
+					"Subcategory" : "Deposit",
 					"Type" : "Transfer"
 				}
 			]
@@ -131,7 +131,7 @@
 					"AccountTo" : -1,
 					"Amount" : -500.0,
 					"Category" : "Housing",
-					"Day" : 5,
+					"Day" : 1,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
 				}
@@ -150,6 +150,15 @@
 					"Day" : 1,
 					"Subcategory" : "Income",
 					"Type" : "In"
+				},
+				{
+					"AccountFrom" : 3,
+					"AccountTo" : 1,
+					"Amount" : 500.0,
+					"Category" : "Transfer",
+					"Day" : 10,
+					"Subcategory" : "Deposit",
+					"Type" : "Transfer"
 				}
 			]
 		}
