@@ -129,17 +129,21 @@ bool Core::checkCategoryExists(std::string name)
 
 bool Core::checkErrors(int cat, int subCat, std::string type, double amount)
 {
-	// Subcategory is in Category ?
-	if( this->categories[cat]->subCategories.size() <= subCat ) return false;
+	if(type == "Transfer"){
+		return false;
+	}else{
+		// Subcategory is in Category ?
+		if( this->categories[cat]->subCategories.size() <= subCat ) return true;
 
-	// Amount == 0 (useless transaction)
-	if(amount <= 0.001 && amount > -0.001) return false;
+		// Amount == 0 (useless transaction)
+		if(amount <= 0.001 && amount > -0.001) return true;
 
-	// Amount and type
-	if( type == "Out" && amount > 0) return false;
-	if( type == "In" && amount < 0)  return false;
+		// Amount and type
+		if( type == "Out" && amount > 0) return true;
+		if( type == "In" && amount < 0)  return true;
+	}
 
-	return true;
+	return false;
 }
 
 void Core::deleteCategory(int id)
@@ -203,8 +207,10 @@ void Core::pushTransaction(int month, int year, Transaction_p t)
 	// Update category and subcategory Details Data
 
 	// Update Net Worth data
-	this->back_end.updateNetWorthData(month, year, t);
-	this->NW_records = getNWdataFromDb(-1, -1);
+	if(t->accountTo == -1){
+		this->back_end.updateNetWorthData(month, year, t);
+		this->NW_records = getNWdataFromDb(-1, -1);
+	}
 }
 
 MonthlyAggrCategoryReport_p Core::getAggrCatReport(int month, int year)

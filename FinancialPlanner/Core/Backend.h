@@ -78,6 +78,7 @@ struct Transaction {
 	std::string Subcategory;
 	std::string Type;
 	int AccountID;
+	int accountTo;
 	double Amount;
 };
 using Transaction_p = std::shared_ptr<Transaction>;

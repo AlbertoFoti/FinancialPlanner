@@ -184,8 +184,8 @@ public:
 	 * @param subCat Sub Category
 	 * @param type self-explanatory
 	 * @param amount self-explanatory
-	 * @return true 
-	 * @return false 
+	 * @return true error
+	 * @return false everything is fine
 	 */
 	bool checkErrors(int cat, int subCat, std::string type, double amount);
 

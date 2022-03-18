@@ -25,6 +25,7 @@ There isn't a proper installation procedure yet.
 ### Version 0.2.6 Objectives
 - Adding comments to transactions
 - Allow Transfer between Accounts
+- fix: little fixes
 
 ### Version 0.2.5 Features
 - Fix : Return investments report without holes (filled at runtime)

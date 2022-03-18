@@ -48,104 +48,186 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 
 	static int type = 0;
 	ImGui::RadioButton("Income", &type, 0); ImGui::SameLine();
-	ImGui::RadioButton("Expense", &type, 1);
+	ImGui::RadioButton("Expense", &type, 1); ImGui::SameLine();
+	ImGui::RadioButton("Transfer", &type, 2);
 
-	ImGui::BulletText("Category");
-	static int cat = 3;
-	if (ImGui::BeginListBox("##cat_name_list_box"))
-	{
-		for (int n = 0; n < categories.size(); n++)
+	if(type != 2){
+		ImGui::BulletText("Category");
+		static int cat = 3;
+		if (ImGui::BeginListBox("##cat_name_list_box"))
 		{
-			if (categories[n]->Type == (type == 0 ? "In" : "Out")) {
-				const bool is_selected = (cat == n);
+			for (int n = 0; n < categories.size(); n++)
+			{
+				if (categories[n]->Type == (type == 0 ? "In" : "Out")) {
+					const bool is_selected = (cat == n);
 
-				if (ImGui::Selectable(categories[n]->Name.c_str(), is_selected))
-					cat = n;
+					if (ImGui::Selectable(categories[n]->Name.c_str(), is_selected))
+						cat = n;
+
+					// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+					if (is_selected)
+						ImGui::SetItemDefaultFocus();
+				}
+			}
+			ImGui::EndListBox();
+		}
+
+		subcategories = this->core->getSubCategoriesOf(categories[cat]->Name);
+		ImGui::BulletText("Sub Category");
+		static int subCat = 0;
+		if (ImGui::BeginListBox("##sub_cat_name_list_box"))
+		{
+			for (int n = 0; n < subcategories.size(); n++)
+			{
+				const bool is_selected = (subCat == n);
+				if (ImGui::Selectable(subcategories[n]->Name.c_str(), is_selected))
+					subCat = n;
 
 				// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
 				if (is_selected)
 					ImGui::SetItemDefaultFocus();
 			}
+			ImGui::EndListBox();
 		}
-		ImGui::EndListBox();
-	}
 
-	subcategories = this->core->getSubCategoriesOf(categories[cat]->Name);
-	ImGui::BulletText("Sub Category");
-	static int subCat = 0;
-	if (ImGui::BeginListBox("##sub_cat_name_list_box"))
-	{
-		for (int n = 0; n < subcategories.size(); n++)
+		accounts = core->getAccounts();
+		ImGui::BulletText("Account");
+		static int acc = 0;
+		if (ImGui::BeginListBox("##account_list_box"))
 		{
-			const bool is_selected = (subCat == n);
-			if (ImGui::Selectable(subcategories[n]->Name.c_str(), is_selected))
-				subCat = n;
+			for (int n = 0; n < accounts.size(); n++)
+			{
+				const bool is_selected = (acc == n);
+				if (ImGui::Selectable(accounts[n]->name.c_str(), is_selected))
+					acc = n;
 
-			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-			if (is_selected)
-				ImGui::SetItemDefaultFocus();
+				// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndListBox();
 		}
-		ImGui::EndListBox();
-	}
 
-	accounts = core->getAccounts();
-	ImGui::BulletText("Account");
-	static int acc = 0;
-	if (ImGui::BeginListBox("##account_list_box"))
-	{
-		for (int n = 0; n < accounts.size(); n++)
-		{
-			const bool is_selected = (acc == n);
-			if (ImGui::Selectable(accounts[n]->name.c_str(), is_selected))
-				acc = n;
+		static char amount_s[50] = {};
+		ImGui::BulletText("Amount (in EUR) :");
+		ImGui::InputTextWithHint("##Amount_new_trans", "300.00", amount_s, IM_ARRAYSIZE(amount_s));
 
-			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-			if (is_selected)
-				ImGui::SetItemDefaultFocus();
+		ImGui::Spacing();
+
+		bool something_went_wrong = false;
+
+		static char errorString[50] = "";
+		ImGui::Text("%s", errorString);
+
+		if (ImGui::Button("Add New Transaction")) {
+			if (!strcmp(amount_s, "")){
+				something_went_wrong = true;
+			}else{
+				something_went_wrong = this->core->checkErrors(cat, subCat, type == 0 ? "In" : "Out", std::stod(amount_s));
+			}
+			if (something_went_wrong) {
+				// Throw Error
+				sprintf_s(errorString, "%s", "Error! Something went wrong");
+			}
+			else {
+				sprintf_s(errorString, "%s", "");
+				// Add new Transaction
+				Transaction_p x = std::make_shared<Transaction>();
+				x->Day = date->Day;
+				x->Category = categories[cat]->Name;
+				x->Subcategory = subcategories[subCat]->Name;
+				x->Type = type == 0 ? "In" : "Out";
+				x->Amount = std::stod(amount_s);
+				x->AccountID = acc + 1;
+				x->accountTo = -1;
+
+				// Push transaction
+				core->pushTransaction(date->Month + 1, date->Year, x);
+
+				// Clean Input Fields
+				sprintf_s(amount_s, "");
+			}
 		}
-		ImGui::EndListBox();
-	}
-
-	static char amount_s[50] = {};
-	ImGui::BulletText("Amount (in EUR) :");
-	ImGui::InputTextWithHint("##Amount_new_trans", "300.00", amount_s, IM_ARRAYSIZE(amount_s));
-
-	ImGui::Spacing();
-
-	bool something_went_wrong = false;
-	if (!strcmp(amount_s, "")){
-		something_went_wrong = true;
 	}else{
-		something_went_wrong = this->core->checkErrors(cat, subCat, type == 0 ? "In" : "Out", std::stod(amount_s));
-	}
+		accounts = core->getAccounts();
 
-	static char errorString[50] = "";
-	ImGui::Text("%s", errorString);
+		ImGui::BulletText("From");
+		static int acc_from = 0;
+		if (ImGui::BeginListBox("##account_list_box_from"))
+		{
+			for (int n = 0; n < accounts.size(); n++)
+			{
+				const bool is_selected = (acc_from == n);
+				if (ImGui::Selectable(accounts[n]->name.c_str(), is_selected))
+					acc_from = n;
 
-	if (ImGui::Button("Add New Transaction")) {
-		if (something_went_wrong) {
-			// Throw Error
-			sprintf_s(errorString, "%s", "Error! Something went wrong");
+				// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndListBox();
 		}
-		else {
-			sprintf_s(errorString, "%s", "");
-			// Add new Transaction
-			Transaction_p x = std::make_shared<Transaction>();
-			x->Day = date->Day;
-			x->Category = categories[cat]->Name;
-			x->Subcategory = subcategories[subCat]->Name;
-			x->Type = type == 0 ? "In" : "Out";
-			x->Amount = std::stod(amount_s);
-			x->AccountID = acc + 1;
 
-			// Push transaction
-			core->pushTransaction(date->Month + 1, date->Year, x);
+		ImGui::BulletText("To");
+		static int acc_to = 0;
+		if (ImGui::BeginListBox("##account_list_box_to"))
+		{
+			for (int n = 0; n < accounts.size(); n++)
+			{
+				const bool is_selected = (acc_to == n);
+				if (ImGui::Selectable(accounts[n]->name.c_str(), is_selected))
+					acc_to = n;
 
-			// Clean Input Fields
-			type = 0;
-			cat = 0;
-			subCat = 0;
-			sprintf_s(amount_s, "");
+				// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndListBox();
+		}
+
+		ImGui::Text("%d %d", accounts.at(acc_from)->id, accounts.at(acc_to)->id);
+
+		static char amount_s[50] = "";
+		ImGui::BulletText("Amount (in EUR) :");
+		ImGui::InputTextWithHint("##Amount_new_trans", "300.00", amount_s, IM_ARRAYSIZE(amount_s));
+		
+		ImGui::Spacing();
+		
+		bool something_went_wrong = false;
+		
+		static char errorString[50] = "";
+		ImGui::Text("%s", errorString);
+		
+		if (ImGui::Button("Add New Transaction")) {
+			if (!strcmp(amount_s, "")){
+				something_went_wrong = true;
+			}else{
+				something_went_wrong = this->core->checkErrors(-3, 1, type == 0 ? "In" : (type == 1 ? "Out" : "Transfer"), std::stod(amount_s));
+			}
+			if (something_went_wrong) {
+				// Throw Error
+				sprintf_s(errorString, "%s", "Error! Something went wrong");
+			}
+			else {
+				sprintf_s(errorString, "%s", "");
+				// Add new Transaction
+				Transaction_p x = std::make_shared<Transaction>();
+				x->Day = date->Day;
+				x->Category = "Transfer";
+				if(x->accountTo == 1) x->Subcategory = "Deposit";
+				else if(x->AccountID == 1) x->Subcategory = "Withdrawal";
+				else x->Subcategory = "Transfer";
+				x->Type = "Transfer";
+				x->Amount = std::stod(amount_s);
+				x->AccountID = accounts[acc_from]->id;
+				x->accountTo = accounts[acc_to]->id;
+
+				// Push transaction
+				core->pushTransaction(date->Month + 1, date->Year, x);
+
+				// Clean Input Fields
+				sprintf_s(amount_s, "");
+			}
 		}
 	}
 
@@ -436,7 +518,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 				else if (monthlyTransactions->transactions[i]->Type == "Out")
 					ImGui::TextColored(color_negative, "%.2f", monthlyTransactions->transactions[i]->Amount);
 				else
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->Amount);
+					ImGui::Text("%.2f", monthlyTransactions->transactions[i]->Amount);
 				ImGui::TableNextColumn();
 
 				static bool showEdit = false;

@@ -402,7 +402,8 @@ MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
                 t->Category = transactRecords[i]["Category"].asString();
                 t->Subcategory = transactRecords[i]["Subcategory"].asString();
                 t->Type = transactRecords[i]["Type"].asString();
-                t->AccountID = std::stoi(transactRecords[i]["Account"].asString());
+                t->AccountID = std::stoi(transactRecords[i]["AccountFrom"].asString());
+                t->accountTo = std::stoi(transactRecords[i]["AccountTo"].asString());
                 t->Amount = std::stod(transactRecords[i]["Amount"].asString());
                 MonthlyReport->transactions.push_back(t);
             }
@@ -460,7 +461,8 @@ void Backend::pushTransaction(int month, int year, Transaction_p t)
             root["records"][i]["data"][index]["Category"] = t->Category;
             root["records"][i]["data"][index]["Subcategory"] = t->Subcategory;
             root["records"][i]["data"][index]["Type"] = t->Type;
-            root["records"][i]["data"][index]["Account"] = t->AccountID;
+            root["records"][i]["data"][index]["AccountFrom"] = t->AccountID;
+            root["records"][i]["data"][index]["AccountTo"] = t->accountTo;
             root["records"][i]["data"][index]["Amount"] = t->Amount;
         }
     }
@@ -474,7 +476,8 @@ void Backend::pushTransaction(int month, int year, Transaction_p t)
         root["records"][last_index]["data"][0]["Category"] = t->Category;
         root["records"][last_index]["data"][0]["Subcategory"] = t->Subcategory;
         root["records"][last_index]["data"][0]["Type"] = t->Type;
-        root["records"][last_index]["data"][0]["Account"] = t->AccountID;
+        root["records"][last_index]["data"][0]["AccountFrom"] = t->AccountID;
+        root["records"][last_index]["data"][0]["AccountTo"] = t->accountTo;
         root["records"][last_index]["data"][0]["Amount"] = t->Amount;
     }
 
@@ -503,18 +506,44 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
             monthfound = true;
             index_record_change = i;
             bool accountId_found = false;
+            bool accountTo_found = false;
             int size_data = root["records"][i]["data"].size();
             for (int j = 0; j < size_data; j++) {
-                if (root["records"][i]["data"][j]["id"] == t->AccountID) {
-                    accountId_found = true;
-                    double old_amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
-                    root["records"][i]["data"][j]["Amount"] = old_amount + t->Amount;
+                if(t->accountTo != -1){
+                    if (root["records"][i]["data"][j]["id"] == t->AccountID) {
+                        accountId_found = true;
+                        double old_amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
+                        root["records"][i]["data"][j]["Amount"] = old_amount - t->Amount;
+                    }
+                    if (root["records"][i]["data"][j]["id"] == t->accountTo) {
+                        accountTo_found = true;
+                        double old_amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
+                        root["records"][i]["data"][j]["Amount"] = old_amount + t->Amount;
+                    }
+                }else{
+                    if (root["records"][i]["data"][j]["id"] == t->AccountID) {
+                        accountId_found = true;
+                        double old_amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
+                        root["records"][i]["data"][j]["Amount"] = old_amount + t->Amount;
+                    }
                 }
             }
 
             if (!accountId_found) {
-                root["records"][i]["data"][size_data]["id"] = t->AccountID;
-                root["records"][i]["data"][size_data]["Amount"] = getAccountAmountAt(t->AccountID, month, year) + t->Amount;
+                if(t->accountTo != -1){
+                    root["records"][i]["data"][size_data]["id"] = t->AccountID;
+                    root["records"][i]["data"][size_data]["Amount"] = getAccountAmountAt(t->AccountID, month, year) - t->Amount;
+                    size_data++;
+                }else{
+                    root["records"][i]["data"][size_data]["id"] = t->AccountID;
+                    root["records"][i]["data"][size_data]["Amount"] = getAccountAmountAt(t->AccountID, month, year) + t->Amount;
+                }
+            }
+            if(!accountTo_found) {
+                if(t->accountTo != -1){
+                    root["records"][i]["data"][size_data]["id"] = t->accountTo;
+                    root["records"][i]["data"][size_data]["Amount"] = getAccountAmountAt(t->accountTo, month, year) + t->Amount;
+                }
             }
         }
     }
@@ -524,8 +553,16 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
         root["records"][last_index]["Month"] = month;
         root["records"][last_index]["Year"] = year;
         
-        root["records"][last_index]["data"][0]["id"] = t->AccountID;
-        root["records"][last_index]["data"][0]["Amount"] = getAccountAmountAt(t->AccountID, month, year) + t->Amount;
+        if(t->accountTo != -1){
+            root["records"][last_index]["data"][0]["id"] = t->AccountID;
+            root["records"][last_index]["data"][0]["Amount"] = getAccountAmountAt(t->AccountID, month, year) - t->Amount;
+
+            root["records"][last_index]["data"][1]["id"] = t->accountTo;
+            root["records"][last_index]["data"][1]["Amount"] = getAccountAmountAt(t->accountTo, month, year) + t->Amount;
+        }else{
+            root["records"][last_index]["data"][0]["id"] = t->AccountID;
+            root["records"][last_index]["data"][0]["Amount"] = getAccountAmountAt(t->AccountID, month, year) + t->Amount;
+        }
 
         // sorting required after new month insertion
         root = BubbleSortAccountDetails(root);
@@ -534,8 +571,17 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
         // Propagate changes in the next month records
         for (unsigned int i = index_record_change + 1; i < root["records"].size(); i++) {
             for (unsigned int j = 0; j < root["records"][i]["data"].size(); j++) {
-                if (root["records"][i]["data"][j]["id"] == t->AccountID) {
-                    root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) + t->Amount;
+                if(t->accountTo != -1){
+                    if (root["records"][i]["data"][j]["id"] == t->AccountID) {
+                        root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) - t->Amount;
+                    }
+                    else if (root["records"][i]["data"][j]["id"] == t->accountTo) {
+                        root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) + t->Amount;
+                    }
+                }else{
+                    if (root["records"][i]["data"][j]["id"] == t->AccountID) {
+                        root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) + t->Amount;
+                    }
                 }
             }
         }
