@@ -60,7 +60,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1"
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG"
 				}
 			],
 			"includes" : 
@@ -128,19 +128,19 @@
 		{
 			"backtrace" : 3,
 			"isGenerated" : true,
-			"path" : "C:/repos/vcpkg/installed/x64-windows/debug/lib/objects-Debug/jsoncpp_object/json_reader.cpp.obj",
+			"path" : "C:/repos/vcpkg/installed/x64-windows/lib/objects-Release/jsoncpp_object/json_reader.cpp.obj",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 3,
 			"isGenerated" : true,
-			"path" : "C:/repos/vcpkg/installed/x64-windows/debug/lib/objects-Debug/jsoncpp_object/json_value.cpp.obj",
+			"path" : "C:/repos/vcpkg/installed/x64-windows/lib/objects-Release/jsoncpp_object/json_value.cpp.obj",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 3,
 			"isGenerated" : true,
-			"path" : "C:/repos/vcpkg/installed/x64-windows/debug/lib/objects-Debug/jsoncpp_object/json_writer.cpp.obj",
+			"path" : "C:/repos/vcpkg/installed/x64-windows/lib/objects-Release/jsoncpp_object/json_writer.cpp.obj",
 			"sourceGroupIndex" : 2
 		}
 	],

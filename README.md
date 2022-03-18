@@ -1,7 +1,7 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.2.5**
+Current Stable Version : **Version 0.2.6**
 
 ## For Final Users
 There isn't a proper installation procedure yet.
@@ -21,9 +21,13 @@ There isn't a proper installation procedure yet.
 - Asset Allocation tab : basic GUI structure and backend logic (assets, location, currency exposure, ...)
 - Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
 - Investments Tab : breakdown [5 years, 10 years, 25 years, 50 years] views
+- fix: bugs hunting
 
-### Version 0.2.6 Objectives
+### Version 0.2.7 Objectives
 - Adding comments to transactions
+- GUI: improve the looks of incomeExpenses details tab
+
+### Version 0.2.6 Features
 - incomeExpenses tab: Adding a table for transfers
 - fix: account plots fix
 - investment tab fix: money transfer logic integration with investments(deposits/withdrawal)

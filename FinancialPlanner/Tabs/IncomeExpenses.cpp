@@ -487,6 +487,8 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 
 	if (!monthlyAggrView) {
 		this->monthlyTransactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
+
+		// Transactions table
 		if (ImGui::BeginTable("IncExpTable", 6, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
 		{
 			// Columns
@@ -504,32 +506,93 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			ImGui::TableNextColumn();
 			ImGui::Text("");
 			for (int i = 0; i != this->monthlyTransactions->transactions.size(); ++i) {
-				ImGui::TableNextColumn();
-				ImGui::Text("%2d/%2d/%4d", monthlyTransactions->transactions[i]->Day, monthlyTransactions->Month, monthlyTransactions->Year);
-				ImGui::TableNextColumn();
-				ImGui::Text("%s", monthlyTransactions->transactions[i]->Type.c_str());
-				ImGui::TableNextColumn();
-				ImGui::Text("%s", monthlyTransactions->transactions[i]->Category.c_str());
-				ImGui::TableNextColumn();
-				ImGui::Text("%s", monthlyTransactions->transactions[i]->Subcategory.c_str());
-				ImGui::TableNextColumn();
-				if (monthlyTransactions->transactions[i]->Type == "In")
-					ImGui::TextColored(color_positive, "+%.2f", monthlyTransactions->transactions[i]->Amount);
-				else if (monthlyTransactions->transactions[i]->Type == "Out")
-					ImGui::TextColored(color_negative, "%.2f", monthlyTransactions->transactions[i]->Amount);
-				else
-					ImGui::Text("%.2f", monthlyTransactions->transactions[i]->Amount);
-				ImGui::TableNextColumn();
+				if(monthlyTransactions->transactions[i]->Type != "Transfer"){
+					ImGui::TableNextColumn();
+					ImGui::Text("%2d/%2d/%4d", monthlyTransactions->transactions[i]->Day, monthlyTransactions->Month, monthlyTransactions->Year);
+					ImGui::TableNextColumn();
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->Type.c_str());
+					ImGui::TableNextColumn();
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->Category.c_str());
+					ImGui::TableNextColumn();
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->Subcategory.c_str());
+					ImGui::TableNextColumn();
+					if (monthlyTransactions->transactions[i]->Type == "In")
+						ImGui::TextColored(color_positive, "+%.2f", monthlyTransactions->transactions[i]->Amount);
+					else if (monthlyTransactions->transactions[i]->Type == "Out")
+						ImGui::TextColored(color_negative, "%.2f", monthlyTransactions->transactions[i]->Amount);
+					else
+						ImGui::Text("%.2f", monthlyTransactions->transactions[i]->Amount);
+					ImGui::TableNextColumn();
 
-				static bool showEdit = false;
-				if (ImGui::Button("Edit")) {
-					// edit transaction i
-					showEdit = true;
+					static bool showEdit = false;
+					if (ImGui::Button("Edit")) {
+						// edit transaction i
+						showEdit = true;
+					}
+					if (ImGui::Button("Delete")) {
+						// delete transaction i
+					}
+					if (showEdit) this->ShowEditTransactionPanel(i, month + 1, year);
 				}
-				if (ImGui::Button("Delete")) {
-					// delete transaction i
+			}
+			ImGui::EndTable();
+		}
+
+		// Totals
+		static double MonthlyTotalIn;
+		static double MonthlyTotalOut;
+		if (!monthlyAggrView) {
+			MonthlyTotalIn = 0.0;
+			MonthlyTotalOut = 0.0;
+			for (Transaction_p x : this->monthlyTransactions->transactions) {
+				if (x->Type == "In") MonthlyTotalIn += x->Amount;
+				if (x->Type == "Out") MonthlyTotalOut += x->Amount;
+			}
+			ImGui::Text("Total Income   : %.2f", MonthlyTotalIn);
+			ImGui::Text("Total Expenses : %.2f", MonthlyTotalOut);
+		}
+
+		// Transfers table
+		if (ImGui::BeginTable("IncExpTable_trasfers", 6, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
+		{
+			// Columns
+			ImGui::TableNextRow(0, 20.0f);
+			ImGui::TableNextColumn();
+			ImGui::Text("DATE");
+			ImGui::TableNextColumn();
+			ImGui::Text("FROM");
+			ImGui::TableNextColumn();
+			ImGui::Text("TO");
+			ImGui::TableNextColumn();
+			ImGui::Text("SUBCATEGORY");
+			ImGui::TableNextColumn();
+			ImGui::Text("AMOUNT");
+			ImGui::TableNextColumn();
+			ImGui::Text("");
+			for (int i = 0; i != this->monthlyTransactions->transactions.size(); ++i) {
+				if(monthlyTransactions->transactions[i]->Type == "Transfer"){
+					ImGui::TableNextColumn();
+					ImGui::Text("%2d/%2d/%4d", monthlyTransactions->transactions[i]->Day, monthlyTransactions->Month, monthlyTransactions->Year);
+					ImGui::TableNextColumn();
+					ImGui::Text("%s", core->getAccountName(monthlyTransactions->transactions[i]->AccountID).c_str());
+					ImGui::TableNextColumn();
+					ImGui::Text("%s", core->getAccountName(monthlyTransactions->transactions[i]->accountTo).c_str());
+					ImGui::TableNextColumn();
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->Subcategory.c_str());
+					ImGui::TableNextColumn();
+					ImGui::Text("%.2f", monthlyTransactions->transactions[i]->Amount);
+					ImGui::TableNextColumn();
+
+					static bool showEdit = false;
+					if (ImGui::Button("Edit")) {
+						// edit transaction i
+						showEdit = true;
+					}
+					if (ImGui::Button("Delete")) {
+						// delete transaction i
+					}
+					if (showEdit) this->ShowEditTransactionPanel(i, month + 1, year);
 				}
-				if (showEdit) this->ShowEditTransactionPanel(i, month + 1, year);
 			}
 			ImGui::EndTable();
 		}
@@ -615,17 +678,4 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 	}
 
 	//ImGui::PopFont();
-
-	static double MonthlyTotalIn;
-	static double MonthlyTotalOut;
-	if (!monthlyAggrView) {
-		MonthlyTotalIn = 0.0;
-		MonthlyTotalOut = 0.0;
-		for (Transaction_p x : this->monthlyTransactions->transactions) {
-			if (x->Type == "In") MonthlyTotalIn += x->Amount;
-			if (x->Type == "Out") MonthlyTotalOut += x->Amount;
-		}
-		ImGui::Text("Total Income   : %.2f", MonthlyTotalIn);
-		ImGui::Text("Total Expenses : %.2f", MonthlyTotalOut);
-	}
 }

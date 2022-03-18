@@ -10,7 +10,7 @@
 					[
 						1
 					],
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.8"
@@ -27,7 +27,7 @@
 						4,
 						5
 					],
-					"jsonFile" : "directory-FinancialPlanner-Debug-52d09fb1c007ade99e8b.json",
+					"jsonFile" : "directory-FinancialPlanner-Release-52d09fb1c007ade99e8b.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.8"
@@ -42,7 +42,7 @@
 				},
 				{
 					"build" : "FinancialPlanner/Core",
-					"jsonFile" : "directory-FinancialPlanner.Core-Debug-9663c7a5848273a269e7.json",
+					"jsonFile" : "directory-FinancialPlanner.Core-Release-9663c7a5848273a269e7.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.8"
@@ -57,7 +57,7 @@
 				},
 				{
 					"build" : "FinancialPlanner/Templates",
-					"jsonFile" : "directory-FinancialPlanner.Templates-Debug-0b63b6349c3cc7d4a320.json",
+					"jsonFile" : "directory-FinancialPlanner.Templates-Release-0b63b6349c3cc7d4a320.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.8"
@@ -72,7 +72,7 @@
 				},
 				{
 					"build" : "FinancialPlanner/Tabs",
-					"jsonFile" : "directory-FinancialPlanner.Tabs-Debug-862f0dbf836d8861f013.json",
+					"jsonFile" : "directory-FinancialPlanner.Tabs-Release-862f0dbf836d8861f013.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.8"
@@ -87,7 +87,7 @@
 				},
 				{
 					"build" : "FinancialPlanner/Utility",
-					"jsonFile" : "directory-FinancialPlanner.Utility-Debug-1815bbab85f4845bc5ae.json",
+					"jsonFile" : "directory-FinancialPlanner.Utility-Release-1815bbab85f4845bc5ae.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.8"
@@ -101,7 +101,7 @@
 					]
 				}
 			],
-			"name" : "Debug",
+			"name" : "Release",
 			"projects" : 
 			[
 				{
@@ -130,35 +130,35 @@
 				{
 					"directoryIndex" : 2,
 					"id" : "Core::@5fc05faf759c73c2b288",
-					"jsonFile" : "target-Core-Debug-ddf4291a7d6d57f9ef67.json",
+					"jsonFile" : "target-Core-Release-855cff8dfd0b0f49773d.json",
 					"name" : "Core",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 4,
 					"id" : "Tabs::@2cb13a6bd923dd96c739",
-					"jsonFile" : "target-Tabs-Debug-ed91406d6e5f3b542902.json",
+					"jsonFile" : "target-Tabs-Release-0559d10fbdf091629bd3.json",
 					"name" : "Tabs",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 3,
 					"id" : "Templates::@a9e24777ae8d9378f0b3",
-					"jsonFile" : "target-Templates-Debug-64ceaa7b449d5ac0d251.json",
+					"jsonFile" : "target-Templates-Release-9983d9b9c1d8decf1db6.json",
 					"name" : "Templates",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 5,
 					"id" : "Utility::@843b2fb277984037157d",
-					"jsonFile" : "target-Utility-Debug-3b50fdeb71027a315c22.json",
+					"jsonFile" : "target-Utility-Release-cc0c82c03a08974677f4.json",
 					"name" : "Utility",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "main::@0df55b954a68cc9c20ce",
-					"jsonFile" : "target-main-Debug-fa4af72257a0332cc685.json",
+					"jsonFile" : "target-main-Release-940da2ac6895981f0598.json",
 					"name" : "main",
 					"projectIndex" : 0
 				}
