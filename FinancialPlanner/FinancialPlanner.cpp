@@ -312,10 +312,6 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
     }
     static double y_data[100] = { 0 };
 
-    // Error Input Parameters
-    static char OutputErrorString[50] = {};
-    ImGui::Text("%s", OutputErrorString);
-
     if (ImGui::Button("Calculate")) {
         if (strcmp(initialNW, "") && strcmp(interestRate, "") && strcmp(annualDeposits, "") && strcmp(investmentYears, "")) {
             initialNW_d = std::stod(initialNW);
@@ -326,16 +322,24 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
 
             totalDeposits_d = initialNW_d + (annualDeposits_d * investmentYears_d);
             totalInterests_d = NWendPeriod_d - totalDeposits_d;
-
-            sprintf_s(OutputErrorString, "%s", "");
         }
         else {
             NWendPeriod_d = 0.00;
             totalDeposits_d = 0.00;
             totalInterests_d = 0.00;
-            sprintf_s(OutputErrorString, "%s", "Error! Complete All Input Fields!");
+            ImGui::OpenPopup("Something went wrong");
         }
     };
+
+    if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
+        ImGui::Separator();
+
+        if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+        ImGui::EndPopup();
+    }
+
 
     // Calculation Result
     ImGui::BulletText("End of Period NW : ");
@@ -391,10 +395,7 @@ void FinancialPlanner::ShowAccountManager()
     static char account_name[50] = {};
     ImGui::InputTextWithHint("##AN", "Bank/Cash/Investments/Savings", account_name, IM_ARRAYSIZE(account_name));
 
-    // Error Input Parameters
-    static char errorParams[50] = {};
-    ImGui::Text("%s", errorParams);
-
+    ImGui::Spacing();
     if (ImGui::Button("Add Account")) {
 
         if (strcmp(account_name, "")) {
@@ -414,8 +415,16 @@ void FinancialPlanner::ShowAccountManager()
             this->accounts = core->getAccountsFromDb();
         }
         else {
-            sprintf_s(errorParams, "%s", "Error! Complete All Input Fields!");
+            ImGui::OpenPopup("Something went wrong");
         }
+    }
+    if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
+        ImGui::Separator();
+
+        if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+        ImGui::EndPopup();
     }
     ImGui::Spacing();
     ImGui::Separator();
@@ -512,21 +521,15 @@ void FinancialPlanner::ShowCategoryManager()
         ImGui::InputTextWithHint("##SCN", "Rent / OtherHousing / Money", sub_category_name, IM_ARRAYSIZE(sub_category_name));
     }
 
-    static char errorParamsC[50] = {};
-    static char errorParamsS[50] = {};
-
     static char ButtonName[50] = {};
     if (newCat == 0) {
-        // Error Input Parameters
-        ImGui::Text("%s", errorParamsC);
         sprintf_s(ButtonName, "%s", "Add Category");
     }
     else {
-        // Error Input Parameters
-        ImGui::Text("%s", errorParamsS);
         sprintf_s(ButtonName, "%s", "Add Subcategory");
     }
 
+    ImGui::Spacing();
     if (ImGui::Button(ButtonName)) {
         if (newCat == 0) {
             if (strcmp(category_name, "") && strcmp(category_type, "")) {
@@ -548,7 +551,7 @@ void FinancialPlanner::ShowCategoryManager()
                     this->core->pushCategory(x);
                 }
                 else {
-                    sprintf_s(errorParamsC, "%s", "Error! Category Name already in the category list");
+                    
                 }
 
                 // Clean input fields
@@ -559,7 +562,7 @@ void FinancialPlanner::ShowCategoryManager()
                 this->categories = core->getCategoriesFromDb();
             }
             else {
-                sprintf_s(errorParamsC, "%s", "Error! Complete All Input Fields!");
+                ImGui::OpenPopup("Something went wrong");
             }
         }
         else {
@@ -573,7 +576,7 @@ void FinancialPlanner::ShowCategoryManager()
                     this->core->pushSubCategory(category_name, x);
                 }
                 else {
-                    sprintf_s(errorParamsS, "%s", "Error! Category Name Not Found in category list");
+                    ImGui::OpenPopup("Something went wrong");
                 }
 
                 // Clean input fields
@@ -584,9 +587,17 @@ void FinancialPlanner::ShowCategoryManager()
                 this->categories = core->getCategoriesFromDb();
             }
             else {
-                sprintf_s(errorParamsS, "%s", "Error! Complete All Input Fields!");
+                ImGui::OpenPopup("Something went wrong");
             }
         }
+    }
+    if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
+        ImGui::Separator();
+
+        if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+        ImGui::EndPopup();
     }
     ImGui::Spacing();
     ImGui::Separator();

@@ -116,12 +116,9 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 		ImGui::BulletText("Note/Comment :");
 		ImGui::InputText("##comment", comment, IM_ARRAYSIZE(comment));
 
-		ImGui::Spacing();
-
 		bool something_went_wrong = false;
 
-		static char errorString[50] = "";
-		ImGui::Text("%s", errorString);
+		ImGui::Spacing();
 
 		if (ImGui::Button("Add New Transaction")) {
 			if (!strcmp(amount_s, "")){
@@ -131,10 +128,9 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 			}
 			if (something_went_wrong) {
 				// Throw Error
-				sprintf_s(errorString, "%s", "Error! Something went wrong");
+				ImGui::OpenPopup("Something went wrong");
 			}
 			else {
-				sprintf_s(errorString, "%s", "");
 				// Add new Transaction
 				Transaction_p x = std::make_shared<Transaction>();
 				x->Day = date->Day;
@@ -152,6 +148,15 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 				// Clean Input Fields
 				sprintf_s(amount_s, "");
 			}
+		}
+
+		if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
+			ImGui::Separator();
+
+			if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+			ImGui::EndPopup();
 		}
 	}else{
 		accounts = core->getAccounts();
@@ -198,12 +203,9 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 		ImGui::BulletText("Note/Comment :");
 		ImGui::InputText("##comment", comment, IM_ARRAYSIZE(comment));
 		
-		ImGui::Spacing();
-		
 		bool something_went_wrong = false;
-		
-		static char errorString[50] = "";
-		ImGui::Text("%s", errorString);
+
+		ImGui::Spacing();
 		
 		if (ImGui::Button("Add New Transaction")) {
 			if (!strcmp(amount_s, "")){
@@ -213,10 +215,9 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 			}
 			if (something_went_wrong) {
 				// Throw Error
-				sprintf_s(errorString, "%s", "Error! Something went wrong");
+				ImGui::OpenPopup("Something went wrong");
 			}
 			else {
-				sprintf_s(errorString, "%s", "");
 				// Add new Transaction
 				Transaction_p x = std::make_shared<Transaction>();
 				x->Day = date->Day;
@@ -236,6 +237,15 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 				// Clean Input Fields
 				sprintf_s(amount_s, "");
 			}
+		}
+
+		if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
+			ImGui::Separator();
+
+			if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+			ImGui::EndPopup();
 		}
 	}
 
