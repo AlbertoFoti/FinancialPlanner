@@ -11,6 +11,7 @@
 					"AccountTo" : -1,
 					"Amount" : 2000.0,
 					"Category" : "Income",
+					"Comment" : "",
 					"Day" : 1,
 					"Subcategory" : "Income",
 					"Type" : "In"
@@ -20,6 +21,7 @@
 					"AccountTo" : -1,
 					"Amount" : -500.0,
 					"Category" : "Housing",
+					"Comment" : "",
 					"Day" : 3,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
@@ -29,6 +31,7 @@
 					"AccountTo" : -1,
 					"Amount" : -250.0,
 					"Category" : "Food",
+					"Comment" : "",
 					"Day" : 6,
 					"Subcategory" : "Food",
 					"Type" : "Out"
@@ -45,6 +48,7 @@
 					"AccountTo" : -1,
 					"Amount" : 2000.0,
 					"Category" : "Income",
+					"Comment" : "",
 					"Day" : 1,
 					"Subcategory" : "Income",
 					"Type" : "In"
@@ -54,6 +58,7 @@
 					"AccountTo" : -1,
 					"Amount" : -500.0,
 					"Category" : "Housing",
+					"Comment" : "",
 					"Day" : 3,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
@@ -63,6 +68,7 @@
 					"AccountTo" : 1,
 					"Amount" : 250.0,
 					"Category" : "Transfer",
+					"Comment" : "",
 					"Day" : 5,
 					"Subcategory" : "Deposit",
 					"Type" : "Transfer"
@@ -72,6 +78,7 @@
 					"AccountTo" : -1,
 					"Amount" : -250.0,
 					"Category" : "Food",
+					"Comment" : "",
 					"Day" : 6,
 					"Subcategory" : "Food",
 					"Type" : "Out"
@@ -88,6 +95,7 @@
 					"AccountTo" : -1,
 					"Amount" : 2000.0,
 					"Category" : "Income",
+					"Comment" : "",
 					"Day" : 1,
 					"Subcategory" : "Income",
 					"Type" : "In"
@@ -97,6 +105,7 @@
 					"AccountTo" : -1,
 					"Amount" : -500.0,
 					"Category" : "Housing",
+					"Comment" : "",
 					"Day" : 1,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
@@ -106,6 +115,7 @@
 					"AccountTo" : -1,
 					"Amount" : -250.0,
 					"Category" : "Food",
+					"Comment" : "",
 					"Day" : 1,
 					"Subcategory" : "Food",
 					"Type" : "Out"
@@ -115,6 +125,7 @@
 					"AccountTo" : 1,
 					"Amount" : 500.0,
 					"Category" : "Transfer",
+					"Comment" : "",
 					"Day" : 1,
 					"Subcategory" : "Deposit",
 					"Type" : "Transfer"
@@ -131,9 +142,20 @@
 					"AccountTo" : -1,
 					"Amount" : -500.0,
 					"Category" : "Housing",
+					"Comment" : "",
 					"Day" : 1,
 					"Subcategory" : "Rent",
 					"Type" : "Out"
+				},
+				{
+					"AccountFrom" : 3,
+					"AccountTo" : -1,
+					"Amount" : 2000.0,
+					"Category" : "Income",
+					"Comment" : "",
+					"Day" : 1,
+					"Subcategory" : "Income",
+					"Type" : "In"
 				}
 			]
 		},
@@ -147,6 +169,7 @@
 					"AccountTo" : -1,
 					"Amount" : 2000.0,
 					"Category" : "Income",
+					"Comment" : "",
 					"Day" : 1,
 					"Subcategory" : "Income",
 					"Type" : "In"
@@ -156,6 +179,7 @@
 					"AccountTo" : 1,
 					"Amount" : 500.0,
 					"Category" : "Transfer",
+					"Comment" : "",
 					"Day" : 10,
 					"Subcategory" : "Deposit",
 					"Type" : "Transfer"

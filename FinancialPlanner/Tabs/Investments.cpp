@@ -416,7 +416,7 @@ void Investments::ShowInvestmentsDetails()
 	float min_row_height = 30.0f;
 
 	if (!monthlyAggrView) {
-		if (ImGui::BeginTable("IncExpTable", 7, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
+		if (ImGui::BeginTable("IncExpTable", 7, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg))
 		{
 			// Columns
 			ImGui::TableNextRow(0, 20.0f);

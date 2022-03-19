@@ -235,7 +235,7 @@ Date_format_p calendarSelection()
 		{
 			selected[i] = 1;
 			day = i+1;
-			for(unsigned j = 0; j < days; j++){
+			for(int j = 0; j < days; j++){
 				if(j != i)
 					selected[j] = 0;
 			}

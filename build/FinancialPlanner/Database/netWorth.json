@@ -26,19 +26,19 @@
 			"Year" : 2021
 		},
 		{
-			"ClosingWorth" : 3250.0,
-			"HighWorth" : 3750.0,
+			"ClosingWorth" : 5250.0,
+			"HighWorth" : 5250.0,
 			"LowWorth" : 3250.0,
 			"Month" : 4,
 			"OpeningWorth" : 3750.0,
 			"Year" : 2021
 		},
 		{
-			"ClosingWorth" : 5250.0,
-			"HighWorth" : 5250.0,
-			"LowWorth" : 3250.0,
+			"ClosingWorth" : 7250.0,
+			"HighWorth" : 7250.0,
+			"LowWorth" : 5250.0,
 			"Month" : 5,
-			"OpeningWorth" : 3250.0,
+			"OpeningWorth" : 5250.0,
 			"Year" : 2021
 		}
 	]

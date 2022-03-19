@@ -13,19 +13,22 @@ There isn't a proper installation procedure yet.
 - System to manage multiple accounts [Edit]
 - Category/Subcategory Manager [Edit]
 - Subcategory Manager [Delete]
-- Transactions operations [Edit] [Delete]
+- Transactions operations [Edit] [Delete] done with popup forms
 - Forecasting tab
 - FIRE tab
 
 ## Version 0.3.0 Objectives
-- Asset Allocation tab : basic GUI structure and backend logic (assets, location, currency exposure, ...)
 - Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
 - Investments Tab : breakdown [5 years, 10 years, 25 years, 50 years] views
 - fix: bugs hunting
+- fix: when deleting account proceed in deleting all account related transactions (give an option to clear or not the data) and manage account accesses/conflicts after delete
 
 ### Version 0.2.7 Objectives
 - Adding comments to transactions
-- GUI: improve the looks of incomeExpenses details tab
+- style: improve the looks of incomeExpenses details tab GUI
+- style: adding savings, savings rate, investments variation in incomeExpenses details tab
+- style: Popups instead of error text messages 
+- Asset Allocation tab : basic GUI structure and backend logic (assets, location, currency exposure, ...)
 
 ### Version 0.2.6 Features
 - incomeExpenses tab: Adding a table for transfers

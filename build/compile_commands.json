@@ -1,72 +1,72 @@
 [
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\CMakeFiles\\main.dir\\main.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\main.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\CMakeFiles\\main.dir\\main.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\main.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\main.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\CMakeFiles\\main.dir\\FinancialPlanner.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\FinancialPlanner.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\CMakeFiles\\main.dir\\FinancialPlanner.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\FinancialPlanner.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\FinancialPlanner.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Core\\CMakeFiles\\Core.dir\\Core.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Core\\Core.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Core\\CMakeFiles\\Core.dir\\Core.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Core\\Core.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Core\\Core.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Core\\CMakeFiles\\Core.dir\\Backend.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Core\\Backend.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Core\\CMakeFiles\\Core.dir\\Backend.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Core\\Backend.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Core\\Backend.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Templates\\CMakeFiles\\Templates.dir\\Tab.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Templates\\Tab.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Templates\\CMakeFiles\\Templates.dir\\Tab.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Templates\\Tab.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Templates\\Tab.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\Overview.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Overview.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\Overview.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Overview.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Overview.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\NetWorth.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\NetWorth.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\NetWorth.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\NetWorth.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\NetWorth.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\IncomeExpenses.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\IncomeExpenses.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\IncomeExpenses.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\IncomeExpenses.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\IncomeExpenses.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\Investments.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Investments.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\Investments.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Investments.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Investments.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\AssetAllocation.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\AssetAllocation.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\AssetAllocation.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\AssetAllocation.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\AssetAllocation.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\Forecasting.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Forecasting.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\Forecasting.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Forecasting.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Forecasting.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\FIRE.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\FIRE.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\FIRE.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\FIRE.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\FIRE.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\Plotter.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Plotter.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DGLFW_DLL -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Tabs\\CMakeFiles\\Tabs.dir\\Plotter.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Plotter.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Tabs\\Plotter.cpp"
 },
 {
   "directory": "C:/repos/FinancialPlanner/build",
-  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG /FoFinancialPlanner\\Utility\\CMakeFiles\\Utility.dir\\Utility.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Utility\\Utility.cpp",
+  "command": "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1430~1.307\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -external:IC:\\repos\\vcpkg\\installed\\x64-windows\\include -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /FoFinancialPlanner\\Utility\\CMakeFiles\\Utility.dir\\Utility.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\repos\\FinancialPlanner\\FinancialPlanner\\Utility\\Utility.cpp",
   "file": "C:\\repos\\FinancialPlanner\\FinancialPlanner\\Utility\\Utility.cpp"
 }
 ]

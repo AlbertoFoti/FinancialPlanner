@@ -112,6 +112,10 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 		ImGui::BulletText("Amount (in EUR) :");
 		ImGui::InputTextWithHint("##Amount_new_trans", "300.00", amount_s, IM_ARRAYSIZE(amount_s));
 
+		static char comment[35] = "";
+		ImGui::BulletText("Note/Comment :");
+		ImGui::InputText("##comment", comment, IM_ARRAYSIZE(comment));
+
 		ImGui::Spacing();
 
 		bool something_went_wrong = false;
@@ -140,6 +144,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 				x->Amount = std::stod(amount_s);
 				x->AccountID = acc + 1;
 				x->accountTo = -1;
+				x->Comment = comment;
 
 				// Push transaction
 				core->pushTransaction(date->Month + 1, date->Year, x);
@@ -185,11 +190,13 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 			ImGui::EndListBox();
 		}
 
-		ImGui::Text("%d %d", accounts.at(acc_from)->id, accounts.at(acc_to)->id);
-
 		static char amount_s[50] = "";
 		ImGui::BulletText("Amount (in EUR) :");
 		ImGui::InputTextWithHint("##Amount_new_trans", "300.00", amount_s, IM_ARRAYSIZE(amount_s));
+
+		static char comment[35] = "";
+		ImGui::BulletText("Note/Comment :");
+		ImGui::InputText("##comment", comment, IM_ARRAYSIZE(comment));
 		
 		ImGui::Spacing();
 		
@@ -221,6 +228,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 				else x->Subcategory = "Transfer";
 				x->Type = "Transfer";
 				x->Amount = std::stod(amount_s);
+				x->Comment = comment;
 
 				// Push transaction
 				core->pushTransaction(date->Month + 1, date->Year, x);
@@ -433,8 +441,9 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 void IncomeExpenses::ShowIncomeExpensesDetails() 
 {
 	// Fonts
-	//ImGuiIO& io = ImGui::GetIO();
-	//auto blenderProThin_m = io.Fonts->Fonts[7];
+	ImGuiIO& io = ImGui::GetIO();
+	auto blenderProHeavy_l = io.Fonts->Fonts[2];
+	auto blenderProThinLarge = io.Fonts->Fonts[8];
 
 	ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
 	ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
@@ -489,22 +498,21 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 		this->monthlyTransactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
 
 		// Transactions table
-		if (ImGui::BeginTable("IncExpTable", 6, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
+		ImGui::PushFont(blenderProHeavy_l);
+		ImGui::Text("Transactions");
+		ImGui::PopFont();
+		ImGui::Spacing();
+		if (ImGui::BeginTable("IncExpTable", 7, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg))
 		{
-			// Columns
-			ImGui::TableNextRow(0, 20.0f);
-			ImGui::TableNextColumn();
-			ImGui::Text("DATE");
-			ImGui::TableNextColumn();
-			ImGui::Text("TYPE");
-			ImGui::TableNextColumn();
-			ImGui::Text("CATEGORY");
-			ImGui::TableNextColumn();
-			ImGui::Text("SUBCATEGORY");
-			ImGui::TableNextColumn();
-			ImGui::Text("AMOUNT");
-			ImGui::TableNextColumn();
-			ImGui::Text("");
+			// headers
+			ImGui::TableSetupColumn("DATE");
+			ImGui::TableSetupColumn("TYPE");
+			ImGui::TableSetupColumn("CATEGORY");
+			ImGui::TableSetupColumn("SUBCATEGORY");
+			ImGui::TableSetupColumn("AMOUNT");
+			ImGui::TableSetupColumn("COMMENT");
+			ImGui::TableSetupColumn("");
+			ImGui::TableHeadersRow();
 			for (int i = 0; i != this->monthlyTransactions->transactions.size(); ++i) {
 				if(monthlyTransactions->transactions[i]->Type != "Transfer"){
 					ImGui::TableNextColumn();
@@ -523,7 +531,8 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 					else
 						ImGui::Text("%.2f", monthlyTransactions->transactions[i]->Amount);
 					ImGui::TableNextColumn();
-
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->Comment.c_str());
+					ImGui::TableNextColumn();
 					static bool showEdit = false;
 					if (ImGui::Button("Edit")) {
 						// edit transaction i
@@ -538,37 +547,23 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			ImGui::EndTable();
 		}
 
-		// Totals
-		static double MonthlyTotalIn;
-		static double MonthlyTotalOut;
-		if (!monthlyAggrView) {
-			MonthlyTotalIn = 0.0;
-			MonthlyTotalOut = 0.0;
-			for (Transaction_p x : this->monthlyTransactions->transactions) {
-				if (x->Type == "In") MonthlyTotalIn += x->Amount;
-				if (x->Type == "Out") MonthlyTotalOut += x->Amount;
-			}
-			ImGui::Text("Total Income   : %.2f", MonthlyTotalIn);
-			ImGui::Text("Total Expenses : %.2f", MonthlyTotalOut);
-		}
-
+		ImGui::Spacing();
+		ImGui::PushFont(blenderProHeavy_l);
+		ImGui::Text("Transfers");
+		ImGui::PopFont();
+		ImGui::Spacing();
 		// Transfers table
-		if (ImGui::BeginTable("IncExpTable_trasfers", 6, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
+		if (ImGui::BeginTable("IncExpTable_trasfers", 7, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg))
 		{
-			// Columns
-			ImGui::TableNextRow(0, 20.0f);
-			ImGui::TableNextColumn();
-			ImGui::Text("DATE");
-			ImGui::TableNextColumn();
-			ImGui::Text("FROM");
-			ImGui::TableNextColumn();
-			ImGui::Text("TO");
-			ImGui::TableNextColumn();
-			ImGui::Text("SUBCATEGORY");
-			ImGui::TableNextColumn();
-			ImGui::Text("AMOUNT");
-			ImGui::TableNextColumn();
-			ImGui::Text("");
+			// headers
+			ImGui::TableSetupColumn("DATE");
+			ImGui::TableSetupColumn("TYPE");
+			ImGui::TableSetupColumn("CATEGORY");
+			ImGui::TableSetupColumn("SUBCATEGORY");
+			ImGui::TableSetupColumn("AMOUNT");
+			ImGui::TableSetupColumn("COMMENT");
+			ImGui::TableSetupColumn("");
+			ImGui::TableHeadersRow();
 			for (int i = 0; i != this->monthlyTransactions->transactions.size(); ++i) {
 				if(monthlyTransactions->transactions[i]->Type == "Transfer"){
 					ImGui::TableNextColumn();
@@ -582,6 +577,8 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 					ImGui::TableNextColumn();
 					ImGui::Text("%.2f", monthlyTransactions->transactions[i]->Amount);
 					ImGui::TableNextColumn();
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->Comment.c_str());
+					ImGui::TableNextColumn();
 
 					static bool showEdit = false;
 					if (ImGui::Button("Edit")) {
@@ -596,6 +593,56 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			}
 			ImGui::EndTable();
 		}
+		
+		// Totals
+		ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing(); ImGui::Spacing();
+		static double MonthlyTotalIn;
+		static double MonthlyTotalOut;
+		static double MonthlyTotalInvVar;
+		static double tot_save, net_save;
+		ImGui::PushFont(blenderProHeavy_l);
+		MonthlyTotalIn = 0.0;
+		MonthlyTotalOut = 0.0;
+		MonthlyTotalInvVar = 0.0;
+		for (Transaction_p x : this->monthlyTransactions->transactions) {
+			if (x->Type == "In") MonthlyTotalIn += x->Amount;
+			if (x->Type == "Out") MonthlyTotalOut += x->Amount;
+			if (x->Type == "Transfer" && x->Subcategory != "Transfer") MonthlyTotalInvVar += x->Amount;
+		}
+		ImGui::Text("Total Income   : "); ImGui::SameLine();
+		ImGui::PushFont(blenderProThinLarge);
+		ImGui::Text("%.2f", MonthlyTotalIn);
+		ImGui::PopFont();
+		ImGui::Text("Total Expenses : "); ImGui::SameLine();
+		ImGui::PushFont(blenderProThinLarge);
+		ImGui::Text("%.2f", MonthlyTotalOut);
+		ImGui::PopFont();
+		ImGui::Text("Total Investment Variation : "); ImGui::SameLine();
+		ImGui::PushFont(blenderProThinLarge);
+		ImGui::Text("%.2f", MonthlyTotalInvVar);
+		ImGui::PopFont();
+		ImGui::Text("Total Savings : "); ImGui::SameLine();
+		ImGui::PushFont(blenderProThinLarge);
+		tot_save = MonthlyTotalIn + MonthlyTotalOut + MonthlyTotalInvVar;
+		ImGui::Text("%.2f", tot_save);
+		ImGui::PopFont();
+		ImGui::Text("Net Savings : "); ImGui::SameLine();
+		ImGui::PushFont(blenderProThinLarge);
+		net_save = MonthlyTotalIn + MonthlyTotalOut;
+		ImGui::Text("%.2f", (MonthlyTotalIn + MonthlyTotalOut));
+		ImGui::PopFont();
+		ImGui::Text("Total Savings Rate : "); ImGui::SameLine();
+		ImGui::PushFont(blenderProThinLarge);
+		if(MonthlyTotalInvVar > 0)
+			ImGui::Text("%.2f%%", (100 * tot_save / (MonthlyTotalIn + MonthlyTotalInvVar)));
+		else 
+			ImGui::Text("%.2f%%", (100 * tot_save / (MonthlyTotalIn)));
+		ImGui::PopFont();
+		ImGui::Text("Net Savings Rate : "); ImGui::SameLine();
+		ImGui::PushFont(blenderProThinLarge);
+		ImGui::Text("%.2f%%", (100 * net_save / MonthlyTotalIn));
+		ImGui::PopFont();
+		ImGui::PopFont();
 	}
 	else {
 		if (breakdownDy == elem_Month) {
@@ -605,26 +652,18 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			static double savings_rate;
 
 			this->YearlyReport = this->core->getYearlyReportFromDb(year);
-			if (ImGui::BeginTable("IncExpTable_month", 8, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
+			if (ImGui::BeginTable("IncExpTable_month", 8, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg))
 			{
-				// Columns
-				ImGui::TableNextRow(0, 20.0f);
-				ImGui::TableNextColumn();
-				ImGui::Text("DATE");
-				ImGui::TableNextColumn();
-				ImGui::Text("BALANCE IN");
-				ImGui::TableNextColumn();
-				ImGui::Text("INVESTMENTS DELTA");
-				ImGui::TableNextColumn();
-				ImGui::Text("BALANCE OUT");
-				ImGui::TableNextColumn();
-				ImGui::Text("NET SAVINGS");
-				ImGui::TableNextColumn();
-				ImGui::Text("SAVINGS");
-				ImGui::TableNextColumn();
-				ImGui::Text("NET SAVINGS RATE (%%)");
-				ImGui::TableNextColumn();
-				ImGui::Text("SAVINGS RATE (%%)");
+				// headers
+				ImGui::TableSetupColumn("DATE");
+				ImGui::TableSetupColumn("BALANCE IN");
+				ImGui::TableSetupColumn("INVESTMENTS DELTA");
+				ImGui::TableSetupColumn("BALANCE OUT");
+				ImGui::TableSetupColumn("NET SAVINGS");
+				ImGui::TableSetupColumn("SAVINGS");
+				ImGui::TableSetupColumn("NET SAVINGS RATE (%)");
+				ImGui::TableSetupColumn("SAVINGS RATE (%)");
+				ImGui::TableHeadersRow();
 				for (int i = 0; i != this->YearlyReport->monthlyReports.size(); ++i) {
 					ImGui::TableNextColumn();
 					ImGui::Text("%2d/%4d", YearlyReport->monthlyReports[i]->Month, YearlyReport->Year);
@@ -656,7 +695,10 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 					else
 						ImGui::TextColored(color_negative, "%.2f %%", net_savings_rate);
 					ImGui::TableNextColumn();
-					savings_rate = savings / YearlyReport->monthlyReports[i]->balanceIn * 100;
+					if(YearlyReport->monthlyReports[i]->investmentsVariation > 0)
+						savings_rate = savings / (YearlyReport->monthlyReports[i]->balanceIn + YearlyReport->monthlyReports[i]->investmentsVariation) * 100;
+					else
+						savings_rate = savings / (YearlyReport->monthlyReports[i]->balanceIn) * 100;
 					if (savings_rate >= 0)
 						ImGui::TextColored(color_positive, "+%.2f %%", savings_rate);
 					else
@@ -665,6 +707,57 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 				}
 				ImGui::EndTable();
 			}
+
+			// Totals
+			ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing(); ImGui::Spacing();
+			static double MonthlyTotalIn;
+			static double MonthlyTotalOut;
+			static double MonthlyTotalInvVar;
+			static double tot_save;
+			static double net_save;
+			ImGui::PushFont(blenderProHeavy_l);
+			MonthlyTotalIn = 0.0;
+			MonthlyTotalOut = 0.0;
+			MonthlyTotalInvVar = 0.0;
+			for(auto x : YearlyReport->monthlyReports){
+				MonthlyTotalIn += x->balanceIn;
+				MonthlyTotalOut += x->balanceOut;
+				MonthlyTotalInvVar += x->investmentsVariation;
+			}
+			ImGui::Text("Total Income   : "); ImGui::SameLine();
+			ImGui::PushFont(blenderProThinLarge);
+			ImGui::Text("%.2f", MonthlyTotalIn);
+			ImGui::PopFont();
+			ImGui::Text("Total Expenses : "); ImGui::SameLine();
+			ImGui::PushFont(blenderProThinLarge);
+			ImGui::Text("%.2f", MonthlyTotalOut);
+			ImGui::PopFont();
+			ImGui::Text("Total Investment Variation : "); ImGui::SameLine();
+			ImGui::PushFont(blenderProThinLarge);
+			ImGui::Text("%.2f", MonthlyTotalInvVar);
+			ImGui::PopFont();
+			ImGui::Text("Total Savings : "); ImGui::SameLine();
+			ImGui::PushFont(blenderProThinLarge);
+			tot_save = MonthlyTotalIn + MonthlyTotalOut + MonthlyTotalInvVar;
+			ImGui::Text("%.2f", tot_save);
+			ImGui::PopFont();
+			ImGui::Text("Net Savings : "); ImGui::SameLine();
+			ImGui::PushFont(blenderProThinLarge);
+			net_save = MonthlyTotalIn + MonthlyTotalOut;
+			ImGui::Text("%.2f", (MonthlyTotalIn + MonthlyTotalOut));
+			ImGui::PopFont();
+			ImGui::Text("Total Savings Rate : "); ImGui::SameLine();
+			ImGui::PushFont(blenderProThinLarge);
+			if(MonthlyTotalInvVar > 0)
+				ImGui::Text("%.2f%%", (100 * tot_save / (MonthlyTotalIn + MonthlyTotalInvVar)));
+			else 
+				ImGui::Text("%.2f%%", (100 * tot_save / (MonthlyTotalIn)));
+			ImGui::PopFont();
+			ImGui::Text("Net Savings Rate : "); ImGui::SameLine();
+			ImGui::PushFont(blenderProThinLarge);
+			ImGui::Text("%.2f%%", (100 * net_save / MonthlyTotalIn));
+			ImGui::PopFont();
+			ImGui::PopFont();
 		}
 		else if (breakdownDy == elem_SubCategory) {
 			ImGui::Text("Sub Category");

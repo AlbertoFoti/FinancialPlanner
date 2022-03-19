@@ -13,10 +13,10 @@ void NetWorth::Render()
 	auto robotoProThinLarge = io.Fonts->Fonts[17];
 	auto blenderProThinLarge = io.Fonts->Fonts[8];
 
-	//ImPlot::ShowDemoWindow();
-
 	// Net Worth Data
 	this->NW_records = this->core->getNWdata();
+
+	ImGui::ShowDemoWindow();
 
 	// Current Net Worth
 	ImGui::Spacing();
@@ -145,7 +145,7 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 	ImGui::Spacing();
 
 	// Table of net worth data
-	if (ImGui::BeginTable("netWorthTable", 4, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders))
+	if (ImGui::BeginTable("netWorthTable", 4, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg))
 	{
 		double delta;
 		double delta_perc;
@@ -153,16 +153,12 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 		ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
 		ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
 
-		// Columns
-		ImGui::TableNextColumn();
-		ImGui::Text("Date");
-		ImGui::TableNextColumn();
-		ImGui::Text("Net Worth");
-		ImGui::TableNextColumn();
-		ImGui::Text("Delta (abs)");
-		ImGui::TableNextColumn();
-		ImGui::Text("Delta (%%)");
-
+		// headers
+		ImGui::TableSetupColumn("Date");
+        ImGui::TableSetupColumn("Net Worth");
+        ImGui::TableSetupColumn("Delta (abs)");
+		ImGui::TableSetupColumn("Delta (%)");
+        ImGui::TableHeadersRow();
 		if(byMonth){
 			for (int i = 0; i != this->NW_records.size(); ++i) {
 				ImGui::TableNextColumn();
