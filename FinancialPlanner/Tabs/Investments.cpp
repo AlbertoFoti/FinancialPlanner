@@ -11,7 +11,7 @@ void Investments::Render()
 
 	// Tabs
 	ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
-	if (ImGui::BeginTabBar("IncomeExpensesTabs", tab_bar_flags))
+	if (ImGui::BeginTabBar("InvestmentsTabs", tab_bar_flags))
 	{
 		if (ImGui::BeginTabItem("Overview"))
 		{
