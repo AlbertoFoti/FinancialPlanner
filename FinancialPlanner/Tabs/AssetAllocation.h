@@ -60,5 +60,5 @@ private:
 	 * 
 	 * @param i 
 	 */
-	void AssetAllocationInvestment(int i, bool byPercentage);
+	void AssetAllocationInvestment(int i, bool byPercentage, std::vector<double>& amounts_invested, std::vector<int>& perc_invested);
 };

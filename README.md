@@ -14,6 +14,7 @@ There isn't a proper installation procedure yet.
 - Category/Subcategory Manager [Edit]
 - Subcategory Manager [Delete]
 - Transactions operations [Edit] [Delete] done with popup forms
+- Asset allocation new record [Edit] [Delete] done with popup forms
 - Income/Expenses second plots page (other plots :) )
 - Forecasting tab
 - FIRE tab

@@ -108,18 +108,24 @@ void AssetAllocation::ShowControlPanel(std::string panel_name)
 	static std::vector<std::string> headerNames = { "Investment 1", "Investment 2", "Investment 3"};
 	static std::vector<double> amounts_invested = {0.0, 0.0, 0.0};
 	static std::vector<int> perc_invested = {0, 0, 0};
-	for(int i=0; i<3; i++){
-		if (ImGui::CollapsingHeader(headerNames[i].c_str(), ImGuiTreeNodeFlags_None))
+	for(int i=0; i<headerNames.size(); i++){
+		if (ImGui::CollapsingHeader(headerNames[i].c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			AssetAllocationInvestment(i, byPercentage);
+			AssetAllocationInvestment(i, byPercentage, amounts_invested, perc_invested);
 		}
 	}
 
 	ImGui::Separator();
 	ImGui::Spacing();
 
+	static char name_new_investment[100] = "";
+	ImGui::InputText("##name_new_investment", name_new_investment, IM_ARRAYSIZE(name_new_investment));
+
 	if(ImGui::Button("Add new investment")){
 		// Add new investment
+		headerNames.push_back(name_new_investment);
+		amounts_invested.push_back(0.0);
+		perc_invested.push_back(0);
 	}
 
 	ImGui::Spacing();
@@ -127,6 +133,13 @@ void AssetAllocation::ShowControlPanel(std::string panel_name)
 	ImGui::Spacing();
 
 	ImGui::Text("Month/Year : %d/%d", month, year);
+
+	for(int i=0; i<amounts_invested.size(); i++){
+		ImGui::Text("> %d : %.2f", i+1, amounts_invested.at(i));
+	}
+	for(int i=0; i<perc_invested.size(); i++){
+		ImGui::Text("> %d : %d", i+1, perc_invested.at(i));
+	}
 
 	if(ImGui::Button("Add New Asset Allocation Record")){
 		// Push new record if everything is ok
@@ -150,19 +163,16 @@ void AssetAllocation::ShowAssetAllocationDetails()
 	ImGui::Text("Details");
 }
 
-void AssetAllocation::AssetAllocationInvestment(int i, bool byPercentage)
+void AssetAllocation::AssetAllocationInvestment(int i, bool byPercentage, std::vector<double>& amounts_invested, std::vector<int>& perc_invested)
 {
-	ImGui::Text("Investment %d", i);
 
 	// Amount of the total money invested dedicated to this single investment
-	static int perc_invested = 0;
-	static double amount_invested = 0.0;
 	static char label_amount_invested[50] = "";
-	sprintf_s(label_amount_invested, "##AmountInvested%d", i);
+	sprintf_s(label_amount_invested, "of total portfolio##AmountInvested%d", i);
 	if(byPercentage){
-		ImGui::DragInt(label_amount_invested, &perc_invested, 1, 0, 100, "%d%%", ImGuiSliderFlags_AlwaysClamp);
+		ImGui::DragInt(label_amount_invested, &perc_invested.at(i), 1, 0, 100, "%d%%", ImGuiSliderFlags_AlwaysClamp);
 	}else{
-		ImGui::InputDouble(label_amount_invested, &amount_invested, (0.0), (0.0), "%.2f");
+		ImGui::InputDouble(label_amount_invested, &amounts_invested.at(i), (0.0), (0.0), "%.2f");
 	}
 
 	// Edit and Delete Buttons aligned right
