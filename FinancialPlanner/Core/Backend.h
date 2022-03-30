@@ -80,6 +80,7 @@ struct Transaction {
 	int AccountID;
 	int accountTo;
 	double Amount;
+	std::string Comment;
 };
 using Transaction_p = std::shared_ptr<Transaction>;
 

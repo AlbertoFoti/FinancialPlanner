@@ -394,19 +394,20 @@ MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
     Json::Value transactRecords;
 
     for (unsigned int i = 0; i < data.size(); i++) {
-        if (std::stoi(data[i]["Month"].asString()) == month && std::stoi(data[i]["Year"].asString()) == year) {
+        if (data[i]["Month"].asInt() == month && data[i]["Year"].asInt() == year) {
             MonthlyReport->Month = month;
             MonthlyReport->Year = year;
             transactRecords = data[i]["data"];
             for (unsigned int i = 0; i < transactRecords.size(); i++) {
                 Transaction_p t = std::make_shared<Transaction>();
-                t->Day = std::stoi(transactRecords[i]["Day"].asString());
+                t->Day = transactRecords[i]["Day"].asInt();
                 t->Category = transactRecords[i]["Category"].asString();
                 t->Subcategory = transactRecords[i]["Subcategory"].asString();
                 t->Type = transactRecords[i]["Type"].asString();
-                t->AccountID = std::stoi(transactRecords[i]["AccountFrom"].asString());
-                t->accountTo = std::stoi(transactRecords[i]["AccountTo"].asString());
-                t->Amount = std::stod(transactRecords[i]["Amount"].asString());
+                t->AccountID = transactRecords[i]["AccountFrom"].asInt();
+                t->accountTo = transactRecords[i]["AccountTo"].asInt();
+                t->Amount = transactRecords[i]["Amount"].asDouble();
+                t->Comment = transactRecords[i]["Comment"].asString();
                 MonthlyReport->transactions.push_back(t);
             }
         }
@@ -466,6 +467,7 @@ void Backend::pushTransaction(int month, int year, Transaction_p t)
             root["records"][i]["data"][index]["AccountFrom"] = t->AccountID;
             root["records"][i]["data"][index]["AccountTo"] = t->accountTo;
             root["records"][i]["data"][index]["Amount"] = t->Amount;
+            root["records"][i]["data"][index]["Comment"] = t->Comment;
         }
     }
 
@@ -481,6 +483,7 @@ void Backend::pushTransaction(int month, int year, Transaction_p t)
         root["records"][last_index]["data"][0]["AccountFrom"] = t->AccountID;
         root["records"][last_index]["data"][0]["AccountTo"] = t->accountTo;
         root["records"][last_index]["data"][0]["Amount"] = t->Amount;
+        root["records"][last_index]["data"][0]["Comment"] = t->Comment;
     }
 
     // transaction sort
