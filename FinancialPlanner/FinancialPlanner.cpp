@@ -184,9 +184,10 @@ void FinancialPlanner::Update()
 
     // Your GUIs go Here !
     //this->ShowDemoWindow();
-    this->ShowCompoundInterestCalculator("Compound Interest Calculator");
+    //this->ShowCompoundInterestCalculator("Compound Interest Calculator");
     this->ShowAccountManager();
     this->ShowCategoryManager();
+    this->ShowInvCategoryManager();
     //this->ShowDemoPlot();
     //this->ShowFontTesting();
     this->ShowMainView();
@@ -639,6 +640,86 @@ void FinancialPlanner::ShowCategoryManager()
             }
         }
     }
+
+    ImGui::End();
+}
+
+void FinancialPlanner::ShowInvCategoryManager()
+{
+    // Begin
+    ImGui::Begin("Investment Classes Manager");
+
+    // Retrieve Investements Categories
+
+    if (ImGui::Button("Reload Investement Classes")) {
+        // Retrieve Investements Categories from db
+    }
+    ImGui::Separator();
+
+    // New Inv Class form
+
+    static char category_name[50] = {};
+    static char risk_profile_s[50] = {};
+
+    ImGui::BulletText("Investment Class Name");
+    ImGui::InputTextWithHint("##MCN", "Bond / Stock / Real Estate", category_name, IM_ARRAYSIZE(category_name));
+
+    ImGui::BulletText("Risk profile");
+    static int risk_profile = 0;
+    ImGui::RadioButton("Low", &risk_profile, 0); ImGui::SameLine();
+    ImGui::RadioButton("Medium", &risk_profile, 1); ImGui::SameLine();
+    ImGui::RadioButton("High", &risk_profile, 2);
+    if (risk_profile == 0) {
+        sprintf_s(risk_profile_s, "%s", "Low");
+    }else if (risk_profile == 1) {
+        sprintf_s(risk_profile_s, "%s", "Medium");
+    }else if (risk_profile == 2) {
+        sprintf_s(risk_profile_s, "%s", "High");
+    }
+
+    static char ButtonName[50] = {};
+    sprintf_s(ButtonName, "%s", "Add New Investment Class");
+
+    ImGui::Spacing();
+    if (ImGui::Button(ButtonName)) {
+        if (strcmp(category_name, "")) {
+            // New Category instance
+
+            if (true) { // check not already in the category list
+                // write in json file database
+            }
+            else {
+                
+            }
+
+            // Clean input fields
+            sprintf_s(category_name, "%s", "");
+
+            // Reload GUI (from db)
+        }
+        else {
+            ImGui::OpenPopup("Something went wrong");
+        }
+    }
+    if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
+        ImGui::Separator();
+
+        if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+        ImGui::EndPopup();
+    }
+    ImGui::Spacing();
+    ImGui::Separator();
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::TextUnformatted("Investment Classes");
+    ImGui::Separator();
+
+    // List of all Investment classes
+    
 
     ImGui::End();
 }

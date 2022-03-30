@@ -102,6 +102,12 @@ private:
 	void ShowCategoryManager();
 
 	/**
+	 * @brief Left Panel View : shows investments category manager panel
+	 * 
+	 */
+	void ShowInvCategoryManager();
+
+	/**
 	 * @brief Demo View : ImGui Demo panel
 	 * 
 	 */

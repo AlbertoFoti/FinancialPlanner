@@ -31,6 +31,7 @@ There isn't a proper installation procedure yet.
 - style: adding savings, savings rate, investments variation in incomeExpenses details tab
 - style: Popups instead of error text messages 
 - Asset Allocation tab : basic GUI structure and backend logic (assets, location, currency exposure, ...)
+- Dynamic Investment Classes Manager (with backend integration)
 
 ### Version 0.2.6 Features
 - incomeExpenses tab: Adding a table for transfers

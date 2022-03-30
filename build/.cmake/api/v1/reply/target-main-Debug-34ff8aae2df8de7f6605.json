@@ -246,12 +246,12 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 3,
-			"id" : "Core::@5fc05faf759c73c2b288"
-		},
-		{
 			"backtrace" : 4,
 			"id" : "Templates::@a9e24777ae8d9378f0b3"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "Core::@5fc05faf759c73c2b288"
 		},
 		{
 			"backtrace" : 6,
