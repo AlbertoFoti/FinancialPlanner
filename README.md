@@ -4,7 +4,7 @@ Personal Finance Planner <br>
 Current Stable Version : **Version 0.2.6**
 
 ## For Final Users
-There isn't a proper installation procedure yet.
+There isn't a proper installation procedure yet. (The product is still in development)
 
 ## Future Objectives
 - Deployment (installer wizard or something similar)
