@@ -11,20 +11,20 @@ void Overview::Render()
 	Plotter pl;
 
 	// Fonts
-	ImGuiIO& io = ImGui::GetIO();
-	auto blenderProHeavy_l = io.Fonts->Fonts[2];
-	auto blenderProThin_m = io.Fonts->Fonts[7];
-	auto blenderProThinLarge = io.Fonts->Fonts[8];
+	//ImGuiIO& io = ImGui::GetIO();
+	//auto blenderProHeavy_l = io.Fonts->Fonts[2];
+	//auto blenderProThin_m = io.Fonts->Fonts[7];
+	//auto blenderProThinLarge = io.Fonts->Fonts[8];
 
 	// NW data
 	this->NW_records = this->core->getNWdata();
 
 	// Current Net Worth
 	ImGui::Spacing();
-	ImGui::PushFont(blenderProHeavy_l);
+	//ImGui::PushFont(blenderProHeavy_l);
 	ImGui::Text("Current Net Worth : "); ImGui::SameLine();
-	ImGui::PopFont();
-	ImGui::PushFont(blenderProThinLarge);
+	//ImGui::PopFont();
+	//ImGui::PushFont(blenderProThinLarge);
 	if (NW_records.size() == 0) {
 		ImGui::Text("0.00 EUR");
 	}
@@ -34,7 +34,7 @@ void Overview::Render()
 		else
 			ImGui::Text("%.2f EUR", NW_records[NW_records.size() - 1]->ClosingWorth);
 	}
-	ImGui::PopFont();
+	//ImGui::PopFont();
 	ImGui::Spacing();
 	ImGui::Separator();
 	ImGui::Spacing();
