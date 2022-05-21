@@ -15,9 +15,7 @@ add_library(
 	Forecasting.h
 	Forecasting.cpp
 	FIRE.h
-	FIRE.cpp
-	Plotter.h
-	Plotter.cpp)
+	FIRE.cpp)
 
 #dependencies
 

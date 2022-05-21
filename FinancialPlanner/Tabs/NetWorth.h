@@ -5,7 +5,6 @@
 #include "../Core/Core.h"
 #include "../Templates/Tab.h"
 #include "../Utility/Utility.h"
-#include "Plotter.h"
 #include <string>
 
 /**

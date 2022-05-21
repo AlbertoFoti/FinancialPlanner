@@ -4,7 +4,7 @@
 #include "implot.h"
 #include "../Core/Core.h"
 #include "../Templates/Tab.h"
-#include "Plotter.h"
+#include "../Utility/Utility.h"
 
 /**
  * @brief Overview Tab

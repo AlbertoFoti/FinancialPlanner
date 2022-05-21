@@ -1,5 +1,7 @@
 #include "Plotter.h"
 
+#include <vector>
+
 void Plotter::ShowEmptyPlot(const char* label_id)
 {
     double min_y = INFINITY;

@@ -155,4 +155,16 @@ private:
 	 * @param desc 
 	 */
 	void HelpMarker(const char* desc);
+
+	/**
+	 * @brief Load Fonts
+	 * 
+	 */
+	void loadFonts();
+
+	/**
+	 * @brief Set the Theme
+	 * 
+	 */
+	void setTheme();
 };

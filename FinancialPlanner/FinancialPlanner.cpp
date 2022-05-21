@@ -14,56 +14,6 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
-    // Fonts
-    // 0
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 11.0f);
-    // 1
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 14.0f);
-    // 2
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 20.0f);
-    // 3
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 40.0f);
-    // 4
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
-    // 5
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
-    // 6
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
-    // 7
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 40.0f);
-    // 8
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 11.0f);
-    // 9
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 14.0f);
-    // 10
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 20.0f);
-    // 11
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 40.0f);
-
-    // 12
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 11.0f);
-    // 13
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 15.0f);
-    // 14
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 20.0f);
-    // 15
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 40.0f);
-    // 16
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 11.0f);
-    // 17
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
-    // 18
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 20.0f);
-    // 19
-    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 33.0f);
-    // 20
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 11.0f);
-    // 21
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 15.0f);
-    // 22
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 20.0f);
-    // 23
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 40.0f);
 
     // Anti-Aliased plots
     ImPlot::GetStyle().AntiAliasedLines = true;
@@ -72,13 +22,9 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
+    loadFonts();
 
-    // Custom Theme
-    ImGui::StyleColorsDark();
-    ImPlot::StyleColorsDark();
-    ImPlotContext& gp = *GImPlot;
-    gp.Style.Colormap = 7;
-    //this->SetDarkThemeColors();
+    setTheme();
 
     // Core initialized
     core = std::make_shared<Core>();
@@ -90,8 +36,7 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
 
 void FinancialPlanner::Update() 
 {
-
-    // 
+    // opt 
     static bool opt_fullscreen = true;
     static bool opt_padding = false;
     static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
@@ -2761,5 +2706,70 @@ void FinancialPlanner::HelpMarker(const char* desc)
         ImGui::PopTextWrapPos();
         ImGui::EndTooltip();
     }
+}
+
+void FinancialPlanner::loadFonts()
+{
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    // Fonts
+    // 0
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 11.0f);
+    // 1
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 14.0f);
+    // 2
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 20.0f);
+    // 3
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 40.0f);
+    // 4
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
+    // 5
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+    // 6
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
+    // 7
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 40.0f);
+    // 8
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 11.0f);
+    // 9
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 14.0f);
+    // 10
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 20.0f);
+    // 11
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 40.0f);
+
+    // 12
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 11.0f);
+    // 13
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 15.0f);
+    // 14
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 20.0f);
+    // 15
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 40.0f);
+    // 16
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 11.0f);
+    // 17
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+    // 18
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 20.0f);
+    // 19
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 33.0f);
+    // 20
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 11.0f);
+    // 21
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 15.0f);
+    // 22
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 20.0f);
+    // 23
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 40.0f);
+}
+
+void FinancialPlanner::setTheme()
+{
+    // Custom Theme
+    ImGui::StyleColorsDark();
+    ImPlot::StyleColorsDark();
+    ImPlotContext& gp = *GImPlot;
+    gp.Style.Colormap = 7;
+    //this->SetDarkThemeColors();
 }
 
