@@ -51,11 +51,11 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     // 16
     io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 11.0f);
     // 17
-    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
     // 18
     io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 20.0f);
     // 19
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 40.0f);
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 33.0f);
     // 20
     io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 11.0f);
     // 21
@@ -390,8 +390,8 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
 void FinancialPlanner::ShowAccountManager()
 {
     // Fonts
-	ImGuiIO& io = ImGui::GetIO();
-	auto robotoProThin_l = io.Fonts->Fonts[17];
+	//ImGuiIO& io = ImGui::GetIO();
+	//auto robotoProThin_l = io.Fonts->Fonts[17];
 
     // Begin
     ImGui::Begin("Account Manager");
@@ -457,7 +457,7 @@ void FinancialPlanner::ShowAccountManager()
         // Edit and Delete Buttons aligned right
         if(accounts.at(i)->id != 1){
             ImGui::SameLine();
-            ImVec2 buttonSize(50.f, 0.f);
+            ImVec2 buttonSize(115.f, 0.f);
             float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
             char strBtnUpdateLabel[50] = {};
@@ -476,12 +476,12 @@ void FinancialPlanner::ShowAccountManager()
 
         ImGui::Text("- "); ImGui::SameLine();
 
-        ImGui::PushFont(robotoProThin_l);
+        //ImGui::PushFont(robotoProThin_l);
         if (accounts.at(i)->AmountStored >= 1000)
             ImGui::Text("%.2fk EUR", accounts.at(i)->AmountStored/1000);
         else
             ImGui::Text("%.2f EUR", accounts.at(i)->AmountStored);
-        ImGui::PopFont();
+        //ImGui::PopFont();
         ImGui::Separator();
     }
 
@@ -637,7 +637,7 @@ void FinancialPlanner::ShowCategoryManager()
 
             // Edit and Delete Buttons aligned right
             if(categories[i]->id != -3 && categories[i]->id != -2 && categories[i]->id != -1){
-                ImVec2 buttonSize(50.f, 0.f);
+                ImVec2 buttonSize(115.f, 0.f);
                 float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
                 ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
                 if (ImGui::Button("Edit##Edit_Button_Category", buttonSize)) {
