@@ -1,6 +1,10 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
-add_executable (main WIN32 "main.cpp" "FinancialPlanner.cpp" "FinancialPlanner.h")
+set(Sources 
+    "FinancialPlanner.cpp" 
+    "FinancialPlanner.h")
+
+add_executable (main WIN32 "main.cpp" ${Sources})
 
 # sub directories
 add_subdirectory("Core")

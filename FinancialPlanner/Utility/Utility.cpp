@@ -221,6 +221,10 @@ Date_format_p calendarSelection()
 
 	ImGui::Spacing();
 
+	// Window width calculations
+	float day_dim_x = (int)(ImGui::GetWindowWidth() * 0.13);
+	float day_dim_y = (int)(ImGui::GetWindowHeight() * 0.05);
+
 	// Day
 	int days = 31;
 	if(month == 1) days = 29;
@@ -231,7 +235,7 @@ Date_format_p calendarSelection()
 			ImGui::SetCursorPosX(window_pos);
 
 		ImGui::PushID(i);
-		if (ImGui::Selectable(std::to_string(i+1).c_str(), selected[i] != 0, 0, ImVec2(20, 20)))
+		if (ImGui::Selectable(std::to_string(i+1).c_str(), selected[i] != 0, 0, ImVec2(day_dim_x, day_dim_y)))
 		{
 			selected[i] = 1;
 			day = i+1;
