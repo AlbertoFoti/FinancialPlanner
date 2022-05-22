@@ -32,9 +32,7 @@ void NetWorth::Render()
 			ImGui::Text("%.2f EUR", NW_records[NW_records.size() - 1]->ClosingWorth);
 	}
 	ImGui::PopFont();
-	ImGui::Spacing();
 	ImGui::Separator();
-	ImGui::Spacing();
 
 	// Control Bar variables (from, to)
 	static int from = getMSMtime(1, 2019); 
@@ -84,9 +82,16 @@ void NetWorth::Render()
 	ImGui::PopButtonRepeat();
 	to = to_btn_counter;
 
+	// dims
+    float win_dim_x = ImGui::GetWindowWidth();
+    float win_dim_y = ImGui::GetWindowHeight(); 
+    float dim_btn_big_x = win_dim_x*0.15f;
+    float dim_btn_big_y = win_dim_y*0.01f;
+    if(dim_btn_big_y < 50.0f) dim_btn_big_y = 50;
+
 	// Refresh Data Button (from Database)
 	ImGui::SameLine();
-	if (ImGui::Button("Refresh Data")) {
+	if (ImGui::Button("Refresh Data", ImVec2(dim_btn_big_x, dim_btn_big_y))) {
 		this->NW_records = this->core->getNWdataFromDb(fromMSMtoUNIXtime(from), fromMSMtoUNIXtime(to));
 	}
 
