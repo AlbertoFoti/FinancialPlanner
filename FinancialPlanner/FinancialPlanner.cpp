@@ -1,4 +1,4 @@
-﻿#include "FinancialPlanner.h"
+#include "FinancialPlanner.h"
 
 #define IM_CLAMP(V, MN, MX)     ((V) < (MN) ? (MN) : (V) > (MX) ? (MX) : (V))
 
@@ -95,6 +95,12 @@ void FinancialPlanner::Update()
 
     // Window min size back to original value
     style.WindowMinSize.x = minWinSizeX;
+
+    // borders and padding
+    style.TabBorderSize = 1;
+    style.TabRounding = 1;
+    style.ItemSpacing.x = 10;
+    style.ItemSpacing.y = 12;
 
     if (ImGui::BeginMenuBar())
     {
@@ -335,8 +341,8 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
 void FinancialPlanner::ShowAccountManager()
 {
     // Fonts
-	//ImGuiIO& io = ImGui::GetIO();
-	//auto robotoProThin_l = io.Fonts->Fonts[17];
+	ImGuiIO& io = ImGui::GetIO();
+	auto robotoProThin_l = io.Fonts->Fonts[23];
 
     // Begin
     ImGui::Begin("Account Manager");
@@ -354,11 +360,9 @@ void FinancialPlanner::ShowAccountManager()
     if(dim_btn_big_y < 50.0f) dim_btn_big_y = 50;
     if(dim_btn_small_y < 50.0f) dim_btn_small_y = 50;
 
-    ImGui::Spacing();
     if(ImGui::Button("Reload Accounts", ImVec2(dim_btn_big_x, dim_btn_big_y))) {
         this->accounts = this->core->getAccountsFromDb();
     }
-    ImGui::Spacing();
     ImGui::Separator();
 
     // New Account Form
@@ -366,7 +370,6 @@ void FinancialPlanner::ShowAccountManager()
     static char account_name[50] = {};
     ImGui::InputTextWithHint("##AN", "Bank/Cash/Investments/Savings", account_name, IM_ARRAYSIZE(account_name));
 
-    ImGui::Spacing();
     if (ImGui::Button("Add Account", ImVec2(dim_btn_small_x, dim_btn_small_y))) {
 
         if (strcmp(account_name, "")) {
@@ -397,12 +400,8 @@ void FinancialPlanner::ShowAccountManager()
         if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
         ImGui::EndPopup();
     }
-    ImGui::Spacing();
     ImGui::Separator();
 
-    ImGui::Spacing();
-    ImGui::Spacing();
-    ImGui::Spacing();
     ImGui::TextUnformatted("Accounts");
     ImGui::Separator();
 
@@ -433,12 +432,12 @@ void FinancialPlanner::ShowAccountManager()
 
         ImGui::Text("- "); ImGui::SameLine();
 
-        //ImGui::PushFont(robotoProThin_l);
+        ImGui::PushFont(robotoProThin_l);
         if (accounts.at(i)->AmountStored >= 1000)
             ImGui::Text("%.2fk EUR", accounts.at(i)->AmountStored/1000);
         else
             ImGui::Text("%.2f EUR", accounts.at(i)->AmountStored);
-        //ImGui::PopFont();
+        ImGui::PopFont();
         ImGui::Separator();
     }
 
@@ -467,15 +466,12 @@ void FinancialPlanner::ShowCategoryManager()
     if (ImGui::Button("Reload Categories", ImVec2(dim_btn_big_x, dim_btn_big_y))) {
         this->categories = this->core->getCategoriesFromDb();
     }
-    ImGui::Spacing();
     ImGui::Separator();
 
     // New Category or New Subcategory form
     static int newCat = 0;
-    ImGui::Spacing(); ImGui::Spacing();
     ImGui::RadioButton("Category", &newCat, 0); ImGui::SameLine();
     ImGui::RadioButton("Subcategory", &newCat, 1);
-    ImGui::Spacing(); ImGui::Spacing();
 
     static char category_name[50] = {};
     static char sub_category_name[50] = {};
@@ -485,7 +481,6 @@ void FinancialPlanner::ShowCategoryManager()
         ImGui::BulletText("Category Name");
         ImGui::InputTextWithHint("##MCN", "Housing / Health / Leisure", category_name, IM_ARRAYSIZE(category_name));
 
-        ImGui::Spacing(); ImGui::Spacing();
         ImGui::BulletText("Category Type");
         static int cat_type = 0;
         ImGui::RadioButton("Income", &cat_type, 0); ImGui::SameLine();
@@ -502,13 +497,11 @@ void FinancialPlanner::ShowCategoryManager()
         ImGui::BulletText("Category Name");
         ImGui::InputTextWithHint("##MCN", "Housing / Health / Leisure", category_name, IM_ARRAYSIZE(category_name));
 
-        ImGui::Spacing(); ImGui::Spacing();
         ImGui::BulletText("SubCategory Name");
         ImGui::InputTextWithHint("##SCN", "Rent / OtherHousing / Money", sub_category_name, IM_ARRAYSIZE(sub_category_name));
     }
 
     static char ButtonName[50] = {};
-    ImGui::Spacing(); ImGui::Spacing();
     if (newCat == 0) {
         sprintf_s(ButtonName, "%s", "Add Category");
     }
@@ -516,7 +509,6 @@ void FinancialPlanner::ShowCategoryManager()
         sprintf_s(ButtonName, "%s", "Add Subcategory");
     }
 
-    ImGui::Spacing();
     if (ImGui::Button(ButtonName, ImVec2(dim_btn_small_x, dim_btn_small_y))) {
         if (newCat == 0) {
             if (strcmp(category_name, "") && strcmp(category_type, "")) {
@@ -586,12 +578,8 @@ void FinancialPlanner::ShowCategoryManager()
         if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
         ImGui::EndPopup();
     }
-    ImGui::Spacing();
     ImGui::Separator();
 
-    ImGui::Spacing();
-    ImGui::Spacing();
-    ImGui::Spacing();
     ImGui::TextUnformatted("Categories");
     ImGui::Separator();
 
@@ -651,7 +639,6 @@ void FinancialPlanner::ShowInvCategoryManager()
     if (ImGui::Button("Reload Investement Classes", ImVec2(dim_btn_big_x, dim_btn_big_y))) {
         // Retrieve Investements Categories from db
     }
-    ImGui::Spacing();
     ImGui::Separator();
 
     // New Inv Class form
@@ -659,11 +646,9 @@ void FinancialPlanner::ShowInvCategoryManager()
     static char category_name[50] = {};
     static char risk_profile_s[50] = {};
 
-    ImGui::Spacing(); ImGui::Spacing();
     ImGui::BulletText("Investment Class Name");
     ImGui::InputTextWithHint("##MCN", "Bond / Stock / Real Estate", category_name, IM_ARRAYSIZE(category_name));
 
-    ImGui::Spacing(); ImGui::Spacing();
     ImGui::BulletText("Risk profile");
     static int risk_profile = 0;
     ImGui::RadioButton("Low", &risk_profile, 0); ImGui::SameLine();
@@ -678,10 +663,8 @@ void FinancialPlanner::ShowInvCategoryManager()
     }
 
     static char ButtonName[50] = {};
-    ImGui::Spacing(); ImGui::Spacing();
     sprintf_s(ButtonName, "%s", "Add New Investment Class");
 
-    ImGui::Spacing();
     if (ImGui::Button(ButtonName, ImVec2(dim_btn_small_x, dim_btn_small_y))) {
         if (strcmp(category_name, "")) {
             // New Category instance
@@ -710,12 +693,8 @@ void FinancialPlanner::ShowInvCategoryManager()
         if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
         ImGui::EndPopup();
     }
-    ImGui::Spacing();
     ImGui::Separator();
 
-    ImGui::Spacing();
-    ImGui::Spacing();
-    ImGui::Spacing();
     ImGui::TextUnformatted("Investment Classes");
     ImGui::Separator();
 
@@ -2756,61 +2735,68 @@ void FinancialPlanner::loadFonts()
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     // Fonts
     // 0
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 11.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 11.0f);
     // 1
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 14.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 15.0f);
     // 2
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 20.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 20.0f);
     // 3
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 40.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 33.0f);
     // 4
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 11.0f);
     // 5
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
     // 6
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 20.0f);
     // 7
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 40.0f);
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 33.0f);
     // 8
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 11.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 11.0f);
     // 9
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 14.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 15.0f);
     // 10
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 20.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 20.0f);
     // 11
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 40.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 33.0f);
 
     // 12
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 11.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 11.0f);
     // 13
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 15.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 14.0f);
     // 14
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 20.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 20.0f);
     // 15
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 40.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 33.0f);
     // 16
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 11.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
     // 17
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
     // 18
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 20.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
     // 19
-    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 33.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 33.0f);
     // 20
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 11.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 11.0f);
     // 21
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 15.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 14.0f);
     // 22
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 20.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 20.0f);
     // 23
-    io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 40.0f);
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 33.0f);
+
+    // 24
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 70.0f);
+    // 25
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 70.0f);
+    // 26
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 70.0f);
 }
 
 void FinancialPlanner::setTheme()
 {
     // Custom Theme
-    ImGui::StyleColorsDark();
-    ImPlot::StyleColorsDark();
+    ImGui::StyleColorsLight();
+    ImPlot::StyleColorsLight();
     ImPlotContext& gp = *GImPlot;
     gp.Style.Colormap = 7;
     //this->SetDarkThemeColors();
