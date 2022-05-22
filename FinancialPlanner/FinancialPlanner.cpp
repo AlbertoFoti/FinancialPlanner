@@ -637,9 +637,21 @@ void FinancialPlanner::ShowInvCategoryManager()
 
     // Retrieve Investements Categories
 
-    if (ImGui::Button("Reload Investement Classes")) {
+    // dims
+    float win_dim_x = ImGui::GetWindowWidth();
+    float win_dim_y = ImGui::GetWindowHeight(); 
+    float dim_btn_big_x = win_dim_x*0.50f;
+    float dim_btn_big_y = win_dim_y*0.05f;
+    float dim_btn_small_x = win_dim_x*0.50f;
+    float dim_btn_small_y = win_dim_y*0.04f;
+    if(dim_btn_big_y < 50.0f) dim_btn_big_y = 50;
+    if(dim_btn_small_y < 50.0f) dim_btn_small_y = 50;
+
+    ImGui::Spacing();
+    if (ImGui::Button("Reload Investement Classes", ImVec2(dim_btn_big_x, dim_btn_big_y))) {
         // Retrieve Investements Categories from db
     }
+    ImGui::Spacing();
     ImGui::Separator();
 
     // New Inv Class form
@@ -647,9 +659,11 @@ void FinancialPlanner::ShowInvCategoryManager()
     static char category_name[50] = {};
     static char risk_profile_s[50] = {};
 
+    ImGui::Spacing(); ImGui::Spacing();
     ImGui::BulletText("Investment Class Name");
     ImGui::InputTextWithHint("##MCN", "Bond / Stock / Real Estate", category_name, IM_ARRAYSIZE(category_name));
 
+    ImGui::Spacing(); ImGui::Spacing();
     ImGui::BulletText("Risk profile");
     static int risk_profile = 0;
     ImGui::RadioButton("Low", &risk_profile, 0); ImGui::SameLine();
@@ -664,10 +678,11 @@ void FinancialPlanner::ShowInvCategoryManager()
     }
 
     static char ButtonName[50] = {};
+    ImGui::Spacing(); ImGui::Spacing();
     sprintf_s(ButtonName, "%s", "Add New Investment Class");
 
     ImGui::Spacing();
-    if (ImGui::Button(ButtonName)) {
+    if (ImGui::Button(ButtonName, ImVec2(dim_btn_small_x, dim_btn_small_y))) {
         if (strcmp(category_name, "")) {
             // New Category instance
 
