@@ -344,9 +344,19 @@ void FinancialPlanner::ShowAccountManager()
     // Retrieve accounts
     this->accounts = core->getAccounts();
 
-    if(ImGui::Button("Reload Accounts")) {
+    // dims
+    float win_dim_x = ImGui::GetWindowWidth();
+    float win_dim_y = ImGui::GetWindowHeight(); 
+    float dim_btn_big_x = win_dim_x*0.30f;
+    float dim_btn_big_y = win_dim_y*0.05f;
+    float dim_btn_small_x = win_dim_x*0.30f;
+    float dim_btn_small_y = win_dim_y*0.04f;
+
+    ImGui::Spacing();
+    if(ImGui::Button("Reload Accounts", ImVec2(dim_btn_big_x, dim_btn_big_y))) {
         this->accounts = this->core->getAccountsFromDb();
     }
+    ImGui::Spacing();
     ImGui::Separator();
 
     // New Account Form
@@ -355,7 +365,7 @@ void FinancialPlanner::ShowAccountManager()
     ImGui::InputTextWithHint("##AN", "Bank/Cash/Investments/Savings", account_name, IM_ARRAYSIZE(account_name));
 
     ImGui::Spacing();
-    if (ImGui::Button("Add Account")) {
+    if (ImGui::Button("Add Account", ImVec2(dim_btn_small_x, dim_btn_small_y))) {
 
         if (strcmp(account_name, "")) {
             // New Account instance
