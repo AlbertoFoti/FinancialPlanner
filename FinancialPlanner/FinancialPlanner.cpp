@@ -351,6 +351,8 @@ void FinancialPlanner::ShowAccountManager()
     float dim_btn_big_y = win_dim_y*0.05f;
     float dim_btn_small_x = win_dim_x*0.30f;
     float dim_btn_small_y = win_dim_y*0.04f;
+    if(dim_btn_big_y < 50.0f) dim_btn_big_y = 50;
+    if(dim_btn_small_y < 50.0f) dim_btn_small_y = 50;
 
     ImGui::Spacing();
     if(ImGui::Button("Reload Accounts", ImVec2(dim_btn_big_x, dim_btn_big_y))) {
@@ -451,16 +453,29 @@ void FinancialPlanner::ShowCategoryManager()
     // Retrieve Categories
     this->categories = core->getCategories();
 
-    if (ImGui::Button("Reload Categories")) {
+    // dims
+    float win_dim_x = ImGui::GetWindowWidth();
+    float win_dim_y = ImGui::GetWindowHeight(); 
+    float dim_btn_big_x = win_dim_x*0.40f;
+    float dim_btn_big_y = win_dim_y*0.05f;
+    float dim_btn_small_x = win_dim_x*0.30f;
+    float dim_btn_small_y = win_dim_y*0.04f;
+    if(dim_btn_big_y < 50.0f) dim_btn_big_y = 50;
+    if(dim_btn_small_y < 50.0f) dim_btn_small_y = 50;
+
+    ImGui::Spacing();
+    if (ImGui::Button("Reload Categories", ImVec2(dim_btn_big_x, dim_btn_big_y))) {
         this->categories = this->core->getCategoriesFromDb();
     }
+    ImGui::Spacing();
     ImGui::Separator();
 
     // New Category or New Subcategory form
     static int newCat = 0;
+    ImGui::Spacing(); ImGui::Spacing();
     ImGui::RadioButton("Category", &newCat, 0); ImGui::SameLine();
     ImGui::RadioButton("Subcategory", &newCat, 1);
-    ImGui::Spacing();
+    ImGui::Spacing(); ImGui::Spacing();
 
     static char category_name[50] = {};
     static char sub_category_name[50] = {};
@@ -470,6 +485,7 @@ void FinancialPlanner::ShowCategoryManager()
         ImGui::BulletText("Category Name");
         ImGui::InputTextWithHint("##MCN", "Housing / Health / Leisure", category_name, IM_ARRAYSIZE(category_name));
 
+        ImGui::Spacing(); ImGui::Spacing();
         ImGui::BulletText("Category Type");
         static int cat_type = 0;
         ImGui::RadioButton("Income", &cat_type, 0); ImGui::SameLine();
@@ -486,11 +502,13 @@ void FinancialPlanner::ShowCategoryManager()
         ImGui::BulletText("Category Name");
         ImGui::InputTextWithHint("##MCN", "Housing / Health / Leisure", category_name, IM_ARRAYSIZE(category_name));
 
+        ImGui::Spacing(); ImGui::Spacing();
         ImGui::BulletText("SubCategory Name");
         ImGui::InputTextWithHint("##SCN", "Rent / OtherHousing / Money", sub_category_name, IM_ARRAYSIZE(sub_category_name));
     }
 
     static char ButtonName[50] = {};
+    ImGui::Spacing(); ImGui::Spacing();
     if (newCat == 0) {
         sprintf_s(ButtonName, "%s", "Add Category");
     }
@@ -499,7 +517,7 @@ void FinancialPlanner::ShowCategoryManager()
     }
 
     ImGui::Spacing();
-    if (ImGui::Button(ButtonName)) {
+    if (ImGui::Button(ButtonName, ImVec2(dim_btn_small_x, dim_btn_small_y))) {
         if (newCat == 0) {
             if (strcmp(category_name, "") && strcmp(category_type, "")) {
                 // New Category instance
