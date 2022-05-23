@@ -121,7 +121,14 @@ void AssetAllocation::ShowControlPanel(std::string panel_name)
 	static char name_new_investment[100] = "";
 	ImGui::InputText("##name_new_investment", name_new_investment, IM_ARRAYSIZE(name_new_investment));
 
-	if(ImGui::Button("Add new investment")){
+	// dims
+    float win_dim_x = ImGui::GetWindowWidth();
+    float win_dim_y = ImGui::GetWindowHeight();
+    float dim_btn_small_x = win_dim_x*0.60f;
+    float dim_btn_small_y = win_dim_y*0.03f;
+    if(dim_btn_small_y < 50.0f) dim_btn_small_y = 50.0f;
+
+	if(ImGui::Button("Add new investment", ImVec2(dim_btn_small_x, dim_btn_small_y))){
 		// Add new investment
 		headerNames.push_back(name_new_investment);
 		amounts_invested.push_back(0.0);
@@ -141,7 +148,7 @@ void AssetAllocation::ShowControlPanel(std::string panel_name)
 		ImGui::Text("> %d : %d", i+1, perc_invested.at(i));
 	}
 
-	if(ImGui::Button("Add New Asset Allocation Record")){
+	if(ImGui::Button("Add New Asset Allocation Record", ImVec2(dim_btn_small_x, dim_btn_small_y))){
 		// Push new record if everything is ok
 	}
 
@@ -166,6 +173,13 @@ void AssetAllocation::ShowAssetAllocationDetails()
 void AssetAllocation::AssetAllocationInvestment(int i, bool byPercentage, std::vector<double>& amounts_invested, std::vector<int>& perc_invested)
 {
 
+	// dims
+    float win_dim_x = ImGui::GetWindowWidth();
+    float win_dim_y = ImGui::GetWindowHeight();
+    float dim_btn_small_x = win_dim_x*0.20f;
+    float dim_btn_small_y = win_dim_y*0.02f;
+    if(dim_btn_small_y < 50.0f) dim_btn_small_y = 50.0f;
+
 	// Amount of the total money invested dedicated to this single investment
 	static char label_amount_invested[50] = "";
 	sprintf_s(label_amount_invested, "of total portfolio##AmountInvested%d", i);
@@ -176,7 +190,7 @@ void AssetAllocation::AssetAllocationInvestment(int i, bool byPercentage, std::v
 	}
 
 	// Edit and Delete Buttons aligned right
-	ImVec2 buttonSize(50.f, 0.f);
+	ImVec2 buttonSize(dim_btn_small_x, dim_btn_small_y);
 	float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
 	if (ImGui::Button("Edit##Edit_Button_Investment", buttonSize)) {
