@@ -2796,8 +2796,8 @@ void FinancialPlanner::loadFonts()
 void FinancialPlanner::setTheme()
 {
     // Custom Theme
-    ImGui::StyleColorsLight();
-    ImPlot::StyleColorsLight();
+    ImGui::StyleColorsDark();
+    ImPlot::StyleColorsDark();
     ImPlotContext& gp = *GImPlot;
     gp.Style.Colormap = 7;
     //this->SetDarkThemeColors();

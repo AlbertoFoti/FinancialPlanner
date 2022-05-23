@@ -25,13 +25,17 @@ There isn't a proper installation procedure yet. (The product is still in develo
 - fix: bugs hunting
 - fix: when deleting account proceed in deleting all account related transactions (give an option to clear or not the data) and manage account accesses/conflicts after delete
 
-### Version 0.2.7 Objectives
+### Version 0.2.8 Objectives
+- Asset Allocation tab : backend logic (assets, location, currency exposure, ...)
+- Dynamic Investment Classes Manager (with backend integration)
+- refactor: function to get proper button sizes (dynamic button sizes clean and organized)
+
+### Version 0.2.7 Features
 - Adding comments to transactions
 - style: improve the looks of incomeExpenses details tab GUI
 - style: adding savings, savings rate, investments variation in incomeExpenses details tab
 - style: Popups instead of error text messages 
-- Asset Allocation tab : basic GUI structure and backend logic (assets, location, currency exposure, ...)
-- Dynamic Investment Classes Manager (with backend integration)
+- Asset Allocation tab : basic GUI structure
 
 ### Version 0.2.6 Features
 - incomeExpenses tab: Adding a table for transfers
