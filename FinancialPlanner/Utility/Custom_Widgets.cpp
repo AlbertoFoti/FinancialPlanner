@@ -70,7 +70,7 @@ Date_format_p calendarSelection()
 
 	// Window width calculations
 	float day_dim_x = (int)(ImGui::GetWindowWidth() * 0.13);
-	float day_dim_y = (int)(ImGui::GetWindowHeight() * 0.05);
+	float day_dim_y = (int)(ImGui::GetWindowHeight() * 0.02);
 
 	// Day
 	int days = 31;

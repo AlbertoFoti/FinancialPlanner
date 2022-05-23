@@ -356,10 +356,11 @@ void FinancialPlanner::ShowAccountManager()
     float dim_btn_big_x = win_dim_x*0.30f;
     float dim_btn_big_y = win_dim_y*0.05f;
     float dim_btn_small_x = win_dim_x*0.30f;
-    float dim_btn_small_y = win_dim_y*0.04f;
+    float dim_btn_small_y = win_dim_y*0.03f;
     if(dim_btn_big_y < 50.0f) dim_btn_big_y = 50;
     if(dim_btn_small_y < 50.0f) dim_btn_small_y = 50;
 
+    ImGui::Spacing();
     if(ImGui::Button("Reload Accounts", ImVec2(dim_btn_big_x, dim_btn_big_y))) {
         this->accounts = this->core->getAccountsFromDb();
     }
@@ -458,7 +459,7 @@ void FinancialPlanner::ShowCategoryManager()
     float dim_btn_big_x = win_dim_x*0.40f;
     float dim_btn_big_y = win_dim_y*0.05f;
     float dim_btn_small_x = win_dim_x*0.30f;
-    float dim_btn_small_y = win_dim_y*0.04f;
+    float dim_btn_small_y = win_dim_y*0.03f;
     if(dim_btn_big_y < 50.0f) dim_btn_big_y = 50;
     if(dim_btn_small_y < 50.0f) dim_btn_small_y = 50;
 
