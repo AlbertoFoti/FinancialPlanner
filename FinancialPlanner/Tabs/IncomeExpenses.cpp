@@ -452,11 +452,14 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 {
 	// Fonts
 	ImGuiIO& io = ImGui::GetIO();
-	auto blenderProHeavy_l = io.Fonts->Fonts[2];
-	auto blenderProThinLarge = io.Fonts->Fonts[8];
+	auto blenderProHeavy_l = io.Fonts->Fonts[15];
+	auto blenderProThin_l = io.Fonts->Fonts[23];
 
 	ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
 	ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
+
+	// dims
+	float one_third_x = (int)(ImGui::GetWindowWidth()*0.33);
 
 	// Sliders and options
 	enum Element { elem_January, elem_February, elem_March, elem_April, elem_May, elem_June, elem_July, elem_August, elem_September, elem_October, elem_November, elem_December, elem_Count };
@@ -502,7 +505,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 	ImGui::Separator();
 	ImGui::Spacing();
 
-	//ImGui::PushFont(blenderProThin_m);
+	ImGui::PushFont(blenderProThin_l);
 
 	if (!monthlyAggrView) {
 		this->monthlyTransactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
@@ -619,37 +622,37 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			if (x->Type == "Out") MonthlyTotalOut += x->Amount;
 			if (x->Type == "Transfer" && x->Subcategory != "Transfer") MonthlyTotalInvVar += x->Amount;
 		}
-		ImGui::Text("Total Income   : "); ImGui::SameLine();
-		ImGui::PushFont(blenderProThinLarge);
+		ImGui::Text("Total Income   : "); ImGui::SameLine(one_third_x);
+		ImGui::PushFont(blenderProThin_l);
 		ImGui::Text("%.2f", MonthlyTotalIn);
 		ImGui::PopFont();
-		ImGui::Text("Total Expenses : "); ImGui::SameLine();
-		ImGui::PushFont(blenderProThinLarge);
+		ImGui::Text("Total Expenses : "); ImGui::SameLine(one_third_x);
+		ImGui::PushFont(blenderProThin_l);
 		ImGui::Text("%.2f", MonthlyTotalOut);
 		ImGui::PopFont();
-		ImGui::Text("Total Investment Variation : "); ImGui::SameLine();
-		ImGui::PushFont(blenderProThinLarge);
+		ImGui::Text("Total Investment Variation : "); ImGui::SameLine(one_third_x);
+		ImGui::PushFont(blenderProThin_l);
 		ImGui::Text("%.2f", MonthlyTotalInvVar);
 		ImGui::PopFont();
-		ImGui::Text("Total Savings : "); ImGui::SameLine();
-		ImGui::PushFont(blenderProThinLarge);
+		ImGui::Text("Total Savings : "); ImGui::SameLine(one_third_x);
+		ImGui::PushFont(blenderProThin_l);
 		tot_save = MonthlyTotalIn + MonthlyTotalOut + MonthlyTotalInvVar;
 		ImGui::Text("%.2f", tot_save);
 		ImGui::PopFont();
-		ImGui::Text("Net Savings : "); ImGui::SameLine();
-		ImGui::PushFont(blenderProThinLarge);
+		ImGui::Text("Net Savings : "); ImGui::SameLine(one_third_x);
+		ImGui::PushFont(blenderProThin_l);
 		net_save = MonthlyTotalIn + MonthlyTotalOut;
 		ImGui::Text("%.2f", (MonthlyTotalIn + MonthlyTotalOut));
 		ImGui::PopFont();
-		ImGui::Text("Total Savings Rate : "); ImGui::SameLine();
-		ImGui::PushFont(blenderProThinLarge);
+		ImGui::Text("Total Savings Rate : "); ImGui::SameLine(one_third_x);
+		ImGui::PushFont(blenderProThin_l);
 		if(MonthlyTotalInvVar > 0)
 			ImGui::Text("%.2f%%", (100 * tot_save / (MonthlyTotalIn + MonthlyTotalInvVar)));
 		else 
 			ImGui::Text("%.2f%%", (100 * tot_save / (MonthlyTotalIn)));
 		ImGui::PopFont();
-		ImGui::Text("Net Savings Rate : "); ImGui::SameLine();
-		ImGui::PushFont(blenderProThinLarge);
+		ImGui::Text("Net Savings Rate : "); ImGui::SameLine(one_third_x);
+		ImGui::PushFont(blenderProThin_l);
 		ImGui::Text("%.2f%%", (100 * net_save / MonthlyTotalIn));
 		ImGui::PopFont();
 		ImGui::PopFont();
@@ -734,37 +737,37 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 				MonthlyTotalOut += x->balanceOut;
 				MonthlyTotalInvVar += x->investmentsVariation;
 			}
-			ImGui::Text("Total Income   : "); ImGui::SameLine();
-			ImGui::PushFont(blenderProThinLarge);
+			ImGui::Text("Total Income   : "); ImGui::SameLine(one_third_x);
+			ImGui::PushFont(blenderProThin_l);
 			ImGui::Text("%.2f", MonthlyTotalIn);
 			ImGui::PopFont();
-			ImGui::Text("Total Expenses : "); ImGui::SameLine();
-			ImGui::PushFont(blenderProThinLarge);
+			ImGui::Text("Total Expenses : "); ImGui::SameLine(one_third_x);
+			ImGui::PushFont(blenderProThin_l);
 			ImGui::Text("%.2f", MonthlyTotalOut);
 			ImGui::PopFont();
-			ImGui::Text("Total Investment Variation : "); ImGui::SameLine();
-			ImGui::PushFont(blenderProThinLarge);
+			ImGui::Text("Total Investment Variation : "); ImGui::SameLine(one_third_x);
+			ImGui::PushFont(blenderProThin_l);
 			ImGui::Text("%.2f", MonthlyTotalInvVar);
 			ImGui::PopFont();
-			ImGui::Text("Total Savings : "); ImGui::SameLine();
-			ImGui::PushFont(blenderProThinLarge);
+			ImGui::Text("Total Savings : "); ImGui::SameLine(one_third_x);
+			ImGui::PushFont(blenderProThin_l);
 			tot_save = MonthlyTotalIn + MonthlyTotalOut + MonthlyTotalInvVar;
 			ImGui::Text("%.2f", tot_save);
 			ImGui::PopFont();
-			ImGui::Text("Net Savings : "); ImGui::SameLine();
-			ImGui::PushFont(blenderProThinLarge);
+			ImGui::Text("Net Savings : "); ImGui::SameLine(one_third_x);
+			ImGui::PushFont(blenderProThin_l);
 			net_save = MonthlyTotalIn + MonthlyTotalOut;
 			ImGui::Text("%.2f", (MonthlyTotalIn + MonthlyTotalOut));
 			ImGui::PopFont();
-			ImGui::Text("Total Savings Rate : "); ImGui::SameLine();
-			ImGui::PushFont(blenderProThinLarge);
+			ImGui::Text("Total Savings Rate : "); ImGui::SameLine(one_third_x);
+			ImGui::PushFont(blenderProThin_l);
 			if(MonthlyTotalInvVar > 0)
 				ImGui::Text("%.2f%%", (100 * tot_save / (MonthlyTotalIn + MonthlyTotalInvVar)));
 			else 
 				ImGui::Text("%.2f%%", (100 * tot_save / (MonthlyTotalIn)));
 			ImGui::PopFont();
-			ImGui::Text("Net Savings Rate : "); ImGui::SameLine();
-			ImGui::PushFont(blenderProThinLarge);
+			ImGui::Text("Net Savings Rate : "); ImGui::SameLine(one_third_x);
+			ImGui::PushFont(blenderProThin_l);
 			ImGui::Text("%.2f%%", (100 * net_save / MonthlyTotalIn));
 			ImGui::PopFont();
 			ImGui::PopFont();
@@ -780,5 +783,5 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 		}
 	}
 
-	//ImGui::PopFont();
+	ImGui::PopFont();
 }
