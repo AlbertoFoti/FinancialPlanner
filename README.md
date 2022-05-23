@@ -1,7 +1,7 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.2.6**
+Current Stable Version : **Version 0.2.7**
 
 ## For Final Users
 There isn't a proper installation procedure yet. (The product is still in development)
@@ -30,54 +30,21 @@ There isn't a proper installation procedure yet. (The product is still in develo
 - Dynamic Investment Classes Manager (with backend integration)
 - refactor: function to get proper button sizes (dynamic button sizes clean and organized)
 
-### Version 0.2.7 Features
-- Adding comments to transactions
-- style: improve the looks of incomeExpenses details tab GUI
-- style: adding savings, savings rate, investments variation in incomeExpenses details tab
-- style: Popups instead of error text messages 
-- Asset Allocation tab : basic GUI structure
-
-### Version 0.2.6 Features
-- incomeExpenses tab: Adding a table for transfers
-- fix: account plots fix
-- investment tab fix: money transfer logic integration with investments(deposits/withdrawal)
-- Allow Transfer between Accounts
-- fix: little fixes
-
-### Version 0.2.5 Features
-- Fix : Return investments report without holes (filled at runtime)
-- Fix : show yearly view in net worth control panel
-- Control check function for new transactions
-- Investments tab : GUI structure complete, plots created
-- Transfer between accounts : basic logic
-
-### Version 0.2.4 Features
-- Investments Tab : plots and tabs upgrade
-- Full GUI style improvement (also add headers to tables)
-- New font (Roboto) available
-- Calendar Widget for date selection (used in new transaction panel)
-- Fix : not possible to add categories with the same name as an existing category
-- Fix : not allowing the [delete] of Investments account and related issues
-- Fix : Returns monthly reports without holes (filled at runtime)
-
-### Version 0.2.3 Features
-- Investments Tab : breakdown tab main view plots
-- Investments Tab : breakdown tab GUI structure (not complete)
-- Income/Expenses Detail tab: add column for investments returns
-- Fix : including/excluding investments into pie charts in Income/Expenses
-
-### Version 0.2.2 Features
-- Investments Tab basic GUI
-- Investments Logic Structure
-- Investments : Details tab structure
-- Backend System optimization (structure rethink)
-- Fix : memory leaks
-- Fix : performance issues
-
-### Version 0.2.1 Features
-- Income/Expenses : Overview tab [monthly by cat, yearly by cat]
-- Investments, Asset Allocation, Forecasting, FIRE tabs added
-- Major refactor and documentation
+### Versions 0.2.x Features
+- 0.2.1 tabs added(Investments,Asset Allocation,Forecasting,FIRE), Major refactor and documentation, Income/Expenses : Overview tab [monthly by cat, yearly by cat]
+- 0.2.2 Backend System optimization (structure rethink), Investments Tab GUI and logic, Fix : memory leaks, performance issues
+- 0.2.3 Investments: breakdown GUI and plots, Income/Expenses Detail: add investments returns column, including/excluding investments into pie charts
+- 0.2.4 Investments: plots and tabs upgrade, Full GUI improvement, New font (Roboto) available, Calendar Widget, 
+    Fix : not possible to add categories with the same name as an existing category
+    Fix : not allowing the [delete] of Investments account and related issues
+    Fix : Returns monthly reports without holes (filled at runtime)
+- 0.2.5 Control check function for new transactions, Investments: GUI complete, plots created, Transfers between accounts
+    Fix : Return investments report without holes (filled at runtime)
+    Fix : show yearly view in net worth control panel
+- 0.2.6 IncomeExpenses tab: Adding a table for transfers, Allow Transfer between Accounts
+    Fix: account plots fix
+    Investment tab fix: money transfer logic integration with investments(deposits/withdrawal)
+- 0.2.7 Transaction Comments, style: inc/exp details tab GUI upgrade, new metrics in inc/exp details tab, popups instead of error text messages, Asset Allocation GUI
 
 ### Versions 0.1.x Features
 - 0.2.0 : Delete accounts enabled, Category delete
