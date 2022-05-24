@@ -80,10 +80,7 @@ void FinancialPlanner::Update()
         ImGui::PopStyleVar(2);
 
     // Minimum window size (x coordinate), in dockspace
-    ImGuiStyle& style = ImGui::GetStyle();
-    float minWinSizeX = style.WindowMinSize.x;
-    float min_x = ImGui::GetWindowWidth()*0.20f;
-    style.WindowMinSize.x = min_x;
+    float minWinSizeX = setMinimumSizeWindow();
 
     // Submit the DockSpace
     ImGuiIO& io = ImGui::GetIO();
@@ -94,6 +91,7 @@ void FinancialPlanner::Update()
     }
 
     // Window min size back to original value
+    ImGuiStyle& style = ImGui::GetStyle();
     style.WindowMinSize.x = minWinSizeX;
 
     // borders and padding

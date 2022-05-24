@@ -167,4 +167,10 @@ private:
 	 * 
 	 */
 	void setTheme();
+
+	/**
+	 * @brief Set the Minimum Size of a Window 
+	 * 
+	 */
+	float setMinimumSizeWindow();
 };
