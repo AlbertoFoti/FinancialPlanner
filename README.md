@@ -27,6 +27,7 @@ There isn't a proper installation procedure yet. (The product is still in develo
 
 ### Version 0.2.8 Objectives
 - Asset Allocation tab : backend logic (assets, location, currency exposure, ...)
+- Dynamic GUI: 1080p / 2k versions
 - Dynamic Investment Classes Manager (with backend integration)
 - refactor: function to get proper button sizes (dynamic button sizes clean and organized)
 
