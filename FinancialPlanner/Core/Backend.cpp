@@ -812,6 +812,19 @@ YearlyInvestmentsReport_p Backend::getYearlyInvestmentsReport(int year)
     return yearlyReport;
 }
 
+config_t Backend::getConfig()
+{
+    Json::Value root;
+    config_t config;
+    
+    root = getRootFromFileStream("Database/config.json");
+
+    config.display_resolution = root["display_resolution"].asString();
+    config.default_font = root["default_font"].asString();
+
+    return config;
+}
+
 // Testing
 
 std::string Backend::sayHello()

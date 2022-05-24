@@ -275,4 +275,11 @@ public:
 	 * 
 	 */
 	MonthlyAggrCategoryReport_p getAggrCatReportWithoutInvestments(int month, int year);
+
+	/**
+	 * @brief Get the Config object
+	 * 
+	 * @return config_t 
+	 */
+	config_t getConfig();
 };
