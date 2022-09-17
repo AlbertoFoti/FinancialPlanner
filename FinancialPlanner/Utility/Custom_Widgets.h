@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 
 struct Date_format {
     int Day;

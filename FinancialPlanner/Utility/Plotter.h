@@ -1,8 +1,10 @@
 #pragma once
 
-#include "imgui.h"
-#include "implot.h"
-#include "implot_internal.h"
+#include "../../include/imgui.h"
+#include "../../include/imgui_impl_glfw.h"
+#include "../../include/imgui_impl_opengl3.h"
+#include "../../include/implot.h"
+#include "../../include/implot_internal.h"
 #include <math.h>
 
 /**

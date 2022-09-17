@@ -6,6 +6,8 @@
 #include "implot.h"
 #include <iostream>
 #include <string>
+#include <memory>
+#include <vector>
 
 #include "Core/Core.h"
 #include "Tabs/IncomeExpenses.h"

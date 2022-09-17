@@ -4,7 +4,7 @@ set(Sources
     "FinancialPlanner.cpp" 
     "FinancialPlanner.h")
 
-add_executable (main WIN32 "main.cpp" ${Sources})
+add_executable (main "main.cpp" ${Sources})
 
 # sub directories
 add_subdirectory("Core")
@@ -32,4 +32,4 @@ find_package(implot CONFIG REQUIRED)
 target_link_libraries(main PRIVATE implot::implot)
 
 find_package(jsoncpp CONFIG REQUIRED)
-target_link_libraries(main PRIVATE jsoncpp_lib jsoncpp_object JsonCpp::JsonCpp)
+target_link_libraries(main PRIVATE jsoncpp_object jsoncpp_static JsonCpp::JsonCpp)

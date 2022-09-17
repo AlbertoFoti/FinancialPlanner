@@ -307,17 +307,17 @@ void FinancialPlanner::ShowCompoundInterestCalculator(const char *nameGUI)
     // Calculation Result
     ImGui::BulletText("End of Period NW : ");
     static char NWendPeriod_s[50] = {};
-    sprintf_s(NWendPeriod_s, "%.2f", NWendPeriod_d);
+    sprintf(NWendPeriod_s, "%.2f", NWendPeriod_d);
     ImGui::InputText("final NW", NWendPeriod_s, IM_ARRAYSIZE(NWendPeriod_s), ImGuiInputTextFlags_ReadOnly);
 
     ImGui::BulletText("Total Deposits   : ");
     static char totalDeposits[50] = {};
-    sprintf_s(totalDeposits, "%.2f", totalDeposits_d);
+    sprintf(totalDeposits, "%.2f", totalDeposits_d);
     ImGui::InputText("total deposits", totalDeposits, IM_ARRAYSIZE(totalDeposits), ImGuiInputTextFlags_ReadOnly);
 
     ImGui::BulletText("Total Interests  : ");
     static char totalInterests[50] = {};
-    sprintf_s(totalInterests, "%.2f", totalInterests_d);
+    sprintf(totalInterests, "%.2f", totalInterests_d);
     ImGui::InputText("total interests", totalInterests, IM_ARRAYSIZE(totalInterests), ImGuiInputTextFlags_ReadOnly);
 
     // Help Marker
@@ -382,7 +382,7 @@ void FinancialPlanner::ShowAccountManager()
             this->core->pushAccount(x);
 
             // Clean input fields
-            sprintf_s(account_name, "%s", "");
+            sprintf(account_name, "%s", "");
 
             // Update GUI
             this->accounts = core->getAccountsFromDb();
@@ -416,13 +416,13 @@ void FinancialPlanner::ShowAccountManager()
             float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
             char strBtnUpdateLabel[50] = {};
-            sprintf_s(strBtnUpdateLabel, "Update##Put_Button%d", i + 1);
+            sprintf(strBtnUpdateLabel, "Update##Put_Button%d", i + 1);
             if (ImGui::Button(strBtnUpdateLabel, buttonSize)) {
                 // Edit Account
             }
             ImGui::SameLine();
             char strBtnDeleteLabel[50] = {};
-            sprintf_s(strBtnDeleteLabel, "Delete##Del_Button%d", i + 1);
+            sprintf(strBtnDeleteLabel, "Delete##Del_Button%d", i + 1);
             if (ImGui::Button(strBtnDeleteLabel, buttonSize)) {
                 // Delete Account
                 this->core->deleteAccount(accounts[i]->id);
@@ -485,10 +485,10 @@ void FinancialPlanner::ShowCategoryManager()
         ImGui::RadioButton("Income", &cat_type, 0); ImGui::SameLine();
         ImGui::RadioButton("Expense", &cat_type, 1);
         if (cat_type == 0) {
-            sprintf_s(category_type, "%s", "In");
+            sprintf(category_type, "%s", "In");
         }
         else {
-            sprintf_s(category_type, "%s", "Out");
+            sprintf(category_type, "%s", "Out");
         }
 
     }
@@ -502,10 +502,10 @@ void FinancialPlanner::ShowCategoryManager()
 
     static char ButtonName[50] = {};
     if (newCat == 0) {
-        sprintf_s(ButtonName, "%s", "Add Category");
+        sprintf(ButtonName, "%s", "Add Category");
     }
     else {
-        sprintf_s(ButtonName, "%s", "Add Subcategory");
+        sprintf(ButtonName, "%s", "Add Subcategory");
     }
 
     if (ImGui::Button(ButtonName, ImVec2(dim_btn_small_x, dim_btn_small_y))) {
@@ -521,7 +521,7 @@ void FinancialPlanner::ShowCategoryManager()
                 SubCategory_p s = std::make_shared<SubCategory>();
                 s->id = 1;
                 char other[50] = "Other ";
-                s->Name = strcat_s(other, category_name);
+                s->Name = strcat(other, category_name);
                 x->subCategories.push_back(s);
 
                 if (!core->checkCategoryExists(x->Name)) {// check not already in the category list
@@ -533,8 +533,8 @@ void FinancialPlanner::ShowCategoryManager()
                 }
 
                 // Clean input fields
-                sprintf_s(category_name, "%s", "");
-                sprintf_s(sub_category_name, "%s", "");
+                sprintf(category_name, "%s", "");
+                sprintf(sub_category_name, "%s", "");
 
                 // Reload GUI
                 this->categories = core->getCategoriesFromDb();
@@ -558,8 +558,8 @@ void FinancialPlanner::ShowCategoryManager()
                 }
 
                 // Clean input fields
-                sprintf_s(category_name, "%s", "");
-                sprintf_s(sub_category_name, "%s", "");
+                sprintf(category_name, "%s", "");
+                sprintf(sub_category_name, "%s", "");
 
                 // Reload GUI
                 this->categories = core->getCategoriesFromDb();
@@ -605,7 +605,7 @@ void FinancialPlanner::ShowCategoryManager()
                 }
                 ImGui::SameLine();
                 char strBtnDeleteCatLabel[50] = {};
-                sprintf_s(strBtnDeleteCatLabel, "Delete##Del_Button_Category%d", i + 1);
+                sprintf(strBtnDeleteCatLabel, "Delete##Del_Button_Category%d", i + 1);
                 if (ImGui::Button(strBtnDeleteCatLabel, buttonSize)) {
                     // Delete Account
                     this->core->deleteCategory(categories[i]->id);
@@ -654,15 +654,15 @@ void FinancialPlanner::ShowInvCategoryManager()
     ImGui::RadioButton("Medium", &risk_profile, 1); ImGui::SameLine();
     ImGui::RadioButton("High", &risk_profile, 2);
     if (risk_profile == 0) {
-        sprintf_s(risk_profile_s, "%s", "Low");
+        sprintf(risk_profile_s, "%s", "Low");
     }else if (risk_profile == 1) {
-        sprintf_s(risk_profile_s, "%s", "Medium");
+        sprintf(risk_profile_s, "%s", "Medium");
     }else if (risk_profile == 2) {
-        sprintf_s(risk_profile_s, "%s", "High");
+        sprintf(risk_profile_s, "%s", "High");
     }
 
     static char ButtonName[50] = {};
-    sprintf_s(ButtonName, "%s", "Add New Investment Class");
+    sprintf(ButtonName, "%s", "Add New Investment Class");
 
     if (ImGui::Button(ButtonName, ImVec2(dim_btn_small_x, dim_btn_small_y))) {
         if (strcmp(category_name, "")) {
@@ -676,7 +676,7 @@ void FinancialPlanner::ShowInvCategoryManager()
             }
 
             // Clean input fields
-            sprintf_s(category_name, "%s", "");
+            sprintf(category_name, "%s", "");
 
             // Reload GUI (from db)
         }
@@ -1311,7 +1311,7 @@ void FinancialPlanner::ShowDemoWindow()
             for (int n = 0; n < 5; n++)
             {
                 char buf[32];
-                sprintf_s(buf, "Object %d", n);
+                sprintf(buf, "Object %d", n);
                 if (ImGui::Selectable(buf, selected == n))
                     selected = n;
             }
@@ -1325,7 +1325,7 @@ void FinancialPlanner::ShowDemoWindow()
             for (int n = 0; n < 5; n++)
             {
                 char buf[32];
-                sprintf_s(buf, "Object %d", n);
+                sprintf(buf, "Object %d", n);
                 if (ImGui::Selectable(buf, selection[n]))
                 {
                     if (!ImGui::GetIO().KeyCtrl)    // Clear selection when CTRL is not held
@@ -1356,7 +1356,7 @@ void FinancialPlanner::ShowDemoWindow()
                 for (int i = 0; i < 10; i++)
                 {
                     char label[32];
-                    sprintf_s(label, "Item %d", i);
+                    sprintf(label, "Item %d", i);
                     ImGui::TableNextColumn();
                     ImGui::Selectable(label, &selected[i]); // FIXME-TABLE: Selection overlap
                 }
@@ -1368,7 +1368,7 @@ void FinancialPlanner::ShowDemoWindow()
                 for (int i = 0; i < 10; i++)
                 {
                     char label[32];
-                    sprintf_s(label, "Item %d", i);
+                    sprintf(label, "Item %d", i);
                     ImGui::TableNextRow();
                     ImGui::TableNextColumn();
                     ImGui::Selectable(label, &selected[i], ImGuiSelectableFlags_SpanAllColumns);
@@ -1428,7 +1428,7 @@ void FinancialPlanner::ShowDemoWindow()
                 {
                     ImVec2 alignment = ImVec2((float)x / 2.0f, (float)y / 2.0f);
                     char name[32];
-                    sprintf_s(name, "(%.1f,%.1f)", alignment.x, alignment.y);
+                    sprintf(name, "(%.1f,%.1f)", alignment.x, alignment.y);
                     if (x > 0) ImGui::SameLine();
                     ImGui::PushStyleVar(ImGuiStyleVar_SelectableTextAlign, alignment);
                     ImGui::Selectable(name, &selected[3 * y + x], ImGuiSelectableFlags_None, ImVec2(80, 80));
@@ -1779,7 +1779,7 @@ void FinancialPlanner::ShowDemoWindow()
                 average += values[n];
             average /= (float)IM_ARRAYSIZE(values);
             char overlay[32];
-            sprintf_s(overlay, "avg %f", average);
+            sprintf(overlay, "avg %f", average);
             ImGui::PlotLines("Lines", values, IM_ARRAYSIZE(values), values_offset, overlay, -1.0f, 1.0f, ImVec2(0, 80.0f));
         }
 
@@ -1819,7 +1819,7 @@ void FinancialPlanner::ShowDemoWindow()
 
         float progress_saturated = IM_CLAMP(progress, 0.0f, 1.0f);
         char buf[32];
-        sprintf_s(buf, "%d/%d", (int)(progress_saturated * 1753), 1753);
+        sprintf(buf, "%d/%d", (int)(progress_saturated * 1753), 1753);
         ImGui::ProgressBar(progress, ImVec2(0.f, 0.f), buf);
         ImGui::TreePop();
     }

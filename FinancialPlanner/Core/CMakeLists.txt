@@ -9,4 +9,4 @@ add_library(
 )
 
 find_package(jsoncpp CONFIG REQUIRED)
-target_link_libraries(Core PRIVATE jsoncpp_lib jsoncpp_object JsonCpp::JsonCpp)
+target_link_libraries(Core PRIVATE jsoncpp_object jsoncpp_static JsonCpp::JsonCpp)
