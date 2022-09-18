@@ -1,4 +1,4 @@
-#include "Overview.h"
+#include "Overview.hpp"
 
 Overview::Overview(std::shared_ptr<Core> core)
 {
@@ -83,7 +83,7 @@ void Overview::Render()
 				ys.push_back(accountMonthlyRecords->accountMonthlyRecords.at(j)->Amount);
 			}
 			if (xs.size() != 0 && ys.size() != 0) {
-				pl.ShowLinePlot_def(str, xs.data(), ys.data(), (int)xs.size());
+                pl.ShowLinePlot_def(str, xs.data(), ys.data(), (int)xs.size());
 			}
 		}
 		ImPlot::EndSubplots();

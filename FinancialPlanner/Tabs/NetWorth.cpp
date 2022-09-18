@@ -1,4 +1,4 @@
-#include "NetWorth.h"
+#include "NetWorth.hpp"
 
 NetWorth::NetWorth(std::shared_ptr<Core> core) {
 	this->core = core;

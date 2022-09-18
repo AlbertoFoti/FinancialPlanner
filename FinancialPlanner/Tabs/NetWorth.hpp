@@ -3,8 +3,8 @@
 #include "imgui.h"
 #include "implot.h"
 #include "../Core/Core.h"
-#include "../Templates/Tab.h"
-#include "../Utility/Utility.h"
+#include "../Templates/Tab.hpp"
+#include "../Utility/Utility.hpp"
 #include <string>
 
 /**

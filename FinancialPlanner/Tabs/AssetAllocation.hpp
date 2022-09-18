@@ -1,9 +1,9 @@
 #pragma once
 
+#include "../Core/Core.h"
+#include "../Templates/Tab.hpp"
 #include "imgui.h"
 #include "implot.h"
-#include "../Core/Core.h"
-#include "../Templates/Tab.h"
 
 /**
  * @brief AssetAllocation Tab

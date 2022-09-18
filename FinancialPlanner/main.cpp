@@ -1,4 +1,4 @@
-#include "FinancialPlanner.h"
+#include "FinancialPlanner.hpp"
 
 // OpenGL glad, GLFW  (Renderer)
 #include "glad/glad.h"

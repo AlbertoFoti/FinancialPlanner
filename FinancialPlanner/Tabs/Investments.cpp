@@ -1,4 +1,4 @@
-#include "Investments.h"
+#include "Investments.hpp"
 
 Investments::Investments(std::shared_ptr<Core> core)
 {

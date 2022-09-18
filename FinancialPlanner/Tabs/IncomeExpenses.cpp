@@ -1,4 +1,4 @@
-#include "IncomeExpenses.h"
+#include "IncomeExpenses.hpp"
 
 IncomeExpenses::IncomeExpenses(std::shared_ptr<Core> core) {
 	this->core = core;

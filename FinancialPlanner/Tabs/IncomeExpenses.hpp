@@ -3,7 +3,7 @@
 #include "imgui.h"
 #include "implot.h"
 #include "../Core/Core.h"
-#include "../Templates/Tab.h"
+#include "../Templates/Tab.hpp"
 
 /**
  * @brief IncomeExpenses Tab

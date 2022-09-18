@@ -1,4 +1,4 @@
-#include "Plotter.h"
+#include "Plotter.hpp"
 
 #include <vector>
 

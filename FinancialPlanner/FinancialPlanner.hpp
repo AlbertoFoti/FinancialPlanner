@@ -10,13 +10,13 @@
 #include <vector>
 
 #include "Core/Core.h"
-#include "Tabs/IncomeExpenses.h"
-#include "Tabs/NetWorth.h"
-#include "Tabs/Overview.h"
-#include "Tabs/Investments.h"
-#include "Tabs/AssetAllocation.h"
-#include "Tabs/Forecasting.h"
-#include "Tabs/FIRE.h"
+#include "Tabs/IncomeExpenses.hpp"
+#include "Tabs/NetWorth.hpp"
+#include "Tabs/Overview.hpp"
+#include "Tabs/Investments.hpp"
+#include "Tabs/AssetAllocation.hpp"
+#include "Tabs/Forecasting.hpp"
+#include "Tabs/FIRE.hpp"
 
 /**
  * @brief Financial Planner : Main component managing views update and rendering

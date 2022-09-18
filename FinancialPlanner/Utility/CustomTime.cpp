@@ -1,4 +1,4 @@
-#include "CustomTime.h"
+#include "CustomTime.hpp"
 
 #include <time.h>
 

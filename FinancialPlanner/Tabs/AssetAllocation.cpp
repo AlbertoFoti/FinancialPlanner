@@ -1,4 +1,4 @@
-#include "AssetAllocation.h"
+#include "AssetAllocation.hpp"
 
 AssetAllocation::AssetAllocation(std::shared_ptr<Core> core)
 {

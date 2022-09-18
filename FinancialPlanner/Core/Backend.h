@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <fstream>
 #include "jsoncpp/json/json.h"
-#include "../Utility/Utility.h"
+#include "../Utility/Utility.hpp"
 
 // Account
 struct Account {

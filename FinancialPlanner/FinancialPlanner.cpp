@@ -1,4 +1,4 @@
-#include "FinancialPlanner.h"
+#include "FinancialPlanner.hpp"
 
 #define IM_CLAMP(V, MN, MX)     ((V) < (MN) ? (MN) : (V) > (MX) ? (MX) : (V))
 
@@ -192,7 +192,12 @@ void FinancialPlanner::ShowMainView()
         if (ImGui::BeginTabItem("Overview"))
         {
             Overview overview_renderer = Overview(this->core);
-            overview_renderer.Render();
+            static long setup = 0;
+            if( setup < 100 ) {
+                setup++;
+            } else {
+                overview_renderer.Render();
+            }
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Net Worth"))

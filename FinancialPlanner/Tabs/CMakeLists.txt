@@ -1,32 +1,29 @@
 cmake_minimum_required (VERSION 3.8)
 
+find_package(glad CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
+find_package(imgui CONFIG REQUIRED)
+
 add_library(
 	Tabs
-	Overview.h
+        Overview.hpp
 	Overview.cpp
-	NetWorth.h
+		NetWorth.hpp
 	NetWorth.cpp
-	IncomeExpenses.h
+		IncomeExpenses.hpp
 	IncomeExpenses.cpp
-	Investments.h
+		Investments.hpp
 	Investments.cpp
-	AssetAllocation.h
+		AssetAllocation.hpp
 	AssetAllocation.cpp
-	Forecasting.h
+		Forecasting.hpp
 	Forecasting.cpp
-	FIRE.h
+		FIRE.hpp
 	FIRE.cpp)
 
 #dependencies
 
-find_package(imgui CONFIG REQUIRED)
-target_link_libraries(Tabs PRIVATE imgui::imgui)
-
-find_package(glfw3 CONFIG REQUIRED)
-target_link_libraries(Tabs PRIVATE glfw)
-
-find_package(glad CONFIG REQUIRED)
 target_link_libraries(Tabs PRIVATE glad::glad)
-
-find_package(implot CONFIG REQUIRED)
-target_link_libraries(Tabs PRIVATE implot::implot)
+target_link_libraries(Tabs PRIVATE glfw)
+target_link_libraries(Tabs PRIVATE imgui::imgui)
+#target_link_libraries(Tabs PRIVATE implot::implot)
