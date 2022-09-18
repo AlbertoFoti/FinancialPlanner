@@ -1,4 +1,4 @@
-#include "AssetAllocation.h"
+#include "AssetAllocation.hpp"
 
 AssetAllocation::AssetAllocation(std::shared_ptr<Core> core)
 {
@@ -182,7 +182,7 @@ void AssetAllocation::AssetAllocationInvestment(int i, bool byPercentage, std::v
 
 	// Amount of the total money invested dedicated to this single investment
 	static char label_amount_invested[50] = "";
-	sprintf_s(label_amount_invested, "of total portfolio##AmountInvested%d", i);
+	sprintf(label_amount_invested, "of total portfolio##AmountInvested%d", i);
 	if(byPercentage){
 		ImGui::DragInt(label_amount_invested, &perc_invested.at(i), 1, 0, 100, "%d%%", ImGuiSliderFlags_AlwaysClamp);
 	}else{
@@ -198,7 +198,7 @@ void AssetAllocation::AssetAllocationInvestment(int i, bool byPercentage, std::v
 	}
 	ImGui::SameLine();
 	char strBtnDeleteInvestmentLabel[50] = {};
-	sprintf_s(strBtnDeleteInvestmentLabel, "Delete##Del_Button_Investment%d", i + 1);
+	sprintf(strBtnDeleteInvestmentLabel, "Delete##Del_Button_Investment%d", i + 1);
 	if (ImGui::Button(strBtnDeleteInvestmentLabel, buttonSize)) {
 
 	}

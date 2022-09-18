@@ -1,7 +1,6 @@
-#include "FinancialPlanner.h"
+#include "FinancialPlanner.hpp"
 
-// OpenGL glad, GLFW  (Window, Renderer)
-#include "windows.h"
+// OpenGL glad, GLFW  (Renderer)
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
@@ -15,12 +14,7 @@
  * @param nShowCmd 
  * @return int 
  */
-int WinMain(
-	HINSTANCE hInsstance,
-	HINSTANCE hPrevInstance,
-	LPSTR lcCmdLine,
-	int nShowCmd
-)
+int main()
 {
 	// Setup Window
 	if (!glfwInit())

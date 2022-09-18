@@ -1,4 +1,4 @@
-#include "IncomeExpenses.h"
+#include "IncomeExpenses.hpp"
 
 IncomeExpenses::IncomeExpenses(std::shared_ptr<Core> core) {
 	this->core = core;
@@ -43,6 +43,12 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 	ImGui::Text("Add new Transaction");
 
 	ImGui::Separator();
+
+    if( categories.size() == 0 ) {
+        ImGui::BulletText("No categories yet defined");
+        ImGui::End();
+        return;
+    }
 
 	date = calendarSelection();
 
@@ -146,7 +152,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 				core->pushTransaction(date->Month + 1, date->Year, x);
 
 				// Clean Input Fields
-				sprintf_s(amount_s, "");
+				sprintf(amount_s, "");
 			}
 		}
 
@@ -235,7 +241,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 				core->pushTransaction(date->Month + 1, date->Year, x);
 
 				// Clean Input Fields
-				sprintf_s(amount_s, "");
+				sprintf(amount_s, "");
 			}
 		}
 
@@ -393,7 +399,7 @@ void IncomeExpenses::ShowIncomeExpensesAggregate()
 						labels.push_back(x->Category.c_str());
 						data.push_back(fabs(x->Amount));
 					}
-					sprintf_s(str, "%s##%d_label_pie_chart_cat", elems_names[i], i);
+					sprintf(str, "%s##%d_label_pie_chart_cat", elems_names[i], i);
 					if (ImPlot::BeginPlot(str, ImVec2(-1,-1), ImPlotFlags_Equal | ImPlotFlags_NoMouseText)) {
 						ImPlot::SetupLegend(ImPlotLocation_West | ImPlotLocation_North, flags2);
 						ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_NoDecorations, ImPlotAxisFlags_NoDecorations);

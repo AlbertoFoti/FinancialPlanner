@@ -3,13 +3,13 @@
 #include "imgui.h"
 #include "implot.h"
 #include "../Core/Core.h"
-#include "../Templates/Tab.h"
+#include "../Templates/Tab.hpp"
 
 /**
- * @brief Forecasting Tab
+ * @brief FIRE Tab
  * 
  */
-class Forecasting : public Tab {
+class FIRE : public Tab {
 	/**
 	 * @brief Core component : Link with financial procedures and backend link
 	 * 
@@ -18,11 +18,11 @@ class Forecasting : public Tab {
     
 public:
 	/**
-	 * @brief Construct a new Forecasting Tab
+	 * @brief Construct a new FIRE Tab
 	 * 
 	 * @param core Core component : Link with financial procedures and backend link
 	 */
-	Forecasting(std::shared_ptr<Core> core);
+	FIRE(std::shared_ptr<Core> core);
 
 	/**
 	 * @brief Rendering

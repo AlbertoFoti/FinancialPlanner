@@ -1,4 +1,4 @@
-#include "FIRE.h"
+#include "FIRE.hpp"
 
 FIRE::FIRE(std::shared_ptr<Core> core)
 {

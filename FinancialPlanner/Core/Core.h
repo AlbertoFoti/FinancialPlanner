@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include "Backend.h"
-#include "../Utility/Utility.h"
+#include "../Utility/Utility.hpp"
 
 /**
  * @brief Core component : Link with financial procedures and backend link

@@ -4,8 +4,8 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
-#include "json/json.h"
-#include "../Utility/Utility.h"
+#include "jsoncpp/json/json.h"
+#include "../Utility/Utility.hpp"
 
 // Account
 struct Account {

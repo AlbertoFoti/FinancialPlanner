@@ -1,4 +1,4 @@
-#include "Investments.h"
+#include "Investments.hpp"
 
 Investments::Investments(std::shared_ptr<Core> core)
 {
@@ -101,7 +101,7 @@ void Investments::ShowInvestmentsOverview()
 	// Investments Line Plot
 	std::shared_ptr<AccountMonthlyDetails> x = core->getAccountMonthlyRecords(1);
 	static char str_line[100] = {};
-	sprintf_s(str_line, "##%d_label_investments_line_plot", x->AccountID);
+	sprintf(str_line, "##%d_label_investments_line_plot", x->AccountID);
 	for (int j = 0; j < x->accountMonthlyRecords.size(); j++) {
 		int m = x->accountMonthlyRecords.at(j)->Month;
 		int y = x->accountMonthlyRecords.at(j)->Year;
@@ -138,7 +138,7 @@ void Investments::ShowInvestmentsOverview()
 
 		// Plot 1
 		ys2.clear();
-		sprintf_s(str, "Investments Portfolio Growth (net)##%d_inv_plots", 0);
+		sprintf(str, "Investments Portfolio Growth (net)##%d_inv_plots", 0);
 		for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){
 			ys2.push_back(x->investments_variation);
 		}
@@ -148,7 +148,7 @@ void Investments::ShowInvestmentsOverview()
 
 		// Plot 2
 		ys2.clear();
-		sprintf_s(str, "Investments Portfolio Growth (net) [%%]##%d_label_inv_plots", 2);
+		sprintf(str, "Investments Portfolio Growth (net) [%%]##%d_label_inv_plots", 2);
 		for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){
 			double initial_inv = x->initial_capital - x->deposits - x->investments_variation;
 			ys2.push_back(100 * x->investments_variation / initial_inv);
@@ -233,7 +233,7 @@ void Investments::ShowInvestmentsBreakdown()
 			if(!cumulative){
 				// Plot 1
 				ys.clear();
-				sprintf_s(str, "Investments Portfolio Growth (net)##%d_label_inv_plots", 0);
+				sprintf(str, "Investments Portfolio Growth (net)##%d_label_inv_plots", 0);
 				for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){
 					ys.push_back(x->investments_variation);
 				}
@@ -243,7 +243,7 @@ void Investments::ShowInvestmentsBreakdown()
 
 				// Plot 2
 				ys.clear();
-				sprintf_s(str, "Investments Portfolio Growth##%d_label_inv_plots", 1);
+				sprintf(str, "Investments Portfolio Growth##%d_label_inv_plots", 1);
 				for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){
 					ys.push_back(x->deposits + x->investments_variation);
 				}
@@ -253,7 +253,7 @@ void Investments::ShowInvestmentsBreakdown()
 
 				// Plot 3
 				ys.clear();
-				sprintf_s(str, "Investments Portfolio Growth (net) [%%]##%d_label_inv_plots", 2);
+				sprintf(str, "Investments Portfolio Growth (net) [%%]##%d_label_inv_plots", 2);
 				for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){
 					double initial_inv = x->initial_capital - x->deposits - x->investments_variation;
 					ys.push_back(100 * x->investments_variation / initial_inv);
@@ -264,7 +264,7 @@ void Investments::ShowInvestmentsBreakdown()
 
 				// Plot 4
 				ys.clear();
-				sprintf_s(str, "Investments Portfolio Growth [%%]##%d_label_inv_plots", 3);
+				sprintf(str, "Investments Portfolio Growth [%%]##%d_label_inv_plots", 3);
 				for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){
 					double initial_inv = x->initial_capital - x->deposits - x->investments_variation;
 					ys.push_back(100 * (x->deposits + x->investments_variation) / initial_inv);
@@ -276,7 +276,7 @@ void Investments::ShowInvestmentsBreakdown()
 			else {
 				// Plot 1
 				ys.clear();
-				sprintf_s(str, "Cumulative Investments Portfolio Growth (net)##%d_label_inv_plots", 0);
+				sprintf(str, "Cumulative Investments Portfolio Growth (net)##%d_label_inv_plots", 0);
 				int i = 0;
 				for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){
 					if( i!= 0)
@@ -291,7 +291,7 @@ void Investments::ShowInvestmentsBreakdown()
 
 				// Plot 2
 				ys.clear();
-				sprintf_s(str, "Cumulative Investments Portfolio Growth##%d_label_inv_plots", 1);
+				sprintf(str, "Cumulative Investments Portfolio Growth##%d_label_inv_plots", 1);
 				i = 0;
 				for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){
 					if( i!= 0)
@@ -306,7 +306,7 @@ void Investments::ShowInvestmentsBreakdown()
 
 				// Plot 3
 				ys.clear();
-				sprintf_s(str, "Cumulative Investments Portfolio Growth (net) [%%]##%d_label_inv_plots", 2);
+				sprintf(str, "Cumulative Investments Portfolio Growth (net) [%%]##%d_label_inv_plots", 2);
 				double base_capital = 0.0;
 				i = 0;
 				for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){
@@ -325,7 +325,7 @@ void Investments::ShowInvestmentsBreakdown()
 
 				// Plot 4
 				ys.clear();
-				sprintf_s(str, "Cumulative Investments Portfolio Growth [%%]##%d_label_inv_plots", 3);
+				sprintf(str, "Cumulative Investments Portfolio Growth [%%]##%d_label_inv_plots", 3);
 				base_capital = 0.0;
 				i = 0;
 				for(auto x : this->yearlyInvestmentsReport->monthlyInvestmentsReports){

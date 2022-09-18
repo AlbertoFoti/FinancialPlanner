@@ -1,4 +1,4 @@
-#include "Forecasting.h"
+#include "Forecasting.hpp"
 
 Forecasting::Forecasting(std::shared_ptr<Core> core)
 {

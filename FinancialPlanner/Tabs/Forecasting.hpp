@@ -3,38 +3,26 @@
 #include "imgui.h"
 #include "implot.h"
 #include "../Core/Core.h"
-#include "../Templates/Tab.h"
-#include "../Utility/Utility.h"
+#include "../Templates/Tab.hpp"
 
 /**
- * @brief Overview Tab
+ * @brief Forecasting Tab
  * 
  */
-class Overview : public Tab {
+class Forecasting : public Tab {
 	/**
 	 * @brief Core component : Link with financial procedures and backend link
 	 * 
 	 */
 	std::shared_ptr<Core> core;
-
-	/**
-	 * @brief Temporary Data Structure to store NW-records
-	 * 
-	 */
-	std::vector<NW_record_p> NW_records;
-
-	/**
-	 * @brief Temporary Data Structure to store account monthly records
-	 * 
-	 */
-	AccountMonthlyDetails_p accountMonthlyRecords;
+    
 public:
 	/**
-	 * @brief Construct a new Overview Tab
+	 * @brief Construct a new Forecasting Tab
 	 * 
 	 * @param core Core component : Link with financial procedures and backend link
 	 */
-	Overview(std::shared_ptr<Core> core);
+	Forecasting(std::shared_ptr<Core> core);
 
 	/**
 	 * @brief Rendering
