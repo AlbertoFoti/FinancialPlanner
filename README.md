@@ -1,10 +1,19 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.2.7**
+Current Stable Version : **Version 0.3.0**
+
+## License and Copyright
+� 2022 Alberto Foti. All Rights Reserved.
 
 ## For Final Users
 There isn't a proper installation procedure yet. (The product is still in development)
+
+## Images
+![alt text](./images/unknown_019.png)
+![alt text](./images/unknown_020.png)
+![alt text](./images/unknown_021.png)
+
 
 ## Future Objectives
 - Deployment (installer wizard or something similar)
@@ -67,6 +76,3 @@ There isn't a proper installation procedure yet. (The product is still in develo
 - jsoncpp to manage JSON files in c++
 - Font list: Blender Pro, Roboto<br>
 <div>Font made from <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a> is licensed by CC BY 3.0</div>
-
-## License and Copyright
-� 2022 Alberto Foti. All Rights Reserved.

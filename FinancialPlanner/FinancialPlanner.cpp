@@ -193,7 +193,7 @@ void FinancialPlanner::ShowMainView()
         {
             Overview overview_renderer = Overview(this->core);
             static long setup = 0;
-            if( setup < 100 ) {
+            if( setup < 25 ) {
                 setup++;
             } else {
                 overview_renderer.Render();
