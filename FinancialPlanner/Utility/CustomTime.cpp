@@ -1,6 +1,6 @@
 #include "CustomTime.hpp"
 
-#include <time.h>
+#include <ctime>
 
 int getMSMtime(int month, int year)
 {
@@ -33,7 +33,7 @@ std::string getYearfromMSM_s(int msmDate)
 double getUNIXtime(int month, int year)
 {
 	/* get current timeinfo: */
-	const time_t rawtime = time(0);
+	const time_t rawtime = time(nullptr);
 	/* convert to struct: */
     tm* timeinfo = localtime(&rawtime);
 
@@ -60,7 +60,7 @@ double fromMSMtoUNIXtime(int msmDate)
 int getCurrentYear()
 {
 	/* get current timeinfo: */
-    const time_t rawtime = time(0);
+    const time_t rawtime = time(nullptr);
 	/* convert to struct: */
 	tm* timeinfo = localtime(&rawtime);
 	/* now modify the timeinfo to the given date: */

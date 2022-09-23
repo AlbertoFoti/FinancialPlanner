@@ -14,7 +14,10 @@ void Forecasting::Render()
 
 void Forecasting::ShowControlPanel(std::string panel_name)
 {
-	ImGui::Begin(panel_name.c_str());
-	ImGui::Text(panel_name.c_str());
+    static char c_str[50];
+    sprintf(c_str, "%s", panel_name.c_str());
+
+	ImGui::Begin(c_str);
+	ImGui::Text("%s", c_str);
 	ImGui::End();
 }

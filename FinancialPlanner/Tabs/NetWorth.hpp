@@ -2,7 +2,7 @@
 
 #include "imgui.h"
 #include "implot.h"
-#include "../Core/Core.h"
+#include "../Core/Core.hpp"
 #include "../Templates/Tab.hpp"
 #include "../Utility/Utility.hpp"
 #include <string>
@@ -29,18 +29,18 @@ public:
 	 * 
 	 * @param core Core component : Link with financial procedures and backend link
 	 */
-	NetWorth(std::shared_ptr<Core> core);
+	explicit NetWorth(std::shared_ptr<Core> core);
 
 	/**
 	 * @brief Rendering
 	 * 
 	 */
-	void Render();
+	void Render() override;
 
 	/**
 	 * @brief Show Right Control Panel
 	 * 
 	 * @param panel_name self-explanatory
 	 */
-	void ShowControlPanel(std::string panel_name);
+	void ShowControlPanel(std::string panel_name) override;
 };

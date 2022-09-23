@@ -3,6 +3,9 @@
 Overview::Overview(std::shared_ptr<Core> core)
 {
 	this->core = core;
+
+    // Accounts
+    this->accounts = this->core->getAccountsFromDb();
 }
 
 void Overview::Render()
@@ -24,7 +27,7 @@ void Overview::Render()
 	ImGui::Text("Current Net Worth : "); ImGui::SameLine();
 	ImGui::PopFont();
 	ImGui::PushFont(blenderProThin_xl);
-	if (NW_records.size() == 0) {
+	if (NW_records.empty()) {
 		ImGui::Text("0.00 EUR");
 	}
 	else {
@@ -46,12 +49,12 @@ void Overview::Render()
 	dates.clear();
 	closes.clear();
 
-	if (NW_records.size() == 0) {
+	if (NW_records.empty()) {
 		// Default empty plot
 		pl.ShowEmptyPlot("##Empty_plot_overview");
 	}
 	else {
-		for (NW_record_p x : this->NW_records) {
+		for (const NW_record_p& x : this->NW_records) {
 			dates.push_back(getUNIXtime(x->Month, x->Year));
 			closes.push_back(x->ClosingWorth);
 		}
@@ -75,26 +78,133 @@ void Overview::Render()
 			this->accountMonthlyRecords = core->getAccountMonthlyRecords(core->getIDfromIndex(i));
 			char str[100] = {};
 			sprintf(str, "%s##%d_label_account_plots", core->getAccountName(accountMonthlyRecords->AccountID).c_str(), accountMonthlyRecords->AccountID);
-			for (int j = 0; j < accountMonthlyRecords->accountMonthlyRecords.size(); j++) {
-				int m = accountMonthlyRecords->accountMonthlyRecords.at(j)->Month;
-				int y = accountMonthlyRecords->accountMonthlyRecords.at(j)->Year;
+			for (auto & accountMonthlyRecord : accountMonthlyRecords->accountMonthlyRecords) {
+				int m = accountMonthlyRecord->Month;
+				int y = accountMonthlyRecord->Year;
 				double t = getUNIXtime(m, y);
 				xs.push_back(t);
-				ys.push_back(accountMonthlyRecords->accountMonthlyRecords.at(j)->Amount);
+				ys.push_back(accountMonthlyRecord->Amount);
 			}
-			if (xs.size() != 0 && ys.size() != 0) {
+			if (!xs.empty() && !ys.empty()) {
                 pl.ShowLinePlot_def(str, xs.data(), ys.data(), (int)xs.size());
 			}
 		}
 		ImPlot::EndSubplots();
 	}
 
-	ShowControlPanel("Overview Control Panel");
+	this->ShowAccountManager();
 }
 
 void Overview::ShowControlPanel(std::string panel_name)
 {
 	ImGui::Begin(panel_name.c_str());
-	ImGui::Text(panel_name.c_str());
+	ImGui::Text("%s", panel_name.c_str());
 	ImGui::End();
+}
+
+void Overview::ShowAccountManager()
+{
+    // Fonts
+    ImGuiIO& io = ImGui::GetIO();
+    auto robotoProThin_l = io.Fonts->Fonts[23];
+
+    // Begin
+    ImGui::Begin("Account Manager");
+
+    // Retrieve accounts
+    this->accounts = core->getAccounts();
+
+    // dims
+    float win_dim_x = ImGui::GetWindowWidth();
+    float win_dim_y = ImGui::GetWindowHeight();
+    float dim_btn_big_x = win_dim_x*0.30f;
+    float dim_btn_big_y = win_dim_y*0.05f;
+    float dim_btn_small_x = win_dim_x*0.30f;
+    float dim_btn_small_y = win_dim_y*0.03f;
+    if(dim_btn_big_y < 50.0f) dim_btn_big_y = 50;
+    if(dim_btn_small_y < 50.0f) dim_btn_small_y = 50;
+
+    ImGui::Spacing();
+    if(ImGui::Button("Reload Accounts", ImVec2(dim_btn_big_x, dim_btn_big_y))) {
+        this->accounts = this->core->getAccountsFromDb();
+    }
+    ImGui::Separator();
+
+    // New Account Form
+    ImGui::BulletText("Account Name");
+    static char account_name[50] = {};
+    ImGui::InputTextWithHint("##AN", "Bank/Cash/Investments/Savings", account_name, IM_ARRAYSIZE(account_name));
+
+    if (ImGui::Button("Add Account", ImVec2(dim_btn_small_x, dim_btn_small_y))) {
+
+        if (strcmp(account_name, "")) {
+            // New Account instance
+            Account_p x = std::make_shared<Account>();
+            x->id = accounts[accounts.size() - 1]->id + 1;
+            x->name = account_name;
+            x->AmountStored = 0.0;
+
+            // Todo: write in json file database
+            this->core->pushAccount(x);
+
+            // Clean input fields
+            sprintf(account_name, "%s", "");
+
+            // Update GUI
+            this->accounts = core->getAccountsFromDb();
+        }
+        else {
+            ImGui::OpenPopup("Something went wrong");
+        }
+    }
+    if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
+        ImGui::Separator();
+
+        if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+        ImGui::EndPopup();
+    }
+    ImGui::Separator();
+
+    ImGui::TextUnformatted("Accounts");
+    ImGui::Separator();
+
+    // List of all accounts
+    for (int i = 0; i < this->accounts.size(); i++) {
+        ImGui::Text("%d. ", i+1); ImGui::SameLine();
+        ImGui::Text("%s", accounts.at(i)->name.c_str());
+
+        // Edit and Delete Buttons aligned right
+        if(accounts.at(i)->id != 1){
+            ImGui::SameLine();
+            ImVec2 buttonSize(115.f, 0.f);
+            float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
+            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
+            char strBtnUpdateLabel[50] = {};
+            sprintf(strBtnUpdateLabel, "Update##Put_Button%d", i + 1);
+            if (ImGui::Button(strBtnUpdateLabel, buttonSize)) {
+                // Edit Account
+            }
+            ImGui::SameLine();
+            char strBtnDeleteLabel[50] = {};
+            sprintf(strBtnDeleteLabel, "Delete##Del_Button%d", i + 1);
+            if (ImGui::Button(strBtnDeleteLabel, buttonSize)) {
+                // Delete Account
+                this->core->deleteAccount(accounts[i]->id);
+            }
+        }
+
+        ImGui::Text("- "); ImGui::SameLine();
+
+        ImGui::PushFont(robotoProThin_l);
+        if (accounts.at(i)->AmountStored >= 1000)
+            ImGui::Text("%.2fk EUR", accounts.at(i)->AmountStored/1000);
+        else
+            ImGui::Text("%.2f EUR", accounts.at(i)->AmountStored);
+        ImGui::PopFont();
+        ImGui::Separator();
+    }
+
+    ImGui::End();
 }

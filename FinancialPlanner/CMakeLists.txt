@@ -31,3 +31,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 target_link_libraries(${PROJECT_NAME} PRIVATE imgui::imgui)
 target_link_libraries(${PROJECT_NAME} PRIVATE implot::implot)
 target_link_libraries(${PROJECT_NAME} PRIVATE jsoncpp_object jsoncpp_static JsonCpp::JsonCpp)
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/imgui.ini
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

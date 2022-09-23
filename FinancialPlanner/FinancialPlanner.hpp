@@ -8,8 +8,10 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <forward_list>
 
-#include "Core/Core.h"
+#include "Tabs/Manager.hpp"
+#include "Core/Core.hpp"
 #include "Tabs/IncomeExpenses.hpp"
 #include "Tabs/NetWorth.hpp"
 #include "Tabs/Overview.hpp"
@@ -66,7 +68,7 @@ public:
 	void Render();
 
 	/**
-	 * @brief Shutsdown ImGui and ImPlot context, rendering API cleanup.
+	 * @brief ImGui and ImPlot context Shutdown, rendering API cleanup.
 	 * 
 	 */
 	void Shutdown();
@@ -78,101 +80,14 @@ public:
 	void NewFrame();
 
 private:
+    /**
+     * @brief Function to display all custom GUIs
+     */
+    void ShowGUI();
+
 	/**
 	 * @brief Central View Rendering
 	 * 
 	 */
 	void ShowMainView();
-
-	/**
-	 * @brief Left Panel View : shows compound interest calculator panel
-	 * 
-	 * @param nameGUI Panel Name
-	 */
-	void ShowCompoundInterestCalculator(const char* nameGUI);
-
-	/**
-	 * @brief Left Panel View : shows account manager panel
-	 * 
-	 */
-	void ShowAccountManager();
-
-	/**
-	 * @brief Left Panel View : shows category manager panel
-	 * 
-	 */
-	void ShowCategoryManager();
-
-	/**
-	 * @brief Left Panel View : shows investments category manager panel
-	 * 
-	 */
-	void ShowInvCategoryManager();
-
-	/**
-	 * @brief Demo View : ImGui Demo panel
-	 * 
-	 */
-	void ShowDemoWindow();
-
-	/**
-	 * @brief Demo View : ImPlot Demo panel
-	 * 
-	 */
-	void ShowDemoPlot();
-
-	/**
-	 * @brief Demo View : Fonts Testing panel
-	 * 
-	 */
-	void ShowFontTesting();
-
-	/**
-	 * @brief Utility : ImGui Configuration Options/Settings
-	 * 
-	 * @param label 
-	 * @return ignore 
-	 * @return ignore 
-	 */
-	bool ShowStyleSelectorGUI(const char* label);
-
-	/**
-	 * @brief Utility : ImPlot Configuration Options/Settings
-	 * 
-	 * @param label 
-	 * @return ignore 
-	 * @return ignore 
-	 */
-	bool ShowStyleSelectorPLOT(const char* label);
-
-	/**
-	 * @brief Set Custom "Dark" Theme Colors
-	 * 
-	 */
-	void SetDarkThemeColors();
-
-	/**
-	 * @brief Utility : shows Helper Marker
-	 * 
-	 * @param desc 
-	 */
-	void HelpMarker(const char* desc);
-
-	/**
-	 * @brief Load Fonts
-	 * 
-	 */
-	void loadFonts();
-
-	/**
-	 * @brief Set the Theme
-	 * 
-	 */
-	void setTheme();
-
-	/**
-	 * @brief Set the Minimum Size of a Window 
-	 * 
-	 */
-	float setMinimumSizeWindow();
 };

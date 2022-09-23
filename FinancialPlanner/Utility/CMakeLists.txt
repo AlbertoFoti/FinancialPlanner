@@ -5,15 +5,13 @@ find_package(implot CONFIG REQUIRED)
 
 add_library(
 	Utility
-	"Utility.hpp"
-	"CustomTime.hpp"
-	"CustomTime.cpp"
-	"CustomSort.hpp"
-	"CustomSort.cpp"
-	"Custom_Widgets.hpp"
-	"Custom_Widgets.cpp"
-	"Plotter.hpp"
-	"Plotter.cpp"
+		"Utility.hpp"
+	"CustomTime.hpp" "CustomTime.cpp"
+	"CustomSort.hpp" "CustomSort.cpp"
+	"Custom_Widgets.hpp" "Custom_Widgets.cpp"
+	"Plotter.hpp" "Plotter.cpp"
+	"StyleAndTheme.hpp" "StyleAndTheme.cpp"
+	"Colors.hpp" "Colors.cpp"
 )
 
 target_link_libraries(Utility PRIVATE imgui::imgui)

@@ -1,4 +1,5 @@
 #include "AssetAllocation.hpp"
+#include "../Utility/Utility.hpp"
 
 AssetAllocation::AssetAllocation(std::shared_ptr<Core> core)
 {

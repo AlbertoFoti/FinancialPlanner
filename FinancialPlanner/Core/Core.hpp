@@ -2,8 +2,7 @@
 
 #include <iostream>
 #include <string>
-#include "Backend.h"
-#include "../Utility/Utility.hpp"
+#include "Backend.hpp"
 
 /**
  * @brief Core component : Link with financial procedures and backend link
@@ -51,6 +50,11 @@ class Core {
 	 *
 	*/
 	YearlyInvestmentsReport_p YearlyInvestmentsReport;
+
+    /**
+     * Configuration data for Fonts and sizing
+     */
+    Config_p config;
 
 	//MonthlyAggrAccountReport_p monthlyAccountsReport;
 	//MonthlyAggrSubCategoryReport_p monthlySubCategoryReport;
@@ -277,9 +281,16 @@ public:
 	MonthlyAggrCategoryReport_p getAggrCatReportWithoutInvestments(int month, int year);
 
 	/**
-	 * @brief Get the Config object
+	 * @brief Get the Config object from Database
 	 * 
 	 * @return config_t 
 	 */
-	config_t getConfig();
+	Config_p getConfigFromDb();
+
+    /**
+	 * @brief Get the locally cached config data
+	 *
+	 * @return config_t
+	 */
+    Config_p getConfig();
 };

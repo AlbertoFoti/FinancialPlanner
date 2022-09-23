@@ -36,7 +36,7 @@ public:
 	 * 
 	 * @param label_id unique id of the plot
 	 */
-	void ShowEmptyPlot(const char* label_id);
+	static void ShowEmptyPlot(const char* label_id);
 
 	/**
 	 * @brief Line Plot (default)
@@ -46,7 +46,7 @@ public:
 	 * @param ys y-axis values vector 
 	 * @param count number of data-points
 	 */
-	void ShowLinePlot_def(const char* label_id, const double* xs, const double* ys, int count);
+	static void ShowLinePlot_def(const char* label_id, const double* xs, const double* ys, int count);
 	
 	/**
 	 * @brief Candle Bar Plot (Custom)
@@ -66,7 +66,7 @@ public:
 	 * @param y_min y-axis left limit
 	 * @param y_max y-axis left limit
 	 */
-	void ShowCandleBarsPlot(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count, float width_percent, ImVec4 bullCol, ImVec4 bearCol, double x_from, double x_to, double y_min, double y_max);
+	static void ShowCandleBarsPlot(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count, float width_percent, ImVec4 bullCol, ImVec4 bearCol, double x_from, double x_to, double y_min, double y_max);
 
 	/**
 	 * @brief Candle Bar Plot (Default)
@@ -79,16 +79,16 @@ public:
 	 * @param highs y-axis high values vector
 	 * @param count number of data-points
 	 */
-	void ShowCandleBarsPlot_default(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count);
+	static void ShowCandleBarsPlot_default(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count);
 
 	/**
 	 * @brief Empty Bar Groups plot (for debug and GUI planning)
 	 * 
 	 * @param label_id self-explanatory
 	 */
-	void ShowBarGroupsPlot_empty(const char* label_id);
+	static void ShowBarGroupsPlot_empty(const char* label_id);
 
-	void ShowBarGroupsPlot_default(const char* label_id, const double* data, int count);
+	static void ShowBarGroupsPlot_default(const char* label_id, const double* data, int count);
 private:
 	/**
 	 * @brief Primitive to build candle bar plots
@@ -104,5 +104,5 @@ private:
 	 * @param bullCol Positive Candle Color
 	 * @param bearCol Negative Candle Color
 	 */
-	void CandleBarsPlot(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count, float width_percent, ImVec4 bullCol, ImVec4 bearCol);
+	static void CandleBarsPlot(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count, float width_percent, ImVec4 bullCol, ImVec4 bearCol);
 };

@@ -1,7 +1,7 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.3.0**
+Current Stable Version : **Version 0.3.1**
 
 ## License and Copyright
 � 2022 Alberto Foti. All Rights Reserved.
@@ -20,25 +20,29 @@ There isn't a proper installation procedure yet. (The product is still in develo
 - Software Icon
 - Allow currency customization
 - System to manage multiple accounts [Edit]
-- Category/Subcategory Manager [Edit]
-- Subcategory Manager [Delete]
+- Category/sub_category Manager [Edit]
+- sub_category Manager [Delete]
 - Transactions operations [Edit] [Delete] done with popup forms
 - Asset allocation new record [Edit] [Delete] done with popup forms
+- Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
+- Investments Tab : breakdown [5 years, 10 years, 25 years, 50 years] views
 - Income/Expenses second plots page (other plots :) )
 - Forecasting tab
 - FIRE tab
 
 ## Version 0.4.0 Objectives
-- Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
-- Investments Tab : breakdown [5 years, 10 years, 25 years, 50 years] views
-- fix: bugs hunting
 - fix: when deleting account proceed in deleting all account related transactions (give an option to clear or not the data) and manage account accesses/conflicts after delete
-
-### Version 0.3.5 Objectives
-- Asset Allocation tab : backend logic (assets, location, currency exposure, ...)
 - Dynamic GUI: 1080p / 2k versions
-- Dynamic Investment Classes Manager (with backend integration)
+- Asset Allocation tab : backend logic (assets, location, currency exposure, ...)
 - refactor: function to get proper button sizes (dynamic button sizes clean and organized)
+
+## Version 0.3.2 Objectives
+- Dynamic Investment Classes Manager (with backend integration)
+
+## Version 0.3.x Features
+- fix: bugs hunting
+- refactor: warnings, fixes, deprecated functions
+- GUI: new layout (+ Manager tab)
 
 ### Versions 0.2.x Features
 - 0.3.0 Stable version. Multiplatform capabilities.
@@ -60,7 +64,7 @@ There isn't a proper installation procedure yet. (The product is still in develo
 ### Versions 0.1.x Features
 - 0.2.0 : Delete accounts enabled, Category delete
 - 0.1.9 : database upgrade, Accounts tracking and plots, Net Worth / IncomeExpenses / Account tabs link implementation
-- 0.1.8 : Backend System upgrade (modularity, enabling sorting, ...), Income/Expenses (GUI, details tab), Category/Subcategory Manager
+- 0.1.8 : Backend System upgrade (modularity, enabling sorting, ...), Income/Expenses (GUI, details tab), Category/sub_category Manager
 - 0.1.7 : Font/themes options, Backend System, System to manage multiple accounts, NW tab : GUI structure + backend link
 - 0.1.6 : new windows/tabs (basic GUI structure), Source files structure upgrade and fix
 - 0.1.5 : Style: Dark mode upgrade, Font: Whole Blender Pro Package imported

@@ -2,7 +2,7 @@
 
 #include "imgui.h"
 #include "implot.h"
-#include "../Core/Core.h"
+#include "../Core/Core.hpp"
 #include "../Templates/Tab.hpp"
 #include "../Utility/Utility.hpp"
 
@@ -28,24 +28,36 @@ class Overview : public Tab {
 	 * 
 	 */
 	AccountMonthlyDetails_p accountMonthlyRecords;
+
+    /**
+    * @brief Temporary Data Structure to store accounts
+    *
+    */
+    std::vector<Account_p> accounts;
 public:
 	/**
 	 * @brief Construct a new Overview Tab
 	 * 
 	 * @param core Core component : Link with financial procedures and backend link
 	 */
-	Overview(std::shared_ptr<Core> core);
+	explicit Overview(std::shared_ptr<Core> core);
 
 	/**
 	 * @brief Rendering
 	 * 
 	 */
-	void Render();
+	void Render() override;
 
 	/**
 	 * @brief Show Right Control Panel
 	 * 
 	 * @param panel_name self-explanatory
 	 */
-	void ShowControlPanel(std::string panel_name);
+	void ShowControlPanel(std::string panel_name) override;
+
+    /**
+    * @brief Panel View : shows account manager panel
+    *
+    */
+    void ShowAccountManager();
 };

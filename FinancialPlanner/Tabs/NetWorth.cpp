@@ -14,15 +14,13 @@ void NetWorth::Render()
 	// Net Worth Data
 	this->NW_records = this->core->getNWdata();
 
-	ImGui::ShowDemoWindow();
-
 	// Current Net Worth
 	ImGui::Spacing();
 	ImGui::PushFont(blenderProHeavy_xl);
 	ImGui::Text("Current Net Worth : "); ImGui::SameLine();
 	ImGui::PopFont();
 	ImGui::PushFont(blenderProThin_xl);
-	if (NW_records.size() == 0) {
+	if (NW_records.empty()) {
 		ImGui::Text("0.00 EUR");
 	}
 	else {
@@ -105,14 +103,14 @@ void NetWorth::Render()
 	std::vector<double> highs;
 	std::vector<double> closes;
 
-	if (NW_records.size() == 0) {
+	if (NW_records.empty()) {
 		// Default empty plot
 		pl.ShowEmptyPlot("##Empty_plot_1");
 		pl.ShowEmptyPlot("##Empty_plot_2");
 	}
 	else {
 		// Fill vectors
-		for (NW_record_p x : this->NW_records) {
+		for (const NW_record_p& x : this->NW_records) {
 			dates.push_back(getUNIXtime(x->Month, x->Year));
 			opens.push_back(x->OpeningWorth);
 			lows.push_back(x->LowWorth);
@@ -139,11 +137,6 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 	static bool byMonth = true;
 	ImGui::Checkbox("Show by Month", &byMonth);
 
-	// Fonts
-	//ImGuiIO& io = ImGui::GetIO();
-	//auto robotoProThin_m = io.Fonts->Fonts[16];
-	//ImGui::PushFont(robotoProThin_m);
-
 	ImGui::Separator();
 	ImGui::Spacing();
 
@@ -152,9 +145,6 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 	{
 		double delta;
 		double delta_perc;
-
-		ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
-		ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
 
 		// headers
 		ImGui::TableSetupColumn("Date");
@@ -239,8 +229,6 @@ void NetWorth::ShowControlPanel(std::string panel_name)
 
 		ImGui::EndTable();
 	}
-
-	//ImGui::PopFont();
 
 	ImGui::End();
 }
