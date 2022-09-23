@@ -1,7 +1,7 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.3.0**
+Current Stable Version : **Version 0.3.1**
 
 ## License and Copyright
 � 2022 Alberto Foti. All Rights Reserved.
@@ -35,10 +35,11 @@ There isn't a proper installation procedure yet. (The product is still in develo
 - Asset Allocation tab : backend logic (assets, location, currency exposure, ...)
 - Dynamic GUI: 1080p / 2k versions
 - Dynamic Investment Classes Manager (with backend integration)
+- refactor: function to get proper button sizes (dynamic button sizes clean and organized)
 
 ## Version 0.3.1 Objectives
 - fix: bugs hunting
-- refactor: function to get proper button sizes (dynamic button sizes clean and organized)
+- refactor: warnings, fixes, deprecated functions
 - GUI: new layout (+ Manager tab)
 
 ### Versions 0.2.x Features
