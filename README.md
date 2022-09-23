@@ -24,20 +24,22 @@ There isn't a proper installation procedure yet. (The product is still in develo
 - sub_category Manager [Delete]
 - Transactions operations [Edit] [Delete] done with popup forms
 - Asset allocation new record [Edit] [Delete] done with popup forms
+- Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
+- Investments Tab : breakdown [5 years, 10 years, 25 years, 50 years] views
 - Income/Expenses second plots page (other plots :) )
 - Forecasting tab
 - FIRE tab
 
 ## Version 0.4.0 Objectives
-- Income/Expenses : Overview tab [monthly by subcat, yearly by subcat]
-- Investments Tab : breakdown [5 years, 10 years, 25 years, 50 years] views
 - fix: when deleting account proceed in deleting all account related transactions (give an option to clear or not the data) and manage account accesses/conflicts after delete
-- Asset Allocation tab : backend logic (assets, location, currency exposure, ...)
 - Dynamic GUI: 1080p / 2k versions
-- Dynamic Investment Classes Manager (with backend integration)
+- Asset Allocation tab : backend logic (assets, location, currency exposure, ...)
 - refactor: function to get proper button sizes (dynamic button sizes clean and organized)
 
-## Version 0.3.1 Objectives
+## Version 0.3.2 Objectives
+- Dynamic Investment Classes Manager (with backend integration)
+
+## Version 0.3.x Features
 - fix: bugs hunting
 - refactor: warnings, fixes, deprecated functions
 - GUI: new layout (+ Manager tab)
