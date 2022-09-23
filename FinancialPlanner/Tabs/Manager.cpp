@@ -16,7 +16,7 @@ void Manager::Render()
     this->ShowAccountManager();
     this->ShowCategoryManager();
     this->ShowInvCategoryManager();
-    //this->ShowCompoundInterestCalculator("Compound Interest Calculator");
+    this->ShowCompoundInterestCalculator("Compound Interest Calculator");
 
     this->ShowFontTesting();
     ImGui::ShowDemoWindow();
@@ -25,8 +25,11 @@ void Manager::Render()
 
 void Manager::ShowControlPanel(std::string panel_name)
 {
-    ImGui::Begin(panel_name.c_str());
-    ImGui::Text(panel_name.c_str());
+    static char c_str[50];
+    sprintf(c_str, "%s", panel_name.c_str());
+
+    ImGui::Begin(c_str);
+    ImGui::Text("%s", c_str);
     ImGui::End();
 }
 
@@ -455,7 +458,7 @@ void Manager::ShowCompoundInterestCalculator(const char *nameGUI)
         }
     };
 
-    if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    if (ImGui::BeginPopupModal("Something went wrong", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
     {
         ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
         ImGui::Separator();
@@ -485,9 +488,11 @@ void Manager::ShowCompoundInterestCalculator(const char *nameGUI)
     HelpMarker("Financial Planner - 2022 \n- initial NW : Net Worth (capital) at the beginning\n- interest Rate : return on investment in % (ex. 10%)\n- Years of investment: Years of compounding\n- Final NW: Net Worth (capital) after x years (deposits + interests)\n");
 
     // Compund Interest plot
-    if (ImPlot::BeginPlot("Compound Interest Plot", NULL, NULL, ImVec2(-1, 0), ImPlotFlags_NoLegend | ImPlotFlags_NoBoxSelect | ImPlotFlags_AntiAliased, ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit, ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit)) {
+    if (ImPlot::BeginPlot("Compound Interest Plot", ImVec2(-1, 0), ImPlotFlags_NoLegend | ImPlotFlags_NoBoxSelect | ImPlotFlags_AntiAliased)) {
+        ImPlot::FitThisFrame();
         ImPlot::PushStyleColor(ImPlotCol_Line, ImVec4(1, 1, 0, 1));
         ImPlot::PushStyleColor(ImPlotCol_Fill, ImVec4(1, 1, 0, 1));
+        ImPlot::SetupAxes("time(y)","Net Worth",ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit,ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
         ImPlot::PlotBars("Net Worth", y_data, investmentYears_d + 1);
         ImPlot::PopStyleColor();
         ImPlot::PopStyleColor();

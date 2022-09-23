@@ -79,7 +79,7 @@ public:
 	 * @param highs y-axis high values vector
 	 * @param count number of data-points
 	 */
-	static static void ShowCandleBarsPlot_default(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count);
+	static void ShowCandleBarsPlot_default(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count);
 
 	/**
 	 * @brief Empty Bar Groups plot (for debug and GUI planning)

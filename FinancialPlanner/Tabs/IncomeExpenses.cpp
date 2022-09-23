@@ -118,7 +118,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 				core->pushTransaction(date->Month + 1, date->Year, x);
 
 				// Clean Input Fields
-				sprintf(amount_s, "");
+				sprintf(amount_s, "%s", "");
 			}
 		}
 	}else{
@@ -198,7 +198,7 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 				core->pushTransaction(date->Month + 1, date->Year, x);
 
 				// Clean Input Fields
-				sprintf(amount_s, "");
+				sprintf(amount_s, "%s", "");
 			}
 		}
 	}

@@ -1,6 +1,4 @@
-#include <vector>
 #include "Custom_Widgets.hpp"
-
 #include "imgui.h"
 
 Date_format_p calendarSelection()
@@ -16,7 +14,7 @@ Date_format_p calendarSelection()
 	enum Element { elem_January, elem_February, elem_March, elem_April, elem_May, elem_June, elem_July, elem_August, elem_September, elem_October, elem_November, elem_December, elem_Count };
 	static int month = elem_January;
 	const char* elems_names[elem_Count] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
-	const char* elem_name = (month >= 0 && month < elem_Count) ? elems_names[month] : "Unknown";
+	//const char* elem_name = (month >= 0 && month < elem_Count) ? elems_names[month] : "Unknown";
 
 	ImGui::BulletText("Date");
 
@@ -70,8 +68,8 @@ Date_format_p calendarSelection()
 	ImGui::Spacing();
 
 	// Window width calculations
-	float day_dim_x = (int)(ImGui::GetWindowWidth() * 0.10);
-	float day_dim_y = (int)(ImGui::GetWindowHeight() * 0.02);
+	float day_dim_x = ImGui::GetWindowWidth() * 0.10;
+	float day_dim_y = ImGui::GetWindowHeight() * 0.02;
 
 	// Day
 	int days = 31;

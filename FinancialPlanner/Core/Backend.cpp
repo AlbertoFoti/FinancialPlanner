@@ -1,5 +1,5 @@
 #include "Backend.hpp"
-#include "../Utility/Utility.hpp";
+#include "../Utility/Utility.hpp"
 
 void Backend::init() {
 
@@ -879,6 +879,8 @@ Json::Value Backend::getRootFromFileStream(std::string ifstream_name)
             return root;
         }
     }
+
+    return root;
 }
 
 void Backend::writeToFileStream(std::string ofstream_name, Json::Value root)
