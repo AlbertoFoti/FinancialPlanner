@@ -170,9 +170,6 @@ void Investments::ShowInvestmentsBreakdown()
 	//pl.ShowBarGroupsPlot_empty("Return on Investment");
 
 	// Selector
-	static ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
-	static ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
-
 	enum Option { elem_five, elem_ten, elem_twentyfive, elem_fifty, option_Count };
 	static int breakdownDy = elem_five;
 	const char* option_names[option_Count] = { "5 Years", "10 Years", "25 Years", "50 Years" };
@@ -366,9 +363,6 @@ void Investments::ShowInvestmentsDetails()
 	// Fonts
 	//ImGuiIO& io = ImGui::GetIO();
 	//auto blenderProThin_m = io.Fonts->Fonts[7];
-
-	static ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
-	static ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
 
 	enum Option { elem_five, elem_ten, elem_twentyfive, elem_fifty, option_Count };
 	static int breakdownDy = elem_five;

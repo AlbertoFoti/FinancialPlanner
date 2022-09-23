@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "imgui.h"
 
 // Account
 struct Account;
@@ -80,6 +81,7 @@ using YearlyInvestmentsReport_p = std::shared_ptr<YearlyInvestmentsReport>;
 struct Config_t;
 using Config_p = std::shared_ptr<Config_t>;
 
+#include "Colors.hpp"
 #include "CustomTime.hpp"
 #include "CustomSort.hpp"
 #include "Custom_Widgets.hpp"

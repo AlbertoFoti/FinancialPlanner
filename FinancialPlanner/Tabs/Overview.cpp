@@ -24,7 +24,7 @@ void Overview::Render()
 	ImGui::Text("Current Net Worth : "); ImGui::SameLine();
 	ImGui::PopFont();
 	ImGui::PushFont(blenderProThin_xl);
-	if (NW_records.size() == 0) {
+	if (NW_records.empty()) {
 		ImGui::Text("0.00 EUR");
 	}
 	else {
@@ -46,12 +46,12 @@ void Overview::Render()
 	dates.clear();
 	closes.clear();
 
-	if (NW_records.size() == 0) {
+	if (NW_records.empty()) {
 		// Default empty plot
 		pl.ShowEmptyPlot("##Empty_plot_overview");
 	}
 	else {
-		for (NW_record_p x : this->NW_records) {
+		for (const NW_record_p& x : this->NW_records) {
 			dates.push_back(getUNIXtime(x->Month, x->Year));
 			closes.push_back(x->ClosingWorth);
 		}
@@ -75,14 +75,14 @@ void Overview::Render()
 			this->accountMonthlyRecords = core->getAccountMonthlyRecords(core->getIDfromIndex(i));
 			char str[100] = {};
 			sprintf(str, "%s##%d_label_account_plots", core->getAccountName(accountMonthlyRecords->AccountID).c_str(), accountMonthlyRecords->AccountID);
-			for (int j = 0; j < accountMonthlyRecords->accountMonthlyRecords.size(); j++) {
-				int m = accountMonthlyRecords->accountMonthlyRecords.at(j)->Month;
-				int y = accountMonthlyRecords->accountMonthlyRecords.at(j)->Year;
+			for (auto & accountMonthlyRecord : accountMonthlyRecords->accountMonthlyRecords) {
+				int m = accountMonthlyRecord->Month;
+				int y = accountMonthlyRecord->Year;
 				double t = getUNIXtime(m, y);
 				xs.push_back(t);
-				ys.push_back(accountMonthlyRecords->accountMonthlyRecords.at(j)->Amount);
+				ys.push_back(accountMonthlyRecord->Amount);
 			}
-			if (xs.size() != 0 && ys.size() != 0) {
+			if (!xs.empty() && !ys.empty()) {
                 pl.ShowLinePlot_def(str, xs.data(), ys.data(), (int)xs.size());
 			}
 		}
@@ -95,6 +95,6 @@ void Overview::Render()
 void Overview::ShowControlPanel(std::string panel_name)
 {
 	ImGui::Begin(panel_name.c_str());
-	ImGui::Text(panel_name.c_str());
+	ImGui::Text("%s", panel_name.c_str());
 	ImGui::End();
 }

@@ -418,9 +418,6 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 	auto font_heavy_large = io.Fonts->Fonts[14];
 	auto font_thin_large = io.Fonts->Fonts[22];
 
-	ImVec4 color_positive = ImVec4(0.000f, 1.000f, 0.441f, 1.000f); // green
-	ImVec4 color_negative = ImVec4(0.853f, 0.050f, 0.310f, 1.000f); // red
-
 	// dims
 	float one_third_x = (int)(ImGui::GetWindowWidth()*0.33);
 
@@ -464,9 +461,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 		}
 	}
 
-	ImGui::Spacing();
-	ImGui::Separator();
-	ImGui::Spacing();
+	ImGui_big_separator();
 
 	ImGui::PushFont(font_thin_large);
 

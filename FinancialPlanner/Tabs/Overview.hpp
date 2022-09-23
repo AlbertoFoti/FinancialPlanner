@@ -34,18 +34,18 @@ public:
 	 * 
 	 * @param core Core component : Link with financial procedures and backend link
 	 */
-	Overview(std::shared_ptr<Core> core);
+	explicit Overview(std::shared_ptr<Core> core);
 
 	/**
 	 * @brief Rendering
 	 * 
 	 */
-	void Render();
+	void Render() override;
 
 	/**
 	 * @brief Show Right Control Panel
 	 * 
 	 * @param panel_name self-explanatory
 	 */
-	void ShowControlPanel(std::string panel_name);
+	void ShowControlPanel(std::string panel_name) override;
 };
