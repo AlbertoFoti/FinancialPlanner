@@ -1,12 +1,10 @@
 #include "Plotter.hpp"
+#include "Colors.hpp"
 
 #include <vector>
 
 void Plotter::ShowEmptyPlot(const char* label_id)
 {
-    double min_y = INFINITY;
-    double max_y = -INFINITY;
-
     double xs[20] = { 0.0 };
     double ys[20] = { 0.0 };
     for (int i = 0; i != 20; ++i) {
@@ -15,7 +13,7 @@ void Plotter::ShowEmptyPlot(const char* label_id)
     }
 
     if (ImPlot::BeginPlot(label_id, ImVec2(-1, 0))) {
-        ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time); //ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
+        ImPlot::SetupAxes(nullptr, nullptr, ImPlotAxisFlags_Time); //ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
         ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
         ImPlot::PlotShaded(label_id, xs, ys, 20, 0);
         ImPlot::PopStyleVar();
@@ -29,17 +27,17 @@ void Plotter::ShowLinePlot_def(const char* label_id, const double* xs, const dou
 {
     float screenDim_y = ImGui::GetIO().DisplaySize.y;
 
-    double min_y = INFINITY;
-    double max_y = -INFINITY;
+    auto min_y = DBL_MAX;
+    double max_y = -DBL_MAX;
     for (int i = 0; i != count; ++i) {
         if (ys[i] > max_y) max_y = ys[i];
         if (ys[i] < min_y) min_y = ys[i];
     }
 
     if (ImPlot::BeginPlot(label_id, ImVec2(-1, screenDim_y * ((float)PLOT_PERC_OF_SCREEN_Y)))) {
-        ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time); //ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
-        double delta = 0.0;
-        double padding_y = 0.0;
+        ImPlot::SetupAxes(nullptr, nullptr, ImPlotAxisFlags_Time); //ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
+        double delta;
+        double padding_y;
         if ((max_y > 0 && min_y > 0) || (max_y < 0 && min_y < 0)) {
             delta = fabs(max_y) - fabs(min_y); // Same sign
         }
@@ -63,40 +61,37 @@ void Plotter::ShowLinePlot_def(const char* label_id, const double* xs, const dou
 void Plotter::ShowCandleBarsPlot(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count, float width_percent, ImVec4 bullCol, ImVec4 bearCol, double x_from, double x_to, double y_min, double y_max)
 {
     if (ImPlot::BeginPlot(label_id, ImVec2(-1, -1))) {
-        ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time); // ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
+        ImPlot::SetupAxes(nullptr, nullptr, ImPlotAxisFlags_Time); // ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
         ImPlot::SetupAxesLimits(x_from, x_to, y_min, y_max);
         ImPlot::SetupAxisFormat(ImAxis_Y1, "$%.0f");
-        this->CandleBarsPlot(label_id, xs, opens, closes, lows, highs, count, width_percent, bullCol, bearCol);
+        Plotter::CandleBarsPlot(label_id, xs, opens, closes, lows, highs, count, width_percent, bullCol, bearCol);
         ImPlot::EndPlot();
     }
 }
 
 void Plotter::ShowCandleBarsPlot_default(const char* label_id, const double* xs, const double* opens, const double* closes, const double* lows, const double* highs, int count)
 {
-    static ImVec4 bullCol = ImVec4(0.000f, 1.000f, 0.441f, 1.000f);
-    static ImVec4 bearCol = ImVec4(0.853f, 0.050f, 0.310f, 1.000f);
-
-    double min_y = INFINITY;
-    double max_y = -INFINITY;
+    auto min_y = DBL_MAX;
+    auto max_y = -DBL_MAX;
     for (int i = 0; i != count; ++i) {
         if (highs[i] > max_y) max_y = highs[i];
         if (lows[i] < min_y) min_y = lows[i];
     }
 
     if (ImPlot::BeginPlot(label_id, ImVec2(-1, -1))) {
-        ImPlot::SetupAxes(NULL, NULL, ImPlotAxisFlags_Time);// ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
-        double delta = 0.0;
-        double padding_y = 0.0;
+        ImPlot::SetupAxes(nullptr, nullptr, ImPlotAxisFlags_Time);// ImPlotAxisFlags_AutoFit | ImPlotAxisFlags_RangeFit);
+        double delta;
+        double padding_y;
         if ((max_y > 0 && min_y > 0) || (max_y < 0 && min_y < 0)) {
             delta = fabs(max_y) - fabs(min_y); // Same sign
         }
         else {
-            delta = fabs(max_y) + fabs(min_y);// Different sign
+            delta = fabs(max_y) + fabs(min_y); // Different sign
         }
         padding_y = delta * PLOT_PADDING_Y_PERC;
         ImPlot::SetupAxesLimits(xs[0] - PLOT_PADDING_UNIX_TIME, xs[count - 1] + PLOT_PADDING_UNIX_TIME, min_y - padding_y, max_y + padding_y);
         ImPlot::SetupAxisFormat(ImAxis_Y1, "$%.0f");
-        this->CandleBarsPlot(label_id, xs, opens, closes, lows, highs, count, 0.25f, bullCol, bearCol);
+        Plotter::CandleBarsPlot(label_id, xs, opens, closes, lows, highs, count, 0.25f, color_positive, color_negative);
         ImPlot::EndPlot();
     }
 }
