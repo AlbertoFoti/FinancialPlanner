@@ -7,7 +7,7 @@
 /**
  * @brief Main : Entry point for program control (update and render loop)
  * Prepares window and other graphical components through some rendering API (ex. glfw/opengl3/glad, Vulkan, DirectX)
- * 
+ *
  * @return int 
  */
 int main()

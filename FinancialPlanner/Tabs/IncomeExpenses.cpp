@@ -1,7 +1,7 @@
 #include "IncomeExpenses.hpp"
 #include <math.h>
 #include <algorithm>
-#include "../Utility/namespace_declarations.hpp"
+#include "../Utility/Utility.hpp"
 
 IncomeExpenses::IncomeExpenses(std::shared_ptr<Core> core) {
 	this->core = core;

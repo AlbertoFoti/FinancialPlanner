@@ -1,5 +1,5 @@
 #include "Manager.hpp"
-#include "../Utility/namespace_declarations.hpp"
+#include "../Utility/Utility.hpp"
 
 Manager::Manager(std::shared_ptr<Core> core)
 {

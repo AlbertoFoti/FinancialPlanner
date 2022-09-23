@@ -9,6 +9,7 @@
 #include <memory>
 #include <vector>
 
+#include "Tabs/Manager.hpp"
 #include "Core/Core.hpp"
 #include "Tabs/IncomeExpenses.hpp"
 #include "Tabs/NetWorth.hpp"
@@ -66,7 +67,7 @@ public:
 	void Render();
 
 	/**
-	 * @brief Shutsdown ImGui and ImPlot context, rendering API cleanup.
+	 * @brief ImGui and ImPlot context Shutdown, rendering API cleanup.
 	 * 
 	 */
 	void Shutdown();
@@ -78,51 +79,14 @@ public:
 	void NewFrame();
 
 private:
+    /**
+     * @brief Function to display all custom GUIs
+     */
+    void ShowGUI();
+
 	/**
 	 * @brief Central View Rendering
 	 * 
 	 */
 	void ShowMainView();
-
-	/**
-	 * @brief Utility : ImGui Configuration Options/Settings
-	 * 
-	 * @param label 
-	 * @return ignore 
-	 * @return ignore 
-	 */
-	bool ShowStyleSelectorGUI(const char* label);
-
-	/**
-	 * @brief Utility : ImPlot Configuration Options/Settings
-	 * 
-	 * @param label 
-	 * @return ignore 
-	 * @return ignore 
-	 */
-	bool ShowStyleSelectorPLOT(const char* label);
-
-	/**
-	 * @brief Set Custom "Dark" Theme Colors
-	 * 
-	 */
-	void SetDarkThemeColors();
-
-	/**
-	 * @brief Load Fonts
-	 * 
-	 */
-	void loadFonts();
-
-	/**
-	 * @brief Set the Theme
-	 * 
-	 */
-	void setTheme();
-
-	/**
-	 * @brief Set the Minimum Size of a Window 
-	 * 
-	 */
-	float setMinimumSizeWindow();
 };

@@ -1,5 +1,5 @@
 #include "Core.hpp"
-#include "../Utility/namespace_declarations.hpp"
+#include "../Utility/Utility.hpp"
 
 Core::Core()
 {
