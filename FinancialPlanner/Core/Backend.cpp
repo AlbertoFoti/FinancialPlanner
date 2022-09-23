@@ -818,7 +818,7 @@ config_t Backend::getConfig()
     Json::Value root;
     config_t config;
     
-    root = getRootFromFileStream("Database/config.json");
+    root = getRootFromFileStream("assets/fonts/config.json");
 
     config.display_resolution = root["display_resolution"].asString();
     config.default_font = root["default_font"].asString();

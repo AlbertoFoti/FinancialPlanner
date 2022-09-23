@@ -120,3 +120,7 @@ void HelpMarker(const char* desc)
         ImGui::EndTooltip();
     }
 }
+
+void ImGui_big_separator() {
+    ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing(); ImGui::Spacing();
+}

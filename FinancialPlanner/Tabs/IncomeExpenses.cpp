@@ -121,15 +121,6 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 				sprintf(amount_s, "");
 			}
 		}
-
-		if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-		{
-			ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
-			ImGui::Separator();
-
-			if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
-			ImGui::EndPopup();
-		}
 	}else{
 		accounts = core->getAccounts();
 
@@ -210,16 +201,16 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 				sprintf(amount_s, "");
 			}
 		}
-
-		if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-		{
-			ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
-			ImGui::Separator();
-
-			if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
-			ImGui::EndPopup();
-		}
 	}
+
+    if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
+        ImGui::Separator();
+
+        if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+        ImGui::EndPopup();
+    }
 
 	ImGui::End();
 }
@@ -694,7 +685,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			}
 
 			// Totals
-			ImGui::Spacing(); ImGui::Separator(); ImGui::Spacing(); ImGui::Spacing();
+            ImGui_big_separator();
 			static double MonthlyTotalIn;
 			static double MonthlyTotalOut;
 			static double MonthlyTotalInvVar;

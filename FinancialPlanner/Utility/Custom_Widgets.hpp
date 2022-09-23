@@ -33,7 +33,7 @@ int category_list_box(std::string list_name, std::vector<T> list) {
     char identifier[30];
     std::string id = "##" + list_name + "list_box_id";
     sprintf(identifier, "%s", id.c_str());
-    if (ImGui::BeginListBox(identifier))
+    if (ImGui::BeginListBox(identifier, ImVec2(0, ImGui::GetWindowHeight()*0.1)))
     {
         for (int n = 0; n < list.size(); n++)
         {
@@ -59,3 +59,10 @@ int category_list_box(std::string list_name, std::vector<T> list) {
 	 * @param desc
 	 */
 void HelpMarker(const char* desc);
+
+/**
+	 * @brief Utility : Big Separator
+	 *
+	 * @param desc
+	 */
+void ImGui_big_separator();
