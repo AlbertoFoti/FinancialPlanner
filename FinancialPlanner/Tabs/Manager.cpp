@@ -6,14 +6,13 @@ Manager::Manager(std::shared_ptr<Core> core)
     this->core = core;
 
     // Accounts
-    this->accounts = this->core->getAccountsFromDb();
+    this->core->getCategoriesFromDb();
 }
 
 void Manager::Render()
 {
-    ImGui::Text("Manager...");
+    ImGui::Text("Manager.");
 
-    this->ShowAccountManager();
     this->ShowCategoryManager();
     this->ShowInvCategoryManager();
     this->ShowCompoundInterestCalculator("Compound Interest Calculator");
@@ -30,113 +29,6 @@ void Manager::ShowControlPanel(std::string panel_name)
 
     ImGui::Begin(c_str);
     ImGui::Text("%s", c_str);
-    ImGui::End();
-}
-
-void Manager::ShowAccountManager()
-{
-    // Fonts
-    ImGuiIO& io = ImGui::GetIO();
-    auto robotoProThin_l = io.Fonts->Fonts[23];
-
-    // Begin
-    ImGui::Begin("Account Manager");
-
-    // Retrieve accounts
-    this->accounts = core->getAccounts();
-
-    // dims
-    float win_dim_x = ImGui::GetWindowWidth();
-    float win_dim_y = ImGui::GetWindowHeight();
-    float dim_btn_big_x = win_dim_x*0.30f;
-    float dim_btn_big_y = win_dim_y*0.05f;
-    float dim_btn_small_x = win_dim_x*0.30f;
-    float dim_btn_small_y = win_dim_y*0.03f;
-    if(dim_btn_big_y < 50.0f) dim_btn_big_y = 50;
-    if(dim_btn_small_y < 50.0f) dim_btn_small_y = 50;
-
-    ImGui::Spacing();
-    if(ImGui::Button("Reload Accounts", ImVec2(dim_btn_big_x, dim_btn_big_y))) {
-        this->accounts = this->core->getAccountsFromDb();
-    }
-    ImGui::Separator();
-
-    // New Account Form
-    ImGui::BulletText("Account Name");
-    static char account_name[50] = {};
-    ImGui::InputTextWithHint("##AN", "Bank/Cash/Investments/Savings", account_name, IM_ARRAYSIZE(account_name));
-
-    if (ImGui::Button("Add Account", ImVec2(dim_btn_small_x, dim_btn_small_y))) {
-
-        if (strcmp(account_name, "")) {
-            // New Account instance
-            Account_p x = std::make_shared<Account>();
-            x->id = accounts[accounts.size() - 1]->id + 1;
-            x->name = account_name;
-            x->AmountStored = 0.0;
-
-            // Todo: write in json file database
-            this->core->pushAccount(x);
-
-            // Clean input fields
-            sprintf(account_name, "%s", "");
-
-            // Update GUI
-            this->accounts = core->getAccountsFromDb();
-        }
-        else {
-            ImGui::OpenPopup("Something went wrong");
-        }
-    }
-    if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-    {
-        ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
-        ImGui::Separator();
-
-        if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
-        ImGui::EndPopup();
-    }
-    ImGui::Separator();
-
-    ImGui::TextUnformatted("Accounts");
-    ImGui::Separator();
-
-    // List of all accounts
-    for (int i = 0; i < this->accounts.size(); i++) {
-        ImGui::Text("%d. ", i+1); ImGui::SameLine();
-        ImGui::Text("%s", accounts.at(i)->name.c_str());
-
-        // Edit and Delete Buttons aligned right
-        if(accounts.at(i)->id != 1){
-            ImGui::SameLine();
-            ImVec2 buttonSize(115.f, 0.f);
-            float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
-            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
-            char strBtnUpdateLabel[50] = {};
-            sprintf(strBtnUpdateLabel, "Update##Put_Button%d", i + 1);
-            if (ImGui::Button(strBtnUpdateLabel, buttonSize)) {
-                // Edit Account
-            }
-            ImGui::SameLine();
-            char strBtnDeleteLabel[50] = {};
-            sprintf(strBtnDeleteLabel, "Delete##Del_Button%d", i + 1);
-            if (ImGui::Button(strBtnDeleteLabel, buttonSize)) {
-                // Delete Account
-                this->core->deleteAccount(accounts[i]->id);
-            }
-        }
-
-        ImGui::Text("- "); ImGui::SameLine();
-
-        ImGui::PushFont(robotoProThin_l);
-        if (accounts.at(i)->AmountStored >= 1000)
-            ImGui::Text("%.2fk EUR", accounts.at(i)->AmountStored/1000);
-        else
-            ImGui::Text("%.2f EUR", accounts.at(i)->AmountStored);
-        ImGui::PopFont();
-        ImGui::Separator();
-    }
-
     ImGui::End();
 }
 

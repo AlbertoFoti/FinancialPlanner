@@ -17,12 +17,6 @@ class Manager : public Tab {
     std::shared_ptr<Core> core;
 
     /**
-	 * @brief Temporary Data Structure to store accounts
-	 *
-	 */
-    std::vector<Account_p> accounts;
-
-    /**
 	 * @brief Temporary Data Structure to store categories
 	 *
 	 */
@@ -48,12 +42,6 @@ public:
      * @param panel_name self-explanatory
      */
     void ShowControlPanel(std::string panel_name);
-
-    /**
-	 * @brief Panel View : shows account manager panel
-	 *
-	 */
-    void ShowAccountManager();
 
     /**
 	 * @brief Panel View : shows category manager panel

@@ -28,6 +28,12 @@ class Overview : public Tab {
 	 * 
 	 */
 	AccountMonthlyDetails_p accountMonthlyRecords;
+
+    /**
+    * @brief Temporary Data Structure to store accounts
+    *
+    */
+    std::vector<Account_p> accounts;
 public:
 	/**
 	 * @brief Construct a new Overview Tab
@@ -48,4 +54,10 @@ public:
 	 * @param panel_name self-explanatory
 	 */
 	void ShowControlPanel(std::string panel_name) override;
+
+    /**
+    * @brief Panel View : shows account manager panel
+    *
+    */
+    void ShowAccountManager();
 };
