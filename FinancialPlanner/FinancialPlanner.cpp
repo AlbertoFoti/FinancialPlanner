@@ -187,59 +187,34 @@ void FinancialPlanner::ShowMainView()
     ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
     if (ImGui::BeginTabBar("MyTabBar", tab_bar_flags))
     {
-        if (ImGui::BeginTabItem("Overview"))
-        {
-            Overview overview_renderer = Overview(this->core);
-            static long setup = 0;
-            if( setup < 25 ) {
-                setup++;
-            } else {
-                overview_renderer.Render();
+        static std::shared_ptr<Overview> overview_renderer  = std::make_shared<Overview>(this->core);
+        static std::shared_ptr<NetWorth> net_worth_renderer = std::make_shared<NetWorth>(this->core);
+        static std::shared_ptr<IncomeExpenses> income_expenses_renderer = std::make_shared<IncomeExpenses>(this->core);
+        static std::shared_ptr<Investments> investments_renderer = std::make_shared<Investments>(this->core);
+        static std::shared_ptr<AssetAllocation> asset_allocation_renderer = std::make_shared<AssetAllocation>(this->core);
+        static std::shared_ptr<Forecasting> forecasting_renderer = std::make_shared<Forecasting>(this->core);
+        static std::shared_ptr<FIRE> fire_renderer = std::make_shared<FIRE>(this->core);
+        static std::shared_ptr<Manager> manager_renderer = std::make_shared<Manager>(this->core);
+
+        static std::forward_list<std::pair<std::string, std::shared_ptr<Tab>>> labels = {
+                { "Overview##overview", overview_renderer },
+                { "Net Worth##networth", net_worth_renderer },
+                { "Cash Flow##cashflow", income_expenses_renderer },
+                { "Investments##investments", investments_renderer },
+                { "Asset Allocation##assetallocation", asset_allocation_renderer },
+                { "Forecasting##forecasting", forecasting_renderer },
+                { "FIRE##fire", fire_renderer },
+                { "Manager##manager", manager_renderer },
+        };
+
+        for (auto pair : labels) {
+            if (ImGui::BeginTabItem(pair.first.c_str()))
+            {
+                pair.second->Render();
+                ImGui::EndTabItem();
             }
-            ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Net Worth"))
-        {
-            NetWorth nw_renderer = NetWorth(this->core);
-            nw_renderer.Render();
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Income/Expenses"))
-        {
-            IncomeExpenses ie_renderer = IncomeExpenses(this->core);
-            ie_renderer.Render();
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Investments"))
-        {
-            Investments inv_renderer = Investments(this->core);
-            inv_renderer.Render();
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Asset Allocation"))
-        {
-            AssetAllocation all_renderer = AssetAllocation(this->core);
-            all_renderer.Render();
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Forecasting"))
-        {
-            Forecasting for_renderer = Forecasting(this->core);
-            for_renderer.Render();
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("FIRE"))
-        {
-            FIRE fire_renderer = FIRE(this->core);
-            fire_renderer.Render();
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Manager"))
-        {
-            Manager manager = Manager(this->core);
-            manager.Render();
-            ImGui::EndTabItem();
-        }
+
         ImGui::EndTabBar();
     }
     ImGui::End();

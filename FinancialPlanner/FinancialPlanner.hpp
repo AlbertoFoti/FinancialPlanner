@@ -8,6 +8,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <forward_list>
 
 #include "Tabs/Manager.hpp"
 #include "Core/Core.hpp"
