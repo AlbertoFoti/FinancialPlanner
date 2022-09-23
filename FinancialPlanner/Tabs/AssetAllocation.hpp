@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Core/Core.h"
+#include "../Core/Core.hpp"
 #include "../Templates/Tab.hpp"
 #include "imgui.h"
 #include "implot.h"

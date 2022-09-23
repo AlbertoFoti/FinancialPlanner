@@ -2,7 +2,7 @@
 
 #include "imgui.h"
 #include <string>
-#include "../Core/Core.h"
+#include "../Core/Core.hpp"
 
 /**
  * @brief Tab virtual interface (implemented by real tabs)

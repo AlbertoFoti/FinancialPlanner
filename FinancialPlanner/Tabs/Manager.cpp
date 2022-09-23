@@ -1,4 +1,5 @@
 #include "Manager.hpp"
+#include "../Utility/namespace_declarations.hpp"
 
 Manager::Manager(std::shared_ptr<Core> core)
 {
@@ -203,17 +204,17 @@ void Manager::ShowCategoryManager()
                 // New Category instance
                 Category_p x = std::make_shared<Category>();
                 x->id = (int)categories.size() + 1;
-                x->Name = category_name;
-                x->Type = category_type;
+                x->name = category_name;
+                x->type = category_type;
                 x->subCategories = std::vector<SubCategory_p>();
 
                 SubCategory_p s = std::make_shared<SubCategory>();
                 s->id = 1;
                 char other[50] = "Other ";
-                s->Name = strcat(other, category_name);
+                s->name = strcat(other, category_name);
                 x->subCategories.push_back(s);
 
-                if (!core->checkCategoryExists(x->Name)) {// check not already in the category list
+                if (!core->checkCategoryExists(x->name)) {// check not already in the category list
                     // write in json file database
                     this->core->pushCategory(x);
                 }
@@ -236,7 +237,7 @@ void Manager::ShowCategoryManager()
             if (strcmp(category_name, "") && strcmp(sub_category_name, "")) {
                 // New Subcategory instance
                 SubCategory_p x = std::make_shared<SubCategory>();
-                x->Name = sub_category_name;
+                x->name = sub_category_name;
 
                 // Push in category vector if category exists
                 if (core->checkCategoryExists(category_name)) {
@@ -275,13 +276,13 @@ void Manager::ShowCategoryManager()
     std::vector<std::string> headerNames;
 
     for (int i = 0; i < this->categories.size(); i++) {
-        headerNames.push_back(std::to_string(i + 1) + ". " + categories[i]->Name + " (" + (categories[i]->Type == "In" ? "Income)" : (categories[i]->Type == "Out") ? "Expense)" : "Transfer)"));
+        headerNames.push_back(std::to_string(i + 1) + ". " + categories[i]->name + " (" + (categories[i]->type == "In" ? "Income)" : (categories[i]->type == "Out") ? "Expense)" : "Transfer)"));
 
         if (ImGui::CollapsingHeader(headerNames[i].c_str(), ImGuiTreeNodeFlags_None))
         {
             for (int j = 0; j < categories[i]->subCategories.size(); j++) {
                 ImGui::Text("- "); ImGui::SameLine();
-                ImGui::Text("%s", categories[i]->subCategories[j]->Name.c_str());
+                ImGui::Text("%s", categories[i]->subCategories[j]->name.c_str());
             }
 
             // Edit and Delete Buttons aligned right

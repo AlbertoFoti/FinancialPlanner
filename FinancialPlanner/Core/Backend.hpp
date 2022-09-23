@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <fstream>
 #include "jsoncpp/json/json.h"
-#include "../Utility/Utility.hpp"
 
 // Account
 struct Account {
@@ -58,29 +57,29 @@ using NW_record_p = std::shared_ptr<NW_record>;
 // Subcategory
 struct SubCategory {
 	int id;
-	std::string Name;
+	std::string name;
 };
 using SubCategory_p = std::shared_ptr<SubCategory>;
 
 // Category
 struct Category {
 	int id;
-	std::string Name;
-	std::string Type;
+	std::string name;
+	std::string type;
 	std::vector<SubCategory_p> subCategories;
 };
 using Category_p = std::shared_ptr<Category>;
 
 // Transaction
 struct Transaction {
-	int Day;
-	std::string Category;
-	std::string Subcategory;
-	std::string Type;
-	int AccountID;
-	int accountTo;
-	double Amount;
-	std::string Comment;
+	int day;
+	std::string category;
+	std::string sub_category;
+	std::string type;
+	int account_id;
+	int account_to;
+	double amount;
+	std::string comment;
 };
 using Transaction_p = std::shared_ptr<Transaction>;
 

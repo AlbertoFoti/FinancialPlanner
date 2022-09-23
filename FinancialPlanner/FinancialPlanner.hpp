@@ -9,7 +9,7 @@
 #include <memory>
 #include <vector>
 
-#include "Core/Core.h"
+#include "Core/Core.hpp"
 #include "Tabs/IncomeExpenses.hpp"
 #include "Tabs/NetWorth.hpp"
 #include "Tabs/Overview.hpp"

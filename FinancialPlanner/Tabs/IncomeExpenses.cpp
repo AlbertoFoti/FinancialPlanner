@@ -1,4 +1,7 @@
 #include "IncomeExpenses.hpp"
+#include <math.h>
+#include <algorithm>
+#include "../Utility/namespace_declarations.hpp"
 
 IncomeExpenses::IncomeExpenses(std::shared_ptr<Core> core) {
 	this->core = core;
@@ -58,43 +61,17 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 	ImGui::RadioButton("Transfer", &type, 2);
 
 	if(type != 2){
-		ImGui::BulletText("Category");
-		static int cat = 3;
-		if (ImGui::BeginListBox("##cat_name_list_box"))
-		{
-			for (int n = 0; n < categories.size(); n++)
-			{
-				if (categories[n]->Type == (type == 0 ? "In" : "Out")) {
-					const bool is_selected = (cat == n);
 
-					if (ImGui::Selectable(categories[n]->Name.c_str(), is_selected))
-						cat = n;
+        static int cat = 3;
+        std::vector<Category_p> categories_filtered;
+        std::copy_if(categories.begin(), categories.end(), std::back_inserter(categories_filtered), [](auto elem) {
+            return (elem->type == (type == 0 ? "In" : "Out"));
+        });
+        cat = category_list_box<Category_p>("Category", categories_filtered, type);
 
-					// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-					if (is_selected)
-						ImGui::SetItemDefaultFocus();
-				}
-			}
-			ImGui::EndListBox();
-		}
-
-		subcategories = this->core->getSubCategoriesOf(categories[cat]->Name);
-		ImGui::BulletText("Sub Category");
-		static int subCat = 0;
-		if (ImGui::BeginListBox("##sub_cat_name_list_box"))
-		{
-			for (int n = 0; n < subcategories.size(); n++)
-			{
-				const bool is_selected = (subCat == n);
-				if (ImGui::Selectable(subcategories[n]->Name.c_str(), is_selected))
-					subCat = n;
-
-				// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-				if (is_selected)
-					ImGui::SetItemDefaultFocus();
-			}
-			ImGui::EndListBox();
-		}
+        static int subCat = 0;
+		subcategories = this->core->getSubCategoriesOf(categories[cat]->name);
+        subCat = category_list_box<SubCategory_p>("SubCategory", subcategories, type);
 
 		accounts = core->getAccounts();
 		ImGui::BulletText("Account");
@@ -139,14 +116,14 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 			else {
 				// Add new Transaction
 				Transaction_p x = std::make_shared<Transaction>();
-				x->Day = date->Day;
-				x->Category = categories[cat]->Name;
-				x->Subcategory = subcategories[subCat]->Name;
-				x->Type = type == 0 ? "In" : "Out";
-				x->Amount = std::stod(amount_s);
-				x->AccountID = acc + 1;
-				x->accountTo = -1;
-				x->Comment = comment;
+				x->day = date->Day;
+				x->category = categories[cat]->name;
+				x->sub_category = subcategories[subCat]->name;
+				x->type = type == 0 ? "In" : "Out";
+				x->amount = std::stod(amount_s);
+				x->account_id = acc + 1;
+				x->account_to = -1;
+				x->comment = comment;
 
 				// Push transaction
 				core->pushTransaction(date->Month + 1, date->Year, x);
@@ -226,16 +203,16 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 			else {
 				// Add new Transaction
 				Transaction_p x = std::make_shared<Transaction>();
-				x->Day = date->Day;
-				x->Category = "Transfer";
-				x->AccountID = accounts[acc_from]->id;
-				x->accountTo = accounts[acc_to]->id;
-				if(x->accountTo == 1) x->Subcategory = "Deposit";
-				else if(x->AccountID == 1) x->Subcategory = "Withdrawal";
-				else x->Subcategory = "Transfer";
-				x->Type = "Transfer";
-				x->Amount = std::stod(amount_s);
-				x->Comment = comment;
+				x->day = date->Day;
+				x->category = "Transfer";
+				x->account_id = accounts[acc_from]->id;
+				x->account_to = accounts[acc_to]->id;
+				if(x->account_to == 1) x->sub_category = "Deposit";
+				else if(x->account_id == 1) x->sub_category = "Withdrawal";
+				else x->sub_category = "Transfer";
+				x->type = "Transfer";
+				x->amount = std::stod(amount_s);
+				x->comment = comment;
 
 				// Push transaction
 				core->pushTransaction(date->Month + 1, date->Year, x);
@@ -533,24 +510,24 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			ImGui::TableSetupColumn("");
 			ImGui::TableHeadersRow();
 			for (int i = 0; i != this->monthlyTransactions->transactions.size(); ++i) {
-				if(monthlyTransactions->transactions[i]->Type != "Transfer"){
+				if(monthlyTransactions->transactions[i]->type != "Transfer"){
 					ImGui::TableNextColumn();
-					ImGui::Text("%2d/%2d/%4d", monthlyTransactions->transactions[i]->Day, monthlyTransactions->Month, monthlyTransactions->Year);
+					ImGui::Text("%2d/%2d/%4d", monthlyTransactions->transactions[i]->day, monthlyTransactions->Month, monthlyTransactions->Year);
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->Type.c_str());
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->type.c_str());
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->Category.c_str());
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->category.c_str());
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->Subcategory.c_str());
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->sub_category.c_str());
 					ImGui::TableNextColumn();
-					if (monthlyTransactions->transactions[i]->Type == "In")
-						ImGui::TextColored(color_positive, "+%.2f", monthlyTransactions->transactions[i]->Amount);
-					else if (monthlyTransactions->transactions[i]->Type == "Out")
-						ImGui::TextColored(color_negative, "%.2f", monthlyTransactions->transactions[i]->Amount);
+					if (monthlyTransactions->transactions[i]->type == "In")
+						ImGui::TextColored(color_positive, "+%.2f", monthlyTransactions->transactions[i]->amount);
+					else if (monthlyTransactions->transactions[i]->type == "Out")
+						ImGui::TextColored(color_negative, "%.2f", monthlyTransactions->transactions[i]->amount);
 					else
-						ImGui::Text("%.2f", monthlyTransactions->transactions[i]->Amount);
+						ImGui::Text("%.2f", monthlyTransactions->transactions[i]->amount);
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->Comment.c_str());
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->comment.c_str());
 					ImGui::TableNextColumn();
 					static bool showEdit = false;
 					if (ImGui::Button("Edit")) {
@@ -584,19 +561,19 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			ImGui::TableSetupColumn("");
 			ImGui::TableHeadersRow();
 			for (int i = 0; i != this->monthlyTransactions->transactions.size(); ++i) {
-				if(monthlyTransactions->transactions[i]->Type == "Transfer"){
+				if(monthlyTransactions->transactions[i]->type == "Transfer"){
 					ImGui::TableNextColumn();
-					ImGui::Text("%2d/%2d/%4d", monthlyTransactions->transactions[i]->Day, monthlyTransactions->Month, monthlyTransactions->Year);
+					ImGui::Text("%2d/%2d/%4d", monthlyTransactions->transactions[i]->day, monthlyTransactions->Month, monthlyTransactions->Year);
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", core->getAccountName(monthlyTransactions->transactions[i]->AccountID).c_str());
+					ImGui::Text("%s", core->getAccountName(monthlyTransactions->transactions[i]->account_id).c_str());
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", core->getAccountName(monthlyTransactions->transactions[i]->accountTo).c_str());
+					ImGui::Text("%s", core->getAccountName(monthlyTransactions->transactions[i]->account_to).c_str());
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->Subcategory.c_str());
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->sub_category.c_str());
 					ImGui::TableNextColumn();
-					ImGui::Text("%.2f", monthlyTransactions->transactions[i]->Amount);
+					ImGui::Text("%.2f", monthlyTransactions->transactions[i]->amount);
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->Comment.c_str());
+					ImGui::Text("%s", monthlyTransactions->transactions[i]->comment.c_str());
 					ImGui::TableNextColumn();
 
 					static bool showEdit = false;
@@ -624,9 +601,9 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 		MonthlyTotalOut = 0.0;
 		MonthlyTotalInvVar = 0.0;
 		for (Transaction_p x : this->monthlyTransactions->transactions) {
-			if (x->Type == "In") MonthlyTotalIn += x->Amount;
-			if (x->Type == "Out") MonthlyTotalOut += x->Amount;
-			if (x->Type == "Transfer" && x->Subcategory != "Transfer") MonthlyTotalInvVar += x->Amount;
+			if (x->type == "In") MonthlyTotalIn += x->amount;
+			if (x->type == "Out") MonthlyTotalOut += x->amount;
+			if (x->type == "Transfer" && x->sub_category != "Transfer") MonthlyTotalInvVar += x->amount;
 		}
 		ImGui::Text("Total Income   : "); ImGui::SameLine(one_third_x);
 		ImGui::PushFont(blenderProThin_l);

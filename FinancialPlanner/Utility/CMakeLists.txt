@@ -14,6 +14,7 @@ add_library(
 	"Custom_Widgets.cpp"
 	"Plotter.hpp"
 	"Plotter.cpp"
+	"namespace_declarations.hpp"
 )
 
 target_link_libraries(Utility PRIVATE imgui::imgui)

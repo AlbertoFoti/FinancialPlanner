@@ -1,4 +1,5 @@
-#include "Backend.h"
+#include "Backend.hpp"
+#include "../Utility/namespace_declarations.hpp";
 
 void Backend::init() {
 
@@ -179,12 +180,12 @@ std::vector<Category_p> Backend::getCategories()
     for (unsigned int i = 0; i < cat.size(); i++) {
         Category_p x = std::make_shared<Category>();
         x->id = std::stoi(cat[i]["id"].asString());
-        x->Name = cat[i]["Name"].asString();
-        x->Type = cat[i]["Type"].asString();
+        x->name = cat[i]["Name"].asString();
+        x->type = cat[i]["Type"].asString();
         for (unsigned int j = 0; j < cat[i]["SubCategories"].size(); j++) {
             SubCategory_p s = std::make_shared<SubCategory>();
             s->id = std::stoi(cat[i]["SubCategories"][j]["id"].asString());
-            s->Name = cat[i]["SubCategories"][j]["Name"].asString();
+            s->name = cat[i]["SubCategories"][j]["Name"].asString();
             x->subCategories.push_back(s);
         }
 
@@ -202,11 +203,11 @@ void Backend::pushCategory(Category_p x)
 
     int nextIndex = root["categories"].size();
     root["categories"][nextIndex]["id"] = x->id;
-    root["categories"][nextIndex]["Name"] = x->Name;
-    root["categories"][nextIndex]["Type"] = x->Type;
+    root["categories"][nextIndex]["Name"] = x->name;
+    root["categories"][nextIndex]["Type"] = x->type;
     for (int i = 0; i < x->subCategories.size(); i++) {
         root["categories"][nextIndex]["SubCategories"][i]["id"] = x->subCategories[i]->id;
-        root["categories"][nextIndex]["SubCategories"][i]["Name"] = x->subCategories[i]->Name;
+        root["categories"][nextIndex]["SubCategories"][i]["Name"] = x->subCategories[i]->name;
     }
 
     // Write the output to a file
@@ -227,7 +228,7 @@ void Backend::pushSubCategory(std::string categoryName, SubCategory_p x)
             index = i;
             int nextIndex = root["categories"][i]["SubCategories"].size();
             root["categories"][i]["SubCategories"][nextIndex]["id"] = nextIndex + 1;
-            root["categories"][i]["SubCategories"][nextIndex]["Name"] = x->Name;
+            root["categories"][i]["SubCategories"][nextIndex]["Name"] = x->name;
         }
     }
 
@@ -400,14 +401,14 @@ MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
             transactRecords = data[i]["data"];
             for (unsigned int i = 0; i < transactRecords.size(); i++) {
                 Transaction_p t = std::make_shared<Transaction>();
-                t->Day = transactRecords[i]["Day"].asInt();
-                t->Category = transactRecords[i]["Category"].asString();
-                t->Subcategory = transactRecords[i]["Subcategory"].asString();
-                t->Type = transactRecords[i]["Type"].asString();
-                t->AccountID = transactRecords[i]["AccountFrom"].asInt();
-                t->accountTo = transactRecords[i]["AccountTo"].asInt();
-                t->Amount = transactRecords[i]["Amount"].asDouble();
-                t->Comment = transactRecords[i]["Comment"].asString();
+                t->day = transactRecords[i]["Day"].asInt();
+                t->category = transactRecords[i]["Category"].asString();
+                t->sub_category = transactRecords[i]["Subcategory"].asString();
+                t->type = transactRecords[i]["Type"].asString();
+                t->account_id = transactRecords[i]["AccountFrom"].asInt();
+                t->account_to = transactRecords[i]["AccountTo"].asInt();
+                t->amount = transactRecords[i]["Amount"].asDouble();
+                t->comment = transactRecords[i]["Comment"].asString();
                 MonthlyReport->transactions.push_back(t);
             }
         }
@@ -431,15 +432,15 @@ YearlyReport_p Backend::getYearlyReport(int year)
         x->balanceOut = 0.0;
         x->investmentsVariation = 0.0;
         for (auto t : monthlyReport->transactions) {
-            if(t->Category == "Investments (+)" || t->Category == "Investments (-)"){
-                if(t->Subcategory == "Investments (+)" || t->Category == "Investments (-)"){
-                    x->investmentsVariation += t->Amount;
+            if(t->category == "Investments (+)" || t->category == "Investments (-)"){
+                if(t->sub_category == "Investments (+)" || t->category == "Investments (-)"){
+                    x->investmentsVariation += t->amount;
                 }
             }else{
-                if (t->Type == "In")
-                    x->balanceIn += t->Amount;
-                if (t->Type == "Out")
-                    x->balanceOut += t->Amount;
+                if (t->type == "In")
+                    x->balanceIn += t->amount;
+                if (t->type == "Out")
+                    x->balanceOut += t->amount;
             }
         }
 
@@ -460,14 +461,14 @@ void Backend::pushTransaction(int month, int year, Transaction_p t)
         if ((root["records"][i]["Year"] == year) && (root["records"][i]["Month"] == month)) {
             found = true;
             int index = root["records"][i]["data"].size();
-            root["records"][i]["data"][index]["Day"] = t->Day;
-            root["records"][i]["data"][index]["Category"] = t->Category;
-            root["records"][i]["data"][index]["Subcategory"] = t->Subcategory;
-            root["records"][i]["data"][index]["Type"] = t->Type;
-            root["records"][i]["data"][index]["AccountFrom"] = t->AccountID;
-            root["records"][i]["data"][index]["AccountTo"] = t->accountTo;
-            root["records"][i]["data"][index]["Amount"] = t->Amount;
-            root["records"][i]["data"][index]["Comment"] = t->Comment;
+            root["records"][i]["data"][index]["Day"] = t->day;
+            root["records"][i]["data"][index]["Category"] = t->category;
+            root["records"][i]["data"][index]["Subcategory"] = t->sub_category;
+            root["records"][i]["data"][index]["Type"] = t->type;
+            root["records"][i]["data"][index]["AccountFrom"] = t->account_id;
+            root["records"][i]["data"][index]["AccountTo"] = t->account_to;
+            root["records"][i]["data"][index]["Amount"] = t->amount;
+            root["records"][i]["data"][index]["Comment"] = t->comment;
         }
     }
 
@@ -476,14 +477,14 @@ void Backend::pushTransaction(int month, int year, Transaction_p t)
         root["records"][last_index]["Month"] = month;
         root["records"][last_index]["Year"] = year;
 
-        root["records"][last_index]["data"][0]["Day"] = t->Day;
-        root["records"][last_index]["data"][0]["Category"] = t->Category;
-        root["records"][last_index]["data"][0]["Subcategory"] = t->Subcategory;
-        root["records"][last_index]["data"][0]["Type"] = t->Type;
-        root["records"][last_index]["data"][0]["AccountFrom"] = t->AccountID;
-        root["records"][last_index]["data"][0]["AccountTo"] = t->accountTo;
-        root["records"][last_index]["data"][0]["Amount"] = t->Amount;
-        root["records"][last_index]["data"][0]["Comment"] = t->Comment;
+        root["records"][last_index]["data"][0]["Day"] = t->day;
+        root["records"][last_index]["data"][0]["Category"] = t->category;
+        root["records"][last_index]["data"][0]["Subcategory"] = t->sub_category;
+        root["records"][last_index]["data"][0]["Type"] = t->type;
+        root["records"][last_index]["data"][0]["AccountFrom"] = t->account_id;
+        root["records"][last_index]["data"][0]["AccountTo"] = t->account_to;
+        root["records"][last_index]["data"][0]["Amount"] = t->amount;
+        root["records"][last_index]["data"][0]["Comment"] = t->comment;
     }
 
     // transaction sort
@@ -514,40 +515,40 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
             bool accountTo_found = false;
             int size_data = root["records"][i]["data"].size();
             for (int j = 0; j < size_data; j++) {
-                if(t->accountTo != -1){
-                    if (root["records"][i]["data"][j]["id"] == t->AccountID) {
+                if(t->account_to != -1){
+                    if (root["records"][i]["data"][j]["id"] == t->account_id) {
                         accountId_found = true;
                         double old_amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
-                        root["records"][i]["data"][j]["Amount"] = old_amount - t->Amount;
+                        root["records"][i]["data"][j]["Amount"] = old_amount - t->amount;
                     }
-                    if (root["records"][i]["data"][j]["id"] == t->accountTo) {
+                    if (root["records"][i]["data"][j]["id"] == t->account_to) {
                         accountTo_found = true;
                         double old_amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
-                        root["records"][i]["data"][j]["Amount"] = old_amount + t->Amount;
+                        root["records"][i]["data"][j]["Amount"] = old_amount + t->amount;
                     }
                 }else{
-                    if (root["records"][i]["data"][j]["id"] == t->AccountID) {
+                    if (root["records"][i]["data"][j]["id"] == t->account_id) {
                         accountId_found = true;
                         double old_amount = std::stod(root["records"][i]["data"][j]["Amount"].asString());
-                        root["records"][i]["data"][j]["Amount"] = old_amount + t->Amount;
+                        root["records"][i]["data"][j]["Amount"] = old_amount + t->amount;
                     }
                 }
             }
 
             if (!accountId_found) {
-                if(t->accountTo != -1){
-                    root["records"][i]["data"][size_data]["id"] = t->AccountID;
-                    root["records"][i]["data"][size_data]["Amount"] = getAccountAmountAt(t->AccountID, month, year) - t->Amount;
+                if(t->account_to != -1){
+                    root["records"][i]["data"][size_data]["id"] = t->account_id;
+                    root["records"][i]["data"][size_data]["Amount"] = getAccountAmountAt(t->account_id, month, year) - t->amount;
                     size_data++;
                 }else{
-                    root["records"][i]["data"][size_data]["id"] = t->AccountID;
-                    root["records"][i]["data"][size_data]["Amount"] = getAccountAmountAt(t->AccountID, month, year) + t->Amount;
+                    root["records"][i]["data"][size_data]["id"] = t->account_id;
+                    root["records"][i]["data"][size_data]["Amount"] = getAccountAmountAt(t->account_id, month, year) + t->amount;
                 }
             }
             if(!accountTo_found) {
-                if(t->accountTo != -1){
-                    root["records"][i]["data"][size_data]["id"] = t->accountTo;
-                    root["records"][i]["data"][size_data]["Amount"] = getAccountAmountAt(t->accountTo, month, year) + t->Amount;
+                if(t->account_to != -1){
+                    root["records"][i]["data"][size_data]["id"] = t->account_to;
+                    root["records"][i]["data"][size_data]["Amount"] = getAccountAmountAt(t->account_to, month, year) + t->amount;
                 }
             }
         }
@@ -558,15 +559,15 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
         root["records"][last_index]["Month"] = month;
         root["records"][last_index]["Year"] = year;
         
-        if(t->accountTo != -1){
-            root["records"][last_index]["data"][0]["id"] = t->AccountID;
-            root["records"][last_index]["data"][0]["Amount"] = getAccountAmountAt(t->AccountID, month, year) - t->Amount;
+        if(t->account_to != -1){
+            root["records"][last_index]["data"][0]["id"] = t->account_id;
+            root["records"][last_index]["data"][0]["Amount"] = getAccountAmountAt(t->account_id, month, year) - t->amount;
 
-            root["records"][last_index]["data"][1]["id"] = t->accountTo;
-            root["records"][last_index]["data"][1]["Amount"] = getAccountAmountAt(t->accountTo, month, year) + t->Amount;
+            root["records"][last_index]["data"][1]["id"] = t->account_to;
+            root["records"][last_index]["data"][1]["Amount"] = getAccountAmountAt(t->account_to, month, year) + t->amount;
         }else{
-            root["records"][last_index]["data"][0]["id"] = t->AccountID;
-            root["records"][last_index]["data"][0]["Amount"] = getAccountAmountAt(t->AccountID, month, year) + t->Amount;
+            root["records"][last_index]["data"][0]["id"] = t->account_id;
+            root["records"][last_index]["data"][0]["Amount"] = getAccountAmountAt(t->account_id, month, year) + t->amount;
         }
 
         // sorting required after new month insertion
@@ -576,16 +577,16 @@ void Backend::updateAccountsDetailsData(int month, int year, Transaction_p t)
         // Propagate changes in the next month records
         for (unsigned int i = index_record_change + 1; i < root["records"].size(); i++) {
             for (unsigned int j = 0; j < root["records"][i]["data"].size(); j++) {
-                if(t->accountTo != -1){
-                    if (root["records"][i]["data"][j]["id"] == t->AccountID) {
-                        root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) - t->Amount;
+                if(t->account_to != -1){
+                    if (root["records"][i]["data"][j]["id"] == t->account_id) {
+                        root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) - t->amount;
                     }
-                    else if (root["records"][i]["data"][j]["id"] == t->accountTo) {
-                        root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) + t->Amount;
+                    else if (root["records"][i]["data"][j]["id"] == t->account_to) {
+                        root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) + t->amount;
                     }
                 }else{
-                    if (root["records"][i]["data"][j]["id"] == t->AccountID) {
-                        root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) + t->Amount;
+                    if (root["records"][i]["data"][j]["id"] == t->account_id) {
+                        root["records"][i]["data"][j]["Amount"] = std::stod(root["records"][i]["data"][j]["Amount"].asString()) + t->amount;
                     }
                 }
             }
@@ -612,12 +613,12 @@ void Backend::updateNetWorthData(int month, int year, Transaction_p t)
     double ClosingWorth = last_nw;
     std::vector<Transaction_p> transactions = getMonthlyReport(month, year)->transactions;
     for (auto x : transactions) {
-        ClosingWorth += x->Amount;
-        if (x->Type == "In") {
+        ClosingWorth += x->amount;
+        if (x->type == "In") {
             if (ClosingWorth > HighWorth)
                 HighWorth = ClosingWorth;
         }
-        else if(x->Type == "Out") {
+        else if(x->type == "Out") {
             if (ClosingWorth < LowWorth)
                 LowWorth = ClosingWorth;
         }
@@ -650,10 +651,10 @@ void Backend::updateNetWorthData(int month, int year, Transaction_p t)
     else {
         // Propagate changes in the next month records
         for (unsigned int i = index_record_change + 1; i < root["records"].size(); i++) {
-            root["records"][i]["OpeningWorth"] = std::stod(root["records"][i]["OpeningWorth"].asString()) + t->Amount;
-            root["records"][i]["LowWorth"] = std::stod(root["records"][i]["LowWorth"].asString()) + t->Amount;
-            root["records"][i]["HighWorth"] = std::stod(root["records"][i]["HighWorth"].asString()) + t->Amount;
-            root["records"][i]["ClosingWorth"] = std::stod(root["records"][i]["ClosingWorth"].asString()) + t->Amount;
+            root["records"][i]["OpeningWorth"] = std::stod(root["records"][i]["OpeningWorth"].asString()) + t->amount;
+            root["records"][i]["LowWorth"] = std::stod(root["records"][i]["LowWorth"].asString()) + t->amount;
+            root["records"][i]["HighWorth"] = std::stod(root["records"][i]["HighWorth"].asString()) + t->amount;
+            root["records"][i]["ClosingWorth"] = std::stod(root["records"][i]["ClosingWorth"].asString()) + t->amount;
         }
     }
 
@@ -728,13 +729,13 @@ MonthlyAggrCategoryReport_p Backend::getAggrCatReport(int month, int year)
 
     std::vector<Category_p> categories = this->getCategories();
     for(auto cat : categories){
-        if(cat->Type == "Out"){
+        if(cat->type == "Out"){
             MonthlyCategoryBalanceT_p balance = std::make_shared<MonthlyCategoryBalanceT>();
-            balance->Category = cat->Name;
-            balance->CategoryType = cat->Type;
+            balance->Category = cat->name;
+            balance->CategoryType = cat->type;
             balance->Month = month;
             balance->Year = year;
-            balance->Amount = this->getAmountByCategory(month, year, cat->Name);
+            balance->Amount = this->getAmountByCategory(month, year, cat->name);
             x->totalsByCategory.push_back(balance);
         }
     }
@@ -749,8 +750,8 @@ double Backend::getAmountByCategory(int month, int year, std::string category)
     x = this->getMonthlyReport(month, year);
 
     for(auto t : x->transactions){
-        if(t->Category == category){
-            amount = t->Amount;
+        if(t->category == category){
+            amount = t->amount;
         }
     }
 
@@ -765,13 +766,13 @@ MonthlyAggrCategoryReport_p Backend::getAggrCatReportWithoutInvestments(int mont
 
     std::vector<Category_p> categories = this->getCategories();
     for(auto cat : categories){
-        if(cat->Type == "Out" && cat->Name != "Investments (+)" && cat->Name != "Investments (-)"){
+        if(cat->type == "Out" && cat->name != "Investments (+)" && cat->name != "Investments (-)"){
             MonthlyCategoryBalanceT_p balance = std::make_shared<MonthlyCategoryBalanceT>();
-            balance->Category = cat->Name;
-            balance->CategoryType = cat->Type;
+            balance->Category = cat->name;
+            balance->CategoryType = cat->type;
             balance->Month = month;
             balance->Year = year;
-            balance->Amount = this->getAmountByCategory(month, year, cat->Name);
+            balance->Amount = this->getAmountByCategory(month, year, cat->name);
             x->totalsByCategory.push_back(balance);
         }
     }
@@ -794,15 +795,15 @@ YearlyInvestmentsReport_p Backend::getYearlyInvestmentsReport(int year)
         x->Year = year;
         x->initial_capital = getAccountAmountAt(1, i + 1, year);
         for (auto t : monthlyReport->transactions) {
-            if (t->Category == "Investments (+)") {
-                if (t->Subcategory == "Investments (+)") x->investments_variation += t->Amount;
+            if (t->category == "Investments (+)") {
+                if (t->sub_category == "Investments (+)") x->investments_variation += t->amount;
             } 
-            else if (t->Category == "Investments (-)") {
-                if (t->Subcategory == "Investments (-)") x->investments_variation += t->Amount;
+            else if (t->category == "Investments (-)") {
+                if (t->sub_category == "Investments (-)") x->investments_variation += t->amount;
             }
-            else if (t->Category == "Transfer") {
-                if (t->Subcategory == "Deposit") x->deposits += t->Amount;
-                if (t->Subcategory == "Withdrawal") x->deposits -= t->Amount;
+            else if (t->category == "Transfer") {
+                if (t->sub_category == "Deposit") x->deposits += t->amount;
+                if (t->sub_category == "Withdrawal") x->deposits -= t->amount;
             }
         }
 

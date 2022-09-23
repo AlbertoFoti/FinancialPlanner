@@ -4,9 +4,9 @@ find_package(imgui CONFIG REQUIRED)
 
 add_library(
 	Core
-	Core.h
+		Core.hpp
 	Core.cpp
-	Backend.h
+        Backend.hpp
 	Backend.cpp
 )
 

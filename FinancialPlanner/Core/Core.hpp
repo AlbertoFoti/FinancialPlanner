@@ -2,8 +2,7 @@
 
 #include <iostream>
 #include <string>
-#include "Backend.h"
-#include "../Utility/Utility.hpp"
+#include "Backend.hpp"
 
 /**
  * @brief Core component : Link with financial procedures and backend link

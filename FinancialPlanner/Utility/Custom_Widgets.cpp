@@ -1,3 +1,4 @@
+#include <vector>
 #include "Custom_Widgets.hpp"
 
 #include "imgui.h"
@@ -69,7 +70,7 @@ Date_format_p calendarSelection()
 	ImGui::Spacing();
 
 	// Window width calculations
-	float day_dim_x = (int)(ImGui::GetWindowWidth() * 0.13);
+	float day_dim_x = (int)(ImGui::GetWindowWidth() * 0.10);
 	float day_dim_y = (int)(ImGui::GetWindowHeight() * 0.02);
 
 	// Day

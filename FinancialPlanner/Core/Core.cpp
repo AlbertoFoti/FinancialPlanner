@@ -1,4 +1,5 @@
-#include "Core.h"
+#include "Core.hpp"
+#include "../Utility/namespace_declarations.hpp"
 
 Core::Core()
 {
@@ -99,7 +100,7 @@ std::vector<SubCategory_p> Core::getSubCategoriesOf(std::string catName)
 {
 	std::vector<SubCategory_p> x;
 	for (Category_p c : this->categories) {
-		if (c->Name == catName) {
+		if (c->name == catName) {
 			for (SubCategory_p s : c->subCategories) {
 				x.push_back(s);
 			}
@@ -122,7 +123,7 @@ bool Core::checkCategoryExists(std::string name)
 {
 	std::vector<Category_p> categories = this->getCategoriesFromDb();
 	for (Category_p x : categories) {
-		if (x->Name == name) return true;
+		if (x->name == name) return true;
 	}
 	return false;
 }
@@ -207,7 +208,7 @@ void Core::pushTransaction(int month, int year, Transaction_p t)
 	// Update category and subcategory Details Data
 
 	// Update Net Worth data
-	if(t->accountTo == -1){
+	if(t->account_to == -1){
 		this->back_end.updateNetWorthData(month, year, t);
 		this->NW_records = getNWdataFromDb(-1, -1);
 	}
