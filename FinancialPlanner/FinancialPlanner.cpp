@@ -23,12 +23,13 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
+    // Core initialized
+    core = std::make_shared<Core>();
+
     loadFonts();
 
     setTheme();
 
-    // Core initialized
-    core = std::make_shared<Core>();
     // Accounts
     accounts = this->core->getAccountsFromDb();
     // Categories
@@ -2260,11 +2261,11 @@ void FinancialPlanner::SetDarkThemeColors()
 void FinancialPlanner::loadFonts()
 {
     // Display size
-    std::string display_resolution = this->core->getConfig().display_resolution;
+    Config_p config = this->core->getConfigFromDb();
 
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     // Fonts
-    if(display_resolution == "1920x1080"){
+    if(config->display_resolution == "1920x1080"){
         // 0
         io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 11.0f);
         // 1
@@ -2276,7 +2277,11 @@ void FinancialPlanner::loadFonts()
         // 4
         io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 11.0f);
         // 5
-        io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+        if(config->default_font == "Roboto") {
+            io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+        } else {
+            io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+        }
         // 6
         io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 20.0f);
         // 7
@@ -2300,7 +2305,11 @@ void FinancialPlanner::loadFonts()
         // 16
         io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
         // 17
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+        if(config->default_font == "Blender") {
+            io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+        } else {
+            io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+        }
         // 18
         io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
         // 19
@@ -2331,7 +2340,11 @@ void FinancialPlanner::loadFonts()
         // 4
         io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 11.0f);
         // 5
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+        if(config->default_font == "Roboto") {
+            io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+        } else {
+            io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+        }
         // 6
         io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 20.0f);
         // 7
@@ -2355,7 +2368,11 @@ void FinancialPlanner::loadFonts()
         // 16
         io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
         // 17
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+        if(config->default_font == "Blender") {
+            io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+        } else {
+            io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+        }
         // 18
         io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
         // 19

@@ -176,11 +176,11 @@ struct YearlyInvestmentsReport {
 };
 using YearlyInvestmentsReport_p = std::shared_ptr<YearlyInvestmentsReport>;
 
-struct config_t {
+struct Config_t {
 	std::string display_resolution;
 	std::string default_font;
 };
-using config_t = struct config_t;
+using Config_p = std::shared_ptr<Config_t>;
 
 class Backend {
 public:
@@ -249,7 +249,7 @@ public:
 	 * 
 	 * @return config_t 
 	 */
-	config_t getConfig();
+    Config_p getConfig();
 
 	/**
 	 * @brief Testing

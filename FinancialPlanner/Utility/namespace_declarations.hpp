@@ -75,8 +75,8 @@ using MonthlyInvestmentsReport_p = std::shared_ptr<MonthlyInvestmentsReport>;
 struct YearlyInvestmentsReport;
 using YearlyInvestmentsReport_p = std::shared_ptr<YearlyInvestmentsReport>;
 
-struct config_t;
-using config_t = struct config_t;
+struct Config_t;
+using Config_p = std::shared_ptr<Config_t>;
 
 #include "CustomTime.hpp"
 #include "Custom_Widgets.hpp"

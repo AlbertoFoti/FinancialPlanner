@@ -813,15 +813,15 @@ YearlyInvestmentsReport_p Backend::getYearlyInvestmentsReport(int year)
     return yearlyReport;
 }
 
-config_t Backend::getConfig()
+Config_p Backend::getConfig()
 {
     Json::Value root;
-    config_t config;
+    Config_p config = std::make_shared<Config_t>();
     
     root = getRootFromFileStream("assets/fonts/config.json");
 
-    config.display_resolution = root["display_resolution"].asString();
-    config.default_font = root["default_font"].asString();
+    config->display_resolution = root["display_resolution"].asString();
+    config->default_font = root["default_font"].asString();
 
     return config;
 }

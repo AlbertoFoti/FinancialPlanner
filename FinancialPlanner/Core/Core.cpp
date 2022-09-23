@@ -224,7 +224,13 @@ MonthlyAggrCategoryReport_p Core::getAggrCatReportWithoutInvestments(int month, 
 	return this->back_end.getAggrCatReportWithoutInvestments(month, year);
 }
 
-config_t Core::getConfig()
+Config_p Core::getConfigFromDb()
 {
-	return this->back_end.getConfig();
+    this->config = this->back_end.getConfig();
+	return this->config;
+}
+
+Config_p Core::getConfig()
+{
+    return this->config;
 }
