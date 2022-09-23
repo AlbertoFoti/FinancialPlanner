@@ -33,12 +33,13 @@ There isn't a proper installation procedure yet. (The product is still in develo
 - Investments Tab : breakdown [5 years, 10 years, 25 years, 50 years] views
 - fix: bugs hunting
 - fix: when deleting account proceed in deleting all account related transactions (give an option to clear or not the data) and manage account accesses/conflicts after delete
-
-### Version 0.3.5 Objectives
 - Asset Allocation tab : backend logic (assets, location, currency exposure, ...)
 - Dynamic GUI: 1080p / 2k versions
 - Dynamic Investment Classes Manager (with backend integration)
+
+## Version 0.3.1 Objectives
 - refactor: function to get proper button sizes (dynamic button sizes clean and organized)
+- GUI: new layout (+ Manager tab)
 
 ### Versions 0.2.x Features
 - 0.3.0 Stable version. Multiplatform capabilities.
