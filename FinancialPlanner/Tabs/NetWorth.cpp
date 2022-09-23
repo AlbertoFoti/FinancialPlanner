@@ -14,8 +14,6 @@ void NetWorth::Render()
 	// Net Worth Data
 	this->NW_records = this->core->getNWdata();
 
-	ImGui::ShowDemoWindow();
-
 	// Current Net Worth
 	ImGui::Spacing();
 	ImGui::PushFont(blenderProHeavy_xl);

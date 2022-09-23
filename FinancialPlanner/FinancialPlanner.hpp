@@ -85,31 +85,6 @@ private:
 	void ShowMainView();
 
 	/**
-	 * @brief Left Panel View : shows compound interest calculator panel
-	 * 
-	 * @param nameGUI Panel Name
-	 */
-	void ShowCompoundInterestCalculator(const char* nameGUI);
-
-	/**
-	 * @brief Left Panel View : shows account manager panel
-	 * 
-	 */
-	void ShowAccountManager();
-
-	/**
-	 * @brief Left Panel View : shows category manager panel
-	 * 
-	 */
-	void ShowCategoryManager();
-
-	/**
-	 * @brief Left Panel View : shows investments category manager panel
-	 * 
-	 */
-	void ShowInvCategoryManager();
-
-	/**
 	 * @brief Demo View : ImGui Demo panel
 	 * 
 	 */
@@ -150,13 +125,6 @@ private:
 	 * 
 	 */
 	void SetDarkThemeColors();
-
-	/**
-	 * @brief Utility : shows Helper Marker
-	 * 
-	 * @param desc 
-	 */
-	void HelpMarker(const char* desc);
 
 	/**
 	 * @brief Load Fonts

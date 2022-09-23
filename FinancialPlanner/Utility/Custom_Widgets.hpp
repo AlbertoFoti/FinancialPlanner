@@ -17,3 +17,10 @@ using Date_format_p = std::shared_ptr<Date_format>;
  * @return Date_format_p 
  */
 Date_format_p calendarSelection();
+
+/**
+	 * @brief Utility : shows Helper Marker
+	 *
+	 * @param desc
+	 */
+void HelpMarker(const char* desc);

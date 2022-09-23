@@ -97,4 +97,6 @@ void Overview::ShowControlPanel(std::string panel_name)
 	ImGui::Begin(panel_name.c_str());
 	ImGui::Text(panel_name.c_str());
 	ImGui::End();
+
+    ImGui::ShowDemoWindow();
 }

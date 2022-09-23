@@ -6,20 +6,15 @@ find_package(imgui CONFIG REQUIRED)
 
 add_library(
 	Tabs
-        Overview.hpp
-	Overview.cpp
-		NetWorth.hpp
-	NetWorth.cpp
-		IncomeExpenses.hpp
-	IncomeExpenses.cpp
-		Investments.hpp
-	Investments.cpp
-		AssetAllocation.hpp
-	AssetAllocation.cpp
-		Forecasting.hpp
-	Forecasting.cpp
-		FIRE.hpp
-	FIRE.cpp)
+        Overview.hpp Overview.cpp
+		NetWorth.hpp NetWorth.cpp
+		IncomeExpenses.hpp IncomeExpenses.cpp
+		Investments.hpp Investments.cpp
+		AssetAllocation.hpp AssetAllocation.cpp
+		Forecasting.hpp Forecasting.cpp
+		FIRE.hpp FIRE.cpp
+		Manager.hpp Manager.cpp
+)
 
 #dependencies
 
