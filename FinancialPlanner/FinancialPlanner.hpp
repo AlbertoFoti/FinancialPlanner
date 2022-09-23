@@ -85,24 +85,6 @@ private:
 	void ShowMainView();
 
 	/**
-	 * @brief Demo View : ImGui Demo panel
-	 * 
-	 */
-	void ShowDemoWindow();
-
-	/**
-	 * @brief Demo View : ImPlot Demo panel
-	 * 
-	 */
-	void ShowDemoPlot();
-
-	/**
-	 * @brief Demo View : Fonts Testing panel
-	 * 
-	 */
-	void ShowFontTesting();
-
-	/**
 	 * @brief Utility : ImGui Configuration Options/Settings
 	 * 
 	 * @param label 

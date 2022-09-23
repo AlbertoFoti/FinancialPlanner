@@ -5,6 +5,8 @@
 #include "../Core/Core.hpp"
 #include "../Templates/Tab.hpp"
 
+#define IM_CLAMP(V, MN, MX)     ((V) < (MN) ? (MN) : (V) > (MX) ? (MX) : (V))
+
 /**
  * @brief Manager Tab
  *
@@ -73,4 +75,22 @@ public:
 	 * @param nameGUI Panel Name
 	 */
     void ShowCompoundInterestCalculator(const char* nameGUI);
+
+    /**
+    * @brief Demo View : ImGui Demo panel
+    *
+    */
+    void ShowDemoWindow();
+
+    /**
+     * @brief Demo View : ImPlot Demo panel
+     *
+     */
+    void ShowDemoPlot();
+
+    /**
+     * @brief Demo View : Fonts Testing panel
+     *
+     */
+    void ShowFontTesting();
 };
