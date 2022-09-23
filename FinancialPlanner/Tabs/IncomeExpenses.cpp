@@ -62,34 +62,23 @@ void IncomeExpenses::ShowControlPanel(std::string panel_name)
 
 	if(type != 2){
 
+        // Categories
         static int cat = 3;
         std::vector<Category_p> categories_filtered;
         std::copy_if(categories.begin(), categories.end(), std::back_inserter(categories_filtered), [](auto elem) {
             return (elem->type == (type == 0 ? "In" : "Out"));
         });
-        cat = category_list_box<Category_p>("Category", categories_filtered, type);
+        cat = category_list_box<Category_p>("Category", categories_filtered);
 
+        // Subcategories
         static int subCat = 0;
 		subcategories = this->core->getSubCategoriesOf(categories[cat]->name);
-        subCat = category_list_box<SubCategory_p>("SubCategory", subcategories, type);
+        subCat = category_list_box<SubCategory_p>("SubCategory", subcategories);
 
+        // Acoounts
+        static int acc = 0;
 		accounts = core->getAccounts();
-		ImGui::BulletText("Account");
-		static int acc = 0;
-		if (ImGui::BeginListBox("##account_list_box"))
-		{
-			for (int n = 0; n < accounts.size(); n++)
-			{
-				const bool is_selected = (acc == n);
-				if (ImGui::Selectable(accounts[n]->name.c_str(), is_selected))
-					acc = n;
-
-				// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-				if (is_selected)
-					ImGui::SetItemDefaultFocus();
-			}
-			ImGui::EndListBox();
-		}
+		acc = category_list_box<Account_p>("Accounts", accounts);
 
 		static char amount_s[50] = {};
 		ImGui::BulletText("Amount (in EUR) :");

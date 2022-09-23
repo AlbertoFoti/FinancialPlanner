@@ -26,7 +26,7 @@ Date_format_p calendarSelection();
  * @return Item selection inside list
  */
 template<typename T>
-int category_list_box(std::string list_name, std::vector<T> list, int type) {
+int category_list_box(std::string list_name, std::vector<T> list) {
     ImGui::BulletText(list_name.c_str());
     int sel = 0;
 
