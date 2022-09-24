@@ -3,7 +3,8 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-project ("FinancialPlanner")
+project ("resources")
 
 # Includere i sottoprogetti.
 add_subdirectory ("FinancialPlanner")
+add_subdirectory("resources")
