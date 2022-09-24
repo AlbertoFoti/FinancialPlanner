@@ -1,0 +1,10 @@
+.TH financialplanner "24 Sep 2022" "" financialplanner
+.SH Alberto
+FinancialPlanner - My cool project
+.SH SYNOPSIS
+.B financialplanner
+[PARAMETER]
+.SH DESCRIPTION
+What my program does.
+.PP
+More description.
