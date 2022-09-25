@@ -1,7 +1,0 @@
-Package: financialplanner
-Version: 0.3.1
-Architecture: all
-Essential: no
-Priority: optional 
-Maintainer: alberto foti
-Description: a cross-platform application to track and manage your finances
