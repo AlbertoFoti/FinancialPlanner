@@ -1,13 +1,29 @@
 # FinancialPlanner
 Personal Finance Planner <br>
 
-Current Stable Version : **Version 0.3.1**
+Current Stable Version : **Version 0.3.2**
 
 ## License and Copyright
-� 2022 Alberto Foti. All Rights Reserved.
+Ⓒ 2022 Alberto Foti. All Rights Reserved.
 
 ## For Final Users
-There isn't a proper installation procedure yet. (The product is still in development)
+**Linux**:
+- Access the "deployment" folder and search for the desired version folder.
+- Launch the "install.sh" script from terminal or use dpkg to install the .deb file:
+
+
+      sudo bash ./install.sh
+
+or
+
+      sudo dpkg -i financialplanner.deb
+      
+      
+**Windows**: There isn't a proper installation procedure yet for Windows.
+
+**MacOS**: There isn't a proper installation procedure yet for MacOS.
+
+(The product is still in development)
 
 ## Images
 ![alt text](./images/unknown_019.png)
@@ -16,8 +32,7 @@ There isn't a proper installation procedure yet. (The product is still in develo
 
 
 ## Future Objectives
-- Deployment (installer wizard or something similar)
-- Software Icon
+- Deployment (for windows and macOS)
 - Allow currency customization
 - System to manage multiple accounts [Edit]
 - Category/sub_category Manager [Edit]
@@ -36,10 +51,12 @@ There isn't a proper installation procedure yet. (The product is still in develo
 - Asset Allocation tab : backend logic (assets, location, currency exposure, ...)
 - refactor: function to get proper button sizes (dynamic button sizes clean and organized)
 
-## Version 0.3.2 Objectives
+## Version 0.3.3 Objectives
 - Dynamic Investment Classes Manager (with backend integration)
 
 ## Version 0.3.x Features
+- Deployment (linux)
+- Software Icon
 - fix: bugs hunting
 - refactor: warnings, fixes, deprecated functions
 - GUI: new layout (+ Manager tab)
