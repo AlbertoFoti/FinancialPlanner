@@ -95,134 +95,137 @@ void loadFonts(std::shared_ptr<Core> core)
     // Display size
     Config_p config = core->getConfigFromDb();
 
+    // font folder
+    std::string root_folder = "../share/financialplanner/resources/assets";
+
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     // Fonts
     if(config->display_resolution == "1920x1080"){
         // 0
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Bold.ttf").c_str(), 11.0f);
         // 1
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 15.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Bold.ttf").c_str(), 15.0f);
         // 2
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Bold.ttf").c_str(), 20.0f);
         // 3
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Bold.ttf").c_str(), 33.0f);
         // 4
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Medium.ttf").c_str(), 11.0f);
         // 5
         if(config->default_font == "Roboto") {
-            io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+            io.FontDefault = io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Medium.ttf").c_str(), 15.0f);
         } else {
-            io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+            io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Medium.ttf").c_str(), 15.0f);
         }
         // 6
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Medium.ttf").c_str(), 20.0f);
         // 7
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Medium.ttf").c_str(), 33.0f);
         // 8
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Thin.ttf").c_str(), 11.0f);
         // 9
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 15.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Thin.ttf").c_str(), 15.0f);
         // 10
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Thin.ttf").c_str(), 20.0f);
         // 11
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Thin.ttf").c_str(), 33.0f);
         // 12
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf").c_str(), 11.0f);
         // 13
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 14.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf").c_str(), 14.0f);
         // 14
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf").c_str(), 20.0f);
         // 15
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf").c_str(), 33.0f);
         // 16
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf").c_str(), 11.0f);
         // 17
         if(config->default_font == "Blender") {
-            io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+            io.FontDefault = io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf").c_str(), 14.0f);
         } else {
-            io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+            io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf").c_str(), 14.0f);
         }
         // 18
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf").c_str(), 20.0f);
         // 19
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf").c_str(), 33.0f);
         // 20
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProThin/BlenderProThin.ttf").c_str(), 11.0f);
         // 21
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 14.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProThin/BlenderProThin.ttf").c_str(), 14.0f);
         // 22
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProThin/BlenderProThin.ttf").c_str(), 20.0f);
         // 23
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProThin/BlenderProThin.ttf").c_str(), 33.0f);
         // 24
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProThin/BlenderProThin.ttf").c_str(), 33.0f);
         // 25
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProThin/BlenderProThin.ttf").c_str(), 33.0f);
         // 26
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf").c_str(), 33.0f);
     } else {
         // 0
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Bold.ttf").c_str(), 11.0f);
         // 1
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 15.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Bold.ttf").c_str(), 15.0f);
         // 2
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Bold.ttf").c_str(), 20.0f);
         // 3
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Bold.ttf").c_str(), 33.0f);
         // 4
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Medium.ttf").c_str(), 11.0f);
         // 5
         if(config->default_font == "Roboto") {
-            io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+            io.FontDefault = io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Medium.ttf").c_str(), 15.0f);
         } else {
-            io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 15.0f);
+            io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Medium.ttf").c_str(), 15.0f);
         }
         // 6
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Medium.ttf").c_str(), 20.0f);
         // 7
-        io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 33.0f);
+        io.FontDefault = io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Medium.ttf").c_str(), 33.0f);
         // 8
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Thin.ttf").c_str(), 11.0f);
         // 9
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 15.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Thin.ttf").c_str(), 15.0f);
         // 10
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Thin.ttf").c_str(), 20.0f);
         // 11
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Thin.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Roboto/Roboto-Thin.ttf").c_str(), 33.0f);
         // 12
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf").c_str(), 11.0f);
         // 13
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 14.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf").c_str(), 14.0f);
         // 14
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf").c_str(), 20.0f);
         // 15
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf").c_str(), 33.0f);
         // 16
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf").c_str(), 11.0f);
         // 17
         if(config->default_font == "Blender") {
-            io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+            io.FontDefault = io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf").c_str(), 14.0f);
         } else {
-            io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 14.0f);
+            io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf").c_str(), 14.0f);
         }
         // 18
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf").c_str(), 20.0f);
         // 19
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf").c_str(), 33.0f);
         // 20
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 11.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProThin/BlenderProThin.ttf").c_str(), 11.0f);
         // 21
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 14.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProThin/BlenderProThin.ttf").c_str(), 14.0f);
         // 22
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 20.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProThin/BlenderProThin.ttf").c_str(), 20.0f);
         // 23
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 33.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProThin/BlenderProThin.ttf").c_str(), 33.0f);
         // 24
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProThin/BlenderProThin.ttf", 70.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProThin/BlenderProThin.ttf").c_str(), 70.0f);
         // 25
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf", 70.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProMedium/BlenderProMedium.ttf").c_str(), 70.0f);
         // 26
-        io.Fonts->AddFontFromFileTTF("assets/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf", 70.0f);
+        io.Fonts->AddFontFromFileTTF((root_folder + "/fonts/Blender/BlenderProHeavy/BlenderProHeavy.ttf").c_str(), 70.0f);
     }
 }
 

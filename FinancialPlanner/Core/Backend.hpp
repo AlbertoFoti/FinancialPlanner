@@ -183,6 +183,8 @@ struct Config_t {
 using Config_p = std::shared_ptr<Config_t>;
 
 class Backend {
+private:
+    static std::string root_directory_db;
 public:
 	void init();
 
@@ -191,7 +193,7 @@ public:
 	 * 
 	 */
 	std::vector<Account_p> getAccounts();
-	void pushAccount(Account_p x);
+	void pushAccount(const Account_p& x);
 	AccountMonthlyDetails_p getAccountMonthlyRecords(int id);
 	AccountMonthlyDetails_p getAccountMonthlyRecordsComplete(int id);
 	void deleteAccount(int id);
@@ -202,21 +204,21 @@ public:
 	 */
 	std::vector<Category_p> getCategories();
 	void pushCategory(Category_p x);
-	void pushSubCategory(std::string categoryName, SubCategory_p x);
-	Json::Value SwapLastElements(Json::Value root, int i);
+	void pushSubCategory(const std::string& categoryName, SubCategory_p x);
+	static Json::Value SwapLastElements(Json::Value root, int i);
 	void deleteCategory(int id);
 
 	/**
 	 * @brief Net Worth
 	 *  
 	 */
-	std::vector<NW_record_p> getNWdata(double from, double to);
+	static std::vector<NW_record_p> getNWdata(double from, double to);
 
 	/**
 	 * @brief Income / Expenses
 	 * 
 	 */
-	MonthlyTransactions_p getMonthlyReport(int month, int year);
+	static MonthlyTransactions_p getMonthlyReport(int month, int year);
 	YearlyReport_p getYearlyReport(int year);
 	void pushTransaction(int month, int year, Transaction_p t);
 
@@ -228,14 +230,14 @@ public:
 	void updateNetWorthData(int month, int year, Transaction_p t);
 	double getAccountAmountAt(int id, int month, int year);
 	double getLastAccountAmount(int id);
-	double getNWat(int month, int year);
+	static double getNWat(int month, int year);
 
 	/**
 	 * @brief Aggregate Reports
 	 * 
 	 */
 	MonthlyAggrCategoryReport_p getAggrCatReport(int month, int year);
-	double getAmountByCategory(int month, int year, std::string category);
+	double getAmountByCategory(int month, int year, const std::string& category);
 	MonthlyAggrCategoryReport_p getAggrCatReportWithoutInvestments(int month, int year);
 
 	/**
@@ -249,19 +251,19 @@ public:
 	 * 
 	 * @return config_t 
 	 */
-    Config_p getConfig();
+    static Config_p getConfig();
 
 	/**
 	 * @brief Testing
 	 * 
 	 */
-	std::string sayHello();
+	static std::string sayHello();
 
 private:
 	/**
 	 * @brief Private Utility Functions
 	 * 
 	 */
-	Json::Value getRootFromFileStream(std::string ifstream_name);
-	void writeToFileStream(std::string ofstream_name, Json::Value root);
+	static Json::Value getRootFromFileStream(const std::string& ifstream_name);
+	static void writeToFileStream(const std::string& ofstream_name, const Json::Value& root);
 };

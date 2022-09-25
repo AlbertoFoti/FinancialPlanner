@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=financialplanner
+Comment=Financial Planner
+Icon=financialplanner
+Exec=sh -c "cd /usr/bin; ./financialplanner"
+Terminal=false
+Type=Application
+Categories=Graphics
+GenericName=financialplanner
+Keywords=tracking; money; expenses
