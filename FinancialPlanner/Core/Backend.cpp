@@ -1,7 +1,7 @@
 #include "Backend.hpp"
 #include "../Utility/Utility.hpp"
 
-std::string Backend::root_directory_db = "../share/resources/database";
+std::string Backend::root_directory_db = "../share/financialplanner/resources/database";
 
 void Backend::init() {
 
@@ -811,7 +811,7 @@ Config_p Backend::getConfig()
     Json::Value root;
     Config_p config = std::make_shared<Config_t>();
 
-    std::string root_fonts = "../share/resources/assets";
+    std::string root_fonts = "../share/financialplanner/resources/assets";
     
     root = getRootFromFileStream(root_fonts + "/fonts/config.json");
 

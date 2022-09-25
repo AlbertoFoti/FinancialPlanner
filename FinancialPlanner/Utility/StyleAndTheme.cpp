@@ -96,7 +96,7 @@ void loadFonts(std::shared_ptr<Core> core)
     Config_p config = core->getConfigFromDb();
 
     // font folder
-    std::string root_folder = "../share/resources/assets";
+    std::string root_folder = "../share/financialplanner/resources/assets";
 
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     // Fonts
