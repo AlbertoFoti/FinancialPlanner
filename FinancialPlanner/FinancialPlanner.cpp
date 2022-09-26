@@ -1,4 +1,5 @@
 #include "FinancialPlanner.hpp"
+#include "Settings.hpp"
 
 void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
 {
@@ -6,7 +7,7 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
 	ImGui::CreateContext();
     ImPlot::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.IniFilename = "../share/financialplanner/imgui.ini";
+    io.IniFilename = INI_FILE_PATH;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
@@ -24,8 +25,10 @@ void FinancialPlanner::Init(GLFWwindow* window, const char* glsl_version)
     // Core initialized
     core = std::make_shared<Core>();
 
+    // Fonts
     loadFonts(core);
 
+    // Theme
     setTheme();
 
     // Accounts
@@ -100,50 +103,7 @@ void FinancialPlanner::Update()
     style.ItemSpacing.x = 10;
     style.ItemSpacing.y = 12;
 
-    if (ImGui::BeginMenuBar())
-    {
-        if (ImGui::BeginMenu("Window"))
-        {
-            // Disabling fullscreen would allow the window to be moved to the front of other windows,
-            // which we can't undo at the moment without finer window depth/z control.
-            ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen);
-            ImGui::MenuItem("Padding", NULL, &opt_padding);
-            ImGui::Separator();
-
-            if (ImGui::MenuItem("Flag: NoSplit", "", (dockspace_flags & ImGuiDockNodeFlags_NoSplit) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoSplit; }
-            if (ImGui::MenuItem("Flag: NoResize", "", (dockspace_flags & ImGuiDockNodeFlags_NoResize) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoResize; }
-            if (ImGui::MenuItem("Flag: NoDockingInCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_NoDockingInCentralNode) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoDockingInCentralNode; }
-            if (ImGui::MenuItem("Flag: AutoHideTabBar", "", (dockspace_flags & ImGuiDockNodeFlags_AutoHideTabBar) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_AutoHideTabBar; }
-            if (ImGui::MenuItem("Flag: PassthruCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) != 0, opt_fullscreen)) { dockspace_flags ^= ImGuiDockNodeFlags_PassthruCentralNode; }
-            ImGui::Separator();
-            ImGui::EndMenu();
-        }
-
-        if (ImGui::BeginMenu("Config"))
-        {
-            ImGui::MenuItem("##CONFIG", NULL);
-            ImGui::ShowFontSelector("Font");
-            ShowStyleSelectorGUI("ImGui Style");
-            ShowStyleSelectorPLOT("ImPlot Style");
-            ImPlot::ShowColormapSelector("ImPlot Colormap");
-            ImPlot::ShowInputMapSelector("Input Map");
-            ImGui::Separator();
-            ImGui::Checkbox("Anti-Aliased Lines", &ImPlot::GetStyle().AntiAliasedLines);
-            ImGui::Checkbox("Use Local Time", &ImPlot::GetStyle().UseLocalTime);
-            ImGui::Checkbox("Use ISO 8601", &ImPlot::GetStyle().UseISO8601);
-            ImGui::EndMenu();
-        }
-
-        if (ImGui::BeginMenu("About"))
-        {
-            ImGui::MenuItem("\xA9 2022 Alberto Foti. All rights reserved", NULL);
-            ImGui::Separator();
-            ImGui::EndMenu();
-        }
-
-        ImGui::EndMenuBar();
-    }
-
+    this->ShowMenuBar(dockspace_flags, opt_padding, opt_fullscreen);
     this->ShowGUI();
 
     ImGui::End();
@@ -180,6 +140,52 @@ void FinancialPlanner::ShowGUI() {
     this->ShowMainView();
 }
 
+void FinancialPlanner::ShowMenuBar(ImGuiDockNodeFlags& dockspace_flags, bool& opt_padding, bool& opt_fullscreen) {
+    if (ImGui::BeginMenuBar())
+    {
+        if (ImGui::BeginMenu("Window"))
+        {
+            // Disabling fullscreen would allow the window to be moved to the front of other windows,
+            // which we can't undo at the moment without finer window depth/z control.
+            ImGui::MenuItem("Fullscreen", nullptr, &opt_fullscreen);
+            ImGui::MenuItem("Padding", nullptr, &opt_padding);
+            ImGui::Separator();
+
+            if (ImGui::MenuItem("Flag: NoSplit", "", (dockspace_flags & ImGuiDockNodeFlags_NoSplit) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoSplit; }
+            if (ImGui::MenuItem("Flag: NoResize", "", (dockspace_flags & ImGuiDockNodeFlags_NoResize) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoResize; }
+            if (ImGui::MenuItem("Flag: NoDockingInCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_NoDockingInCentralNode) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoDockingInCentralNode; }
+            if (ImGui::MenuItem("Flag: AutoHideTabBar", "", (dockspace_flags & ImGuiDockNodeFlags_AutoHideTabBar) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_AutoHideTabBar; }
+            if (ImGui::MenuItem("Flag: PassthruCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) != 0, opt_fullscreen)) { dockspace_flags ^= ImGuiDockNodeFlags_PassthruCentralNode; }
+            ImGui::Separator();
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("Config"))
+        {
+            ImGui::MenuItem("##CONFIG", nullptr);
+            ImGui::ShowFontSelector("Font");
+            ShowStyleSelectorGUI("ImGui Style");
+            ShowStyleSelectorPLOT("ImPlot Style");
+            ImPlot::ShowColormapSelector("ImPlot Colormap");
+            ImPlot::ShowInputMapSelector("Input Map");
+            ImGui::Separator();
+            ImGui::Checkbox("Anti-Aliased Lines", &ImPlot::GetStyle().AntiAliasedLines);
+            ImGui::Checkbox("Use Local Time", &ImPlot::GetStyle().UseLocalTime);
+            ImGui::Checkbox("Use ISO 8601", &ImPlot::GetStyle().UseISO8601);
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("About"))
+        {
+            ImGui::MenuItem("\xA9 2022 Alberto Foti. All rights reserved", nullptr);
+            ImGui::Separator();
+            ImGui::EndMenu();
+        }
+
+        ImGui::EndMenuBar();
+    }
+}
+
 void FinancialPlanner::ShowMainView()
 {
     ImGui::Begin("Financial Overview");
@@ -208,7 +214,7 @@ void FinancialPlanner::ShowMainView()
                 { "Manager##manager", manager_renderer },
         };
 
-        for (auto pair : labels) {
+        for (const auto& pair : labels) {
             if (ImGui::BeginTabItem(pair.first.c_str()))
             {
                 pair.second->Render();

@@ -1,14 +1,11 @@
+#include "Settings.hpp"
 #include "FinancialPlanner.hpp"
 
 // OpenGL glad, GLFW  (Renderer)
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-#define WINDOW_NAME "Financial Planner"
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
-
-int glfwSetup(GLFWwindow* window,  std::string window_name, int window_width, int window_height);
+int glfwSetup(GLFWwindow* &window);
 
 /**
  * @brief Main : Entry point for program control (update and render loop)
@@ -19,13 +16,12 @@ int glfwSetup(GLFWwindow* window,  std::string window_name, int window_width, in
 int main()
 {
     GLFWwindow* window;
-    const char* glsl_version = "#version 130";
 
-    glfwSetup(window, WINDOW_NAME, WINDOW_WIDTH, WINDOW_HEIGHT);
+    glfwSetup(window);
 
 	// Financial Planner Instantiation
 	FinancialPlanner myFinancialPlanner;
-    myFinancialPlanner.Init(window, glsl_version);
+    myFinancialPlanner.Init(window, GLSL_VERSION);
 
 	// Financial Planner core (Update(), Render(), Shutdown())
 	while (!glfwWindowShouldClose(window)) {
@@ -43,7 +39,7 @@ int main()
 	return 0;
 }
 
-int glfwSetup(GLFWwindow* window, std::string window_name, int window_width, int window_height) {
+int glfwSetup(GLFWwindow* &window) {
     // Setup Window
     if (!glfwInit())
         throw("Unable to initialize OpenGL");
@@ -53,7 +49,7 @@ int glfwSetup(GLFWwindow* window, std::string window_name, int window_width, int
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
     // Create window with graphics context
-    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, window_name.c_str(), NULL, NULL);
+    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME, nullptr, nullptr);
     if (window == NULL) {
         throw("Unable to create window");
     }

@@ -65,25 +65,30 @@ public:
 	 * @brief Docking Space Setup, Views loading. Rendering.
 	 * 
 	 */
-	void Render();
+	static void Render();
 
 	/**
 	 * @brief ImGui and ImPlot context Shutdown, rendering API cleanup.
 	 * 
 	 */
-	void Shutdown();
+	static void Shutdown();
 
 	/**
 	 * @brief Creates a New Frame
 	 * 
 	 */
-	void NewFrame();
+	static void NewFrame();
 
 private:
     /**
      * @brief Function to display all custom GUIs
      */
     void ShowGUI();
+
+    /**
+     * @brief Function to display top menu bar
+     */
+    static void ShowMenuBar(ImGuiDockNodeFlags& dockspace_flags, bool& opt_padding, bool& opt_fullscreen);
 
 	/**
 	 * @brief Central View Rendering

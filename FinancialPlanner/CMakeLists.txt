@@ -2,7 +2,8 @@
 
 set(Sources 
     "FinancialPlanner.cpp" 
-    "FinancialPlanner.hpp")
+    "FinancialPlanner.hpp"
+        "Settings.hpp")
 
 find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
