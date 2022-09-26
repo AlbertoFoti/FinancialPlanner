@@ -176,6 +176,11 @@ struct YearlyInvestmentsReport {
 };
 using YearlyInvestmentsReport_p = std::shared_ptr<YearlyInvestmentsReport>;
 
+struct AllTimeInvestmentsReport {
+    std::vector<YearlyInvestmentsReport_p> yearlyInvestmentsReports;
+};
+using AllTimeInvestmentsReport_p = std::shared_ptr<AllTimeInvestmentsReport>;
+
 struct Config_t {
 	std::string display_resolution;
 	std::string default_font;
@@ -242,10 +247,11 @@ public:
 	MonthlyAggrCategoryReport_p getAggrCatReportWithoutInvestments(int month, int year);
 
 	/**
-	 * 
+	 * @brief Investments Reports
 	 * 
 	*/
 	YearlyInvestmentsReport_p getYearlyInvestmentsReport(int year);
+    AllTimeInvestmentsReport_p getAllTimeInvestmentsReport();
 
 	/**
 	 * @brief Returns Config Object
@@ -261,4 +267,5 @@ private:
 	 */
 	static Json::Value getRootFromFileStream(const std::string& ifstream_name);
 	static void writeToFileStream(const std::string& ofstream_name, const Json::Value& root);
+    void getFirstAndLastInvestmentYears(int& first, int& last);
 };

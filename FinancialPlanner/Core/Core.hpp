@@ -46,10 +46,11 @@ class Core {
 	YearlyReport_p YearlyReport;
 
 	/**
-	 * @brief Data Structure to store yearly investments report
+	 * @brief Data Structures to store investments report
 	 *
 	*/
-	YearlyInvestmentsReport_p YearlyInvestmentsReport;
+	YearlyInvestmentsReport_p yearlyInvestmentsReport;
+    AllTimeInvestmentsReport_p allTimeInvestmentsReport;
 
     /**
      * Configuration data for Fonts and sizing
@@ -248,16 +249,28 @@ public:
 	YearlyReport_p getYearlyReportFromDb(int year);
 
 	/**
-	 * @brief Get the Investments Report object from Db
+	 * @brief Get the Yearly Investments Report object
 	 *
 	*/
 	YearlyInvestmentsReport_p getYearlyInvestmentsReport();
 
 	/**
-	 * @brief Get the Investments Report object from Db
+	 * @brief Get the Yearly Investments Report object from Db
 	 *
 	*/
 	YearlyInvestmentsReport_p getYearlyInvestmentsReportFromDb(int year);
+
+    /**
+	 * @brief Get the All Time Investments Report object
+	 *
+	*/
+    AllTimeInvestmentsReport_p getAllTimeInvestmentsReport();
+
+    /**
+     * @brief Get the Investments Report object from Db
+     *
+    */
+    AllTimeInvestmentsReport_p getAllTimeInvestmentsReportFromDb();
 
 	/**
 	 * @brief Push transaction in Database

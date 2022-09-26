@@ -11,7 +11,8 @@ Core::Core()
 	this->NW_records = this->back_end.getNWdata(from, to);
 	this->MonthlyReport = this->getMonthlyTransactionsReportFromDb(1, 2021);
 	this->YearlyReport = this->getYearlyReportFromDb(2021);
-	this->YearlyInvestmentsReport = this->getYearlyInvestmentsReportFromDb(2021);
+	this->yearlyInvestmentsReport = this->getYearlyInvestmentsReportFromDb(2021);
+    this->allTimeInvestmentsReport = this->getAllTimeInvestmentsReportFromDb();
 }
 
 double Core::CompoundInterestCalculate(double initialNW, double interestRate, double annualDeposits, int investmentYears, double* y_data)
@@ -188,13 +189,24 @@ YearlyReport_p Core::getYearlyReportFromDb(int year)
 
 YearlyInvestmentsReport_p Core::getYearlyInvestmentsReport()
 {
-	return this->YearlyInvestmentsReport;
+	return this->yearlyInvestmentsReport;
 }
 
 YearlyInvestmentsReport_p Core::getYearlyInvestmentsReportFromDb(int year)
 {
-	this->YearlyInvestmentsReport = this->back_end.getYearlyInvestmentsReport(year);
-	return this->YearlyInvestmentsReport;
+	this->yearlyInvestmentsReport = this->back_end.getYearlyInvestmentsReport(year);
+	return this->yearlyInvestmentsReport;
+}
+
+AllTimeInvestmentsReport_p Core::getAllTimeInvestmentsReport()
+{
+    return this->allTimeInvestmentsReport;
+}
+
+AllTimeInvestmentsReport_p Core::getAllTimeInvestmentsReportFromDb()
+{
+    this->allTimeInvestmentsReport = this->back_end.getAllTimeInvestmentsReport();
+    return this->allTimeInvestmentsReport;
 }
 
 void Core::pushTransaction(int month, int year, Transaction_p t)

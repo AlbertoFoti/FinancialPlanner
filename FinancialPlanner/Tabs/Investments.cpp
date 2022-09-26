@@ -8,6 +8,7 @@ Investments::Investments(std::shared_ptr<Core> core)
 void Investments::Render()
 {
 	this->yearlyInvestmentsReport = this->core->getYearlyInvestmentsReport();
+    this->allTimeInvestmentsReport = this->core->getAllTimeInvestmentsReport();
 
 	// Tabs
 	ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
@@ -36,11 +37,116 @@ void Investments::Render()
 
 void Investments::ShowControlPanel(std::string panel_name)
 {
-    static char c_str[50];
-    sprintf(c_str, "%s", panel_name.c_str());
+    ImGui::Begin(panel_name.c_str());
 
-    ImGui::Begin(c_str);
-    ImGui::Text("%s", c_str);
+    // Display for months or for years
+    static bool byMonth = true;
+    ImGui::Checkbox("Show by Month", &byMonth);
+
+    ImGui::Separator();
+    ImGui::Spacing();
+
+    float min_row_height = 20.0f;
+
+    // Table of net worth data
+    if (ImGui::BeginTable("investmentsTable", 5, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg))
+    {
+        double delta;
+        double delta_perc;
+
+        // headers
+        ImGui::TableSetupColumn("Date");
+        ImGui::TableSetupColumn("Amount");
+        ImGui::TableSetupColumn("Deposit");
+        ImGui::TableSetupColumn("Delta (abs)");
+        ImGui::TableSetupColumn("Delta (%)");
+        ImGui::TableHeadersRow();
+        if(byMonth){
+            // Table
+            for(auto yearly_report : allTimeInvestmentsReport->yearlyInvestmentsReports) {
+                for(auto monthly_report : yearly_report->monthlyInvestmentsReports) {
+                    ImGui::TableNextRow(0,min_row_height);
+                    double initial_capital = monthly_report->initial_capital - monthly_report->deposits - monthly_report->investments_variation;
+                    ImGui::TableNextColumn();
+                    ImGui::Text("%2d/%4d", monthly_report->Month, monthly_report->Year);
+                    ImGui::TableNextColumn();
+                    ImGui::Text("%.2f", initial_capital);
+                    ImGui::TableNextColumn();
+                    if (monthly_report->deposits > 0.0)
+                        ImGui::TextColored(color_positive, "+%.2f", monthly_report->deposits);
+                    else if (monthly_report->investments_variation < 0.0)
+                        ImGui::TextColored(color_negative, "%.2f", monthly_report->deposits);
+                    else
+                        ImGui::Text("%.2f", monthly_report->deposits);
+                    ImGui::TableNextColumn();
+                    if (monthly_report->investments_variation > 0.0)
+                        ImGui::TextColored(color_positive, "+%.2f", monthly_report->investments_variation);
+                    else if (monthly_report->investments_variation < 0.0)
+                        ImGui::TextColored(color_negative, "%.2f", monthly_report->investments_variation);
+                    else
+                        ImGui::Text("%.2f", monthly_report->investments_variation);
+                    ImGui::TableNextColumn();
+                    double delta_net = monthly_report->investments_variation;
+                    double delta_net_perc = 100 * delta_net / initial_capital;
+                    if (delta_net_perc > 0.0)
+                        ImGui::TextColored(color_positive, "+%.2f%%", delta_net_perc);
+                    else if (delta_net_perc < 0.0)
+                        ImGui::TextColored(color_negative, "%.2f%%", delta_net_perc);
+                    else
+                        ImGui::Text("%.2f", delta_net_perc);
+                }
+            }
+        }else{
+            for(auto yearly_report : allTimeInvestmentsReport->yearlyInvestmentsReports) {
+                MonthlyInvestmentsReport_p yearly_res = std::make_shared<MonthlyInvestmentsReport>();
+
+                bool first_month = true;
+                for(auto monthly_report : yearly_report->monthlyInvestmentsReports) {
+                    if(first_month) {
+                        yearly_res->Year = monthly_report->Year;
+                        yearly_res->Month = monthly_report->Month;
+                        first_month = false;
+                    }
+                    yearly_res->initial_capital = monthly_report->initial_capital;
+                    yearly_res->deposits += monthly_report->deposits;
+                    yearly_res->investments_variation += monthly_report->investments_variation;
+                }
+
+                ImGui::TableNextRow(0,min_row_height);
+                double initial_capital = yearly_res->initial_capital - yearly_res->deposits - yearly_res->investments_variation;
+                ImGui::TableNextColumn();
+                ImGui::Text("%2d/%4d", yearly_res->Month, yearly_res->Year);
+                ImGui::TableNextColumn();
+                ImGui::Text("%.2f", initial_capital);
+                ImGui::TableNextColumn();
+                if (yearly_res->deposits > 0.0)
+                    ImGui::TextColored(color_positive, "+%.2f", yearly_res->deposits);
+                else if (yearly_res->investments_variation < 0.0)
+                    ImGui::TextColored(color_negative, "%.2f", yearly_res->deposits);
+                else
+                    ImGui::Text("%.2f", yearly_res->deposits);
+                ImGui::TableNextColumn();
+                if (yearly_res->investments_variation > 0.0)
+                    ImGui::TextColored(color_positive, "+%.2f", yearly_res->investments_variation);
+                else if (yearly_res->investments_variation < 0.0)
+                    ImGui::TextColored(color_negative, "%.2f", yearly_res->investments_variation);
+                else
+                    ImGui::Text("%.2f", yearly_res->investments_variation);
+                ImGui::TableNextColumn();
+                double delta_net = yearly_res->investments_variation;
+                double delta_net_perc = 100 * delta_net / initial_capital;
+                if (delta_net_perc > 0.0)
+                    ImGui::TextColored(color_positive, "+%.2f%%", delta_net_perc);
+                else if (delta_net_perc < 0.0)
+                    ImGui::TextColored(color_negative, "%.2f%%", delta_net_perc);
+                else
+                    ImGui::Text("%.2f", delta_net_perc);
+            }
+        }
+
+        ImGui::EndTable();
+    }
+
 	ImGui::End();
 }
 
@@ -372,7 +478,7 @@ void Investments::ShowInvestmentsDetails()
 	const char* option_names[option_Count] = { "5 Years", "10 Years", "25 Years", "50 Years" };
 	const char* option_name = (breakdownDy >= 0 && breakdownDy < option_Count) ? option_names[breakdownDy] : "Unknown";
 
-	static int year = 2021;
+	static int year = getCurrentYear();
 
 	ImGui::SliderInt("##slider_year", &year, 2000, 2100);
 	ImGui::SameLine();
@@ -416,21 +522,15 @@ void Investments::ShowInvestmentsDetails()
 		if (ImGui::BeginTable("IncExpTable", 7, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg))
 		{
 			// Columns
-			ImGui::TableNextRow(0, 20.0f);
-			ImGui::TableNextColumn();
-			ImGui::Text("MONTH");
-			ImGui::TableNextColumn();
-			ImGui::Text("INITIAL NET WORTH");
-			ImGui::TableNextColumn();
-			ImGui::Text("DEPOSITS");
-			ImGui::TableNextColumn();
-			ImGui::Text("INVESTMENTS DELTA (abs)");
-			ImGui::TableNextColumn();
-			ImGui::Text("PORTFOLIO DELTA (abs)");
-			ImGui::TableNextColumn();
-			ImGui::Text("INVESTMENTS DELTA (%%)");
-			ImGui::TableNextColumn();
-			ImGui::Text("PORTFOLIO DELTA (%%)");
+            ImGui::TableSetupColumn("MONTH");
+            ImGui::TableSetupColumn("INITIAL NET WORTH");
+            ImGui::TableSetupColumn("DEPOSITS");
+            ImGui::TableSetupColumn("INVESTMENTS DELTA (abs)");
+            ImGui::TableSetupColumn("PORTFOLIO DELTA (abs)");
+            ImGui::TableSetupColumn("INVESTMENTS DELTA (%%)");
+            ImGui::TableSetupColumn("PORTFOLIO DELTA (%%)");
+            ImGui::TableHeadersRow();
+
 			for (int i = 0; i != this->yearlyInvestmentsReport->monthlyInvestmentsReports.size(); ++i) {
 				ImGui::TableNextRow(0,min_row_height);
 				double initial_capital = yearlyInvestmentsReport->monthlyInvestmentsReports.at(i)->initial_capital - yearlyInvestmentsReport->monthlyInvestmentsReports.at(i)->deposits - yearlyInvestmentsReport->monthlyInvestmentsReports.at(i)->investments_variation;

@@ -97,11 +97,17 @@ void NetWorth::Render()
 
 	// Net Worth Plots
 	Plotter pl;
-	std::vector<double> dates;
-	std::vector<double> opens;
-	std::vector<double> lows;
-	std::vector<double> highs;
-	std::vector<double> closes;
+	static std::vector<double> dates;
+	static std::vector<double> opens;
+	static std::vector<double> lows;
+	static std::vector<double> highs;
+	static std::vector<double> closes;
+
+    dates.clear();
+    opens.clear();
+    lows.clear();
+    highs.clear();
+    closes.clear();
 
 	if (NW_records.empty()) {
 		// Default empty plot

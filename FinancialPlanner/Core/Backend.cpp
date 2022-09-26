@@ -808,6 +808,28 @@ YearlyInvestmentsReport_p Backend::getYearlyInvestmentsReport(int year)
     return yearlyReport;
 }
 
+AllTimeInvestmentsReport_p Backend::getAllTimeInvestmentsReport()
+{
+    Json::Value root;
+
+    AllTimeInvestmentsReport_p res = std::make_shared<AllTimeInvestmentsReport>();
+
+    int first_investment_year = -1;
+    int last_investment_year = -1;
+    getFirstAndLastInvestmentYears(first_investment_year, last_investment_year);
+
+    if( first_investment_year == -1 || last_investment_year == -1) {
+        // Something went wrong, just show current year data
+        res->yearlyInvestmentsReports.push_back(getYearlyInvestmentsReport(getCurrentYear()));
+    } else {
+        for (int i = first_investment_year; i < last_investment_year + 1; i++) {
+            res->yearlyInvestmentsReports.push_back(getYearlyInvestmentsReport(i));
+        }
+    }
+
+    return res;
+}
+
 Config_p Backend::getConfig()
 {
     Json::Value root;
@@ -852,4 +874,21 @@ void Backend::writeToFileStream(const std::string& ofstream_name, const Json::Va
     outFile.open(ofstream_name);
     writer.write(outFile, root);
     outFile.close();
+}
+
+void Backend::getFirstAndLastInvestmentYears(int& first, int& last)
+{
+    last = getCurrentYear();
+    for(int i=getCurrentYear(); i>MINIMUM_INVESTMENT_YEAR; i--) {
+        YearlyInvestmentsReport_p x = getYearlyInvestmentsReport(i);
+        bool some_activity = false;
+        for(auto elem: x->monthlyInvestmentsReports) {
+            if(elem->deposits != 0 || elem->investments_variation != 0) {
+                some_activity = true;
+            }
+        }
+        if(some_activity) {
+            first = i;
+        }
+    }
 }

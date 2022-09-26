@@ -24,3 +24,6 @@
 #define TAB6 "Forecasting"
 #define TAB7 "FIRE"
 #define TAB8 "Manager"
+
+// Investments settings
+#define MINIMUM_INVESTMENT_YEAR 2000
