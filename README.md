@@ -54,9 +54,9 @@ or
 
 ## Version 0.3.3 Objectives
 - Dynamic Investment Classes Manager (with backend integration)
-- Investments tab : control panel
 
 ## Version 0.3.x Features
+- Investments tab : control panel
 - Deployment (linux)
 - Software Icon
 - fix: bugs hunting
