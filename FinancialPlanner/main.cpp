@@ -4,6 +4,12 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
+#define WINDOW_NAME "Financial Planner"
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+
+int glfwSetup(GLFWwindow* window,  std::string window_name, int window_width, int window_height);
+
 /**
  * @brief Main : Entry point for program control (update and render loop)
  * Prepares window and other graphical components through some rendering API (ex. glfw/opengl3/glad, Vulkan, DirectX)
@@ -12,37 +18,16 @@
  */
 int main()
 {
-	// Setup Window
-	if (!glfwInit())
-		return 1;
+    GLFWwindow* window;
+    const char* glsl_version = "#version 130";
 
-	// GL 3.0 + GLSL 130
-	const char* glsl_version = "#version 130";
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-
-	// Create window with graphics context
-	GLFWwindow* window = glfwCreateWindow(1280, 720, "Financial Planner", NULL, NULL);
-	if (window == NULL) {
-		return 1;
-	}
-	glfwMakeContextCurrent(window);
-	glfwSwapInterval(1); // Enable vsync
-
-	// glad
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-		throw("Unable to context to OpenGL");
-
-	// Screen setup
-	int screen_width, screen_height;
-	glfwGetFramebufferSize(window, &screen_width, &screen_height);
-	glViewport(0, 0, screen_width, screen_height);
+    glfwSetup(window, WINDOW_NAME, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	// Financial Planner Instantiation
 	FinancialPlanner myFinancialPlanner;
+    myFinancialPlanner.Init(window, glsl_version);
 
-	// Financial Planner core (Init(), Update(), Render(), Shutdown())
-	myFinancialPlanner.Init(window, glsl_version);
+	// Financial Planner core (Update(), Render(), Shutdown())
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
@@ -56,4 +41,31 @@ int main()
 	myFinancialPlanner.Shutdown();
 
 	return 0;
+}
+
+int glfwSetup(GLFWwindow* window, std::string window_name, int window_width, int window_height) {
+    // Setup Window
+    if (!glfwInit())
+        throw("Unable to initialize OpenGL");
+
+    // GL 3.0 + GLSL 130
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+
+    // Create window with graphics context
+    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, window_name.c_str(), NULL, NULL);
+    if (window == NULL) {
+        throw("Unable to create window");
+    }
+    glfwMakeContextCurrent(window);
+    glfwSwapInterval(1); // Enable vsync
+
+    // glad
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+        throw("Unable to context to OpenGL");
+
+    // Screen setup
+    int screen_width, screen_height;
+    glfwGetFramebufferSize(window, &screen_width, &screen_height);
+    glViewport(0, 0, screen_width, screen_height);
 }
