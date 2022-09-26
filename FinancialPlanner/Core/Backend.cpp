@@ -1,7 +1,9 @@
 #include "Backend.hpp"
 #include "../Utility/Utility.hpp"
+#include "../Settings.hpp"
 
-std::string Backend::root_directory_db = "../share/financialplanner/resources/database";
+std::string Backend::root_directory_db = ROOT_DIRECTORY_DATABASE;
+std::string Backend::root_fonts = ROOT_FONTS_CONFIG;
 
 void Backend::init() {
 
@@ -810,8 +812,6 @@ Config_p Backend::getConfig()
 {
     Json::Value root;
     Config_p config = std::make_shared<Config_t>();
-
-    std::string root_fonts = "../share/financialplanner/resources/assets";
     
     root = getRootFromFileStream(root_fonts + "/fonts/config.json");
 
@@ -819,40 +819,6 @@ Config_p Backend::getConfig()
     config->default_font = root["default_font"].asString();
 
     return config;
-}
-
-// Testing
-
-std::string Backend::sayHello()
-{
-    Json::Reader reader;
-    Json::Value root;
-    Json::StyledStreamWriter writer;
-    std::string text = R"({ "first": "James", "last": "Bond", "nums": [0, 0, 7] })";
-    std::ofstream outFile;
-
-    
-    // Parse JSON and print errors if needed
-    if (!reader.parse(text, root)) {
-        std::cout << reader.getFormattedErrorMessages();
-        return "Error : reader.parse(text, root) ";
-        exit(1);
-    }
-    else {
-
-        // Read and modify the json data
-        std::cout << "Size: " << root.size() << std::endl;
-        std::cout << "Contains nums? " << root.isMember("nums") << std::endl;
-        root["first"] = "Jimmy";
-        root["middle"] = "Danger";
-
-        // Write the output to a file
-        outFile.open("Database/test.json");
-        writer.write(outFile, root);
-        outFile.close();
-
-        return "Test Completed Successfully";
-    }
 }
 
 // Private

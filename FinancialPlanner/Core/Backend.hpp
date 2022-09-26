@@ -185,6 +185,7 @@ using Config_p = std::shared_ptr<Config_t>;
 class Backend {
 private:
     static std::string root_directory_db;
+    static std::string root_fonts;
 public:
 	void init();
 
@@ -252,12 +253,6 @@ public:
 	 * @return config_t 
 	 */
     static Config_p getConfig();
-
-	/**
-	 * @brief Testing
-	 * 
-	 */
-	static std::string sayHello();
 
 private:
 	/**

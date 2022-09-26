@@ -104,6 +104,7 @@ void FinancialPlanner::Update()
     style.ItemSpacing.y = 12;
 
     this->ShowMenuBar(dockspace_flags, opt_padding, opt_fullscreen);
+
     this->ShowGUI();
 
     ImGui::End();
@@ -204,14 +205,14 @@ void FinancialPlanner::ShowMainView()
         static std::shared_ptr<Manager> manager_renderer = std::make_shared<Manager>(this->core);
 
         static std::forward_list<std::pair<std::string, std::shared_ptr<Tab>>> labels = {
-                { "Overview##overview", overview_renderer },
-                { "Net Worth##networth", net_worth_renderer },
-                { "Cash Flow##cashflow", income_expenses_renderer },
-                { "Investments##investments", investments_renderer },
-                { "Asset Allocation##assetallocation", asset_allocation_renderer },
-                { "Forecasting##forecasting", forecasting_renderer },
-                { "FIRE##fire", fire_renderer },
-                { "Manager##manager", manager_renderer },
+                { TAB1, overview_renderer },
+                { TAB2, net_worth_renderer },
+                { TAB3, income_expenses_renderer },
+                { TAB4, investments_renderer },
+                { TAB5, asset_allocation_renderer },
+                { TAB6, forecasting_renderer },
+                { TAB7, fire_renderer },
+                { TAB8, manager_renderer },
         };
 
         for (const auto& pair : labels) {

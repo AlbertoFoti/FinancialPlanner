@@ -5,7 +5,7 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-int glfwSetup(GLFWwindow* &window);
+void glfwSetup(GLFWwindow* &window);
 
 /**
  * @brief Main : Entry point for program control (update and render loop)
@@ -39,7 +39,7 @@ int main()
 	return 0;
 }
 
-int glfwSetup(GLFWwindow* &window) {
+void glfwSetup(GLFWwindow* &window) {
     // Setup Window
     if (!glfwInit())
         throw("Unable to initialize OpenGL");

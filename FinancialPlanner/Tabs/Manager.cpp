@@ -4,9 +4,6 @@
 Manager::Manager(std::shared_ptr<Core> core)
 {
     this->core = core;
-
-    // Accounts
-    this->core->getCategoriesFromDb();
 }
 
 void Manager::Render()

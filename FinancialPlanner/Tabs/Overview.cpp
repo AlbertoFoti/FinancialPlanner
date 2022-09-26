@@ -3,9 +3,6 @@
 Overview::Overview(std::shared_ptr<Core> core)
 {
 	this->core = core;
-
-    // Accounts
-    this->accounts = this->core->getAccountsFromDb();
 }
 
 void Overview::Render()
