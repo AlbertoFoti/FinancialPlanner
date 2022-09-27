@@ -2,23 +2,71 @@
 	"accounts": [
 		{
 			"id": 1,
-			"name": "Investments"
+			"name": "Investments",
+			"subAccounts" :
+			[
+				{
+					"name" : "Broker1",
+					"id" : 1
+				},
+				{
+					"name" : "Broker2",
+					"id" : 2
+				},
+				{
+					"name" : "Crypto",
+					"id" : 3
+				},
+				{
+					"name" : "Pension Fund1",
+					"id" : 4
+				}
+			]
 		},
 		{
 			"id": 2,
-			"name": "Cash"
+			"name": "Cash",
+			"subAccounts" :
+			[
+				{
+					"name" : "Wallet",
+					"id" : 1
+				}
+			]
 		},
 		{
 			"id": 3,
-			"name": "Bank"
+			"name": "Bank",
+			"subAccounts" :
+			[
+				{
+					"name" : "Bank1",
+					"id" : 1
+				},
+				{
+					"name" : "Card1",
+					"id" : 2
+				},
+				{
+					"name" : "Card2",
+					"id" : 3
+				}
+			]
 		},
 		{
 			"id": 4,
-			"name": "Savings"
-		},
-		{
-			"id": 5,
-			"name": "Pension Fund"
+			"name": "Savings",
+			"subAccounts" :
+			[
+				{
+					"name" : "Cash",
+					"id" : 1
+				},
+				{
+					"name" : "HI Savings Account",
+					"id" : 2
+				}
+			]
 		}
 	]
 }

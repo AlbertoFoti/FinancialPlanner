@@ -23,9 +23,18 @@ std::vector<Account_p> Backend::getAccounts()
         Account_p x = std::make_shared<Account>();
         x->id = std::stoi(i["id"].asString());
         x->name = i["name"].asString();
-        x->AmountStored = 0.0;
+        x->totAmountStored = 0.0;
         // calculate Amount stored by each account based on last report
-        x->AmountStored = this->getLastAccountAmount(x->id);
+        x->totAmountStored = this->getLastAccountAmount(x->id);
+
+        Json::Value sub_acc = i["subAccounts"];
+        for(auto & j : sub_acc) {
+            SubAccount_p y = std::make_shared<SubAccount>();
+            y->id = std::stoi(j["id"].asString());
+            y->name = j["name"].asString();
+            y->AmountStored = this->getLastSubAccountAmount(x->id, y->id);
+            x->sub_accounts.push_back(y);
+        }
 
         accounts.push_back(x);
     }
@@ -689,6 +698,11 @@ double Backend::getLastAccountAmount(int id)
         amount = data->accountMonthlyRecords[data->accountMonthlyRecords.size() - 1]->Amount;
 
     return amount;
+}
+
+double Backend::getLastSubAccountAmount(int acc_id, int sub_acc_id)
+{
+    return 0.0;
 }
 
 double Backend::getNWat(int month, int year)

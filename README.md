@@ -51,6 +51,7 @@ or
 - Asset Allocation tab : backend logic (assets, location, currency exposure, ...)
 - refactor: function to get proper button sizes (dynamic button sizes clean and organized)
 - Investments tab : Details subtab : adding recap for currently visualized year after table
+- Font manager for size
 
 ## Version 0.3.3 Objectives
 - Dynamic Investment Classes Manager (with backend integration)

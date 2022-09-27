@@ -6,11 +6,20 @@
 #include <fstream>
 #include "jsoncpp/json/json.h"
 
+// Sub Accounts
+struct SubAccount {
+    int id;
+    std::string name;
+    double AmountStored;
+};
+using SubAccount_p = std::shared_ptr<SubAccount>;
+
 // Account
 struct Account {
 	int id;
 	std::string name;
-	double AmountStored;
+    std::vector<SubAccount_p> sub_accounts;
+	double totAmountStored;
 };
 using Account_p = std::shared_ptr<Account>;
 
@@ -236,6 +245,7 @@ public:
 	void updateNetWorthData(int month, int year, Transaction_p t);
 	double getAccountAmountAt(int id, int month, int year);
 	double getLastAccountAmount(int id);
+    double getLastSubAccountAmount(int acc_id, int sub_acc_id);
 	static double getNWat(int month, int year);
 
 	/**

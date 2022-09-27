@@ -3,12 +3,15 @@
 #include <memory>
 #include "imgui.h"
 
+// Sub Accounts
+struct SubAccount;
+using SubAccount_p = std::shared_ptr<SubAccount>;
+
 // Account
 struct Account;
 using Account_p = std::shared_ptr<Account>;
 
 // Accounts detail Monthly record
-
 struct AccountMonthlyRecord;
 using AccountMonthlyRecord_p = std::shared_ptr<AccountMonthlyRecord>;
 
@@ -77,6 +80,9 @@ using MonthlyInvestmentsReport_p = std::shared_ptr<MonthlyInvestmentsReport>;
 
 struct YearlyInvestmentsReport;
 using YearlyInvestmentsReport_p = std::shared_ptr<YearlyInvestmentsReport>;
+
+struct AllTimeInvestmentsReport;
+using AllTimeInvestmentsReport_p = std::shared_ptr<AllTimeInvestmentsReport>;
 
 struct Config_t;
 using Config_p = std::shared_ptr<Config_t>;

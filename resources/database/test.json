@@ -1,6 +1,19 @@
 {
-	"first" : "Jimmy",
-	"last" : "Bond",
-	"middle" : "Danger",
-	"nums" : [ 0, 0, 7 ]
+	"records": [
+		{
+			"Month": 1,
+			"Year": 2021,
+			"data": [
+				{
+					"AccountFrom": 3,
+					"AccountTo": -1,
+					"Amount": 2000.0,
+					"Category": "Income",
+					"Day": 1,
+					"Subcategory": "Income",
+					"Type": "In"
+				}
+			]
+		}
+	]
 }

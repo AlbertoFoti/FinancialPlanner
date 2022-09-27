@@ -172,17 +172,17 @@ void Manager::ShowCategoryManager()
     std::vector<std::string> headerNames;
 
     for (int i = 0; i < this->categories.size(); i++) {
-        headerNames.push_back(std::to_string(i + 1) + ". " + categories[i]->name + " (" + (categories[i]->type == "In" ? "Income)" : (categories[i]->type == "Out") ? "Expense)" : "Transfer)"));
+        headerNames.push_back(std::to_string(i + 1) + ". " + categories.at(i)->name + " (" + (categories.at(i)->type == "In" ? "Income)" : (categories.at(i)->type == "Out") ? "Expense)" : "Transfer)"));
 
         if (ImGui::CollapsingHeader(headerNames[i].c_str(), ImGuiTreeNodeFlags_None))
         {
-            for (int j = 0; j < categories[i]->subCategories.size(); j++) {
+            for (int j = 0; j < categories.at(i)->subCategories.size(); j++) {
                 ImGui::Text("- "); ImGui::SameLine();
-                ImGui::Text("%s", categories[i]->subCategories[j]->name.c_str());
+                ImGui::Text("%s", categories.at(i)->subCategories.at(j)->name.c_str());
             }
 
             // Edit and Delete Buttons aligned right
-            if(categories[i]->id != -3 && categories[i]->id != -2 && categories[i]->id != -1){
+            if(categories.at(i)->id != -3 && categories.at(i)->id != -2 && categories.at(i)->id != -1){
                 ImVec2 buttonSize(115.f, 0.f);
                 float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
                 ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
@@ -194,7 +194,7 @@ void Manager::ShowCategoryManager()
                 sprintf(strBtnDeleteCatLabel, "Delete##Del_Button_Category%d", i + 1);
                 if (ImGui::Button(strBtnDeleteCatLabel, buttonSize)) {
                     // Delete Account
-                    this->core->deleteCategory(categories[i]->id);
+                    this->core->deleteCategory(categories.at(i)->id);
                 }
             }
         }

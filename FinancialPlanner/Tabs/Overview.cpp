@@ -103,6 +103,7 @@ void Overview::ShowAccountManager()
 {
     // Fonts
     ImGuiIO& io = ImGui::GetIO();
+    auto robotoProThin_m = io.Fonts->Fonts[22];
     auto robotoProThin_l = io.Fonts->Fonts[23];
 
     // Begin
@@ -139,7 +140,7 @@ void Overview::ShowAccountManager()
             Account_p x = std::make_shared<Account>();
             x->id = accounts[accounts.size() - 1]->id + 1;
             x->name = account_name;
-            x->AmountStored = 0.0;
+            x->totAmountStored = 0.0;
 
             // Todo: write in json file database
             this->core->pushAccount(x);
@@ -172,6 +173,17 @@ void Overview::ShowAccountManager()
         ImGui::Text("%d. ", i+1); ImGui::SameLine();
         ImGui::Text("%s", accounts.at(i)->name.c_str());
 
+        for (int j = 0; j < accounts.at(i)->sub_accounts.size(); j++) {
+            ImGui::Text("%d. ", j+1); ImGui::SameLine();
+            ImGui::Text("%s", accounts.at(i)->sub_accounts.at(j)->name.c_str());
+            ImGui::PushFont(robotoProThin_m);
+            if (accounts.at(i)->sub_accounts.at(j)->AmountStored >= 1000)
+                ImGui::Text("%.2fk EUR", accounts.at(i)->sub_accounts.at(j)->AmountStored / 1000);
+            else
+                ImGui::Text("%.2f EUR", accounts.at(i)->sub_accounts.at(j)->AmountStored);
+            ImGui::PopFont();
+        }
+
         // Edit and Delete Buttons aligned right
         if(accounts.at(i)->id != 1){
             ImGui::SameLine();
@@ -195,12 +207,57 @@ void Overview::ShowAccountManager()
         ImGui::Text("- "); ImGui::SameLine();
 
         ImGui::PushFont(robotoProThin_l);
-        if (accounts.at(i)->AmountStored >= 1000)
-            ImGui::Text("%.2fk EUR", accounts.at(i)->AmountStored/1000);
+        if (accounts.at(i)->totAmountStored >= 1000)
+            ImGui::Text("%.2fk EUR", accounts.at(i)->totAmountStored / 1000);
         else
-            ImGui::Text("%.2f EUR", accounts.at(i)->AmountStored);
+            ImGui::Text("%.2f EUR", accounts.at(i)->totAmountStored);
         ImGui::PopFont();
         ImGui::Separator();
+    }
+
+    // List of all Categories
+    std::vector<std::string> headerNames;
+
+    for (int i = 0; i < this->accounts.size(); i++) {
+        headerNames.push_back(std::to_string(i + 1) + ". " + accounts.at(i)->name +  " : " + std::to_string(accounts.at(i)->totAmountStored));
+
+        if (ImGui::CollapsingHeader(headerNames[i].c_str(), ImGuiTreeNodeFlags_None))
+        {
+            for (int j = 0; j < accounts.at(i)->sub_accounts.size(); j++) {
+                ImGui::Text("- "); ImGui::SameLine();
+                ImGui::Text("%s", accounts.at(i)->sub_accounts.at(j)->name.c_str());
+            }
+
+            // Edit and Delete Buttons aligned right
+            if(accounts.at(i)->id != 1){
+                ImGui::SameLine();
+                ImVec2 buttonSize(115.f, 0.f);
+                float widthNeeded = buttonSize.x + buttonSize.x + ImGuiStyleVar_ItemSpacing;
+                ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - widthNeeded);
+                char strBtnUpdateLabel[50] = {};
+                sprintf(strBtnUpdateLabel, "Update##Put_Button%d", i + 1);
+                if (ImGui::Button(strBtnUpdateLabel, buttonSize)) {
+                    // Edit Account
+                }
+                ImGui::SameLine();
+                char strBtnDeleteLabel[50] = {};
+                sprintf(strBtnDeleteLabel, "Delete##Del_Button%d", i + 1);
+                if (ImGui::Button(strBtnDeleteLabel, buttonSize)) {
+                    // Delete Account
+                    this->core->deleteAccount(accounts[i]->id);
+                }
+            }
+
+            ImGui::Text("- "); ImGui::SameLine();
+
+            ImGui::PushFont(robotoProThin_l);
+            if (accounts.at(i)->totAmountStored >= 1000)
+                ImGui::Text("%.2fk EUR", accounts.at(i)->totAmountStored / 1000);
+            else
+                ImGui::Text("%.2f EUR", accounts.at(i)->totAmountStored);
+            ImGui::PopFont();
+            ImGui::Separator();
+        }
     }
 
     ImGui::End();
