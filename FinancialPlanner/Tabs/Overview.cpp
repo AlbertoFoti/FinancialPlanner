@@ -135,7 +135,7 @@ void Overview::ShowAccountManager()
 
     if (ImGui::Button("Add Account", ImVec2(dim_btn_small_x, dim_btn_small_y))) {
 
-        if (strcmp(account_name, "")) {
+        if (strcmp(account_name, "") != 0) {
             // New Account instance
             Account_p x = std::make_shared<Account>();
             x->id = accounts[accounts.size() - 1]->id + 1;
@@ -155,7 +155,7 @@ void Overview::ShowAccountManager()
             ImGui::OpenPopup("Something went wrong");
         }
     }
-    if (ImGui::BeginPopupModal("Something went wrong", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    if (ImGui::BeginPopupModal("Something went wrong", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
     {
         ImGui::Text("Some input fields are invalid.\nCheck input fields and calculate again!\n\n");
         ImGui::Separator();
@@ -169,6 +169,7 @@ void Overview::ShowAccountManager()
     ImGui::Separator();
 
     // List of all accounts
+    /*
     for (int i = 0; i < this->accounts.size(); i++) {
         ImGui::Text("%d. ", i+1); ImGui::SameLine();
         ImGui::Text("%s", accounts.at(i)->name.c_str());
@@ -214,18 +215,23 @@ void Overview::ShowAccountManager()
         ImGui::PopFont();
         ImGui::Separator();
     }
+    */
 
-    // List of all Categories
+    // List of all Accounts
     std::vector<std::string> headerNames;
 
+    ImGui::PushFont(robotoProThin_m);
     for (int i = 0; i < this->accounts.size(); i++) {
-        headerNames.push_back(std::to_string(i + 1) + ". " + accounts.at(i)->name +  " : " + std::to_string(accounts.at(i)->totAmountStored));
+        char str[70];
+        sprintf(str, "%d. %s : %.2f", i+1, accounts.at(i)->name.c_str(), accounts.at(i)->totAmountStored);
+        headerNames.push_back(str);
 
         if (ImGui::CollapsingHeader(headerNames[i].c_str(), ImGuiTreeNodeFlags_None))
         {
-            for (int j = 0; j < accounts.at(i)->sub_accounts.size(); j++) {
+            ImGui::PopFont();
+            for (auto & sub_account : accounts.at(i)->sub_accounts) {
                 ImGui::Text("- "); ImGui::SameLine();
-                ImGui::Text("%s", accounts.at(i)->sub_accounts.at(j)->name.c_str());
+                ImGui::Text("%s", sub_account->name.c_str());
             }
 
             // Edit and Delete Buttons aligned right
@@ -247,18 +253,11 @@ void Overview::ShowAccountManager()
                     this->core->deleteAccount(accounts[i]->id);
                 }
             }
-
-            ImGui::Text("- "); ImGui::SameLine();
-
-            ImGui::PushFont(robotoProThin_l);
-            if (accounts.at(i)->totAmountStored >= 1000)
-                ImGui::Text("%.2fk EUR", accounts.at(i)->totAmountStored / 1000);
-            else
-                ImGui::Text("%.2f EUR", accounts.at(i)->totAmountStored);
-            ImGui::PopFont();
             ImGui::Separator();
+            ImGui::PushFont(robotoProThin_m);
         }
     }
+    ImGui::PopFont();
 
     ImGui::End();
 }
