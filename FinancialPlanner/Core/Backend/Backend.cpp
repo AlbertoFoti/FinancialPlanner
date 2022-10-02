@@ -1,6 +1,6 @@
 #include "Backend.hpp"
-#include "../Utility/Utility.hpp"
-#include "../Settings.hpp"
+#include "../../Settings.hpp"
+#include "../../Utility/Utility.hpp"
 
 std::string Backend::root_directory_db = ROOT_DIRECTORY_DATABASE;
 std::string Backend::root_fonts = ROOT_FONTS_CONFIG;
@@ -390,37 +390,36 @@ MonthlyTransactions_p Backend::getMonthlyReport(int month, int year)
 {
     Json::Value root;
 
-    MonthlyTransactions_p MonthlyReport = std::make_shared<MonthlyTransactions>();
-    MonthlyReport->Month = month;
-    MonthlyReport->Year = year;
-    MonthlyReport->transactions = std::vector<Transaction_p>();
+    auto monthly_report = std::make_shared<MonthlyTransactions>(month, year);
 
-    root = getRootFromFileStream(root_directory_db + "/incomeExpenses.json");
+    root = getRootFromFileStream(root_directory_db + "/transactions.json");
 
     Json::Value data = root["records"];
     Json::Value transactRecords;
 
-    for (auto & i : data) {
+    for (auto &i : data) {
         if (i["Month"].asInt() == month && i["Year"].asInt() == year) {
-            MonthlyReport->Month = month;
-            MonthlyReport->Year = year;
+            monthly_report->set_month_and_year(month, year);
             transactRecords = i["data"];
             for (auto & transactRecord : transactRecords) {
-                Transaction_p t = std::make_shared<Transaction>();
-                t->day = transactRecord["Day"].asInt();
-                t->category = transactRecord["Category"].asString();
-                t->sub_category = transactRecord["Subcategory"].asString();
-                t->type = transactRecord["Type"].asString();
-                t->account_id = transactRecord["AccountFrom"].asInt();
-                t->account_to = transactRecord["AccountTo"].asInt();
-                t->amount = transactRecord["Amount"].asDouble();
-                t->comment = transactRecord["Comment"].asString();
-                MonthlyReport->transactions.push_back(t);
+                auto t = std::make_shared<Transaction>(
+                        transactRecord["Day"].asInt(),
+                        transactRecord["Category"].asString(),
+                        transactRecord["Subcategory"].asString(),
+                        transactRecord["Type"].asString(),
+                        transactRecord["AccountFrom"].asInt(),
+                        transactRecord["SubAccountFrom"].asInt(),
+                        transactRecord["AccountTo"].asInt(),
+                        transactRecord["SubAccountTo"].asInt(),
+                        transactRecord["Amount"].asDouble(),
+                        transactRecord["Comment"].asString()
+                        );
+                monthly_report->transactions.push_back(t);
             }
         }
     }
 
-    return MonthlyReport;
+    return monthly_report;
 }
 
 YearlyReport_p Backend::getYearlyReport(int year)
@@ -755,10 +754,9 @@ MonthlyAggrCategoryReport_p Backend::getAggrCatReport(int month, int year)
 double Backend::getAmountByCategory(int month, int year, const std::string& category)
 {
     double amount = 0.0;
-    MonthlyTransactions_p x = std::make_shared<MonthlyTransactions>();
-    x = this->getMonthlyReport(month, year);
+    auto monthly_transactions = this->getMonthlyReport(month, year);
 
-    for(const auto& t : x->transactions){
+    for(const auto& t : monthly_transactions->transactions){
         if(t->category == category){
             amount = t->amount;
         }

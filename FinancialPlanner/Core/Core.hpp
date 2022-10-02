@@ -2,7 +2,8 @@
 
 #include <iostream>
 #include <string>
-#include "Backend.hpp"
+#include <memory>
+#include "Backend/Backend.hpp"
 
 /**
  * @brief Core component : Link with financial procedures and backend link
@@ -307,3 +308,5 @@ public:
 	 */
     Config_p getConfig();
 };
+
+using Core_p = std::shared_ptr<Core>;

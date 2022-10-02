@@ -20,13 +20,13 @@ class IncomeExpenses : public Tab {
 	 * @brief Temporary Data Structure to store monthly transactions
 	 * 
 	 */
-	MonthlyTransactions_p monthlyTransactions;
+	MonthlyTransactions_p monthly_transactions;
 
 	/**
 	 * @brief Temporary Data Structure to store yearly reports
 	 * 
 	 */
-	YearlyReport_p YearlyReport;
+	YearlyReport_p yearly_report;
 
 public:
 	/**

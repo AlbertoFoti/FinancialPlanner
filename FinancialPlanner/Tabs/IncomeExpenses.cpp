@@ -10,8 +10,8 @@ IncomeExpenses::IncomeExpenses(std::shared_ptr<Core> core) {
 void IncomeExpenses::Render()
 {
 	// Import
-	this->monthlyTransactions = this->core->getMonthlyTransactionsReport();
-	this->YearlyReport = this->core->getYearlyReport();
+	this->monthly_transactions = this->core->getMonthlyTransactionsReport();
+	this->yearly_report = this->core->getYearlyReport();
 
 	// Tabs
 	ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_Reorderable;
@@ -454,11 +454,11 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 	{
 		// Get Transactions
 		if (!monthlyAggrView) {
-			this->monthlyTransactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
+			this->monthly_transactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
 		}
 		else {
 			if (breakdownDy == elem_Month) {
-				this->YearlyReport = this->core->getYearlyReportFromDb(year);
+				this->yearly_report = this->core->getYearlyReportFromDb(year);
 			}
 		}
 	}
@@ -468,7 +468,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 	ImGui::PushFont(font_thin_large);
 
 	if (!monthlyAggrView) {
-		this->monthlyTransactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
+		this->monthly_transactions = this->core->getMonthlyTransactionsReportFromDb(month + 1, year);
 
 		// Transactions table
 		ImGui::PushFont(font_heavy_large);
@@ -486,25 +486,25 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			ImGui::TableSetupColumn("COMMENT");
 			ImGui::TableSetupColumn("");
 			ImGui::TableHeadersRow();
-			for (int i = 0; i != this->monthlyTransactions->transactions.size(); ++i) {
-				if(monthlyTransactions->transactions[i]->type != "Transfer"){
+			for (int i = 0; i != this->monthly_transactions->transactions.size(); ++i) {
+				if(monthly_transactions->transactions[i]->type != "Transfer"){
 					ImGui::TableNextColumn();
-					ImGui::Text("%2d/%2d/%4d", monthlyTransactions->transactions[i]->day, monthlyTransactions->Month, monthlyTransactions->Year);
+					ImGui::Text("%2d/%2d/%4d", monthly_transactions->transactions[i]->day, monthly_transactions->month, monthly_transactions->year);
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->type.c_str());
+					ImGui::Text("%s", monthly_transactions->transactions[i]->type.c_str());
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->category.c_str());
+					ImGui::Text("%s", monthly_transactions->transactions[i]->category.c_str());
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->sub_category.c_str());
+					ImGui::Text("%s", monthly_transactions->transactions[i]->sub_category.c_str());
 					ImGui::TableNextColumn();
-					if (monthlyTransactions->transactions[i]->type == "In")
-						ImGui::TextColored(color_positive, "+%.2f", monthlyTransactions->transactions[i]->amount);
-					else if (monthlyTransactions->transactions[i]->type == "Out")
-						ImGui::TextColored(color_negative, "%.2f", monthlyTransactions->transactions[i]->amount);
+					if (monthly_transactions->transactions[i]->type == "In")
+						ImGui::TextColored(color_positive, "+%.2f", monthly_transactions->transactions[i]->amount);
+					else if (monthly_transactions->transactions[i]->type == "Out")
+						ImGui::TextColored(color_negative, "%.2f", monthly_transactions->transactions[i]->amount);
 					else
-						ImGui::Text("%.2f", monthlyTransactions->transactions[i]->amount);
+						ImGui::Text("%.2f", monthly_transactions->transactions[i]->amount);
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->comment.c_str());
+					ImGui::Text("%s", monthly_transactions->transactions[i]->comment.c_str());
 					ImGui::TableNextColumn();
 					static bool showEdit = false;
 					if (ImGui::Button("Edit")) {
@@ -537,20 +537,20 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			ImGui::TableSetupColumn("COMMENT");
 			ImGui::TableSetupColumn("");
 			ImGui::TableHeadersRow();
-			for (int i = 0; i != this->monthlyTransactions->transactions.size(); ++i) {
-				if(monthlyTransactions->transactions[i]->type == "Transfer"){
+			for (int i = 0; i != this->monthly_transactions->transactions.size(); ++i) {
+				if(monthly_transactions->transactions[i]->type == "Transfer"){
 					ImGui::TableNextColumn();
-					ImGui::Text("%2d/%2d/%4d", monthlyTransactions->transactions[i]->day, monthlyTransactions->Month, monthlyTransactions->Year);
+					ImGui::Text("%2d/%2d/%4d", monthly_transactions->transactions[i]->day, monthly_transactions->month, monthly_transactions->year);
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", core->getAccountName(monthlyTransactions->transactions[i]->account_id).c_str());
+					ImGui::Text("%s", core->getAccountName(monthly_transactions->transactions[i]->account_id).c_str());
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", core->getAccountName(monthlyTransactions->transactions[i]->account_to).c_str());
+					ImGui::Text("%s", core->getAccountName(monthly_transactions->transactions[i]->account_to).c_str());
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->sub_category.c_str());
+					ImGui::Text("%s", monthly_transactions->transactions[i]->sub_category.c_str());
 					ImGui::TableNextColumn();
-					ImGui::Text("%.2f", monthlyTransactions->transactions[i]->amount);
+					ImGui::Text("%.2f", monthly_transactions->transactions[i]->amount);
 					ImGui::TableNextColumn();
-					ImGui::Text("%s", monthlyTransactions->transactions[i]->comment.c_str());
+					ImGui::Text("%s", monthly_transactions->transactions[i]->comment.c_str());
 					ImGui::TableNextColumn();
 
 					static bool showEdit = false;
@@ -577,7 +577,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 		MonthlyTotalIn = 0.0;
 		MonthlyTotalOut = 0.0;
 		MonthlyTotalInvVar = 0.0;
-		for (Transaction_p x : this->monthlyTransactions->transactions) {
+		for (Transaction_p x : this->monthly_transactions->transactions) {
 			if (x->type == "In") MonthlyTotalIn += x->amount;
 			if (x->type == "Out") MonthlyTotalOut += x->amount;
 			if (x->type == "Transfer" && x->sub_category != "Transfer") MonthlyTotalInvVar += x->amount;
@@ -624,7 +624,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			static double net_savings_rate;
 			static double savings_rate;
 
-			this->YearlyReport = this->core->getYearlyReportFromDb(year);
+			this->yearly_report = this->core->getYearlyReportFromDb(year);
 			if (ImGui::BeginTable("IncExpTable_month", 8, ImGuiTableFlags_Resizable | ImGuiTableFlags_NoSavedSettings | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg))
 			{
 				// headers
@@ -637,41 +637,41 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 				ImGui::TableSetupColumn("NET SAVINGS RATE (%)");
 				ImGui::TableSetupColumn("SAVINGS RATE (%)");
 				ImGui::TableHeadersRow();
-				for (int i = 0; i != this->YearlyReport->monthlyReports.size(); ++i) {
+				for (int i = 0; i != this->yearly_report->monthlyReports.size(); ++i) {
 					ImGui::TableNextColumn();
-					ImGui::Text("%2d/%4d", YearlyReport->monthlyReports[i]->Month, YearlyReport->Year);
+					ImGui::Text("%2d/%4d", yearly_report->monthlyReports[i]->Month, yearly_report->Year);
 					ImGui::TableNextColumn();
-					ImGui::TextColored(color_positive, "+%.2f", YearlyReport->monthlyReports[i]->balanceIn);
+					ImGui::TextColored(color_positive, "+%.2f", yearly_report->monthlyReports[i]->balanceIn);
 					ImGui::TableNextColumn();
-					if(YearlyReport->monthlyReports[i]->investmentsVariation >= 0)
-						ImGui::TextColored(color_positive, "+%.2f", YearlyReport->monthlyReports[i]->investmentsVariation);
+					if(yearly_report->monthlyReports[i]->investmentsVariation >= 0)
+						ImGui::TextColored(color_positive, "+%.2f", yearly_report->monthlyReports[i]->investmentsVariation);
 					else
-						ImGui::TextColored(color_negative, "%.2f", YearlyReport->monthlyReports[i]->investmentsVariation);
+						ImGui::TextColored(color_negative, "%.2f", yearly_report->monthlyReports[i]->investmentsVariation);
 					ImGui::TableNextColumn();
-					ImGui::TextColored(color_negative, "%.2f", YearlyReport->monthlyReports[i]->balanceOut);
+					ImGui::TextColored(color_negative, "%.2f", yearly_report->monthlyReports[i]->balanceOut);
 					ImGui::TableNextColumn();
-					net_savings = YearlyReport->monthlyReports[i]->balanceIn + YearlyReport->monthlyReports[i]->balanceOut;
+					net_savings = yearly_report->monthlyReports[i]->balanceIn + yearly_report->monthlyReports[i]->balanceOut;
 					if(net_savings >= 0)
 						ImGui::TextColored(color_positive, "+%.2f", net_savings);
 					else
 						ImGui::TextColored(color_negative, "%.2f", net_savings);
 					ImGui::TableNextColumn();
-					savings = YearlyReport->monthlyReports[i]->balanceIn + YearlyReport->monthlyReports[i]->balanceOut + YearlyReport->monthlyReports[i]->investmentsVariation;
+					savings = yearly_report->monthlyReports[i]->balanceIn + yearly_report->monthlyReports[i]->balanceOut + yearly_report->monthlyReports[i]->investmentsVariation;
 					if(savings >= 0)
 						ImGui::TextColored(color_positive, "+%.2f", savings);
 					else
 						ImGui::TextColored(color_negative, "%.2f", savings);
 					ImGui::TableNextColumn();
-					net_savings_rate = net_savings / YearlyReport->monthlyReports[i]->balanceIn * 100;
+					net_savings_rate = net_savings / yearly_report->monthlyReports[i]->balanceIn * 100;
 					if (net_savings_rate >= 0)
 						ImGui::TextColored(color_positive, "+%.2f %%", net_savings_rate);
 					else
 						ImGui::TextColored(color_negative, "%.2f %%", net_savings_rate);
 					ImGui::TableNextColumn();
-					if(YearlyReport->monthlyReports[i]->investmentsVariation > 0)
-						savings_rate = savings / (YearlyReport->monthlyReports[i]->balanceIn + YearlyReport->monthlyReports[i]->investmentsVariation) * 100;
+					if(yearly_report->monthlyReports[i]->investmentsVariation > 0)
+						savings_rate = savings / (yearly_report->monthlyReports[i]->balanceIn + yearly_report->monthlyReports[i]->investmentsVariation) * 100;
 					else
-						savings_rate = savings / (YearlyReport->monthlyReports[i]->balanceIn) * 100;
+						savings_rate = savings / (yearly_report->monthlyReports[i]->balanceIn) * 100;
 					if (savings_rate >= 0)
 						ImGui::TextColored(color_positive, "+%.2f %%", savings_rate);
 					else
@@ -692,7 +692,7 @@ void IncomeExpenses::ShowIncomeExpensesDetails()
 			MonthlyTotalIn = 0.0;
 			MonthlyTotalOut = 0.0;
 			MonthlyTotalInvVar = 0.0;
-			for(auto x : YearlyReport->monthlyReports){
+			for(auto x : yearly_report->monthlyReports){
 				MonthlyTotalIn += x->balanceIn;
 				MonthlyTotalOut += x->balanceOut;
 				MonthlyTotalInvVar += x->investmentsVariation;

@@ -6,6 +6,8 @@
 #include <fstream>
 #include "jsoncpp/json/json.h"
 
+#include "Transaction.hpp"
+
 // Sub Accounts
 struct SubAccount {
     int id;
@@ -78,27 +80,6 @@ struct Category {
 	std::vector<SubCategory_p> subCategories;
 };
 using Category_p = std::shared_ptr<Category>;
-
-// Transaction
-struct Transaction {
-	int day;
-	std::string category;
-	std::string sub_category;
-	std::string type;
-	int account_id;
-	int account_to;
-	double amount;
-	std::string comment;
-};
-using Transaction_p = std::shared_ptr<Transaction>;
-
-// Monthly Transactions Summary
-struct MonthlyTransactions {
-	int Month;
-	int Year;
-	std::vector<Transaction_p> transactions;
-};
-using MonthlyTransactions_p = std::shared_ptr<MonthlyTransactions>;
 
 // Monthly Category Balance
 struct MonthlyCategoryBalanceT {
