@@ -54,6 +54,7 @@ or
 - Font manager for size
 
 ## Version 0.3.3 Objectives
+- Major Program Backend Rethink and Refactor
 - Dynamic Investment Classes Manager (with backend integration)
 - Accounts Management
 
